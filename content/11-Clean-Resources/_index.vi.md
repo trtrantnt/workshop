@@ -124,94 +124,161 @@ aws cloudwatch delete-alarms --alarm-names HighFailedLoginAttempts PrivilegeEsca
 
 ### Xóa IAM Roles
 
-```bash
-# Liệt kê IAM roles được tạo cho workshop
-aws iam list-roles --query 'Roles[?contains(RoleName, `IdentityGovernance`) || contains(RoleName, `Compliance`) || contains(RoleName, `Certification`)].RoleName' --output table
+1. Điều hướng đến dịch vụ **IAM** trong AWS Console
+2. Click **Roles** trong sidebar
+3. Tìm kiếm các workshop roles:
+   - **IdentityGovernanceLambdaRole**
+   - **ComplianceValidationRole**
+   - **CertificationWorkflowRole**
 
-# Detach policies và xóa roles
-aws iam detach-role-policy --role-name IdentityGovernanceLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-aws iam delete-role --role-name IdentityGovernanceLambdaRole
+![Danh sách IAM Roles](/images/11/iam-roles-list.png)
 
-aws iam delete-role --role-name ComplianceValidationRole
-aws iam delete-role --role-name CertificationWorkflowRole
-```
+4. Chọn từng role và click **Delete**
+5. Gõ tên role để xác nhận xóa
 
-## Bước 7: CloudFormation Stacks
+![Xóa IAM Role](/images/11/delete-iam-role.png)
 
-```bash
-# Liệt kê CloudFormation stacks
-aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query 'StackSummaries[?contains(StackName, `identity-governance`) || contains(StackName, `compliance`)].StackName' --output table
+### Xóa Custom IAM Policies
 
-# Xóa CloudFormation stacks
-aws cloudformation delete-stack --stack-name identity-governance-base
-aws cloudformation delete-stack --stack-name identity-governance-monitoring
-aws cloudformation delete-stack --stack-name identity-governance-compliance
-```
+1. Click **Policies** trong sidebar
+2. Lọc theo **Customer managed**
+3. Tìm kiếm các workshop policies:
+   - **SecurityAuditPolicy**
+   - **IdentityGovernancePolicy**
+   - **ComplianceValidationPolicy**
 
-## Script Dọn dẹp Tự động
+![Danh sách IAM Policies](/images/11/iam-policies-list.png)
 
-Để thuận tiện, đây là script dọn dẹp toàn diện:
+4. Chọn từng policy và click **Actions** → **Delete**
+5. Xác nhận xóa
 
-```bash
-#!/bin/bash
+![Xóa IAM Policy](/images/11/delete-iam-policy.png)
 
-echo "Bắt đầu dọn dẹp Identity Governance Workshop..."
+### Xóa IAM Users và Groups
 
-# Lấy account ID
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-REGION=$(aws configure get region)
+1. Click **Users** trong sidebar
+2. Chọn workshop users và click **Delete**
 
-echo "Account ID: $ACCOUNT_ID"
-echo "Region: $REGION"
+![Xóa IAM Users](/images/11/delete-iam-users.png)
 
-# Function để kiểm tra resource tồn tại trước khi xóa
-check_and_delete() {
-    local resource_type=$1
-    local resource_name=$2
-    local delete_command=$3
-    
-    echo "Đang kiểm tra $resource_type: $resource_name"
-    if eval "$delete_command" 2>/dev/null; then
-        echo "✅ Đã xóa $resource_type: $resource_name"
-    else
-        echo "⚠️  $resource_type không tìm thấy hoặc đã được xóa: $resource_name"
-    fi
-}
+3. Click **User groups** trong sidebar
+4. Chọn workshop groups và click **Delete**
 
-# Xóa Lambda functions
-echo "🧹 Đang dọn dẹp Lambda functions..."
-LAMBDA_FUNCTIONS=("IdentityGovernanceMonitor" "AccessReviewGenerator" "ComplianceValidationEngine" "RiskAssessmentEngine")
-for func in "${LAMBDA_FUNCTIONS[@]}"; do
-    check_and_delete "Lambda function" "$func" "aws lambda delete-function --function-name $func"
-done
+![Xóa IAM Groups](/images/11/delete-iam-groups.png)
 
-# Xóa DynamoDB tables
-echo "🧹 Đang dọn dẹp DynamoDB tables..."
-DYNAMODB_TABLES=("CertificationTasks" "OperationsLog" "ComplianceEvidence" "RiskMonitoring" "AuditFindings")
-for table in "${DYNAMODB_TABLES[@]}"; do
-    check_and_delete "DynamoDB table" "$table" "aws dynamodb delete-table --table-name $table"
-done
+## Bước 7: Dọn dẹp IAM Identity Center
 
-# Xóa S3 buckets
-echo "🧹 Đang dọn dẹp S3 buckets..."
-S3_BUCKETS=("privilege-analytics-${ACCOUNT_ID}" "compliance-reports-${ACCOUNT_ID}")
-for bucket in "${S3_BUCKETS[@]}"; do
-    echo "Đang làm trống S3 bucket: $bucket"
-    aws s3 rm s3://$bucket --recursive 2>/dev/null || echo "Bucket $bucket không tìm thấy"
-    check_and_delete "S3 bucket" "$bucket" "aws s3 rb s3://$bucket"
-done
+### Xóa Permission Set Assignments
 
-# Xóa CloudFormation stacks
-echo "🧹 Đang dọn dẹp CloudFormation stacks..."
-CF_STACKS=("identity-governance-base" "identity-governance-monitoring" "identity-governance-compliance")
-for stack in "${CF_STACKS[@]}"; do
-    check_and_delete "CloudFormation stack" "$stack" "aws cloudformation delete-stack --stack-name $stack"
-done
+1. Điều hướng đến **IAM Identity Center**
+2. Click **AWS accounts** trong sidebar
+3. Chọn account của bạn và click **Remove access**
 
-echo "🎉 Dọn dẹp hoàn tất!"
-echo "Lưu ý: Một số tài nguyên có thể mất vài phút để được xóa hoàn toàn."
-echo "Vui lòng kiểm tra AWS Console để xác nhận tất cả tài nguyên đã được xóa."
-```
+![Xóa SSO Access](/images/11/remove-sso-access.png)
+
+### Xóa Permission Sets
+
+1. Click **Permission sets** trong sidebar
+2. Chọn các workshop permission sets:
+   - **SecurityAuditor**
+   - **ComplianceReviewer**
+3. Click **Delete**
+
+![Xóa Permission Sets](/images/11/delete-permission-sets.png)
+
+### Xóa Users và Groups
+
+1. Click **Users** trong sidebar
+2. Chọn workshop users và click **Delete**
+
+![Xóa SSO Users](/images/11/delete-sso-users.png)
+
+3. Click **Groups** trong sidebar
+4. Chọn workshop groups và click **Delete**
+
+![Xóa SSO Groups](/images/11/delete-sso-groups.png)
+
+## Bước 8: Dọn dẹp AWS Config
+
+1. Điều hướng đến dịch vụ **AWS Config**
+2. Click **Settings** trong sidebar
+3. Click **Edit** và sau đó **Delete configuration recorder**
+
+![Xóa Config Recorder](/images/11/delete-config-recorder.png)
+
+4. Xác nhận xóa bằng cách gõ **delete**
+
+## Bước 9: Dọn dẹp CloudTrail
+
+1. Điều hướng đến dịch vụ **CloudTrail**
+2. Click **Trails** trong sidebar
+3. Chọn **IdentityGovernanceTrail**
+4. Click **Delete**
+
+![Xóa CloudTrail](/images/11/delete-cloudtrail.png)
+
+5. Gõ tên trail để xác nhận xóa
+
+## Checklist Dọn dẹp qua Console
+
+Để dọn dẹp có hệ thống qua AWS Console, hãy làm theo checklist này:
+
+### ✅ Checklist Dọn dẹp
+
+**Lambda Functions:**
+- [ ] IdentityGovernanceMonitor
+- [ ] AccessReviewGenerator  
+- [ ] ComplianceValidationEngine
+- [ ] RiskAssessmentEngine
+- [ ] CertificationNotifier
+
+**EventBridge Rules:**
+- [ ] AccessCertificationSchedule
+- [ ] ComplianceValidationSchedule
+- [ ] RiskAssessmentSchedule
+
+**Step Functions:**
+- [ ] AccessCertificationWorkflow
+- [ ] ComplianceValidationWorkflow
+
+**DynamoDB Tables:**
+- [ ] CertificationTasks
+- [ ] OperationsLog
+- [ ] ComplianceEvidence
+- [ ] RiskMonitoring
+- [ ] AuditFindings
+
+**S3 Buckets:**
+- [ ] privilege-analytics-[ACCOUNT-ID]
+- [ ] compliance-reports-[ACCOUNT-ID]
+
+**CloudWatch Resources:**
+- [ ] IdentityGovernanceRiskDashboard
+- [ ] DailyOperationsDashboard
+- [ ] Tất cả workshop alarms
+- [ ] Tất cả workshop log groups
+
+**SNS Topics:**
+- [ ] IdentityGovernanceAlerts
+- [ ] ComplianceAlerts
+
+**IAM Resources:**
+- [ ] Workshop IAM roles
+- [ ] Workshop IAM policies
+- [ ] Workshop IAM users
+- [ ] Workshop IAM groups
+
+**IAM Identity Center:**
+- [ ] Permission set assignments
+- [ ] Permission sets
+- [ ] SSO users và groups
+
+**Các Dịch vụ Khác:**
+- [ ] AWS Config recorder
+- [ ] CloudTrail trail
+- [ ] GuardDuty detector (nếu không cần)
+
+![Checklist Dọn dẹp](/images/11/cleanup-checklist.png)
 
 ## Xác minh
 

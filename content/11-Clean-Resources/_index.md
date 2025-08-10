@@ -166,128 +166,161 @@ Resources should be cleaned up in the following order to avoid dependency confli
 
 ### Delete IAM Roles
 
-```bash
-# List IAM roles created for workshop
-aws iam list-roles --query 'Roles[?contains(RoleName, `IdentityGovernance`) || contains(RoleName, `Compliance`) || contains(RoleName, `Certification`)].RoleName' --output table
+1. Navigate to **IAM** service in AWS Console
+2. Click **Roles** in the sidebar
+3. Search for workshop roles:
+   - **IdentityGovernanceLambdaRole**
+   - **ComplianceValidationRole**
+   - **CertificationWorkflowRole**
 
-# Detach policies and delete roles
-aws iam detach-role-policy --role-name IdentityGovernanceLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-aws iam delete-role --role-name IdentityGovernanceLambdaRole
+![IAM Roles List](/images/11/iam-roles-list.png)
 
-aws iam delete-role --role-name ComplianceValidationRole
-aws iam delete-role --role-name CertificationWorkflowRole
-```
+4. Select each role and click **Delete**
+5. Type role name to confirm deletion
+
+![Delete IAM Role](/images/11/delete-iam-role.png)
 
 ### Delete Custom IAM Policies
 
-```bash
-# List custom policies
-aws iam list-policies --scope Local --query 'Policies[?contains(PolicyName, `IdentityGovernance`) || contains(PolicyName, `Compliance`)].PolicyName' --output table
+1. Click **Policies** in the sidebar
+2. Filter by **Customer managed**
+3. Search for workshop policies:
+   - **SecurityAuditPolicy**
+   - **IdentityGovernancePolicy**
+   - **ComplianceValidationPolicy**
 
-# Delete custom policies
-aws iam delete-policy --policy-arn arn:aws:iam::ACCOUNT:policy/IdentityGovernancePolicy
-aws iam delete-policy --policy-arn arn:aws:iam::ACCOUNT:policy/ComplianceValidationPolicy
-```
+![IAM Policies List](/images/11/iam-policies-list.png)
 
-## Step 8: CloudFormation Stacks
+4. Select each policy and click **Actions** → **Delete**
+5. Confirm deletion
 
-```bash
-# List CloudFormation stacks
-aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query 'StackSummaries[?contains(StackName, `identity-governance`) || contains(StackName, `compliance`)].StackName' --output table
+![Delete IAM Policy](/images/11/delete-iam-policy.png)
 
-# Delete CloudFormation stacks
-aws cloudformation delete-stack --stack-name identity-governance-base
-aws cloudformation delete-stack --stack-name identity-governance-monitoring
-aws cloudformation delete-stack --stack-name identity-governance-compliance
-```
+### Delete IAM Users and Groups
 
-## Step 9: AWS Config (if enabled for workshop)
+1. Click **Users** in the sidebar
+2. Select workshop users and click **Delete**
 
-```bash
-# Stop configuration recorder
-aws configservice stop-configuration-recorder --configuration-recorder-name IdentityGovernanceRecorder
+![Delete IAM Users](/images/11/delete-iam-users.png)
 
-# Delete configuration recorder
-aws configservice delete-configuration-recorder --configuration-recorder-name IdentityGovernanceRecorder
+3. Click **User groups** in the sidebar
+4. Select workshop groups and click **Delete**
 
-# Delete delivery channel
-aws configservice delete-delivery-channel --delivery-channel-name IdentityGovernanceDeliveryChannel
-```
+![Delete IAM Groups](/images/11/delete-iam-groups.png)
 
-## Step 10: CloudTrail (if created for workshop)
+## Step 8: IAM Identity Center Cleanup
 
-```bash
-# List CloudTrail trails
-aws cloudtrail describe-trails --query 'trailList[?contains(Name, `IdentityGovernance`)].Name' --output table
+### Remove Permission Set Assignments
 
-# Delete CloudTrail
-aws cloudtrail delete-trail --name IdentityGovernanceTrail
-```
+1. Navigate to **IAM Identity Center**
+2. Click **AWS accounts** in the sidebar
+3. Select your account and click **Remove access**
 
-## Automated Cleanup Script
+![Remove SSO Access](/images/11/remove-sso-access.png)
 
-For convenience, here's a comprehensive cleanup script:
+### Delete Permission Sets
 
-```bash
-#!/bin/bash
+1. Click **Permission sets** in the sidebar
+2. Select workshop permission sets:
+   - **SecurityAuditor**
+   - **ComplianceReviewer**
+3. Click **Delete**
 
-echo "Starting Identity Governance Workshop Cleanup..."
+![Delete Permission Sets](/images/11/delete-permission-sets.png)
 
-# Get account ID
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-REGION=$(aws configure get region)
+### Delete Users and Groups
 
-echo "Account ID: $ACCOUNT_ID"
-echo "Region: $REGION"
+1. Click **Users** in the sidebar
+2. Select workshop users and click **Delete**
 
-# Function to check if resource exists before deletion
-check_and_delete() {
-    local resource_type=$1
-    local resource_name=$2
-    local delete_command=$3
-    
-    echo "Checking $resource_type: $resource_name"
-    if eval "$delete_command" 2>/dev/null; then
-        echo "✅ Deleted $resource_type: $resource_name"
-    else
-        echo "⚠️  $resource_type not found or already deleted: $resource_name"
-    fi
-}
+![Delete SSO Users](/images/11/delete-sso-users.png)
 
-# Delete Lambda functions
-echo "🧹 Cleaning up Lambda functions..."
-LAMBDA_FUNCTIONS=("IdentityGovernanceMonitor" "AccessReviewGenerator" "ComplianceValidationEngine" "RiskAssessmentEngine")
-for func in "${LAMBDA_FUNCTIONS[@]}"; do
-    check_and_delete "Lambda function" "$func" "aws lambda delete-function --function-name $func"
-done
+3. Click **Groups** in the sidebar
+4. Select workshop groups and click **Delete**
 
-# Delete DynamoDB tables
-echo "🧹 Cleaning up DynamoDB tables..."
-DYNAMODB_TABLES=("CertificationTasks" "OperationsLog" "ComplianceEvidence" "RiskMonitoring" "AuditFindings")
-for table in "${DYNAMODB_TABLES[@]}"; do
-    check_and_delete "DynamoDB table" "$table" "aws dynamodb delete-table --table-name $table"
-done
+![Delete SSO Groups](/images/11/delete-sso-groups.png)
 
-# Delete S3 buckets
-echo "🧹 Cleaning up S3 buckets..."
-S3_BUCKETS=("privilege-analytics-${ACCOUNT_ID}" "compliance-reports-${ACCOUNT_ID}")
-for bucket in "${S3_BUCKETS[@]}"; do
-    echo "Emptying S3 bucket: $bucket"
-    aws s3 rm s3://$bucket --recursive 2>/dev/null || echo "Bucket $bucket not found"
-    check_and_delete "S3 bucket" "$bucket" "aws s3 rb s3://$bucket"
-done
+## Step 9: AWS Config Cleanup
 
-# Delete CloudFormation stacks
-echo "🧹 Cleaning up CloudFormation stacks..."
-CF_STACKS=("identity-governance-base" "identity-governance-monitoring" "identity-governance-compliance")
-for stack in "${CF_STACKS[@]}"; do
-    check_and_delete "CloudFormation stack" "$stack" "aws cloudformation delete-stack --stack-name $stack"
-done
+1. Navigate to **AWS Config** service
+2. Click **Settings** in the sidebar
+3. Click **Edit** and then **Delete configuration recorder**
 
-echo "🎉 Cleanup completed!"
-echo "Note: Some resources may take a few minutes to be fully deleted."
-echo "Please check the AWS Console to verify all resources have been removed."
-```
+![Delete Config Recorder](/images/11/delete-config-recorder.png)
+
+4. Confirm deletion by typing **delete**
+
+## Step 10: CloudTrail Cleanup
+
+1. Navigate to **CloudTrail** service
+2. Click **Trails** in the sidebar
+3. Select **IdentityGovernanceTrail**
+4. Click **Delete**
+
+![Delete CloudTrail](/images/11/delete-cloudtrail.png)
+
+5. Type trail name to confirm deletion
+
+## Console-Based Cleanup Checklist
+
+For systematic cleanup through AWS Console, follow this checklist:
+
+### ✅ Cleanup Checklist
+
+**Lambda Functions:**
+- [ ] IdentityGovernanceMonitor
+- [ ] AccessReviewGenerator  
+- [ ] ComplianceValidationEngine
+- [ ] RiskAssessmentEngine
+- [ ] CertificationNotifier
+
+**EventBridge Rules:**
+- [ ] AccessCertificationSchedule
+- [ ] ComplianceValidationSchedule
+- [ ] RiskAssessmentSchedule
+
+**Step Functions:**
+- [ ] AccessCertificationWorkflow
+- [ ] ComplianceValidationWorkflow
+
+**DynamoDB Tables:**
+- [ ] CertificationTasks
+- [ ] OperationsLog
+- [ ] ComplianceEvidence
+- [ ] RiskMonitoring
+- [ ] AuditFindings
+
+**S3 Buckets:**
+- [ ] privilege-analytics-[ACCOUNT-ID]
+- [ ] compliance-reports-[ACCOUNT-ID]
+
+**CloudWatch Resources:**
+- [ ] IdentityGovernanceRiskDashboard
+- [ ] DailyOperationsDashboard
+- [ ] All workshop alarms
+- [ ] All workshop log groups
+
+**SNS Topics:**
+- [ ] IdentityGovernanceAlerts
+- [ ] ComplianceAlerts
+
+**IAM Resources:**
+- [ ] Workshop IAM roles
+- [ ] Workshop IAM policies
+- [ ] Workshop IAM users
+- [ ] Workshop IAM groups
+
+**IAM Identity Center:**
+- [ ] Permission set assignments
+- [ ] Permission sets
+- [ ] SSO users and groups
+
+**Other Services:**
+- [ ] AWS Config recorder
+- [ ] CloudTrail trail
+- [ ] GuardDuty detector (if not needed)
+
+![Cleanup Checklist](/images/11/cleanup-checklist.png)
 
 ## Step 7: Final Verification
 
