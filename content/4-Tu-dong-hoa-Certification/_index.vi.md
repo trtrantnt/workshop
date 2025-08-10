@@ -26,102 +26,140 @@ graph TB
 
 ### 1.1 Tạo Scheduled Rule
 
-```json
-{
-  "Name": "AccessCertificationSchedule",
-  "ScheduleExpression": "rate(90 days)",
-  "Description": "Quarterly access certification review",
-  "State": "ENABLED",
-  "Targets": [
-    {
-      "Id": "1",
-      "Arn": "arn:aws:lambda:region:account:function:AccessCertificationTrigger"
-    }
-  ]
-}
-```
+1. Mở **Amazon EventBridge** trong AWS Console
+2. Click **Rules** ở sidebar
+3. Click **Create rule**
 
-## Bước 2: Access Review Generator
+![Tạo EventBridge Rule](/images/4/create-eventbridge-rule.png?featherlight=false&width=90pc)
 
-### 2.1 Lambda Function cho Data Collection
+4. Nhập thông tin rule:
+   - **Name**: AccessCertificationSchedule
+   - **Description**: Quarterly access certification review
+   - **Event bus**: default
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+![Chi tiết Rule](/images/4/rule-details.png?featherlight=false&width=90pc)
 
-class AccessReviewGenerator:
-    def __init__(self):
-        self.sso_client = boto3.client('sso-admin')
-        self.identity_client = boto3.client('identitystore')
-        self.org_client = boto3.client('organizations')
-        self.s3_client = boto3.client('s3')
-        
-    def generate_access_review(self):
-        """Generate comprehensive access review data"""
-        
-        # Get all accounts
-        accounts = self.get_all_accounts()
-        
-        # Get all permission sets
-        permission_sets = self.get_all_permission_sets()
-        
-        # Get all assignments
-        assignments = self.get_all_assignments(accounts, permission_sets)
-        
-        # Generate review data
-        review_data = {
-            'review_id': f"review_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-            'generated_date': datetime.now().isoformat(),
-            'accounts': accounts,
-            'permission_sets': permission_sets,
-            'assignments': assignments,
-            'review_deadline': (datetime.now() + timedelta(days=30)).isoformat()
-        }
-        
-        # Store in S3
-        self.store_review_data(review_data)
-        
-        return review_data
-```
+5. Trong **Define pattern**, chọn **Schedule**
+6. Chọn **Fixed rate every** và nhập **90 days**
 
-## Bước 3: Certification Workflow với Step Functions
+![Mẫu Lịch trình](/images/4/schedule-pattern.png?featherlight=false&width=90pc)
 
-### 3.1 State Machine Definition
+7. Click **Next**
 
-```json
-{
-  "Comment": "Access Certification Workflow",
-  "StartAt": "GenerateReviewTasks",
-  "States": {
-    "GenerateReviewTasks": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:region:account:function:GenerateReviewTasks",
-      "Next": "SendNotifications"
-    },
-    "SendNotifications": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:region:account:function:SendCertificationNotifications",
-      "Next": "WaitForResponses"
-    },
-    "WaitForResponses": {
-      "Type": "Wait",
-      "Seconds": 86400,
-      "Next": "CheckResponses"
-    }
-  }
-}
-```
+## Bước 2: Thiết lập Lambda Function
+
+### 2.1 Tạo Lambda Function
+
+1. Mở **AWS Lambda** trong console
+2. Click **Create function**
+
+![Tạo Lambda Function](/images/4/create-lambda-function.png?featherlight=false&width=90pc)
+
+3. Chọn **Author from scratch**
+4. Nhập thông tin function:
+   - **Function name**: AccessCertificationTrigger
+   - **Runtime**: Python 3.9
+   - **Architecture**: x86_64
+
+![Chi tiết Lambda Function](/images/4/lambda-function-details.png?featherlight=false&width=90pc)
+
+5. Click **Create function**
+
+### 2.2 Cấu hình Code cho Lambda Function
+
+1. Trong tab **Code**, thay thế code mặc định
+2. Upload logic code cho certification
+
+![Lambda Code Editor](/images/4/lambda-code-editor.png?featherlight=false&width=90pc)
+
+3. Click **Deploy** để lưu thay đổi
+
+### 2.3 Thiết lập Environment Variables
+
+1. Chuyển đến tab **Configuration**
+2. Click **Environment variables**
+3. Click **Edit**
+
+![Biến Môi trường](/images/4/environment-variables.png?featherlight=false&width=90pc)
+
+4. Thêm các biến cần thiết:
+   - **S3_BUCKET**: certification-data-bucket
+   - **SNS_TOPIC**: certification-notifications
+
+![Thêm Biến Môi trường](/images/4/add-env-variables.png?featherlight=false&width=90pc)
+
+## Bước 3: Quy trình Step Functions
+
+### 3.1 Tạo State Machine
+
+1. Mở **AWS Step Functions** trong console
+2. Click **Create state machine**
+
+![Tạo State Machine](/images/4/create-state-machine.png?featherlight=false&width=90pc)
+
+3. Chọn **Write your workflow in code**
+4. Chọn loại **Standard**
+
+![Loại State Machine](/images/4/state-machine-type.png?featherlight=false&width=90pc)
+
+5. Nhập định nghĩa workflow ở định dạng JSON
+6. Đặt tên state machine: **AccessCertificationWorkflow**
+
+![Định nghĩa State Machine](/images/4/state-machine-definition.png?featherlight=false&width=90pc)
+
+### 3.2 Cấu hình IAM Role
+
+1. Tạo hoặc chọn IAM role cho Step Functions
+2. Đảm bảo nó có quyền invoke Lambda functions
+
+![Step Functions IAM Role](/images/4/stepfunctions-iam-role.png?featherlight=false&width=90pc)
+
+3. Click **Create state machine**
+
+## Bước 4: Kết nối EventBridge với Lambda
+
+### 4.1 Thêm Lambda Target vào EventBridge Rule
+
+1. Quay lại **EventBridge** console
+2. Chọn rule **AccessCertificationSchedule**
+3. Click tab **Targets**
+4. Click **Add target**
+
+![Thêm Lambda Target](/images/4/add-lambda-target.png?featherlight=false&width=90pc)
+
+5. Cấu hình target:
+   - **Target type**: AWS service
+   - **Service**: Lambda function
+   - **Function**: AccessCertificationTrigger
+
+![Cấu hình Lambda Target](/images/4/configure-lambda-target.png?featherlight=false&width=90pc)
+
+6. Click **Add** rồi **Update rule**
+
+## Bước 5: Kiểm tra Tự động hóa
+
+### 5.1 Thực thi Kiểm tra Thủ công
+
+1. Trong EventBridge, chọn rule của bạn
+2. Click **Actions** → **Test rule**
+
+![Kiểm tra EventBridge Rule](/images/4/test-eventbridge-rule.png?featherlight=false&width=90pc)
+
+3. Giám sát thực thi Lambda function trong CloudWatch Logs
+
+![CloudWatch Logs](/images/4/cloudwatch-logs.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 
 Sau khi hoàn thành:
 
-- ✅ Automated quarterly access reviews
-- ✅ Email notifications to managers
-- ✅ Web interface for approvals
-- ✅ Automatic remediation for denied access
-- ✅ Audit trail in DynamoDB
+- ✅ Tự động hóa đánh giá truy cập hàng quý
+- ✅ EventBridge scheduled triggers
+- ✅ Lambda function xử lý
+- ✅ Step Functions workflow orchestration
+- ✅ Audit trail và giám sát
+
+![Hoàn thành Tự động hóa Certification](/images/4/automation-complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 

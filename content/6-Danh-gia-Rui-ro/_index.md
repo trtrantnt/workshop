@@ -26,157 +26,148 @@ graph TB
     J[Business Context] --> B
 ```
 
-## Step 1: Risk Assessment Framework
+## Step 1: AWS Config Setup for Risk Assessment
 
-### 1.1 Risk Categories Definition
+### 1.1 Enable AWS Config
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
-from enum import Enum
+1. Open **AWS Config** in the console
+2. Click **Get started**
 
-class RiskCategory(Enum):
-    PRIVILEGE_ESCALATION = "privilege_escalation"
-    UNAUTHORIZED_ACCESS = "unauthorized_access"
-    DATA_EXPOSURE = "data_exposure"
-    COMPLIANCE_VIOLATION = "compliance_violation"
-    OPERATIONAL_RISK = "operational_risk"
+![Enable AWS Config](/images/6/enable-aws-config.png?featherlight=false&width=90pc)
 
-class RiskSeverity(Enum):
-    CRITICAL = 10
-    HIGH = 8
-    MEDIUM = 5
-    LOW = 3
-    MINIMAL = 1
+3. Configure settings:
+   - **Resource types**: All supported resource types
+   - **Amazon S3 bucket**: Create new bucket
+   - **Amazon SNS topic**: Create new topic
 
-class RiskAssessmentFramework:
-    def __init__(self):
-        self.risk_rules = self.load_risk_rules()
-        self.threat_intelligence = self.load_threat_intelligence()
-        self.compliance_requirements = self.load_compliance_requirements()
-```
+![Config Settings](/images/6/config-settings.png?featherlight=false&width=90pc)
 
-## Step 2: Threat Intelligence Integration
+4. Choose **AWS Config role**: Create new role
+5. Click **Next**
 
-### 2.1 Threat Intelligence Collector
+![Config Role](/images/6/config-role.png?featherlight=false&width=90pc)
 
-```python
-import requests
-import boto3
-from datetime import datetime
+### 1.2 Add Config Rules
 
-class ThreatIntelligenceCollector:
-    def __init__(self):
-        self.threat_feeds = [
-            {
-                "name": "AWS Security Bulletins",
-                "url": "https://aws.amazon.com/security/security-bulletins/",
-                "type": "aws_security"
-            },
-            {
-                "name": "MITRE ATT&CK",
-                "url": "https://attack.mitre.org/",
-                "type": "attack_patterns"
-            }
-        ]
-    
-    def collect_threat_intelligence(self):
-        """Collect threat intelligence from various sources"""
-        
-        intelligence_data = {
-            "collection_timestamp": datetime.now().isoformat(),
-            "threat_indicators": [],
-            "attack_patterns": [],
-            "vulnerabilities": []
-        }
-        
-        return intelligence_data
-```
+1. Click **Rules** in AWS Config
+2. Click **Add rule**
 
-## Step 3: Risk Monitoring and Alerting
+![Add Config Rule](/images/6/add-config-rule.png?featherlight=false&width=90pc)
 
-### 3.1 Real-time Risk Monitor
+3. Add security-related rules:
+   - **iam-user-mfa-enabled**
+   - **root-access-key-check**
+   - **iam-password-policy**
 
-```python
-import boto3
-import json
-from datetime import datetime
+![Security Rules](/images/6/security-rules.png?featherlight=false&width=90pc)
 
-class RealTimeRiskMonitor:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.sns = boto3.client('sns')
-        self.dynamodb = boto3.resource('dynamodb')
-        self.risk_table = self.dynamodb.Table('RiskMonitoring')
-    
-    def process_security_event(self, event):
-        """Process incoming security events for risk assessment"""
-        
-        event_type = event.get('eventName', '')
-        source_ip = event.get('sourceIPAddress', '')
-        user_identity = event.get('userIdentity', {})
-        
-        # Analyze event for risk indicators
-        risk_score = self.calculate_event_risk_score(event)
-        
-        if risk_score >= 7:  # High risk threshold
-            self.handle_high_risk_event(event, risk_score)
-        
-        return {
-            'event_processed': True,
-            'risk_score': risk_score,
-            'action_taken': risk_score >= 7
-        }
-```
+## Step 2: GuardDuty Integration
 
-## Step 4: Risk Dashboard
+### 2.1 Enable Amazon GuardDuty
 
-### 4.1 CloudFormation for Dashboard Resources
+1. Open **Amazon GuardDuty** in the console
+2. Click **Get started**
 
-```yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Risk Assessment Dashboard Resources'
+![Enable GuardDuty](/images/6/enable-guardduty.png?featherlight=false&width=90pc)
 
-Resources:
-  RiskDashboard:
-    Type: AWS::CloudWatch::Dashboard
-    Properties:
-      DashboardName: IdentityGovernanceRiskDashboard
-      DashboardBody: !Sub |
-        {
-          "widgets": [
-            {
-              "type": "metric",
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 6,
-              "properties": {
-                "metrics": [
-                  [ "IdentityGovernance/Risk", "RiskScore" ],
-                  [ ".", "HighRiskEvents" ]
-                ],
-                "period": 300,
-                "stat": "Average",
-                "region": "${AWS::Region}",
-                "title": "Risk Metrics Overview"
-              }
-            }
-          ]
-        }
-```
+3. Review service permissions
+4. Click **Enable GuardDuty**
+
+![GuardDuty Permissions](/images/6/guardduty-permissions.png?featherlight=false&width=90pc)
+
+### 2.2 Configure Threat Intelligence
+
+1. Go to **Settings** in GuardDuty
+2. Click **Threat Intelligence**
+3. Enable **AWS threat intelligence**
+
+![Threat Intelligence](/images/6/threat-intelligence.png?featherlight=false&width=90pc)
+
+4. Configure **Malware Protection**
+5. Enable **S3 Protection**
+
+![Malware Protection](/images/6/malware-protection.png?featherlight=false&width=90pc)
+
+## Step 3: Security Hub Integration
+
+### 3.1 Enable AWS Security Hub
+
+1. Open **AWS Security Hub** in the console
+2. Click **Go to Security Hub**
+
+![Enable Security Hub](/images/6/enable-security-hub.png?featherlight=false&width=90pc)
+
+3. Enable security standards:
+   - **AWS Foundational Security Standard**
+   - **CIS AWS Foundations Benchmark**
+   - **PCI DSS**
+
+![Security Standards](/images/6/security-standards.png?featherlight=false&width=90pc)
+
+4. Click **Enable Security Hub**
+
+### 3.2 Configure Integrations
+
+1. Go to **Integrations** tab
+2. Enable integrations:
+   - **AWS Config**
+   - **Amazon GuardDuty**
+   - **AWS Inspector**
+
+![Security Hub Integrations](/images/6/security-hub-integrations.png?featherlight=false&width=90pc)
+
+3. Configure custom insights for risk assessment
+
+![Custom Insights](/images/6/custom-insights.png?featherlight=false&width=90pc)
+
+## Step 4: CloudWatch Dashboard for Risk Monitoring
+
+### 4.1 Create Risk Assessment Dashboard
+
+1. Open **Amazon CloudWatch** console
+2. Click **Dashboards** in sidebar
+3. Click **Create dashboard**
+
+![Create Dashboard](/images/6/create-dashboard.png?featherlight=false&width=90pc)
+
+4. Name: **IdentityGovernanceRiskDashboard**
+5. Add widgets for:
+   - **Security Hub findings**
+   - **GuardDuty threats**
+   - **Config compliance**
+
+![Dashboard Widgets](/images/6/dashboard-widgets.png?featherlight=false&width=90pc)
+
+### 4.2 Configure Risk Alarms
+
+1. Click **Alarms** in CloudWatch
+2. Click **Create alarm**
+
+![Create Alarm](/images/6/create-alarm.png?featherlight=false&width=90pc)
+
+3. Configure alarms for:
+   - **High severity findings**
+   - **Critical GuardDuty threats**
+   - **Config rule violations**
+
+![Risk Alarms](/images/6/risk-alarms.png?featherlight=false&width=90pc)
+
+4. Set SNS notifications
+
+![SNS Notifications](/images/6/sns-notifications.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
-- ✅ Comprehensive risk assessment framework
-- ✅ Real-time risk monitoring
-- ✅ Threat intelligence integration
-- ✅ Automated alerting system
-- ✅ Risk dashboard and metrics
-- ✅ Prioritized remediation plans
+- ✅ AWS Config monitoring compliance
+- ✅ GuardDuty detecting threats
+- ✅ Security Hub centralizing findings
+- ✅ CloudWatch dashboard for risk metrics
+- ✅ Automated alerting for high-risk events
+- ✅ Integrated security monitoring
+
+![Risk Assessment Complete](/images/6/risk-assessment-complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

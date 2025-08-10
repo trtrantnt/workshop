@@ -26,102 +26,140 @@ graph TB
 
 ### 1.1 Create Scheduled Rule
 
-```json
-{
-  "Name": "AccessCertificationSchedule",
-  "ScheduleExpression": "rate(90 days)",
-  "Description": "Quarterly access certification review",
-  "State": "ENABLED",
-  "Targets": [
-    {
-      "Id": "1",
-      "Arn": "arn:aws:lambda:region:account:function:AccessCertificationTrigger"
-    }
-  ]
-}
-```
+1. Open **Amazon EventBridge** in AWS Console
+2. Click **Rules** in the sidebar
+3. Click **Create rule**
 
-## Step 2: Access Review Generator
+![Create EventBridge Rule](/images/4/create-eventbridge-rule.png?featherlight=false&width=90pc)
 
-### 2.1 Lambda Function for Data Collection
+4. Enter rule details:
+   - **Name**: AccessCertificationSchedule
+   - **Description**: Quarterly access certification review
+   - **Event bus**: default
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+![Rule Details](/images/4/rule-details.png?featherlight=false&width=90pc)
 
-class AccessReviewGenerator:
-    def __init__(self):
-        self.sso_client = boto3.client('sso-admin')
-        self.identity_client = boto3.client('identitystore')
-        self.org_client = boto3.client('organizations')
-        self.s3_client = boto3.client('s3')
-        
-    def generate_access_review(self):
-        """Generate comprehensive access review data"""
-        
-        # Get all accounts
-        accounts = self.get_all_accounts()
-        
-        # Get all permission sets
-        permission_sets = self.get_all_permission_sets()
-        
-        # Get all assignments
-        assignments = self.get_all_assignments(accounts, permission_sets)
-        
-        # Generate review data
-        review_data = {
-            'review_id': f"review_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-            'generated_date': datetime.now().isoformat(),
-            'accounts': accounts,
-            'permission_sets': permission_sets,
-            'assignments': assignments,
-            'review_deadline': (datetime.now() + timedelta(days=30)).isoformat()
-        }
-        
-        # Store in S3
-        self.store_review_data(review_data)
-        
-        return review_data
-```
+5. In **Define pattern**, select **Schedule**
+6. Choose **Fixed rate every** and enter **90 days**
 
-## Step 3: Certification Workflow with Step Functions
+![Schedule Pattern](/images/4/schedule-pattern.png?featherlight=false&width=90pc)
 
-### 3.1 State Machine Definition
+7. Click **Next**
 
-```json
-{
-  "Comment": "Access Certification Workflow",
-  "StartAt": "GenerateReviewTasks",
-  "States": {
-    "GenerateReviewTasks": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:region:account:function:GenerateReviewTasks",
-      "Next": "SendNotifications"
-    },
-    "SendNotifications": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:region:account:function:SendCertificationNotifications",
-      "Next": "WaitForResponses"
-    },
-    "WaitForResponses": {
-      "Type": "Wait",
-      "Seconds": 86400,
-      "Next": "CheckResponses"
-    }
-  }
-}
-```
+## Step 2: Lambda Function Setup
+
+### 2.1 Create Lambda Function
+
+1. Open **AWS Lambda** in the console
+2. Click **Create function**
+
+![Create Lambda Function](/images/4/create-lambda-function.png?featherlight=false&width=90pc)
+
+3. Choose **Author from scratch**
+4. Enter function details:
+   - **Function name**: AccessCertificationTrigger
+   - **Runtime**: Python 3.9
+   - **Architecture**: x86_64
+
+![Lambda Function Details](/images/4/lambda-function-details.png?featherlight=false&width=90pc)
+
+5. Click **Create function**
+
+### 2.2 Configure Lambda Function Code
+
+1. In the **Code** tab, replace the default code
+2. Upload the certification logic code
+
+![Lambda Code Editor](/images/4/lambda-code-editor.png?featherlight=false&width=90pc)
+
+3. Click **Deploy** to save changes
+
+### 2.3 Set Environment Variables
+
+1. Go to **Configuration** tab
+2. Click **Environment variables**
+3. Click **Edit**
+
+![Environment Variables](/images/4/environment-variables.png?featherlight=false&width=90pc)
+
+4. Add required variables:
+   - **S3_BUCKET**: certification-data-bucket
+   - **SNS_TOPIC**: certification-notifications
+
+![Add Environment Variables](/images/4/add-env-variables.png?featherlight=false&width=90pc)
+
+## Step 3: Step Functions Workflow
+
+### 3.1 Create State Machine
+
+1. Open **AWS Step Functions** in the console
+2. Click **Create state machine**
+
+![Create State Machine](/images/4/create-state-machine.png?featherlight=false&width=90pc)
+
+3. Choose **Write your workflow in code**
+4. Select **Standard** type
+
+![State Machine Type](/images/4/state-machine-type.png?featherlight=false&width=90pc)
+
+5. Enter the workflow definition in JSON format
+6. Name the state machine: **AccessCertificationWorkflow**
+
+![State Machine Definition](/images/4/state-machine-definition.png?featherlight=false&width=90pc)
+
+### 3.2 Configure IAM Role
+
+1. Create or select an IAM role for Step Functions
+2. Ensure it has permissions to invoke Lambda functions
+
+![Step Functions IAM Role](/images/4/stepfunctions-iam-role.png?featherlight=false&width=90pc)
+
+3. Click **Create state machine**
+
+## Step 4: Connect EventBridge to Lambda
+
+### 4.1 Add Lambda Target to EventBridge Rule
+
+1. Go back to **EventBridge** console
+2. Select the rule **AccessCertificationSchedule**
+3. Click **Targets** tab
+4. Click **Add target**
+
+![Add Lambda Target](/images/4/add-lambda-target.png?featherlight=false&width=90pc)
+
+5. Configure target:
+   - **Target type**: AWS service
+   - **Service**: Lambda function
+   - **Function**: AccessCertificationTrigger
+
+![Configure Lambda Target](/images/4/configure-lambda-target.png?featherlight=false&width=90pc)
+
+6. Click **Add** and then **Update rule**
+
+## Step 5: Test the Automation
+
+### 5.1 Manual Test Execution
+
+1. In EventBridge, select your rule
+2. Click **Actions** → **Test rule**
+
+![Test EventBridge Rule](/images/4/test-eventbridge-rule.png?featherlight=false&width=90pc)
+
+3. Monitor Lambda function execution in CloudWatch Logs
+
+![CloudWatch Logs](/images/4/cloudwatch-logs.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
 - ✅ Automated quarterly access reviews
-- ✅ Email notifications to managers
-- ✅ Web interface for approvals
-- ✅ Automatic remediation for denied access
-- ✅ Audit trail in DynamoDB
+- ✅ EventBridge scheduled triggers
+- ✅ Lambda function processing
+- ✅ Step Functions workflow orchestration
+- ✅ Audit trail and monitoring
+
+![Certification Automation Complete](/images/4/automation-complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

@@ -25,113 +25,150 @@ graph TB
     I --> J[Alerts]
 ```
 
-## Step 1: Data Collection Setup
+## Step 1: CloudTrail Setup for Data Collection
 
-### 1.1 CloudTrail Configuration
+### 1.1 Create CloudTrail
 
-```yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Privilege Analytics Data Collection'
+1. Open **AWS CloudTrail** in the console
+2. Click **Create trail**
 
-Resources:
-  PrivilegeAnalyticsTrail:
-    Type: AWS::CloudTrail::Trail
-    Properties:
-      TrailName: PrivilegeAnalyticsTrail
-      S3BucketName: !Ref AnalyticsDataBucket
-      S3KeyPrefix: 'cloudtrail-logs/'
-      IncludeGlobalServiceEvents: true
-      IsMultiRegionTrail: true
-      EnableLogFileValidation: true
-```
+![Create CloudTrail](/images/5/create-cloudtrail.png?featherlight=false&width=90pc)
 
-## Step 2: Athena Queries for Analytics
+3. Configure trail settings:
+   - **Trail name**: PrivilegeAnalyticsTrail
+   - **Apply trail to all regions**: Yes
+   - **Management events**: Read and Write
 
-### 2.1 Create Athena Tables
+![CloudTrail Configuration](/images/5/cloudtrail-config.png?featherlight=false&width=90pc)
 
-```sql
--- Create table for privilege analytics data
-CREATE EXTERNAL TABLE privilege_analytics (
-  collection_timestamp string,
-  iam_data struct<
-    users: array<struct<
-      username: string,
-      user_id: string,
-      arn: string,
-      create_date: string,
-      risk_score: double
-    >>
-  >
-)
-STORED AS JSON
-LOCATION 's3://privilege-analytics-REGION/analytics-data/'
-```
+4. Configure S3 bucket:
+   - **Create new S3 bucket**: Yes
+   - **S3 bucket name**: privilege-analytics-logs-[account-id]
+   - **Log file prefix**: cloudtrail-logs/
 
-### 2.2 Analytics Queries
+![S3 Bucket Configuration](/images/5/s3-bucket-config.png?featherlight=false&width=90pc)
+
+5. Enable **Log file validation**
+6. Click **Create trail**
+
+## Step 2: Amazon Athena Setup
+
+### 2.1 Create Athena Database
+
+1. Open **Amazon Athena** in the console
+2. Click **Query editor**
+3. Set up query result location if prompted
+
+![Athena Query Editor](/images/5/athena-query-editor.png?featherlight=false&width=90pc)
+
+4. Create database for privilege analytics:
 
 ```sql
--- Query 1: High-risk users
+CREATE DATABASE privilege_analytics_db;
+```
+
+![Create Database](/images/5/create-database.png?featherlight=false&width=90pc)
+
+### 2.2 Create CloudTrail Table
+
+1. Use the database:
+
+```sql
+USE privilege_analytics_db;
+```
+
+2. Create table for CloudTrail logs:
+
+![Create CloudTrail Table](/images/5/create-cloudtrail-table.png?featherlight=false&width=90pc)
+
+### 2.3 Run Analytics Queries
+
+1. Query for high-privilege activities:
+
+```sql
 SELECT 
-  user.username,
-  user.risk_score,
-  cardinality(user.attached_policies) as policy_count,
-  user.last_activity
-FROM privilege_analytics
-CROSS JOIN UNNEST(iam_data.users) AS t(user)
-WHERE user.risk_score > 7.0
-ORDER BY user.risk_score DESC;
+  useridentity.username,
+  eventname,
+  sourceipaddress,
+  eventtime,
+  COUNT(*) as event_count
+FROM cloudtrail_logs
+WHERE eventname IN ('AssumeRole', 'AttachUserPolicy', 'CreateRole')
+GROUP BY useridentity.username, eventname, sourceipaddress, eventtime
+ORDER BY event_count DESC;
 ```
 
-## Step 3: Risk Scoring Engine
+![Analytics Query Results](/images/5/analytics-query-results.png?featherlight=false&width=90pc)
 
-### 3.1 Risk Calculation Lambda
+## Step 3: QuickSight Dashboard Setup
 
-```python
-import boto3
-import json
-import math
-from datetime import datetime, timedelta
+### 3.1 Create QuickSight Account
 
-class RiskScoringEngine:
-    def __init__(self):
-        self.weights = {
-            'privilege_level': 0.3,
-            'usage_frequency': 0.2,
-            'last_activity': 0.2,
-            'policy_violations': 0.15,
-            'external_access': 0.15
-        }
-    
-    def calculate_user_risk_score(self, user_data, policies, groups, activity):
-        """Calculate risk score for a user (0-10 scale)"""
-        
-        scores = {
-            'privilege_level': self.score_privilege_level(policies, groups),
-            'usage_frequency': self.score_usage_frequency(activity),
-            'last_activity': self.score_last_activity(user_data.get('PasswordLastUsed')),
-            'policy_violations': self.score_policy_violations(policies),
-            'external_access': self.score_external_access(activity)
-        }
-        
-        # Calculate weighted score
-        total_score = sum(scores[factor] * self.weights[factor] for factor in scores)
-        
-        return {
-            'total_score': round(total_score, 2),
-            'factor_scores': scores,
-            'risk_level': self.get_risk_level(total_score)
-        }
-```
+1. Open **Amazon QuickSight** in the console
+2. Sign up for QuickSight if not already done
+3. Choose **Standard** edition
+
+![QuickSight Signup](/images/5/quicksight-signup.png?featherlight=false&width=90pc)
+
+### 3.2 Create Data Source
+
+1. Click **Datasets** in QuickSight
+2. Click **New dataset**
+3. Choose **Athena** as data source
+
+![Create Dataset](/images/5/create-dataset.png?featherlight=false&width=90pc)
+
+4. Configure Athena connection:
+   - **Data source name**: PrivilegeAnalytics
+   - **Database**: privilege_analytics_db
+   - **Table**: cloudtrail_logs
+
+![Athena Data Source](/images/5/athena-data-source.png?featherlight=false&width=90pc)
+
+### 3.3 Create Analysis Dashboard
+
+1. Click **Create analysis**
+2. Add visualizations for:
+   - Top users by activity
+   - High-risk events timeline
+   - Geographic access patterns
+
+![QuickSight Dashboard](/images/5/quicksight-dashboard.png?featherlight=false&width=90pc)
+
+3. Configure filters and parameters
+4. Publish the dashboard
+
+![Publish Dashboard](/images/5/publish-dashboard.png?featherlight=false&width=90pc)
+
+## Step 4: Set Up Automated Analysis
+
+### 4.1 Create Lambda for Risk Scoring
+
+1. Open **AWS Lambda** console
+2. Create function **PrivilegeRiskScoring**
+3. Configure to run daily via EventBridge
+
+![Risk Scoring Lambda](/images/5/risk-scoring-lambda.png?featherlight=false&width=90pc)
+
+### 4.2 Configure CloudWatch Alarms
+
+1. Open **CloudWatch** console
+2. Create alarms for high-risk activities
+3. Set SNS notifications
+
+![CloudWatch Alarms](/images/5/cloudwatch-alarms.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
-- ✅ Automated privilege data collection
-- ✅ Risk scoring for users and roles
-- ✅ Athena queries for analytics
+- ✅ CloudTrail collecting privilege data
+- ✅ Athena tables for analytics queries
 - ✅ QuickSight dashboard for visualization
-- ✅ Anomaly detection and alerting
+- ✅ Automated risk scoring
+- ✅ CloudWatch monitoring and alerts
+
+![Privilege Analytics Complete](/images/5/privilege-analytics-complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

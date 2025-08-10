@@ -25,73 +25,130 @@ graph LR
 
 ### 1.1 Create Organization
 
-```bash
-aws organizations create-organization --feature-set ALL
-```
+1. Đăng nhập vào AWS Console với tài khoản root
+2. Tìm kiếm và mở service **AWS Organizations**
+3. Click **Create organization**
+
+![Create Organization](/images/3/create-organization.png?featherlight=false&width=90pc)
+
+4. Chọn **Enable all features** để có đầy đủ tính năng quản lý
+5. Click **Create organization**
+
+![Enable All Features](/images/3/enable-all-features.png?featherlight=false&width=90pc)
 
 ### 1.2 Create Organizational Units
 
-```json
-{
-  "Name": "Security",
-  "ParentId": "r-xxxx"
-}
-```
+1. Trong AWS Organizations console, click **AWS accounts** ở sidebar
+2. Click **Actions** → **Create organizational unit**
 
-```bash
-aws organizations create-organizational-unit \
-  --parent-id r-xxxx \
-  --name "Security"
-```
+![Create OU](/images/3/create-ou.png?featherlight=false&width=90pc)
+
+3. Nhập tên OU: **Security**
+4. Click **Create organizational unit**
+
+![OU Name](/images/3/ou-name.png?featherlight=false&width=90pc)
 
 ## Step 2: Configure IAM Identity Center
 
 ### 2.1 Enable IAM Identity Center
 
-```bash
-aws sso-admin create-instance \
-  --name "IdentityGovernance" \
-  --description "Identity Governance Instance"
-```
+1. Tìm kiếm và mở **IAM Identity Center** trong AWS Console
+2. Click **Enable** để kích hoạt IAM Identity Center
+
+![Enable IAM Identity Center](/images/3/enable-identity-center.png?featherlight=false&width=90pc)
+
+3. Chọn region để lưu trữ identity store
+4. Click **Create AWS organization** nếu chưa có
+
+![Choose Region](/images/3/choose-region.png?featherlight=false&width=90pc)
 
 ### 2.2 Create Permission Sets
 
-```json
-{
-  "Name": "SecurityAuditor",
-  "Description": "Read-only access for security auditing",
-  "SessionDuration": "PT8H",
-  "ManagedPolicies": [
-    "arn:aws:iam::aws:policy/SecurityAudit",
-    "arn:aws:iam::aws:policy/ReadOnlyAccess"
-  ]
-}
-```
+1. Trong IAM Identity Center, click **Permission sets** ở sidebar
+2. Click **Create permission set**
+
+![Create Permission Set](/images/3/create-permission-set.png?featherlight=false&width=90pc)
+
+3. Chọn **Predefined permission set**
+4. Chọn **SecurityAudit** từ dropdown
+
+![Select SecurityAudit](/images/3/select-security-audit.png?featherlight=false&width=90pc)
+
+5. Nhập thông tin:
+   - **Name**: SecurityAuditor
+   - **Description**: Read-only access for security auditing
+   - **Session duration**: 8 hours
+
+![Permission Set Details](/images/3/permission-set-details.png?featherlight=false&width=90pc)
+
+6. Click **Next** và **Create**
 
 ## Step 3: Identity Store Setup
 
-### 3.1 Configure External Identity Provider
+### 3.1 Create Users and Groups
 
-```python
-import boto3
+1. Trong IAM Identity Center, click **Users** ở sidebar
+2. Click **Add user**
 
-def setup_external_idp():
-    client = boto3.client('identitystore')
-    
-    # Configure SAML IdP
-    response = client.create_external_id_provider(
-        IdentityStoreId='d-xxxxxxxxxx',
-        ExternalIdProvider={
-            'Type': 'SAML',
-            'Configuration': {
-                'MetadataDocument': 'metadata_content',
-                'LoginUrl': 'https://idp.company.com/login',
-                'LogoutUrl': 'https://idp.company.com/logout'
-            }
-        }
-    )
-    return response
-```
+![Add User](/images/3/add-user.png?featherlight=false&width=90pc)
+
+3. Nhập thông tin user:
+   - **Username**: security-auditor
+   - **Email**: auditor@company.com
+   - **First name**: Security
+   - **Last name**: Auditor
+
+![User Details](/images/3/user-details.png?featherlight=false&width=90pc)
+
+4. Click **Next** và **Add user**
+
+### 3.2 Create Groups
+
+1. Click **Groups** ở sidebar
+2. Click **Create group**
+
+![Create Group](/images/3/create-group.png?featherlight=false&width=90pc)
+
+3. Nhập:
+   - **Group name**: SecurityAuditors
+   - **Description**: Security auditing team
+
+![Group Details](/images/3/group-details.png?featherlight=false&width=90pc)
+
+4. Click **Create group**
+
+### 3.3 Assign Users to Groups
+
+1. Chọn group **SecurityAuditors**
+2. Click **Add users to group**
+
+![Add Users to Group](/images/3/add-users-to-group.png?featherlight=false&width=90pc)
+
+3. Chọn user **security-auditor**
+4. Click **Add users**
+
+![Select Users](/images/3/select-users.png?featherlight=false&width=90pc)
+
+## Step 4: Assign Access
+
+### 4.1 Assign Permission Sets to Accounts
+
+1. Click **AWS accounts** ở sidebar
+2. Chọn account cần assign quyền
+3. Click **Assign users or groups**
+
+![Assign Access](/images/3/assign-access.png?featherlight=false&width=90pc)
+
+4. Chọn **Groups** tab
+5. Chọn group **SecurityAuditors**
+6. Click **Next**
+
+![Select Group](/images/3/select-group-assign.png?featherlight=false&width=90pc)
+
+7. Chọn permission set **SecurityAuditor**
+8. Click **Next** và **Submit**
+
+![Select Permission Set](/images/3/select-permission-set-assign.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
@@ -101,7 +158,9 @@ After completing this step, you will have:
 - ✅ IAM Identity Center activated
 - ✅ Permission Sets for governance roles
 - ✅ Identity Store with groups and users
-- ✅ Automation scripts for management
+- ✅ Access assignments configured
+
+![Final Setup](/images/3/final-setup.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

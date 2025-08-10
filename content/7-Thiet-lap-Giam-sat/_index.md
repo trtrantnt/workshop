@@ -25,159 +25,182 @@ graph TB
     I --> J[Anomaly Detection]
 ```
 
-## Step 1: CloudWatch Monitoring Setup
+## Step 1: CloudWatch Logs Setup
 
-### 1.1 Custom Metrics and Alarms
+### 1.1 Create Log Groups
 
-```yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Identity Governance Monitoring Infrastructure'
+1. Open **Amazon CloudWatch** console
+2. Click **Log groups** in sidebar
+3. Click **Create log group**
 
-Parameters:
-  NotificationEmail:
-    Type: String
-    Description: Email for monitoring alerts
-    Default: security-team@company.com
+![Create Log Group](/images/7/create-log-group.png?featherlight=false&width=90pc)
 
-Resources:
-  # SNS Topic for Alerts
-  MonitoringAlertsTopic:
-    Type: AWS::SNS::Topic
-    Properties:
-      TopicName: IdentityGovernanceAlerts
-      DisplayName: Identity Governance Monitoring Alerts
-      Subscription:
-        - Protocol: email
-          Endpoint: !Ref NotificationEmail
+4. Configure log group:
+   - **Log group name**: /aws/identity-governance/events
+   - **Retention setting**: 1 year
 
-  # CloudWatch Log Group for Identity Events
-  IdentityLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: /aws/identity-governance/events
-      RetentionInDays: 365
-```
+![Log Group Settings](/images/7/log-group-settings.png?featherlight=false&width=90pc)
 
-### 1.2 Monitoring Lambda Function
+5. Click **Create**
 
-```python
-import boto3
-import json
-import os
-from datetime import datetime, timedelta
+### 1.2 Set Up SNS Topic for Alerts
 
-class IdentityGovernanceMonitor:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.logs_client = boto3.client('logs')
-        self.iam_client = boto3.client('iam')
-        self.sso_client = boto3.client('sso-admin')
-        self.sns_client = boto3.client('sns')
-        
-        self.log_group = os.environ.get('LOG_GROUP_NAME', '/aws/identity-governance/events')
-        self.sns_topic = os.environ.get('SNS_TOPIC_ARN')
-    
-    def monitor_identity_events(self):
-        """Monitor and analyze identity-related events"""
-        
-        monitoring_results = {
-            'timestamp': datetime.now().isoformat(),
-            'metrics_collected': [],
-            'anomalies_detected': [],
-            'alerts_sent': []
-        }
-        
-        return monitoring_results
-```
+1. Open **Amazon SNS** console
+2. Click **Topics** in sidebar
+3. Click **Create topic**
 
-## Step 2: Log Analytics Setup
+![Create SNS Topic](/images/7/create-sns-topic.png?featherlight=false&width=90pc)
 
-### 2.1 CloudWatch Insights Queries
+4. Configure topic:
+   - **Type**: Standard
+   - **Name**: IdentityGovernanceAlerts
+   - **Display name**: Identity Governance Alerts
+
+![SNS Topic Settings](/images/7/sns-topic-settings.png?featherlight=false&width=90pc)
+
+5. Create subscription with your email
+
+![SNS Subscription](/images/7/sns-subscription.png?featherlight=false&width=90pc)
+
+## Step 2: CloudWatch Metrics and Alarms
+
+### 2.1 Create Custom Metrics
+
+1. In CloudWatch console, click **All metrics**
+2. Click **Browse** tab
+3. Create custom namespace: **IdentityGovernance**
+
+![Custom Metrics](/images/7/custom-metrics.png?featherlight=false&width=90pc)
+
+### 2.2 Set Up Alarms
+
+1. Click **Alarms** in CloudWatch
+2. Click **Create alarm**
+
+![Create CloudWatch Alarm](/images/7/create-cloudwatch-alarm.png?featherlight=false&width=90pc)
+
+3. Configure alarm for failed logins:
+   - **Metric**: Custom metric for failed logins
+   - **Threshold**: > 5 in 5 minutes
+   - **Action**: Send to SNS topic
+
+![Failed Login Alarm](/images/7/failed-login-alarm.png?featherlight=false&width=90pc)
+
+4. Create additional alarms for:
+   - **Privilege escalation events**
+   - **Off-hours access**
+   - **Unusual geographic access**
+
+![Additional Alarms](/images/7/additional-alarms.png?featherlight=false&width=90pc)
+
+## Step 3: CloudWatch Insights Setup
+
+### 3.1 Create Insights Queries
+
+1. Click **Logs Insights** in CloudWatch
+2. Select log group: **/aws/cloudtrail**
+3. Create saved queries for monitoring
+
+![CloudWatch Insights](/images/7/cloudwatch-insights.png?featherlight=false&width=90pc)
+
+### 3.2 Failed Login Analysis
+
+1. Run query for failed logins:
 
 ```sql
--- Query 1: Failed login attempts by user
 fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
 | filter eventName = "ConsoleLogin" and errorCode != "Success"
 | stats count() by userIdentity.userName
 | sort count desc
+```
 
--- Query 2: Privilege escalation events
+![Failed Login Query](/images/7/failed-login-query.png?featherlight=false&width=90pc)
+
+### 3.3 Privilege Escalation Monitoring
+
+1. Create query for privilege changes:
+
+```sql
 fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
 | filter eventName in ["AttachUserPolicy", "CreateRole", "PutUserPolicy"]
 | sort @timestamp desc
-
--- Query 3: Off-hours access patterns
-fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
-| filter @timestamp like /T(0[0-5]|2[2-3])/
-| stats count() by userIdentity.userName
-| sort count desc
 ```
 
-### 2.2 Automated Log Analysis
+![Privilege Escalation Query](/images/7/privilege-escalation-query.png?featherlight=false&width=90pc)
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+2. Save queries for regular use
 
-class LogAnalyzer:
-    def __init__(self):
-        self.logs_client = boto3.client('logs')
-        self.cloudwatch = boto3.client('cloudwatch')
-    
-    def analyze_security_logs(self):
-        """Analyze security logs for patterns and anomalies"""
-        
-        analysis_results = {
-            'analysis_timestamp': datetime.now().isoformat(),
-            'patterns_detected': [],
-            'recommendations': []
-        }
-        
-        return analysis_results
-```
+![Save Insights Queries](/images/7/save-insights-queries.png?featherlight=false&width=90pc)
 
-## Step 3: Deployment Script
+## Step 4: Automated Monitoring with Lambda
 
-### 3.1 Complete Monitoring Deployment
+### 4.1 Create Monitoring Lambda Function
 
-```bash
-#!/bin/bash
+1. Open **AWS Lambda** console
+2. Click **Create function**
+3. Configure function:
+   - **Name**: IdentityGovernanceMonitor
+   - **Runtime**: Python 3.9
 
-echo "Deploying Identity Governance Monitoring..."
+![Create Monitoring Lambda](/images/7/create-monitoring-lambda.png?featherlight=false&width=90pc)
 
-# Deploy CloudFormation stack
-aws cloudformation deploy \
-  --template-file monitoring-infrastructure.yaml \
-  --stack-name identity-governance-monitoring \
-  --parameter-overrides NotificationEmail=security-team@company.com \
-  --capabilities CAPABILITY_IAM
+### 4.2 Configure Lambda Triggers
 
-# Create Lambda functions
-echo "Creating monitoring Lambda functions..."
+1. Add **EventBridge** trigger
+2. Set schedule: **rate(1 hour)**
 
-# Package and deploy monitoring function
-zip -r monitoring-function.zip monitoring_lambda.py
-aws lambda create-function \
-  --function-name IdentityGovernanceMonitor \
-  --runtime python3.9 \
-  --role arn:aws:iam::$(aws sts get-caller-identity --query Account --output text):role/IdentityGovernanceMonitoringRole \
-  --handler monitoring_lambda.lambda_handler \
-  --zip-file fileb://monitoring-function.zip
+![Lambda Triggers](/images/7/lambda-triggers.png?featherlight=false&width=90pc)
 
-echo "Monitoring setup completed successfully!"
-```
+3. Add **CloudWatch Logs** trigger for real-time analysis
+
+![CloudWatch Logs Trigger](/images/7/cloudwatch-logs-trigger.png?featherlight=false&width=90pc)
+
+### 4.3 Configure Environment Variables
+
+1. Set environment variables:
+   - **SNS_TOPIC_ARN**: Your SNS topic ARN
+   - **LOG_GROUP_NAME**: /aws/identity-governance/events
+
+![Lambda Environment Variables](/images/7/lambda-env-variables.png?featherlight=false&width=90pc)
+
+## Step 5: Dashboard and Reporting
+
+### 5.1 Create Monitoring Dashboard
+
+1. In CloudWatch, click **Dashboards**
+2. Click **Create dashboard**
+3. Name: **IdentityGovernanceMonitoring**
+
+![Create Monitoring Dashboard](/images/7/create-monitoring-dashboard.png?featherlight=false&width=90pc)
+
+4. Add widgets for:
+   - **Failed login attempts**
+   - **Privilege escalation events**
+   - **Geographic access patterns**
+   - **System health metrics**
+
+![Dashboard Widgets](/images/7/monitoring-dashboard-widgets.png?featherlight=false&width=90pc)
+
+### 5.2 Set Up Automated Reports
+
+1. Create **EventBridge** rule for daily reports
+2. Configure Lambda to generate reports
+3. Send reports via email
+
+![Automated Reports](/images/7/automated-reports.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
-- ✅ Real-time monitoring of identity events
-- ✅ Custom CloudWatch metrics and alarms
-- ✅ Automated log analysis
-- ✅ Anomaly detection and alerting
+- ✅ CloudWatch Logs collecting identity events
+- ✅ Custom metrics and alarms configured
+- ✅ CloudWatch Insights for log analysis
+- ✅ Lambda functions for automated monitoring
+- ✅ SNS notifications for alerts
 - ✅ Comprehensive monitoring dashboard
-- ✅ Scheduled monitoring tasks
+
+![Monitoring Setup Complete](/images/7/monitoring-setup-complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 
