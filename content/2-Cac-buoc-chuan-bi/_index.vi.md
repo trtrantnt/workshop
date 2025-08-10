@@ -17,206 +17,141 @@ weight: 2
 - Kiến thức về compliance frameworks (SOX, SOC2, ISO27001)
 - Hiểu biết về Python và AWS CLI
 
-### 3. Công cụ cần thiết
-- AWS CLI đã được cấu hình
-- Python 3.9 hoặc cao hơn
-- Git để clone code examples
-- Text editor hoặc IDE
+### 3. Yêu cầu truy cập
+- Trình duyệt web (Chrome, Firefox, Safari, hoặc Edge)
+- Kết nối internet ổn định
+- Quyền truy cập AWS Console
+- Quyền quản trị trong AWS account
 
 ## Thiết lập môi trường
 
-### 1. Cấu hình AWS CLI
+### 1. Truy cập AWS Console
 
-```bash
-# Cài đặt AWS CLI
-pip install awscli
+1. Mở trình duyệt web và truy cập [AWS Console](https://console.aws.amazon.com/)
+2. Đăng nhập bằng thông tin tài khoản AWS của bạn
+3. Đảm bảo bạn có quyền Administrator
 
-# Cấu hình credentials
-aws configure
-```
+![AWS Console Login](images/aws-console-login.png)
 
-### 2. Kiểm tra quyền
+### 2. Xác minh quyền tài khoản
 
-```bash
-# Kiểm tra account hiện tại
-aws sts get-caller-identity
+1. Trong AWS Console, click vào tên tài khoản ở góc trên bên phải
+2. Chọn **My Account** để xem chi tiết tài khoản
+3. Xác minh bạn có quyền truy cập:
+   - AWS Organizations
+   - IAM Identity Center
+   - Quyền quản trị
 
-# Kiểm tra quyền Organizations
-aws organizations describe-organization
-```
+![Account Verification](images/account-verification.png)
 
-### 3. Tạo S3 Bucket cho dữ liệu
+### 3. Tạo S3 Bucket cho lưu trữ dữ liệu
 
-```bash
-# Tạo bucket cho analytics data
-aws s3 mb s3://privilege-analytics-$(aws sts get-caller-identity --query Account --output text)
+1. Điều hướng đến dịch vụ **S3** trong AWS Console
+2. Click **Create bucket**
+3. Tạo bucket đầu tiên:
+   - **Bucket name**: `privilege-analytics-[YOUR-ACCOUNT-ID]`
+   - **Region**: Chọn region ưa thích
+   - Giữ cài đặt mặc định
+   - Click **Create bucket**
 
-# Tạo bucket cho compliance reports
-aws s3 mb s3://compliance-reports-$(aws sts get-caller-identity --query Account --output text)
-```
+![S3 Bucket Creation 1](images/s3-bucket-analytics.png)
+
+4. Tạo bucket thứ hai:
+   - **Bucket name**: `compliance-reports-[YOUR-ACCOUNT-ID]`
+   - **Region**: Giống bucket đầu tiên
+   - Giữ cài đặt mặc định
+   - Click **Create bucket**
+
+![S3 Bucket Creation 2](images/s3-bucket-compliance.png)
 
 ## Chuẩn bị Infrastructure
 
-### 1. Enable AWS Services
+### 1. Kích hoạt AWS CloudTrail
 
-```bash
-# Enable CloudTrail
-aws cloudtrail create-trail \
-  --name IdentityGovernanceTrail \
-  --s3-bucket-name privilege-analytics-$(aws sts get-caller-identity --query Account --output text)
+1. Điều hướng đến dịch vụ **CloudTrail**
+2. Click **Create trail**
+3. Cấu hình trail:
+   - **Trail name**: `IdentityGovernanceTrail`
+   - **S3 bucket**: Chọn bucket `privilege-analytics-[YOUR-ACCOUNT-ID]`
+   - **Log file prefix**: `cloudtrail-logs/`
+4. Click **Create trail**
 
-# Enable Config
-aws configservice put-configuration-recorder \
-  --configuration-recorder name=IdentityGovernanceRecorder,roleARN=arn:aws:iam::$(aws sts get-caller-identity --query Account --output text):role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig
+![CloudTrail Setup](images/cloudtrail-setup.png)
 
-# Enable GuardDuty
-aws guardduty create-detector --enable
-```
+### 2. Kích hoạt AWS Config
 
-### 2. Tạo IAM Roles cần thiết
+1. Điều hướng đến dịch vụ **AWS Config**
+2. Click **Get started**
+3. Cấu hình:
+   - **Resource types**: Chọn **All resources**
+   - **S3 bucket**: Tạo bucket mới hoặc sử dụng có sẵn
+   - **SNS topic**: Tạo topic mới
+4. Click **Next** và **Confirm**
 
-```bash
-# Tạo role cho Lambda functions
-aws iam create-role \
-  --role-name IdentityGovernanceLambdaRole \
-  --assume-role-policy-document '{
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "lambda.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  }'
+![Config Setup](images/config-setup.png)
 
-# Attach policies
-aws iam attach-role-policy \
-  --role-name IdentityGovernanceLambdaRole \
-  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-```
+### 3. Kích hoạt Amazon GuardDuty
 
-## Chuẩn bị Code và Templates
+1. Điều hướng đến dịch vụ **GuardDuty**
+2. Click **Get Started**
+3. Click **Enable GuardDuty**
+4. Xem lại quyền dịch vụ và click **Enable**
 
-### 1. Download Workshop Materials
+![GuardDuty Setup](images/guardduty-setup.png)
 
-```bash
-# Clone workshop repository
-git clone https://github.com/aws-samples/identity-governance-workshop.git
-cd identity-governance-workshop
+### 4. Tạo IAM Roles cần thiết
 
-# Install Python dependencies
-pip install -r requirements.txt
-```
+1. Điều hướng đến dịch vụ **IAM**
+2. Click **Roles** trong sidebar
+3. Click **Create role**
+4. Tạo role cho Lambda:
+   - **Trusted entity**: AWS service
+   - **Service**: Lambda
+   - **Role name**: `IdentityGovernanceLambdaRole`
+   - **Policies**: Attach `AWSLambdaBasicExecutionRole`
 
-### 2. Chuẩn bị CloudFormation Templates
+![IAM Role Creation](images/iam-role-lambda.png)
 
-```yaml
-# infrastructure-base.yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Base infrastructure for Identity Governance Workshop'
+### 5. Tạo DynamoDB Tables
 
-Resources:
-  # S3 Buckets
-  AnalyticsDataBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub 'privilege-analytics-${AWS::AccountId}'
-      VersioningConfiguration:
-        Status: Enabled
+1. Điều hướng đến dịch vụ **DynamoDB**
+2. Click **Create table**
+3. Tạo bảng đầu tiên:
+   - **Table name**: `OperationsLog`
+   - **Partition key**: `operation_id` (String)
+   - **Billing mode**: On-demand
+4. Click **Create table**
 
-  ComplianceReportsBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub 'compliance-reports-${AWS::AccountId}'
-      VersioningConfiguration:
-        Status: Enabled
+![DynamoDB Table 1](images/dynamodb-operations-log.png)
 
-  # DynamoDB Tables
-  OperationsLogTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: OperationsLog
-      AttributeDefinitions:
-        - AttributeName: operation_id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: operation_id
-          KeyType: HASH
-      BillingMode: PAY_PER_REQUEST
+5. Tạo bảng thứ hai:
+   - **Table name**: `CertificationTasks`
+   - **Partition key**: `task_id` (String)
+   - **Billing mode**: On-demand
+6. Click **Create table**
 
-  CertificationTasksTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: CertificationTasks
-      AttributeDefinitions:
-        - AttributeName: task_id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: task_id
-          KeyType: HASH
-      BillingMode: PAY_PER_REQUEST
-```
+![DynamoDB Table 2](images/dynamodb-certification-tasks.png)
 
-### 3. Deploy Base Infrastructure
+## Xác thực thiết lập
 
-```bash
-# Deploy base infrastructure
-aws cloudformation deploy \
-  --template-file infrastructure-base.yaml \
-  --stack-name identity-governance-base \
-  --capabilities CAPABILITY_IAM
-```
+### 1. Kiểm tra các dịch vụ đã kích hoạt
 
-## Validation
+1. **CloudTrail**: Vào CloudTrail console, xác nhận trail đã được tạo và đang hoạt động
+2. **S3**: Vào S3 console, xác nhận 2 bucket đã được tạo
+3. **Config**: Vào Config console, xác nhận service đang ghi lại resources
+4. **GuardDuty**: Vào GuardDuty console, xác nhận detector đang hoạt động
+5. **DynamoDB**: Vào DynamoDB console, xác nhận 2 table đã được tạo
 
-### 1. Kiểm tra Services
+![Services Verification](images/services-verification.png)
 
-```bash
-# Kiểm tra CloudTrail
-aws cloudtrail describe-trails
+### 2. Kiểm tra quyền truy cập
 
-# Kiểm tra S3 buckets
-aws s3 ls | grep -E "(privilege-analytics|compliance-reports)"
+1. Vào **IAM** console
+2. Click **Users** và xác nhận user hiện tại có quyền cần thiết
+3. Click **Roles** và xác nhận các role đã được tạo
+4. Kiểm tra **Organizations** service để đảm bảo có quyền quản lý
 
-# Kiểm tra DynamoDB tables
-aws dynamodb list-tables
-```
-
-### 2. Test Permissions
-
-```python
-import boto3
-
-def test_permissions():
-    """Test required AWS permissions"""
-    
-    try:
-        # Test IAM permissions
-        iam = boto3.client('iam')
-        iam.list_users(MaxItems=1)
-        print("✅ IAM permissions OK")
-        
-        # Test Organizations permissions
-        org = boto3.client('organizations')
-        org.describe_organization()
-        print("✅ Organizations permissions OK")
-        
-        # Test SSO permissions
-        sso = boto3.client('sso-admin')
-        sso.list_instances()
-        print("✅ SSO permissions OK")
-        
-        print("🎉 All permissions validated successfully!")
-        
-    except Exception as e:
-        print(f"❌ Permission error: {str(e)}")
-
-if __name__ == "__main__":
-    test_permissions()
-```
+![Permissions Check](images/permissions-check.png)
 
 ## Kết quả Mong đợi
 
