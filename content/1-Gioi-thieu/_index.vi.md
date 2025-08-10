@@ -19,21 +19,7 @@ Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity
 
 ## Kiến trúc Tổng thể
 
-```mermaid
-graph TB
-    A[Identity Provider] --> B[AWS IAM Identity Center]
-    B --> C[Access Management]
-    C --> D[Privilege Analytics]
-    D --> E[Risk Assessment]
-    E --> F[Access Certification]
-    F --> G[Compliance Reporting]
-    
-    H[CloudTrail] --> I[Monitoring & Alerting]
-    I --> J[Operational Dashboard]
-    
-    K[Automation Engine] --> L[Certification Workflows]
-    L --> M[Remediation Actions]
-```
+![Architecture Diagram](images/architecture-diagram.png)
 
 ## AWS Services Sử dụng
 
