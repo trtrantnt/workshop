@@ -4,8 +4,6 @@ chapter: false
 weight: 4
 ---
 
-# 4. Certification Automation
-
 ## Objective
 
 Automate access certification processes to ensure access rights are reviewed periodically and comply with security requirements.

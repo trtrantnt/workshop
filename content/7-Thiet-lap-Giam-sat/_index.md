@@ -4,8 +4,6 @@ chapter: false
 weight: 7
 ---
 
-# 7. Monitoring Setup
-
 ## Objective
 
 Set up comprehensive monitoring system to continuously track identity governance activities, detect anomalies, and ensure compliance.

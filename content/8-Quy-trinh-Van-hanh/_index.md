@@ -4,8 +4,6 @@ chapter: false
 weight: 8
 ---
 
-# 8. Operational Procedures
-
 ## Objective
 
 Establish standardized operational procedures to manage identity governance effectively, ensuring consistency and compliance.

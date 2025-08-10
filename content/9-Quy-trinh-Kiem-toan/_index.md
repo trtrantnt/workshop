@@ -4,8 +4,6 @@ chapter: false
 weight: 9
 ---
 
-# 9. Audit Procedures
-
 ## Objective
 
 Establish comprehensive audit procedures to ensure compliance with security, legal, and internal requirements in identity governance management.

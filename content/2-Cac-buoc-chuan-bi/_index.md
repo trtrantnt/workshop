@@ -4,8 +4,6 @@ chapter: false
 weight: 2
 ---
 
-# Preparation Steps
-
 ## Prerequisites
 
 ### 1. AWS Account

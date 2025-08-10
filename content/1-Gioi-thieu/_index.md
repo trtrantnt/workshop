@@ -4,8 +4,6 @@ chapter: false
 weight: 1
 ---
 
-# Introduction to Identity Governance with Access Certification
-
 ## Workshop Overview
 
 This workshop will guide you through implementing a comprehensive Identity Governance system with Access Certification on AWS, including:

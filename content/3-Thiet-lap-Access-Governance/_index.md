@@ -4,8 +4,6 @@ chapter: false
 weight: 3
 ---
 
-# 3. Access Governance Setup
-
 ## Objective
 
 Set up centralized access management foundation with AWS IAM Identity Center and Organizations.

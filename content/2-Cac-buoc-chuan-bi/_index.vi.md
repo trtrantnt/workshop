@@ -4,8 +4,6 @@ chapter: false
 weight: 2
 ---
 
-# Các bước chuẩn bị
-
 ## Yêu cầu Tiên quyết
 
 ### 1. AWS Account

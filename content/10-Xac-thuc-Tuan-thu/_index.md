@@ -4,8 +4,6 @@ chapter: false
 weight: 10
 ---
 
-# 10. Compliance Validation
-
 ## Objective
 
 Validate and maintain compliance with security frameworks and legal regulations through identity governance, ensuring the organization meets SOX, SOC2, ISO27001, PCI-DSS, and other standards.

@@ -4,8 +4,6 @@ chapter: false
 weight: 5
 ---
 
-# 5. Privilege Analytics
-
 ## Objective
 
 Analyze and monitor privilege usage to detect security risks, excessive permissions, and anomalous patterns.

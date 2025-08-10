@@ -4,8 +4,6 @@ chapter: false
 weight: 6
 ---
 
-# 6. Risk Assessment
-
 ## Objective
 
 Establish a comprehensive risk assessment system to detect, analyze, and prioritize security risks related to identity and access management.
