@@ -23,11 +23,3 @@ This hands-on workshop guides you through building a complete Identity Governanc
 ## Workshop Access
 
 🚀 **[Start the Workshop](https://trtrantnt.github.io/workshop/)**
-
-## Duration
-4-6 hours (can be completed in multiple sessions)
-
-## Prerequisites
-- AWS Account with Administrator privileges
-- Basic knowledge of AWS IAM and Organizations
-- Python and AWS CLI experience

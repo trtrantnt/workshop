@@ -30,147 +30,151 @@ graph TB
     G --> I[Regulatory Reports]
 ```
 
-## Step 1: Compliance Framework Implementation
+## Step 1: AWS Artifact for Compliance Documentation
 
-### 1.1 Multi-Framework Compliance Engine
+### 1.1 Access AWS Artifact
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
-from enum import Enum
+1. Open **AWS Artifact** in the console
+2. Review available compliance reports:
+   - **SOC reports**
+   - **PCI DSS documentation**
+   - **ISO 27001 certification**
 
-class ComplianceFramework(Enum):
-    SOX = "sox"
-    SOC2 = "soc2"
-    ISO27001 = "iso27001"
-    PCI_DSS = "pci_dss"
-    NIST = "nist"
-    GDPR = "gdpr"
+![AWS Artifact](/images/10/aws-artifact.png?featherlight=false&width=90pc)
 
-class ComplianceValidationEngine:
-    def __init__(self):
-        self.s3_client = boto3.client('s3')
-        self.dynamodb = boto3.resource('dynamodb')
-        self.compliance_table = self.dynamodb.Table('ComplianceEvidence')
-        
-        # Load compliance requirements
-        self.compliance_requirements = self.load_compliance_requirements()
-    
-    def load_compliance_requirements(self):
-        """Load compliance requirements for each framework"""
-        
-        return {
-            ComplianceFramework.SOX: {
-                "name": "Sarbanes-Oxley Act",
-                "requirements": [
-                    {
-                        "requirement_id": "SOX-302",
-                        "title": "Corporate Responsibility for Financial Reports",
-                        "description": "Ensure proper access controls for financial systems",
-                        "controls": ["access_segregation", "approval_workflows", "audit_trails"]
-                    }
-                ]
-            }
-        }
-```
+3. Download relevant compliance documents
+4. Review AWS responsibility matrix
 
-## Step 2: Compliance Dashboard
+![Compliance Documents](/images/10/compliance-documents.png?featherlight=false&width=90pc)
 
-### 2.1 Real-time Compliance Monitoring
+### 1.2 Map Controls to Frameworks
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+1. Create **compliance mapping spreadsheet**
+2. Map identity governance controls to:
+   - **SOX Section 302/404**
+   - **SOC 2 Type II**
+   - **ISO 27001 Annex A**
+   - **PCI DSS Requirements**
 
-class ComplianceDashboard:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.s3_client = boto3.client('s3')
-    
-    def generate_compliance_metrics(self):
-        """Generate real-time compliance metrics"""
-        
-        metrics = {
-            "timestamp": datetime.now().isoformat(),
-            "overall_compliance_score": 0,
-            "framework_scores": {},
-            "trending_metrics": {},
-            "risk_indicators": {}
-        }
-        
-        # Calculate compliance scores for each framework
-        frameworks = ['sox', 'soc2', 'iso27001', 'pci_dss']
-        
-        for framework in frameworks:
-            score = self.calculate_framework_score(framework)
-            metrics["framework_scores"][framework] = score
-        
-        # Calculate overall score
-        metrics["overall_compliance_score"] = sum(metrics["framework_scores"].values()) / len(frameworks)
-        
-        return metrics
-```
+![Control Mapping](/images/10/control-mapping.png?featherlight=false&width=90pc)
 
-## Step 3: Regulatory Reporting
+3. Document **shared responsibility** model
 
-### 3.1 Automated Compliance Reports
+![Shared Responsibility](/images/10/shared-responsibility.png?featherlight=false&width=90pc)
 
-```yaml
-# CloudFormation template for compliance reporting
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Compliance Reporting Infrastructure'
+## Step 2: Compliance Dashboard with Security Hub
 
-Resources:
-  ComplianceReportingBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub 'compliance-reports-${AWS::AccountId}'
-      VersioningConfiguration:
-        Status: Enabled
-      LifecycleConfiguration:
-        Rules:
-          - Id: RetainReports
-            Status: Enabled
-            ExpirationInDays: 2555  # 7 years retention
+### 2.1 Configure Compliance Standards
 
-  QuarterlyComplianceReport:
-    Type: AWS::Events::Rule
-    Properties:
-      Name: QuarterlyComplianceReporting
-      Description: Generate quarterly compliance reports
-      ScheduleExpression: "cron(0 9 1 */3 *)"  # First day of quarter at 9 AM
-      State: ENABLED
-```
+1. Open **AWS Security Hub**
+2. Go to **Security standards**
+3. Enable compliance standards:
+   - **AWS Foundational Security Standard**
+   - **CIS AWS Foundations Benchmark**
+   - **PCI DSS**
 
-## Step 4: Deployment and Validation
+![Security Standards](/images/10/security-standards.png?featherlight=false&width=90pc)
 
-### 4.1 Complete Deployment Script
+4. Review **compliance scores** for each standard
 
-```bash
-#!/bin/bash
+![Compliance Scores](/images/10/compliance-scores.png?featherlight=false&width=90pc)
 
-echo "Deploying Identity Governance Compliance Validation..."
+### 2.2 Create Compliance Dashboard
 
-# Deploy compliance infrastructure
-aws cloudformation deploy \
-  --template-file compliance-infrastructure.yaml \
-  --stack-name identity-governance-compliance \
-  --capabilities CAPABILITY_IAM
+1. Open **Amazon QuickSight**
+2. Create **Compliance Dashboard**
+3. Connect to Security Hub data
 
-# Create DynamoDB table for compliance evidence
-aws dynamodb create-table \
-  --table-name ComplianceEvidence \
-  --attribute-definitions \
-    AttributeName=evidence_id,AttributeType=S \
-    AttributeName=framework,AttributeType=S \
-  --key-schema \
-    AttributeName=evidence_id,KeyType=HASH \
-  --billing-mode PAY_PER_REQUEST
+![Compliance Dashboard](/images/10/compliance-dashboard.png?featherlight=false&width=90pc)
 
-echo "Compliance validation deployment completed successfully!"
-```
+4. Add visualizations for:
+   - **Overall compliance score**
+   - **Framework-specific scores**
+   - **Trending compliance metrics**
+   - **Critical findings**
+
+![Dashboard Visualizations](/images/10/dashboard-visualizations.png?featherlight=false&width=90pc)
+
+5. Set up **automated refresh** schedule
+
+![Dashboard Refresh](/images/10/dashboard-refresh.png?featherlight=false&width=90pc)
+
+## Step 3: Automated Compliance Reporting
+
+### 3.1 Set Up Report Generation
+
+1. Create **S3 bucket** for compliance reports:
+   - **Bucket name**: compliance-reports-[account-id]
+   - **Versioning**: Enabled
+   - **Retention**: 7 years
+
+![Compliance Reports Bucket](/images/10/compliance-reports-bucket.png?featherlight=false&width=90pc)
+
+2. Configure **lifecycle policies** for long-term retention
+
+![Lifecycle Policies](/images/10/lifecycle-policies.png?featherlight=false&width=90pc)
+
+### 3.2 Create Report Generation Lambda
+
+1. Open **AWS Lambda**
+2. Create function: **ComplianceReportGenerator**
+3. Configure to generate reports from:
+   - **Security Hub findings**
+   - **Config compliance data**
+   - **Audit Manager evidence**
+
+![Report Generator Lambda](/images/10/report-generator-lambda.png?featherlight=false&width=90pc)
+
+### 3.3 Schedule Quarterly Reports
+
+1. Open **Amazon EventBridge**
+2. Create rule: **QuarterlyComplianceReporting**
+3. Set schedule: **First day of quarter at 9 AM**
+
+![Quarterly Report Schedule](/images/10/quarterly-report-schedule.png?featherlight=false&width=90pc)
+
+4. Configure **email delivery** via SES
+
+![Email Delivery](/images/10/email-delivery.png?featherlight=false&width=90pc)
+
+## Step 4: Compliance Validation Testing
+
+### 4.1 Test Compliance Controls
+
+1. Use **AWS Config** to validate:
+   - **IAM password policies**
+   - **MFA requirements**
+   - **Access key rotation**
+
+![Config Compliance Testing](/images/10/config-compliance-testing.png?featherlight=false&width=90pc)
+
+2. Review **Security Hub** findings
+3. Document **control effectiveness**
+
+![Control Effectiveness](/images/10/control-effectiveness.png?featherlight=false&width=90pc)
+
+### 4.2 Generate Compliance Evidence
+
+1. Collect evidence from:
+   - **CloudTrail logs**
+   - **Config snapshots**
+   - **Security Hub reports**
+   - **Audit Manager assessments**
+
+![Compliance Evidence](/images/10/compliance-evidence.png?featherlight=false&width=90pc)
+
+2. Store evidence in **S3 with encryption**
+3. Create **evidence inventory**
+
+![Evidence Inventory](/images/10/evidence-inventory.png?featherlight=false&width=90pc)
+
+### 4.3 Validate Report Generation
+
+1. Test **quarterly report generation**
+2. Review report content and format
+3. Validate **stakeholder distribution**
+
+![Report Validation](/images/10/report-validation.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
@@ -184,30 +188,34 @@ After completing this workshop, you will have:
 
 ### ✅ Compliance Framework Implementation
 - SOX, SOC2, ISO27001, PCI-DSS compliance validation
-- Automated evidence collection
+- Automated evidence collection via AWS services
 - Regulatory reporting capabilities
-- Audit trail maintenance
+- Audit trail maintenance in S3
 
 ### ✅ Operational Excellence
-- Standardized operational procedures
-- Incident response capabilities
-- Change management processes
-- Performance monitoring
+- CloudWatch dashboards for operations
+- Automated incident response procedures
+- Systems Manager runbooks
+- Performance monitoring and alerting
 
 ### ✅ Audit and Governance
-- Comprehensive audit framework
-- Automated control testing
-- Finding tracking and remediation
-- Management reporting
+- AWS Audit Manager framework
+- Automated control testing via Config
+- Security Hub findings tracking
+- QuickSight management reporting
+
+![Compliance Validation Complete](/images/10/compliance-validation-complete.png?featherlight=false&width=90pc)
 
 ## Best Practices Summary
 
-1. **Implement Least Privilege**: Grant only minimum necessary permissions
-2. **Automate Where Possible**: Automate repetitive processes
-3. **Monitor Continuously**: Continuously monitor activities
-4. **Document Everything**: Maintain complete documentation for audit trail
-5. **Regular Reviews**: Conduct periodic reviews
-6. **Stay Updated**: Keep up with compliance changes
+1. **Implement Least Privilege**: Use IAM Identity Center permission sets
+2. **Automate Where Possible**: Leverage AWS native automation services
+3. **Monitor Continuously**: Use CloudWatch and Security Hub
+4. **Document Everything**: Store evidence in S3 with proper retention
+5. **Regular Reviews**: Schedule automated assessments
+6. **Stay Updated**: Monitor AWS compliance documentation updates
+
+![Best Practices](/images/10/best-practices.png?featherlight=false&width=90pc)
 
 ## Reference Documentation
 

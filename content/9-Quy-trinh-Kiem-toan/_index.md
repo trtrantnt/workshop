@@ -25,130 +25,151 @@ graph TB
     I --> J[Management Dashboard]
 ```
 
-## Step 1: Audit Framework Setup
+## Step 1: AWS Audit Manager Setup
 
-### 1.1 Audit Control Matrix
+### 1.1 Enable AWS Audit Manager
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
-from enum import Enum
+1. Open **AWS Audit Manager** in the console
+2. Click **Get started**
 
-class AuditFramework:
-    def __init__(self):
-        self.s3_client = boto3.client('s3')
-        self.athena_client = boto3.client('athena')
-        self.dynamodb = boto3.resource('dynamodb')
-        self.audit_table = self.dynamodb.Table('AuditFindings')
-        
-        # Define audit controls
-        self.audit_controls = self.load_audit_controls()
-    
-    def load_audit_controls(self):
-        """Load comprehensive audit control matrix"""
-        
-        return {
-            "access_management": [
-                {
-                    "control_id": "AM-001",
-                    "control_name": "User Access Provisioning",
-                    "description": "Verify user access is properly authorized and documented",
-                    "frequency": "Quarterly",
-                    "test_procedure": self.test_user_provisioning,
-                    "compliance_frameworks": ["SOX", "SOC2", "ISO27001"]
-                }
-            ]
-        }
-```
+![Enable Audit Manager](/images/9/enable-audit-manager.png?featherlight=false&width=90pc)
 
-## Step 2: Continuous Audit Monitoring
+3. Configure service settings:
+   - **Enable data collection**: Yes
+   - **KMS encryption**: Use default key
+   - **S3 bucket**: Create new bucket for audit evidence
 
-### 2.1 Real-time Compliance Monitoring
+![Audit Manager Settings](/images/9/audit-manager-settings.png?featherlight=false&width=90pc)
 
-```python
-import boto3
-import json
-from datetime import datetime
+4. Click **Complete setup**
 
-class ContinuousAuditMonitor:
-    def __init__(self):
-        self.config_client = boto3.client('config')
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.sns = boto3.client('sns')
-    
-    def monitor_compliance_rules(self):
-        """Monitor AWS Config compliance rules"""
-        
-        monitoring_results = {
-            "timestamp": datetime.now().isoformat(),
-            "compliance_summary": {},
-            "non_compliant_resources": [],
-            "alerts_sent": []
-        }
-        
-        # Get compliance summary
-        response = self.config_client.get_compliance_summary_by_config_rule()
-        
-        for rule_summary in response['ComplianceSummary']:
-            rule_name = rule_summary['ConfigRuleName']
-            compliance_summary = rule_summary['ComplianceSummary']
-            
-            monitoring_results["compliance_summary"][rule_name] = {
-                "compliant": compliance_summary.get('CompliantResourceCount', {}).get('CappedCount', 0),
-                "non_compliant": compliance_summary.get('NonCompliantResourceCount', {}).get('CappedCount', 0)
-            }
-        
-        return monitoring_results
-```
+### 1.2 Create Audit Framework
 
-## Step 3: Audit Report Generation
+1. Click **Assessment frameworks** in sidebar
+2. Click **Create custom framework**
 
-### 3.1 Automated Report Generator
+![Create Audit Framework](/images/9/create-audit-framework.png?featherlight=false&width=90pc)
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
-from jinja2 import Template
+3. Configure framework:
+   - **Name**: Identity Governance Audit Framework
+   - **Description**: Comprehensive identity governance audit
+   - **Compliance type**: SOX, SOC2, ISO27001
 
-class AuditReportGenerator:
-    def __init__(self):
-        self.s3_client = boto3.client('s3')
-        self.ses_client = boto3.client('ses')
-    
-    def generate_monthly_audit_report(self):
-        """Generate comprehensive monthly audit report"""
-        
-        report_data = {
-            "report_period": datetime.now().strftime("%Y-%m"),
-            "generated_date": datetime.now().isoformat(),
-            "executive_summary": {},
-            "control_effectiveness": {},
-            "findings_summary": {},
-            "trend_analysis": {},
-            "recommendations": []
-        }
-        
-        # Collect audit data from S3
-        audit_data = self.collect_monthly_audit_data()
-        
-        # Generate report sections
-        report_data["executive_summary"] = self.generate_executive_summary(audit_data)
-        
-        return report_data
-```
+![Framework Configuration](/images/9/framework-configuration.png?featherlight=false&width=90pc)
+
+4. Add control sets for:
+   - **Access Management**
+   - **Privilege Governance**
+   - **Compliance Monitoring**
+
+![Control Sets](/images/9/control-sets.png?featherlight=false&width=90pc)
+
+## Step 2: Create Assessment
+
+### 2.1 Start New Assessment
+
+1. Click **Assessments** in Audit Manager
+2. Click **Create assessment**
+
+![Create Assessment](/images/9/create-assessment.png?featherlight=false&width=90pc)
+
+3. Configure assessment:
+   - **Name**: Q1 Identity Governance Audit
+   - **Framework**: Identity Governance Audit Framework
+   - **Scope**: Select AWS accounts and services
+
+![Assessment Configuration](/images/9/assessment-configuration.png?featherlight=false&width=90pc)
+
+4. Assign roles:
+   - **Assessment owner**: Security team lead
+   - **Reviewers**: Compliance team
+
+![Assessment Roles](/images/9/assessment-roles.png?featherlight=false&width=90pc)
+
+### 2.2 Configure Evidence Collection
+
+1. Set up **automatic evidence collection**:
+   - **AWS Config**: Compliance data
+   - **CloudTrail**: Activity logs
+   - **Security Hub**: Security findings
+
+![Evidence Collection](/images/9/evidence-collection.png?featherlight=false&width=90pc)
+
+2. Configure **manual evidence** upload process
+
+![Manual Evidence](/images/9/manual-evidence.png?featherlight=false&width=90pc)
+
+## Step 3: Control Testing and Evidence Review
+
+### 3.1 Review Control Evidence
+
+1. Navigate to **Control sets** in your assessment
+2. Review each control:
+   - **Evidence status**
+   - **Compliance rating**
+   - **Comments and findings**
+
+![Control Evidence Review](/images/9/control-evidence-review.png?featherlight=false&width=90pc)
+
+3. Upload additional evidence if needed
+4. Add control testing notes
+
+![Control Testing Notes](/images/9/control-testing-notes.png?featherlight=false&width=90pc)
+
+### 3.2 Document Findings
+
+1. For each control, document:
+   - **Testing procedures performed**
+   - **Results and observations**
+   - **Exceptions or deficiencies**
+   - **Recommendations**
+
+![Document Findings](/images/9/document-findings.png?featherlight=false&width=90pc)
+
+2. Assign **risk ratings** to findings
+3. Set **remediation timelines**
+
+![Risk Ratings](/images/9/risk-ratings.png?featherlight=false&width=90pc)
+
+## Step 4: Generate Audit Reports
+
+### 4.1 Create Assessment Report
+
+1. Click **Generate assessment report**
+2. Select report format: **PDF** or **HTML**
+
+![Generate Report](/images/9/generate-report.png?featherlight=false&width=90pc)
+
+3. Configure report sections:
+   - **Executive summary**
+   - **Control testing results**
+   - **Findings and recommendations**
+   - **Evidence appendix**
+
+![Report Sections](/images/9/report-sections.png?featherlight=false&width=90pc)
+
+### 4.2 Share Report with Stakeholders
+
+1. Download completed report
+2. Share with:
+   - **Executive leadership**
+   - **Audit committee**
+   - **Compliance team**
+
+![Share Report](/images/9/share-report.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
-- ✅ Comprehensive audit framework
-- ✅ Automated control testing
-- ✅ Continuous compliance monitoring
-- ✅ Detailed audit reports
-- ✅ Finding tracking and remediation
-- ✅ Stakeholder communication
+- ✅ AWS Audit Manager configured
+- ✅ Custom audit framework created
+- ✅ Assessment with evidence collection
+- ✅ Control testing documentation
+- ✅ Comprehensive audit reports
+- ✅ Stakeholder communication process
+
+![Audit Procedures Complete](/images/9/audit-procedures-complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

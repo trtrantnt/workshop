@@ -32,119 +32,137 @@ Resources should be cleaned up in the following order to avoid dependency confli
 
 ### Delete Lambda Functions
 
-```bash
-# List all Lambda functions created during workshop
-aws lambda list-functions --query 'Functions[?contains(FunctionName, `IdentityGovernance`) || contains(FunctionName, `Compliance`) || contains(FunctionName, `AccessReview`)].FunctionName' --output table
+1. Open **AWS Lambda** console
+2. Filter functions by workshop names:
+   - **IdentityGovernance**
+   - **AccessCertification**
+   - **ComplianceValidation**
 
-# Delete Lambda functions
-aws lambda delete-function --function-name IdentityGovernanceMonitor
-aws lambda delete-function --function-name AccessReviewGenerator
-aws lambda delete-function --function-name ComplianceValidationEngine
-aws lambda delete-function --function-name RiskAssessmentEngine
-aws lambda delete-function --function-name CertificationNotifier
-```
+![Lambda Functions List](/images/11/lambda-functions-list.png?featherlight=false&width=90pc)
+
+3. Select workshop functions
+4. Click **Actions** → **Delete**
+
+![Delete Lambda Functions](/images/11/delete-lambda-functions.png?featherlight=false&width=90pc)
+
+5. Confirm deletion by typing **delete**
+
+![Confirm Lambda Deletion](/images/11/confirm-lambda-deletion.png?featherlight=false&width=90pc)
 
 ### Delete EventBridge Rules
 
-```bash
-# List EventBridge rules
-aws events list-rules --query 'Rules[?contains(Name, `IdentityGovernance`) || contains(Name, `Compliance`) || contains(Name, `Certification`)].Name' --output table
+1. Open **Amazon EventBridge** console
+2. Go to **Rules**
+3. Select workshop rules:
+   - **AccessCertificationSchedule**
+   - **ComplianceValidationSchedule**
 
-# Delete EventBridge rules
-aws events delete-rule --name AccessCertificationSchedule
-aws events delete-rule --name ComplianceValidationSchedule
-aws events delete-rule --name RiskAssessmentSchedule
-```
+![EventBridge Rules](/images/11/eventbridge-rules.png?featherlight=false&width=90pc)
+
+4. Click **Delete** for each rule
+
+![Delete EventBridge Rules](/images/11/delete-eventbridge-rules.png?featherlight=false&width=90pc)
 
 ## Step 2: Step Functions
 
-```bash
-# List Step Functions
-aws stepfunctions list-state-machines --query 'stateMachines[?contains(name, `Certification`) || contains(name, `Governance`)].name' --output table
+1. Open **AWS Step Functions** console
+2. Select workshop state machines:
+   - **AccessCertificationWorkflow**
+   - **ComplianceValidationWorkflow**
 
-# Delete Step Functions
-aws stepfunctions delete-state-machine --state-machine-arn arn:aws:states:REGION:ACCOUNT:stateMachine:CertificationWorkflow
-```
+![Step Functions List](/images/11/step-functions-list.png?featherlight=false&width=90pc)
+
+3. Click **Delete**
+4. Confirm deletion
+
+![Delete Step Functions](/images/11/delete-step-functions.png?featherlight=false&width=90pc)
 
 ## Step 3: DynamoDB Tables
 
-```bash
-# List DynamoDB tables
-aws dynamodb list-tables --query 'TableNames[?contains(@, `Certification`) || contains(@, `Operations`) || contains(@, `Compliance`) || contains(@, `Risk`)]' --output table
+1. Open **Amazon DynamoDB** console
+2. Go to **Tables**
+3. Select workshop tables:
+   - **OperationalProcedures**
+   - **ComplianceEvidence**
+   - **AuditFindings**
 
-# Delete DynamoDB tables
-aws dynamodb delete-table --table-name CertificationTasks
-aws dynamodb delete-table --table-name OperationsLog
-aws dynamodb delete-table --table-name ComplianceEvidence
-aws dynamodb delete-table --table-name RiskMonitoring
-aws dynamodb delete-table --table-name AuditFindings
-```
+![DynamoDB Tables](/images/11/dynamodb-tables.png?featherlight=false&width=90pc)
+
+4. Click **Delete** for each table
+5. Type **delete** to confirm
+
+![Delete DynamoDB Tables](/images/11/delete-dynamodb-tables.png?featherlight=false&width=90pc)
 
 ## Step 4: S3 Buckets
 
-### Empty and Delete S3 Buckets
+### Empty S3 Buckets
 
-```bash
-# Get account ID
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+1. Open **Amazon S3** console
+2. Identify workshop buckets:
+   - **privilege-analytics-***
+   - **compliance-reports-***
 
-# List workshop S3 buckets
-aws s3 ls | grep -E "(privilege-analytics|compliance-reports|identity-governance)"
+![S3 Buckets List](/images/11/s3-buckets-list.png?featherlight=false&width=90pc)
 
-# Empty buckets first
-aws s3 rm s3://privilege-analytics-${ACCOUNT_ID} --recursive
-aws s3 rm s3://compliance-reports-${ACCOUNT_ID} --recursive
+3. Select bucket and click **Empty**
+4. Type **permanently delete** to confirm
 
-# Delete buckets
-aws s3 rb s3://privilege-analytics-${ACCOUNT_ID}
-aws s3 rb s3://compliance-reports-${ACCOUNT_ID}
-```
+![Empty S3 Bucket](/images/11/empty-s3-bucket.png?featherlight=false&width=90pc)
+
+### Delete S3 Buckets
+
+1. After emptying, select bucket
+2. Click **Delete**
+3. Type bucket name to confirm
+
+![Delete S3 Bucket](/images/11/delete-s3-bucket.png?featherlight=false&width=90pc)
 
 ## Step 5: CloudWatch Resources
 
 ### Delete CloudWatch Dashboards
 
-```bash
-# List dashboards
-aws cloudwatch list-dashboards --query 'DashboardEntries[?contains(DashboardName, `IdentityGovernance`) || contains(DashboardName, `Compliance`)].DashboardName' --output table
+1. Open **Amazon CloudWatch** console
+2. Go to **Dashboards**
+3. Select workshop dashboards:
+   - **IdentityGovernanceRiskDashboard**
+   - **DailyOperationsDashboard**
 
-# Delete dashboards
-aws cloudwatch delete-dashboards --dashboard-names IdentityGovernanceRiskDashboard IdentityGovernanceMonitoring ComplianceDashboard
-```
+![CloudWatch Dashboards](/images/11/cloudwatch-dashboards.png?featherlight=false&width=90pc)
+
+4. Click **Delete** for each dashboard
+
+![Delete Dashboard](/images/11/delete-dashboard.png?featherlight=false&width=90pc)
 
 ### Delete CloudWatch Alarms
 
-```bash
-# List alarms
-aws cloudwatch describe-alarms --query 'MetricAlarms[?contains(AlarmName, `IdentityGovernance`) || contains(AlarmName, `Compliance`) || contains(AlarmName, `Risk`)].AlarmName' --output table
+1. Go to **Alarms**
+2. Select workshop alarms
+3. Click **Actions** → **Delete**
 
-# Delete alarms
-aws cloudwatch delete-alarms --alarm-names HighFailedLoginAttempts PrivilegeEscalationDetected HighRiskEventsAlarm ComplianceViolationAlarm
-```
+![Delete CloudWatch Alarms](/images/11/delete-cloudwatch-alarms.png?featherlight=false&width=90pc)
 
 ### Delete Log Groups
 
-```bash
-# List log groups
-aws logs describe-log-groups --query 'logGroups[?contains(logGroupName, `identity-governance`) || contains(logGroupName, `compliance`) || contains(logGroupName, `aws/lambda/Identity`) || contains(logGroupName, `aws/lambda/Compliance`)].logGroupName' --output table
+1. Go to **Log groups**
+2. Select workshop log groups
+3. Click **Actions** → **Delete log group**
 
-# Delete log groups
-aws logs delete-log-group --log-group-name /aws/identity-governance/events
-aws logs delete-log-group --log-group-name /aws/lambda/IdentityGovernanceMonitor
-aws logs delete-log-group --log-group-name /aws/lambda/ComplianceValidationEngine
-```
+![Delete Log Groups](/images/11/delete-log-groups.png?featherlight=false&width=90pc)
 
 ## Step 6: SNS Topics
 
-```bash
-# List SNS topics
-aws sns list-topics --query 'Topics[?contains(TopicArn, `IdentityGovernance`) || contains(TopicArn, `Compliance`) || contains(TopicArn, `Risk`)].TopicArn' --output table
+1. Open **Amazon SNS** console
+2. Go to **Topics**
+3. Select workshop topics:
+   - **IdentityGovernanceAlerts**
+   - **ComplianceAlerts**
 
-# Delete SNS topics
-aws sns delete-topic --topic-arn arn:aws:sns:REGION:ACCOUNT:IdentityGovernanceAlerts
-aws sns delete-topic --topic-arn arn:aws:sns:REGION:ACCOUNT:ComplianceAlerts
-aws sns delete-topic --topic-arn arn:aws:sns:REGION:ACCOUNT:RiskAlerts
-```
+![SNS Topics](/images/11/sns-topics.png?featherlight=false&width=90pc)
+
+4. Click **Delete** for each topic
+5. Confirm deletion
+
+![Delete SNS Topics](/images/11/delete-sns-topics.png?featherlight=false&width=90pc)
 
 ## Step 7: IAM Resources
 
@@ -273,25 +291,35 @@ echo "Note: Some resources may take a few minutes to be fully deleted."
 echo "Please check the AWS Console to verify all resources have been removed."
 ```
 
-## Verification
+## Step 7: Final Verification
 
-After running the cleanup, verify that all resources have been deleted:
+### Verify Resource Deletion
 
-### Check Remaining Resources
+1. Check **AWS Cost Explorer** for any remaining charges
 
-```bash
-# Check Lambda functions
-aws lambda list-functions --query 'Functions[?contains(FunctionName, `IdentityGovernance`)].FunctionName'
+![Cost Explorer Verification](/images/11/cost-explorer-verification.png?featherlight=false&width=90pc)
 
-# Check DynamoDB tables
-aws dynamodb list-tables --query 'TableNames[?contains(@, `Certification`) || contains(@, `Compliance`)]'
+2. Use **AWS Resource Groups** to find tagged resources
+3. Search for tag: **Project=IdentityGovernance**
 
-# Check S3 buckets
-aws s3 ls | grep -E "(privilege-analytics|compliance-reports)"
+![Resource Groups Check](/images/11/resource-groups-check.png?featherlight=false&width=90pc)
 
-# Check CloudFormation stacks
-aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query 'StackSummaries[?contains(StackName, `identity-governance`)].StackName'
-```
+### Final Service Checks
+
+1. **AWS Config**: Disable configuration recorder if not needed
+2. **AWS Security Hub**: Disable if not used elsewhere
+3. **Amazon GuardDuty**: Disable if not needed
+4. **AWS Audit Manager**: Disable data collection
+
+![Final Service Checks](/images/11/final-service-checks.png?featherlight=false&width=90pc)
+
+### Cleanup Verification Report
+
+1. Generate cleanup summary report
+2. Document any resources that couldn't be deleted
+3. Note any ongoing charges
+
+![Cleanup Verification Report](/images/11/cleanup-verification-report.png?featherlight=false&width=90pc)
 
 ## Cost Verification
 
@@ -320,4 +348,22 @@ If automated cleanup fails, manually delete resources through the AWS Console:
 - Some resources may have a brief delay before deletion
 - Monitor your AWS bill to ensure no charges continue
 
-**Workshop cleanup completed! 🎉**
+## Expected Results
+
+After completing the cleanup:
+
+- ✅ All workshop Lambda functions deleted
+- ✅ EventBridge rules removed
+- ✅ Step Functions state machines deleted
+- ✅ DynamoDB tables removed
+- ✅ S3 buckets emptied and deleted
+- ✅ CloudWatch resources cleaned up
+- ✅ SNS topics deleted
+- ✅ No ongoing charges from workshop resources
+- ✅ Account returned to pre-workshop state
+
+![Cleanup Complete](/images/11/cleanup-complete.png?featherlight=false&width=90pc)
+
+**Workshop cleanup completed successfully! 🎉**
+
+![Workshop Complete](/images/11/workshop-complete.png?featherlight=false&width=90pc)

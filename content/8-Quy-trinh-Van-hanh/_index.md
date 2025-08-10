@@ -27,174 +27,155 @@ graph TB
     K --> L[Validation]
 ```
 
-## Step 1: Daily Operations Procedures
+## Step 1: Daily Operations Dashboard
 
-### 1.1 Daily Monitoring Checklist
+### 1.1 Create Operations Dashboard
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+1. Open **Amazon CloudWatch** console
+2. Click **Dashboards**
+3. Click **Create dashboard**
 
-class DailyOperations:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.sns = boto3.client('sns')
-        self.dynamodb = boto3.resource('dynamodb')
-        self.operations_table = self.dynamodb.Table('OperationsLog')
-    
-    def execute_daily_checklist(self):
-        """Execute daily operational checklist"""
-        
-        checklist_results = {
-            'date': datetime.now().strftime('%Y-%m-%d'),
-            'timestamp': datetime.now().isoformat(),
-            'checks_performed': [],
-            'issues_found': [],
-            'actions_taken': []
-        }
-        
-        # Daily checks
-        checks = [
-            ('Monitor Failed Logins', self.check_failed_logins),
-            ('Review High-Risk Alerts', self.review_high_risk_alerts),
-            ('Check System Health', self.check_system_health),
-            ('Validate Backup Status', self.validate_backup_status),
-            ('Review Pending Certifications', self.review_pending_certifications)
-        ]
-        
-        return checklist_results
-```
+![Create Operations Dashboard](/images/8/create-operations-dashboard.png?featherlight=false&width=90pc)
 
-### 1.2 Standard Operating Procedures (SOPs)
+4. Name: **DailyOperationsDashboard**
+5. Add widgets for daily monitoring:
+   - **Failed login attempts (last 24h)**
+   - **High-risk alerts**
+   - **System health status**
+   - **Pending certifications**
 
-```markdown
-# Identity Governance Standard Operating Procedures
+![Operations Dashboard Widgets](/images/8/operations-dashboard-widgets.png?featherlight=false&width=90pc)
 
-## SOP-001: Daily Monitoring Procedures
+### 1.2 Set Up Daily Checklist Automation
 
-### Purpose
-Ensure daily monitoring of identity governance systems and prompt response to issues.
+1. Open **AWS Systems Manager**
+2. Click **Documents** in sidebar
+3. Click **Create document**
 
-### Scope
-All identity governance monitoring activities performed daily.
+![Create SSM Document](/images/8/create-ssm-document.png?featherlight=false&width=90pc)
 
-### Procedure
-1. **Morning Health Check (9:00 AM)**
-   - Review CloudWatch dashboard
-   - Check for active alarms
-   - Verify system availability
+4. Create **Automation document** for daily checks:
+   - **Name**: DailyOperationsChecklist
+   - **Document type**: Automation
 
-2. **Failed Login Review (10:00 AM)**
-   - Analyze failed login patterns
-   - Investigate suspicious activities
-   - Document findings
+![SSM Document Details](/images/8/ssm-document-details.png?featherlight=false&width=90pc)
 
-3. **Risk Alert Review (2:00 PM)**
-   - Review high-risk alerts
-   - Prioritize investigations
-   - Assign remediation tasks
+5. Configure automation steps for:
+   - **Security alerts review**
+   - **System health validation**
+   - **Backup status check**
 
-4. **End-of-Day Summary (5:00 PM)**
-   - Generate daily report
-   - Update incident tracking
-   - Plan next day activities
+![Automation Steps](/images/8/automation-steps.png?featherlight=false&width=90pc)
 
-### Escalation Criteria
-- Critical alarms: Immediate escalation
-- High-risk events: 2-hour response time
-- System outages: Immediate escalation
-```
+## Step 2: Standard Operating Procedures (SOPs)
 
-## Step 2: Weekly Review Procedures
+### 2.1 Create SOP Documentation in Wiki
 
-### 2.1 Weekly Assessment Script
+1. Open **Amazon WorkDocs** or create **S3 bucket** for documentation
+2. Create folder structure for SOPs
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+![SOP Documentation](/images/8/sop-documentation.png?featherlight=false&width=90pc)
 
-class WeeklyReview:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.s3_client = boto3.client('s3')
-        self.athena_client = boto3.client('athena')
-    
-    def execute_weekly_review(self):
-        """Execute weekly identity governance review"""
-        
-        review_results = {
-            'week_ending': datetime.now().strftime('%Y-%m-%d'),
-            'timestamp': datetime.now().isoformat(),
-            'metrics_summary': {},
-            'trend_analysis': {},
-            'recommendations': []
-        }
-        
-        # Collect weekly metrics
-        review_results['metrics_summary'] = self.collect_weekly_metrics()
-        
-        # Perform trend analysis
-        review_results['trend_analysis'] = self.analyze_trends()
-        
-        # Generate recommendations
-        review_results['recommendations'] = self.generate_weekly_recommendations()
-        
-        return review_results
-```
+3. Create **SOP-001: Daily Monitoring Procedures**
+4. Include sections:
+   - **Purpose and Scope**
+   - **Daily procedures timeline**
+   - **Escalation criteria**
+   - **Contact information**
 
-## Step 3: Runbook Templates
+![Daily Monitoring SOP](/images/8/daily-monitoring-sop.png?featherlight=false&width=90pc)
 
-### 3.1 Incident Response Runbook
+### 2.2 Implement SOP Tracking
 
-```yaml
-# Incident Response Runbook Template
-incident_response:
-  incident_id: "INC-{YYYY-MM-DD}-{###}"
-  
-  classification:
-    severity: "[P1|P2|P3|P4]"
-    category: "[Security|Availability|Performance|Compliance]"
-    impact: "[Critical|High|Medium|Low]"
-  
-  initial_response:
-    - step: "Acknowledge incident"
-      owner: "On-call engineer"
-      sla: "15 minutes"
-    
-    - step: "Assess severity and impact"
-      owner: "Incident commander"
-      sla: "30 minutes"
-    
-    - step: "Activate response team"
-      owner: "Incident commander"
-      sla: "30 minutes"
-  
-  investigation:
-    - step: "Collect initial evidence"
-      actions:
-        - "Export relevant CloudTrail logs"
-        - "Capture system state"
-        - "Document timeline"
-    
-    - step: "Analyze root cause"
-      actions:
-        - "Review logs and metrics"
-        - "Interview stakeholders"
-        - "Test hypotheses"
-```
+1. Create **DynamoDB table** for SOP tracking:
+   - **Table name**: OperationalProcedures
+   - **Primary key**: procedure_id
+
+![DynamoDB SOP Table](/images/8/dynamodb-sop-table.png?featherlight=false&width=90pc)
+
+2. Create **Lambda function** to track SOP execution
+3. Configure **EventBridge** rules for SOP scheduling
+
+![SOP Tracking Lambda](/images/8/sop-tracking-lambda.png?featherlight=false&width=90pc)
+
+## Step 3: Weekly Review Automation
+
+### 3.1 Set Up Weekly Review Reports
+
+1. Open **Amazon QuickSight**
+2. Create **Weekly Review Dashboard**
+
+![Weekly Review Dashboard](/images/8/weekly-review-dashboard.png?featherlight=false&width=90pc)
+
+3. Configure data sources:
+   - **CloudWatch metrics**
+   - **Security Hub findings**
+   - **Config compliance data**
+
+![Weekly Review Data Sources](/images/8/weekly-review-data-sources.png?featherlight=false&width=90pc)
+
+### 3.2 Automate Weekly Report Generation
+
+1. Create **Lambda function** for weekly reports
+2. Configure **EventBridge** rule:
+   - **Schedule**: Every Monday at 9:00 AM
+   - **Target**: Weekly report Lambda
+
+![Weekly Report Automation](/images/8/weekly-report-automation.png?featherlight=false&width=90pc)
+
+3. Configure report delivery via **SES**
+
+![Email Report Delivery](/images/8/email-report-delivery.png?featherlight=false&width=90pc)
+
+## Step 4: Incident Response Runbooks
+
+### 4.1 Create Digital Runbooks
+
+1. Open **AWS Systems Manager**
+2. Click **Documents**
+3. Create **Command document** for incident response
+
+![Create Runbook Document](/images/8/create-runbook-document.png?featherlight=false&width=90pc)
+
+4. Configure runbook sections:
+   - **Incident classification**
+   - **Initial response steps**
+   - **Investigation procedures**
+   - **Escalation matrix**
+
+![Runbook Configuration](/images/8/runbook-configuration.png?featherlight=false&width=90pc)
+
+### 4.2 Implement Incident Tracking
+
+1. Create **ServiceNow integration** or use **AWS Support Cases**
+2. Configure **ChatBot** for Slack/Teams notifications
+
+![Incident Tracking Integration](/images/8/incident-tracking-integration.png?featherlight=false&width=90pc)
+
+3. Set up **PagerDuty** integration for on-call management
+
+![PagerDuty Integration](/images/8/pagerduty-integration.png?featherlight=false&width=90pc)
+
+### 4.3 Test Runbook Procedures
+
+1. Schedule **tabletop exercises**
+2. Document lessons learned
+3. Update runbooks based on feedback
+
+![Runbook Testing](/images/8/runbook-testing.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
-- ✅ Standardized daily operations procedures
-- ✅ Weekly review and trend analysis
-- ✅ Incident response runbooks
-- ✅ Change management processes
-- ✅ Operational documentation
-- ✅ Automated operational tasks
+- ✅ CloudWatch dashboard for daily operations
+- ✅ Automated SOP execution and tracking
+- ✅ Weekly review reports via QuickSight
+- ✅ Digital incident response runbooks
+- ✅ Integrated incident tracking system
+- ✅ Automated operational workflows
+
+![Operational Procedures Complete](/images/8/operational-procedures-complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 
