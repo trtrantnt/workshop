@@ -4,8 +4,6 @@ chapter: false
 weight: 11
 ---
 
-# Dọn dẹp Tài nguyên
-
 ## Tổng quan
 
 Phần này cung cấp hướng dẫn toàn diện để dọn dẹp tất cả tài nguyên AWS được tạo trong workshop Identity Governance nhằm tránh phát sinh chi phí không cần thiết.

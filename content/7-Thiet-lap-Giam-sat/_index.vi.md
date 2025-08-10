@@ -4,8 +4,6 @@ chapter: false
 weight: 7
 ---
 
-# 7. Thiết lập Giám sát
-
 ## Mục tiêu
 
 Thiết lập hệ thống giám sát toàn diện để theo dõi liên tục các hoạt động identity governance, phát hiện anomalies, và đảm bảo compliance.

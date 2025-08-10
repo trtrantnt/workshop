@@ -4,8 +4,6 @@ chapter: false
 weight: 8
 ---
 
-# 8. Quy trình Vận hành
-
 ## Mục tiêu
 
 Thiết lập các quy trình vận hành chuẩn hóa để quản lý identity governance một cách hiệu quả, đảm bảo tính nhất quán và tuân thủ.

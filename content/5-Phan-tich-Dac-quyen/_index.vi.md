@@ -4,8 +4,6 @@ chapter: false
 weight: 5
 ---
 
-# 5. Phân tích Đặc quyền
-
 ## Mục tiêu
 
 Phân tích và giám sát việc sử dụng đặc quyền để phát hiện rủi ro bảo mật, quyền thừa, và các pattern bất thường.

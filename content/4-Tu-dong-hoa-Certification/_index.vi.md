@@ -4,8 +4,6 @@ chapter: false
 weight: 4
 ---
 
-# 4. Tự động hóa Certification
-
 ## Mục tiêu
 
 Tự động hóa quy trình access certification để đảm bảo quyền truy cập được xem xét định kỳ và tuân thủ các yêu cầu bảo mật.

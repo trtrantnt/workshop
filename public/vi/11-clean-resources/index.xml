@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>11. Dọn dẹp Tài nguyên on Quản trị Danh tính với Chứng nhận Truy cập</title>
-    <link>//localhost:1313/vi/11-clean-resources/</link>
+    <link>http://localhost:1313/workshop/vi/11-clean-resources/</link>
     <description>Recent content in 11. Dọn dẹp Tài nguyên on Quản trị Danh tính với Chứng nhận Truy cập</description>
     <generator>Hugo</generator>
     <language>vi</language>
-    <atom:link href="//localhost:1313/vi/11-clean-resources/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/workshop/vi/11-clean-resources/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

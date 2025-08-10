@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>4. Certification Automation on Identity Governance with Access Certification</title>
-    <link>//localhost:1313/4-tu-dong-hoa-certification/</link>
+    <link>http://localhost:1313/workshop/4-tu-dong-hoa-certification/</link>
     <description>Recent content in 4. Certification Automation on Identity Governance with Access Certification</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="//localhost:1313/4-tu-dong-hoa-certification/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/workshop/4-tu-dong-hoa-certification/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

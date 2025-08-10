@@ -4,8 +4,6 @@ chapter: false
 weight: 1
 ---
 
-# Giới thiệu Identity Governance với Access Certification
-
 ## Tổng quan Workshop
 
 Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity Governance toàn diện với Access Certification trên AWS, bao gồm:

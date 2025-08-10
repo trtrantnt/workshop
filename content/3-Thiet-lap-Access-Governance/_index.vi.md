@@ -4,8 +4,6 @@ chapter: false
 weight: 3
 ---
 
-# 3. Thiết lập Access Governance
-
 ## Mục tiêu
 
 Thiết lập nền tảng quản lý truy cập tập trung với AWS IAM Identity Center và Organizations.

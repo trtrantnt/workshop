@@ -4,8 +4,6 @@ chapter: false
 weight: 11
 ---
 
-# 11. Clean Resources
-
 ## Overview
 
 This section provides comprehensive instructions for cleaning up all AWS resources created during the Identity Governance workshop to avoid unnecessary charges.

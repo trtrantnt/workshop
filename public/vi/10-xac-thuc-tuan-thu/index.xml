@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>10. Xác thực Tuân thủ on Quản trị Danh tính với Chứng nhận Truy cập</title>
-    <link>//localhost:1313/vi/10-xac-thuc-tuan-thu/</link>
+    <link>http://localhost:1313/workshop/vi/10-xac-thuc-tuan-thu/</link>
     <description>Recent content in 10. Xác thực Tuân thủ on Quản trị Danh tính với Chứng nhận Truy cập</description>
     <generator>Hugo</generator>
     <language>vi</language>
-    <atom:link href="//localhost:1313/vi/10-xac-thuc-tuan-thu/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/workshop/vi/10-xac-thuc-tuan-thu/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

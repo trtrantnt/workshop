@@ -4,8 +4,6 @@ chapter: false
 weight: 10
 ---
 
-# 10. Xác thực Tuân thủ
-
 ## Mục tiêu
 
 Xác thực và duy trì tuân thủ các framework bảo mật và quy định pháp lý thông qua identity governance, đảm bảo tổ chức đáp ứng các yêu cầu SOX, SOC2, ISO27001, PCI-DSS và các tiêu chuẩn khác.

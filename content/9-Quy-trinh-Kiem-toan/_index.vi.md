@@ -4,8 +4,6 @@ chapter: false
 weight: 9
 ---
 
-# 9. Quy trình Kiểm toán
-
 ## Mục tiêu
 
 Thiết lập quy trình kiểm toán toàn diện để đảm bảo tuân thủ các yêu cầu bảo mật, pháp lý và nội bộ trong quản lý identity governance.

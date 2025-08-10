@@ -4,8 +4,6 @@ chapter: false
 weight: 6
 ---
 
-# 6. Đánh giá Rủi ro
-
 ## Mục tiêu
 
 Thiết lập hệ thống đánh giá rủi ro toàn diện để phát hiện, phân tích và ưu tiên các rủi ro bảo mật liên quan đến identity và access management.
