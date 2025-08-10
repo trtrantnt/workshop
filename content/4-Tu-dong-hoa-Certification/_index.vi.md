@@ -1,0 +1,128 @@
+---
+title: "4. Tự động hóa Certification"
+chapter: false
+weight: 4
+---
+
+# 4. Tự động hóa Certification
+
+## Mục tiêu
+
+Tự động hóa quy trình access certification để đảm bảo quyền truy cập được xem xét định kỳ và tuân thủ các yêu cầu bảo mật.
+
+## Kiến trúc Automation
+
+```mermaid
+graph TB
+    A[EventBridge Schedule] --> B[Lambda Trigger]
+    B --> C[Access Review Generator]
+    C --> D[Certification Workflow]
+    D --> E[Manager Approval]
+    E --> F[Remediation Actions]
+    F --> G[Compliance Report]
+```
+
+## Bước 1: Thiết lập EventBridge Scheduler
+
+### 1.1 Tạo Scheduled Rule
+
+```json
+{
+  "Name": "AccessCertificationSchedule",
+  "ScheduleExpression": "rate(90 days)",
+  "Description": "Quarterly access certification review",
+  "State": "ENABLED",
+  "Targets": [
+    {
+      "Id": "1",
+      "Arn": "arn:aws:lambda:region:account:function:AccessCertificationTrigger"
+    }
+  ]
+}
+```
+
+## Bước 2: Access Review Generator
+
+### 2.1 Lambda Function cho Data Collection
+
+```python
+import boto3
+import json
+from datetime import datetime, timedelta
+
+class AccessReviewGenerator:
+    def __init__(self):
+        self.sso_client = boto3.client('sso-admin')
+        self.identity_client = boto3.client('identitystore')
+        self.org_client = boto3.client('organizations')
+        self.s3_client = boto3.client('s3')
+        
+    def generate_access_review(self):
+        """Generate comprehensive access review data"""
+        
+        # Get all accounts
+        accounts = self.get_all_accounts()
+        
+        # Get all permission sets
+        permission_sets = self.get_all_permission_sets()
+        
+        # Get all assignments
+        assignments = self.get_all_assignments(accounts, permission_sets)
+        
+        # Generate review data
+        review_data = {
+            'review_id': f"review_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+            'generated_date': datetime.now().isoformat(),
+            'accounts': accounts,
+            'permission_sets': permission_sets,
+            'assignments': assignments,
+            'review_deadline': (datetime.now() + timedelta(days=30)).isoformat()
+        }
+        
+        # Store in S3
+        self.store_review_data(review_data)
+        
+        return review_data
+```
+
+## Bước 3: Certification Workflow với Step Functions
+
+### 3.1 State Machine Definition
+
+```json
+{
+  "Comment": "Access Certification Workflow",
+  "StartAt": "GenerateReviewTasks",
+  "States": {
+    "GenerateReviewTasks": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:region:account:function:GenerateReviewTasks",
+      "Next": "SendNotifications"
+    },
+    "SendNotifications": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:region:account:function:SendCertificationNotifications",
+      "Next": "WaitForResponses"
+    },
+    "WaitForResponses": {
+      "Type": "Wait",
+      "Seconds": 86400,
+      "Next": "CheckResponses"
+    }
+  }
+}
+```
+
+## Kết quả Mong đợi
+
+Sau khi hoàn thành:
+
+- ✅ Automated quarterly access reviews
+- ✅ Email notifications to managers
+- ✅ Web interface for approvals
+- ✅ Automatic remediation for denied access
+- ✅ Audit trail in DynamoDB
+
+## Tiếp theo
+
+Chuyển sang [5. Phân tích Đặc quyền](../5-phan-tich-dac-quyen) để thiết lập phân tích đặc quyền.

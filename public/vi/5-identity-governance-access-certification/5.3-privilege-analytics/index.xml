@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>5.3 Phân tích Đặc quyền on Tạo mới tài khoản AWS</title>
+    <link>//localhost:1313/vi/5-identity-governance-access-certification/5.3-privilege-analytics/</link>
+    <description>Recent content in 5.3 Phân tích Đặc quyền on Tạo mới tài khoản AWS</description>
+    <generator>Hugo</generator>
+    <language>vi</language>
+    <atom:link href="//localhost:1313/vi/5-identity-governance-access-certification/5.3-privilege-analytics/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

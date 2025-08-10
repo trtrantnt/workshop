@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.134.3">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>2. Dọn dẹp Tài nguyên :: Tạo mới tài khoản AWS</title>
+
+    
+    <link href="/css/nucleus.css?1754859122" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754859122" rel="stylesheet">
+    <link href="/css/hybrid.css?1754859122" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754859122" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754859122" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754859122" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754859122" rel="stylesheet">
+    <link href="/css/theme.css?1754859122" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754859122" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1754859122" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1754859122"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/vi/6-clean-resources/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1754859122"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754859122"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/\/vi";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1754859122"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/1-gioi-thieu/" title="1. Giới thiệu" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/1-gioi-thieu/">
+          1. Giới thiệu
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-cac-buoc-chuan-bi/" title="2. Các bước chuẩn bị" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-cac-buoc-chuan-bi/">
+          2. Các bước chuẩn bị
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-clean-resources/" title="2. Dọn dẹp Tài nguyên" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="/vi/6-clean-resources/">
+          2. Dọn dẹp Tài nguyên
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-thiet-lap-access-governance/" title="3. Thiết lập Access Governance" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-thiet-lap-access-governance/">
+          3. Thiết lập Access Governance
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/4-tu-dong-hoa-certification/" title="4. Tự động hóa Certification" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/4-tu-dong-hoa-certification/">
+          4. Tự động hóa Certification
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/5-phan-tich-dac-quyen/" title="5. Phân tích Đặc quyền" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/5-phan-tich-dac-quyen/">
+          5. Phân tích Đặc quyền
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-danh-gia-rui-ro/" title="6. Đánh giá Rủi ro" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-danh-gia-rui-ro/">
+          6. Đánh giá Rủi ro
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/7-thiet-lap-giam-sat/" title="7. Thiết lập Giám sát" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/7-thiet-lap-giam-sat/">
+          7. Thiết lập Giám sát
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/8-quy-trinh-van-hanh/" title="8. Quy trình Vận hành" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/8-quy-trinh-van-hanh/">
+          8. Quy trình Vận hành
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/9-quy-trinh-kiem-toan/" title="9. Quy trình Kiểm toán" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/9-quy-trinh-kiem-toan/">
+          9. Quy trình Kiểm toán
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/10-xac-thuc-tuan-thu/" title="10. Xác thực Tuân thủ" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/10-xac-thuc-tuan-thu/">
+          10. Xác thực Tuân thủ
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="http://awsstudygroup.com"><i class='fab fa-aws'></i> AWS Study Group - Blog</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj"><i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="//localhost:1313/6-clean-resources/">English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="//localhost:1313/vi/6-clean-resources/" selected>Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>11-08-2025</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i>
+                <a href="https://www.linkedin.com/in/tri-tran-ngoc/"  style="color:orange">Trần Ngọc Tri</a>
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/vi/'>Thiết lập Tài Khoản AWS</a> > 2. Dọn dẹp Tài nguyên
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tổng-quan">Tổng quan</a></li>
+    <li><a href="#lưu-ý-quan-trọng">Lưu ý quan trọng</a></li>
+    <li><a href="#thứ-tự-dọn-dẹp">Thứ tự Dọn dẹp</a></li>
+    <li><a href="#bước-1-lambda-functions-và-eventbridge">Bước 1: Lambda Functions và EventBridge</a>
+      <ul>
+        <li><a href="#xóa-lambda-functions">Xóa Lambda Functions</a></li>
+        <li><a href="#xóa-eventbridge-rules">Xóa EventBridge Rules</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-2-step-functions">Bước 2: Step Functions</a></li>
+    <li><a href="#bước-3-dynamodb-tables">Bước 3: DynamoDB Tables</a></li>
+    <li><a href="#bước-4-s3-buckets">Bước 4: S3 Buckets</a>
+      <ul>
+        <li><a href="#làm-trống-và-xóa-s3-buckets">Làm trống và Xóa S3 Buckets</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-5-cloudwatch-resources">Bước 5: CloudWatch Resources</a>
+      <ul>
+        <li><a href="#xóa-cloudwatch-dashboards">Xóa CloudWatch Dashboards</a></li>
+        <li><a href="#xóa-cloudwatch-alarms">Xóa CloudWatch Alarms</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-6-iam-resources">Bước 6: IAM Resources</a>
+      <ul>
+        <li><a href="#xóa-iam-roles">Xóa IAM Roles</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-7-cloudformation-stacks">Bước 7: CloudFormation Stacks</a></li>
+    <li><a href="#script-dọn-dẹp-tự-động">Script Dọn dẹp Tự động</a></li>
+    <li><a href="#xác-minh">Xác minh</a>
+      <ul>
+        <li><a href="#kiểm-tra-tài-nguyên-còn-lại">Kiểm tra Tài nguyên Còn lại</a></li>
+      </ul>
+    </li>
+    <li><a href="#xác-minh-chi-phí">Xác minh Chi phí</a></li>
+    <li><a href="#khắc-phục-sự-cố">Khắc phục Sự cố</a>
+      <ul>
+        <li><a href="#vấn-đề-thường-gặp">Vấn đề Thường gặp</a></li>
+        <li><a href="#dọn-dẹp-thủ-công">Dọn dẹp Thủ công</a></li>
+      </ul>
+    </li>
+    <li><a href="#ghi-chú-cuối">Ghi chú Cuối</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              2. Dọn dẹp Tài nguyên
+            </h1>
+          
+
+        
+
+
+
+	<h1 id="dọn-dẹp-tài-nguyên">Dọn dẹp Tài nguyên</h1>
+<h2 id="tổng-quan">Tổng quan</h2>
+<p>Phần này cung cấp hướng dẫn toàn diện để dọn dẹp tất cả tài nguyên AWS được tạo trong workshop Identity Governance nhằm tránh phát sinh chi phí không cần thiết.</p>
+<h2 id="lưu-ý-quan-trọng">Lưu ý quan trọng</h2>
+<p>⚠️ <strong>Cảnh báo</strong>: Thực hiện các bước dọn dẹp này sẽ xóa vĩnh viễn tất cả tài nguyên và dữ liệu được tạo trong workshop. Hãy đảm bảo bạn đã sao lưu các cấu hình hoặc dữ liệu quan trọng trước khi tiến hành.</p>
+<h2 id="thứ-tự-dọn-dẹp">Thứ tự Dọn dẹp</h2>
+<p>Tài nguyên nên được dọn dẹp theo thứ tự sau để tránh xung đột phụ thuộc:</p>
+<ol>
+<li>Lambda Functions và EventBridge Rules</li>
+<li>Step Functions State Machines</li>
+<li>DynamoDB Tables</li>
+<li>S3 Buckets và Objects</li>
+<li>CloudWatch Resources</li>
+<li>IAM Roles và Policies</li>
+<li>CloudFormation Stacks</li>
+<li>AWS Organizations (nếu đã tạo)</li>
+<li>IAM Identity Center (nếu không còn cần thiết)</li>
+</ol>
+<h2 id="bước-1-lambda-functions-và-eventbridge">Bước 1: Lambda Functions và EventBridge</h2>
+<h3 id="xóa-lambda-functions">Xóa Lambda Functions</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê tất cả Lambda functions được tạo trong workshop</span>
+</span></span><span style="display:flex;"><span>aws lambda list-functions --query <span style="color:#e6db74">&#39;Functions[?contains(FunctionName, `IdentityGovernance`) || contains(FunctionName, `Compliance`) || contains(FunctionName, `AccessReview`)].FunctionName&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa Lambda functions</span>
+</span></span><span style="display:flex;"><span>aws lambda delete-function --function-name IdentityGovernanceMonitor
+</span></span><span style="display:flex;"><span>aws lambda delete-function --function-name AccessReviewGenerator
+</span></span><span style="display:flex;"><span>aws lambda delete-function --function-name ComplianceValidationEngine
+</span></span><span style="display:flex;"><span>aws lambda delete-function --function-name RiskAssessmentEngine
+</span></span><span style="display:flex;"><span>aws lambda delete-function --function-name CertificationNotifier
+</span></span></code></pre></div><h3 id="xóa-eventbridge-rules">Xóa EventBridge Rules</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê EventBridge rules</span>
+</span></span><span style="display:flex;"><span>aws events list-rules --query <span style="color:#e6db74">&#39;Rules[?contains(Name, `IdentityGovernance`) || contains(Name, `Compliance`) || contains(Name, `Certification`)].Name&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa EventBridge rules</span>
+</span></span><span style="display:flex;"><span>aws events delete-rule --name AccessCertificationSchedule
+</span></span><span style="display:flex;"><span>aws events delete-rule --name ComplianceValidationSchedule
+</span></span><span style="display:flex;"><span>aws events delete-rule --name RiskAssessmentSchedule
+</span></span></code></pre></div><h2 id="bước-2-step-functions">Bước 2: Step Functions</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê Step Functions</span>
+</span></span><span style="display:flex;"><span>aws stepfunctions list-state-machines --query <span style="color:#e6db74">&#39;stateMachines[?contains(name, `Certification`) || contains(name, `Governance`)].name&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa Step Functions</span>
+</span></span><span style="display:flex;"><span>aws stepfunctions delete-state-machine --state-machine-arn arn:aws:states:REGION:ACCOUNT:stateMachine:CertificationWorkflow
+</span></span></code></pre></div><h2 id="bước-3-dynamodb-tables">Bước 3: DynamoDB Tables</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê DynamoDB tables</span>
+</span></span><span style="display:flex;"><span>aws dynamodb list-tables --query <span style="color:#e6db74">&#39;TableNames[?contains(@, `Certification`) || contains(@, `Operations`) || contains(@, `Compliance`) || contains(@, `Risk`)]&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa DynamoDB tables</span>
+</span></span><span style="display:flex;"><span>aws dynamodb delete-table --table-name CertificationTasks
+</span></span><span style="display:flex;"><span>aws dynamodb delete-table --table-name OperationsLog
+</span></span><span style="display:flex;"><span>aws dynamodb delete-table --table-name ComplianceEvidence
+</span></span><span style="display:flex;"><span>aws dynamodb delete-table --table-name RiskMonitoring
+</span></span><span style="display:flex;"><span>aws dynamodb delete-table --table-name AuditFindings
+</span></span></code></pre></div><h2 id="bước-4-s3-buckets">Bước 4: S3 Buckets</h2>
+<h3 id="làm-trống-và-xóa-s3-buckets">Làm trống và Xóa S3 Buckets</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Lấy account ID</span>
+</span></span><span style="display:flex;"><span>ACCOUNT_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê workshop S3 buckets</span>
+</span></span><span style="display:flex;"><span>aws s3 ls | grep -E <span style="color:#e6db74">&#34;(privilege-analytics|compliance-reports|identity-governance)&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Làm trống buckets trước</span>
+</span></span><span style="display:flex;"><span>aws s3 rm s3://privilege-analytics-<span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span> --recursive
+</span></span><span style="display:flex;"><span>aws s3 rm s3://compliance-reports-<span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span> --recursive
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa buckets</span>
+</span></span><span style="display:flex;"><span>aws s3 rb s3://privilege-analytics-<span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>aws s3 rb s3://compliance-reports-<span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><h2 id="bước-5-cloudwatch-resources">Bước 5: CloudWatch Resources</h2>
+<h3 id="xóa-cloudwatch-dashboards">Xóa CloudWatch Dashboards</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê dashboards</span>
+</span></span><span style="display:flex;"><span>aws cloudwatch list-dashboards --query <span style="color:#e6db74">&#39;DashboardEntries[?contains(DashboardName, `IdentityGovernance`) || contains(DashboardName, `Compliance`)].DashboardName&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa dashboards</span>
+</span></span><span style="display:flex;"><span>aws cloudwatch delete-dashboards --dashboard-names IdentityGovernanceRiskDashboard IdentityGovernanceMonitoring ComplianceDashboard
+</span></span></code></pre></div><h3 id="xóa-cloudwatch-alarms">Xóa CloudWatch Alarms</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê alarms</span>
+</span></span><span style="display:flex;"><span>aws cloudwatch describe-alarms --query <span style="color:#e6db74">&#39;MetricAlarms[?contains(AlarmName, `IdentityGovernance`) || contains(AlarmName, `Compliance`) || contains(AlarmName, `Risk`)].AlarmName&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa alarms</span>
+</span></span><span style="display:flex;"><span>aws cloudwatch delete-alarms --alarm-names HighFailedLoginAttempts PrivilegeEscalationDetected HighRiskEventsAlarm ComplianceViolationAlarm
+</span></span></code></pre></div><h2 id="bước-6-iam-resources">Bước 6: IAM Resources</h2>
+<h3 id="xóa-iam-roles">Xóa IAM Roles</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê IAM roles được tạo cho workshop</span>
+</span></span><span style="display:flex;"><span>aws iam list-roles --query <span style="color:#e6db74">&#39;Roles[?contains(RoleName, `IdentityGovernance`) || contains(RoleName, `Compliance`) || contains(RoleName, `Certification`)].RoleName&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Detach policies và xóa roles</span>
+</span></span><span style="display:flex;"><span>aws iam detach-role-policy --role-name IdentityGovernanceLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+</span></span><span style="display:flex;"><span>aws iam delete-role --role-name IdentityGovernanceLambdaRole
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>aws iam delete-role --role-name ComplianceValidationRole
+</span></span><span style="display:flex;"><span>aws iam delete-role --role-name CertificationWorkflowRole
+</span></span></code></pre></div><h2 id="bước-7-cloudformation-stacks">Bước 7: CloudFormation Stacks</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Liệt kê CloudFormation stacks</span>
+</span></span><span style="display:flex;"><span>aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query <span style="color:#e6db74">&#39;StackSummaries[?contains(StackName, `identity-governance`) || contains(StackName, `compliance`)].StackName&#39;</span> --output table
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa CloudFormation stacks</span>
+</span></span><span style="display:flex;"><span>aws cloudformation delete-stack --stack-name identity-governance-base
+</span></span><span style="display:flex;"><span>aws cloudformation delete-stack --stack-name identity-governance-monitoring
+</span></span><span style="display:flex;"><span>aws cloudformation delete-stack --stack-name identity-governance-compliance
+</span></span></code></pre></div><h2 id="script-dọn-dẹp-tự-động">Script Dọn dẹp Tự động</h2>
+<p>Để thuận tiện, đây là script dọn dẹp toàn diện:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Bắt đầu dọn dẹp Identity Governance Workshop...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lấy account ID</span>
+</span></span><span style="display:flex;"><span>ACCOUNT_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>REGION<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>aws configure get region<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Account ID: </span>$ACCOUNT_ID<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Region: </span>$REGION<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function để kiểm tra resource tồn tại trước khi xóa</span>
+</span></span><span style="display:flex;"><span>check_and_delete<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    local resource_type<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>    local resource_name<span style="color:#f92672">=</span>$2
+</span></span><span style="display:flex;"><span>    local delete_command<span style="color:#f92672">=</span>$3
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Đang kiểm tra </span>$resource_type<span style="color:#e6db74">: </span>$resource_name<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> eval <span style="color:#e6db74">&#34;</span>$delete_command<span style="color:#e6db74">&#34;</span> 2&gt;/dev/null; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;✅ Đã xóa </span>$resource_type<span style="color:#e6db74">: </span>$resource_name<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;⚠️  </span>$resource_type<span style="color:#e6db74"> không tìm thấy hoặc đã được xóa: </span>$resource_name<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa Lambda functions</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Đang dọn dẹp Lambda functions...&#34;</span>
+</span></span><span style="display:flex;"><span>LAMBDA_FUNCTIONS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;IdentityGovernanceMonitor&#34;</span> <span style="color:#e6db74">&#34;AccessReviewGenerator&#34;</span> <span style="color:#e6db74">&#34;ComplianceValidationEngine&#34;</span> <span style="color:#e6db74">&#34;RiskAssessmentEngine&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> func in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>LAMBDA_FUNCTIONS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;Lambda function&#34;</span> <span style="color:#e6db74">&#34;</span>$func<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws lambda delete-function --function-name </span>$func<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa DynamoDB tables</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Đang dọn dẹp DynamoDB tables...&#34;</span>
+</span></span><span style="display:flex;"><span>DYNAMODB_TABLES<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;CertificationTasks&#34;</span> <span style="color:#e6db74">&#34;OperationsLog&#34;</span> <span style="color:#e6db74">&#34;ComplianceEvidence&#34;</span> <span style="color:#e6db74">&#34;RiskMonitoring&#34;</span> <span style="color:#e6db74">&#34;AuditFindings&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> table in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>DYNAMODB_TABLES[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;DynamoDB table&#34;</span> <span style="color:#e6db74">&#34;</span>$table<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws dynamodb delete-table --table-name </span>$table<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa S3 buckets</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Đang dọn dẹp S3 buckets...&#34;</span>
+</span></span><span style="display:flex;"><span>S3_BUCKETS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;privilege-analytics-</span><span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;compliance-reports-</span><span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> bucket in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>S3_BUCKETS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Đang làm trống S3 bucket: </span>$bucket<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    aws s3 rm s3://$bucket --recursive 2&gt;/dev/null <span style="color:#f92672">||</span> echo <span style="color:#e6db74">&#34;Bucket </span>$bucket<span style="color:#e6db74"> không tìm thấy&#34;</span>
+</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;S3 bucket&#34;</span> <span style="color:#e6db74">&#34;</span>$bucket<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws s3 rb s3://</span>$bucket<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Xóa CloudFormation stacks</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Đang dọn dẹp CloudFormation stacks...&#34;</span>
+</span></span><span style="display:flex;"><span>CF_STACKS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;identity-governance-base&#34;</span> <span style="color:#e6db74">&#34;identity-governance-monitoring&#34;</span> <span style="color:#e6db74">&#34;identity-governance-compliance&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> stack in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CF_STACKS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;CloudFormation stack&#34;</span> <span style="color:#e6db74">&#34;</span>$stack<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws cloudformation delete-stack --stack-name </span>$stack<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🎉 Dọn dẹp hoàn tất!&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Lưu ý: Một số tài nguyên có thể mất vài phút để được xóa hoàn toàn.&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Vui lòng kiểm tra AWS Console để xác nhận tất cả tài nguyên đã được xóa.&#34;</span>
+</span></span></code></pre></div><h2 id="xác-minh">Xác minh</h2>
+<p>Sau khi chạy dọn dẹp, hãy xác minh rằng tất cả tài nguyên đã được xóa:</p>
+<h3 id="kiểm-tra-tài-nguyên-còn-lại">Kiểm tra Tài nguyên Còn lại</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra Lambda functions</span>
+</span></span><span style="display:flex;"><span>aws lambda list-functions --query <span style="color:#e6db74">&#39;Functions[?contains(FunctionName, `IdentityGovernance`)].FunctionName&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra DynamoDB tables</span>
+</span></span><span style="display:flex;"><span>aws dynamodb list-tables --query <span style="color:#e6db74">&#39;TableNames[?contains(@, `Certification`) || contains(@, `Compliance`)]&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra S3 buckets</span>
+</span></span><span style="display:flex;"><span>aws s3 ls | grep -E <span style="color:#e6db74">&#34;(privilege-analytics|compliance-reports)&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra CloudFormation stacks</span>
+</span></span><span style="display:flex;"><span>aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query <span style="color:#e6db74">&#39;StackSummaries[?contains(StackName, `identity-governance`)].StackName&#39;</span>
+</span></span></code></pre></div><h2 id="xác-minh-chi-phí">Xác minh Chi phí</h2>
+<p>Sau khi dọn dẹp, hãy theo dõi dashboard billing AWS để đảm bảo không có phí phát sinh từ tài nguyên còn lại.</p>
+<h2 id="khắc-phục-sự-cố">Khắc phục Sự cố</h2>
+<h3 id="vấn-đề-thường-gặp">Vấn đề Thường gặp</h3>
+<ol>
+<li><strong>Lỗi Phụ thuộc</strong>: Một số tài nguyên có thể có phụ thuộc. Hãy xóa tài nguyên phụ thuộc trước.</li>
+<li><strong>Lỗi Quyền</strong>: Đảm bảo bạn có đủ quyền để xóa tất cả tài nguyên.</li>
+<li><strong>Vấn đề Region</strong>: Đảm bảo bạn đang xóa tài nguyên ở đúng region.</li>
+</ol>
+<h3 id="dọn-dẹp-thủ-công">Dọn dẹp Thủ công</h3>
+<p>Nếu dọn dẹp tự động thất bại, hãy xóa tài nguyên thủ công qua AWS Console:</p>
+<ol>
+<li>Truy cập console của từng service</li>
+<li>Tìm kiếm tài nguyên có tên chứa &ldquo;IdentityGovernance&rdquo;, &ldquo;Compliance&rdquo;, hoặc &ldquo;Certification&rdquo;</li>
+<li>Xóa từng tài nguyên một cách riêng lẻ</li>
+</ol>
+<h2 id="ghi-chú-cuối">Ghi chú Cuối</h2>
+<ul>
+<li>Việc dọn dẹp này sẽ xóa TẤT CẢ tài nguyên workshop</li>
+<li>Kiểm tra kỹ trước khi chạy lệnh dọn dẹp</li>
+<li>Một số tài nguyên có thể có độ trễ ngắn trước khi bị xóa</li>
+<li>Theo dõi hóa đơn AWS để đảm bảo không có phí tiếp tục phát sinh</li>
+</ul>
+<p><strong>Dọn dẹp workshop hoàn tất! 🎉</strong></p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/vi/2-cac-buoc-chuan-bi/" title="2. Các bước chuẩn bị"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/vi/3-thiet-lap-access-governance/" title="3. Thiết lập Access Governance" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1754859122"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754859122"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754859122"></script>
+    <script src="/js/jquery.sticky.js?1754859122"></script>
+    <script src="/js/featherlight.min.js?1754859122"></script>
+    <script src="/js/highlight.pack.js?1754859122"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754859122"></script>
+    <script src="/js/learn.js?1754859122"></script>
+    <script src="/js/hugo-learn.js?1754859122"></script>
+
+    <link href="/mermaid/mermaid.css?1754859122" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754859122"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

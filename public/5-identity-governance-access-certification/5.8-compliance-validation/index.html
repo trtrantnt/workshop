@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.134.3">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>5.8 Compliance Validation :: Create a new AWS account.</title>
+
+    
+    <link href="/css/nucleus.css?1754858469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754858469" rel="stylesheet">
+    <link href="/css/hybrid.css?1754858469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754858469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754858469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754858469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754858469" rel="stylesheet">
+    <link href="/css/theme.css?1754858469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754858469" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1754858469" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1754858469"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/5-identity-governance-access-certification/5.8-compliance-validation/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1754858469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754858469"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1754858469"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-create-new-aws-account/" title="Create new AWS account" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-create-new-aws-account/">
+           <b> 1. </b> Create new AWS account
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-create-new-aws-account/1.1-find-account-id/" title="View AWS account identifiers" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-create-new-aws-account/1.1-find-account-id/">
+           <b> 1.1 </b> View AWS account identifiers
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-create-new-aws-account/1.2-update-account/" title="Update the AWS account" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-create-new-aws-account/1.2-update-account/">
+           <b> 1.2 </b> Update the AWS account
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-create-new-aws-account/1.3-aws-account-alias/" title="Create or update your AWS account alias" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-create-new-aws-account/1.3-aws-account-alias/">
+           <b> 1.3 </b> Create or update your AWS account alias
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-create-new-aws-account/1.4-close-account/" title="Close a standalone AWS account" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-create-new-aws-account/1.4-close-account/">
+           <b> 1.4 </b> Close a standalone AWS account
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-mfa-setup-for-aws-user-root/" title="MFA for AWS Accounts" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-mfa-setup-for-aws-user-root/">
+           <b> 2. </b> MFA for AWS Accounts
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-mfa-setup-for-aws-user-root/1-virtual-mfa-device/" title="Virtual MFA Device" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-mfa-setup-for-aws-user-root/1-virtual-mfa-device/">
+           <b> 2.1 </b> Virtual MFA Device
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-mfa-setup-for-aws-user-root/2-u2f-security-key/" title="U2F Security Key" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-mfa-setup-for-aws-user-root/2-u2f-security-key/">
+           <b> 2.2 </b> U2F Security Key
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-mfa-setup-for-aws-user-root/3-other-hardware-mfa-device/" title="Hard MFA Device" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-mfa-setup-for-aws-user-root/3-other-hardware-mfa-device/">
+           <b> 2.3 </b> Hard MFA Device
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-create-admin-user-and-group/" title="Create Admin Group and Admin User" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/3-create-admin-user-and-group/">
+           <b> 3. </b> Create Admin Group and Admin User
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-verify-new-account/" title="Account Authentication Support" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-verify-new-account/">
+           <b> 4. </b> Account Authentication Support
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-identity-governance-access-certification/" title="Identity Governance với Access Certification" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/5-identity-governance-access-certification/">
+          Identity Governance với Access Certification
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-identity-governance-access-certification/5.5-monitoring-setup/" title="5.5 Monitoring Setup" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-identity-governance-access-certification/5.5-monitoring-setup/">
+          5.5 Monitoring Setup
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-identity-governance-access-certification/5.6-operational-procedures/" title="5.6 Operational Procedures" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-identity-governance-access-certification/5.6-operational-procedures/">
+          5.6 Operational Procedures
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-identity-governance-access-certification/5.7-audit-procedures/" title="5.7 Audit Procedures" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-identity-governance-access-certification/5.7-audit-procedures/">
+          5.7 Audit Procedures
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-identity-governance-access-certification/5.8-compliance-validation/" title="5.8 Compliance Validation" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="/5-identity-governance-access-certification/5.8-compliance-validation/">
+          5.8 Compliance Validation
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://aws.amazon.com/blogs"><i class='fab fa-aws'></i> AWS Study Group - Blog</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj"><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="//localhost:1313/5-identity-governance-access-certification/5.8-compliance-validation/" selected>English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="//localhost:1313/vi/5-identity-governance-access-certification/5.8-compliance-validation/">Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830891&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>11-08-2025</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i>
+                <a href="https://www.linkedin.com/in/tri-tran-ngoc/"  style="color:orange">Trần Ngọc Tri</a>
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Setting up an AWS account</a> > <a href='/5-identity-governance-access-certification/'>Identity Governance với Access Certification</a> > 5.8 Compliance Validation
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mục-tiêu">Mục tiêu</a></li>
+    <li><a href="#compliance-framework-mapping">Compliance Framework Mapping</a></li>
+    <li><a href="#bước-1-compliance-framework-implementation">Bước 1: Compliance Framework Implementation</a>
+      <ul>
+        <li><a href="#11-multi-framework-compliance-engine">1.1 Multi-Framework Compliance Engine</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-2-compliance-dashboard">Bước 2: Compliance Dashboard</a>
+      <ul>
+        <li><a href="#21-real-time-compliance-monitoring">2.1 Real-time Compliance Monitoring</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-3-regulatory-reporting">Bước 3: Regulatory Reporting</a>
+      <ul>
+        <li><a href="#31-automated-compliance-reports">3.1 Automated Compliance Reports</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-4-deployment-và-validation">Bước 4: Deployment và Validation</a>
+      <ul>
+        <li><a href="#41-complete-deployment-script">4.1 Complete Deployment Script</a></li>
+      </ul>
+    </li>
+    <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a>
+      <ul>
+        <li><a href="#-comprehensive-identity-governance-system">✅ Comprehensive Identity Governance System</a></li>
+        <li><a href="#-compliance-framework-implementation">✅ Compliance Framework Implementation</a></li>
+        <li><a href="#-operational-excellence">✅ Operational Excellence</a></li>
+        <li><a href="#-audit-và-governance">✅ Audit và Governance</a></li>
+      </ul>
+    </li>
+    <li><a href="#best-practices-summary">Best Practices Summary</a></li>
+    <li><a href="#tài-liệu-tham-khảo">Tài liệu Tham khảo</a></li>
+    <li><a href="#hỗ-trợ">Hỗ trợ</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              5.8 Compliance Validation
+            </h1>
+          
+
+        
+
+
+
+	<h1 id="compliance-validation">Compliance Validation</h1>
+<h2 id="mục-tiêu">Mục tiêu</h2>
+<p>Xác thực và duy trì tuân thủ các framework bảo mật và quy định pháp lý thông qua identity governance, đảm bảo tổ chức đáp ứng các yêu cầu SOX, SOC2, ISO27001, PCI-DSS và các tiêu chuẩn khác.</p>
+<h2 id="compliance-framework-mapping">Compliance Framework Mapping</h2>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
+    A[Identity Governance Controls] --&gt; B[SOX Compliance]
+    A --&gt; C[SOC2 Type II]
+    A --&gt; D[ISO 27001]
+    A --&gt; E[PCI-DSS]
+    A --&gt; F[NIST Framework]
+    
+    B --&gt; G[Audit Evidence]
+    C --&gt; G
+    D --&gt; G
+    E --&gt; G
+    F --&gt; G
+    
+    G --&gt; H[Compliance Dashboard]
+    G --&gt; I[Regulatory Reports]
+</code></pre><h2 id="bước-1-compliance-framework-implementation">Bước 1: Compliance Framework Implementation</h2>
+<h3 id="11-multi-framework-compliance-engine">1.1 Multi-Framework Compliance Engine</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> enum <span style="color:#f92672">import</span> Enum
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComplianceFramework</span>(Enum):
+</span></span><span style="display:flex;"><span>    SOX <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sox&#34;</span>
+</span></span><span style="display:flex;"><span>    SOC2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;soc2&#34;</span>
+</span></span><span style="display:flex;"><span>    ISO27001 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;iso27001&#34;</span>
+</span></span><span style="display:flex;"><span>    PCI_DSS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pci_dss&#34;</span>
+</span></span><span style="display:flex;"><span>    NIST <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nist&#34;</span>
+</span></span><span style="display:flex;"><span>    GDPR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gdpr&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComplianceValidationEngine</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>compliance_table <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;ComplianceEvidence&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Load compliance requirements</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>compliance_requirements <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_compliance_requirements()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">load_compliance_requirements</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Load compliance requirements for each framework&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>SOX: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Sarbanes-Oxley Act&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;SOX-302&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Corporate Responsibility for Financial Reports&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Ensure proper access controls for financial systems&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;access_segregation&#34;</span>, <span style="color:#e6db74">&#34;approval_workflows&#34;</span>, <span style="color:#e6db74">&#34;audit_trails&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Access certification records&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Segregation of duties matrix&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Change approval documentation&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;SOX-404&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Management Assessment of Internal Controls&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Maintain effective internal controls over financial reporting&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;access_reviews&#34;</span>, <span style="color:#e6db74">&#34;control_testing&#34;</span>, <span style="color:#e6db74">&#34;deficiency_remediation&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Control effectiveness testing&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Management assertions&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Remediation tracking&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>SOC2: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;SOC 2 Type II&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;CC6.1&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Logical and Physical Access Controls&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Restrict logical and physical access to system resources&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;access_provisioning&#34;</span>, <span style="color:#e6db74">&#34;access_reviews&#34;</span>, <span style="color:#e6db74">&#34;privileged_access&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Access provisioning procedures&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Periodic access reviews&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Privileged access monitoring&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;CC6.2&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Authentication and Authorization&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Authenticate and authorize users before granting access&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;multi_factor_auth&#34;</span>, <span style="color:#e6db74">&#34;password_policies&#34;</span>, <span style="color:#e6db74">&#34;session_management&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;MFA implementation evidence&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Password policy documentation&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Session timeout configurations&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;CC6.3&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;System Access Monitoring&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Monitor system access and unusual activities&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;access_logging&#34;</span>, <span style="color:#e6db74">&#34;anomaly_detection&#34;</span>, <span style="color:#e6db74">&#34;incident_response&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Access log reviews&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Anomaly detection reports&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Incident response procedures&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>ISO27001: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;ISO 27001:2013&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;A.9.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Access Control Policy&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Establish, document and review access control policy&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;access_policy&#34;</span>, <span style="color:#e6db74">&#34;policy_reviews&#34;</span>, <span style="color:#e6db74">&#34;policy_communication&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Access control policy document&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Policy review records&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Training records&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;A.9.2.1&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;User Registration and De-registration&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Formal user registration and de-registration process&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;user_lifecycle&#34;</span>, <span style="color:#e6db74">&#34;approval_process&#34;</span>, <span style="color:#e6db74">&#34;access_removal&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;User registration procedures&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Approval workflows&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Termination checklists&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>PCI_DSS: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;PCI DSS v4.0&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;PCI-7&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Restrict Access by Business Need-to-Know&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Limit access to cardholder data by business need-to-know&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;least_privilege&#34;</span>, <span style="color:#e6db74">&#34;role_based_access&#34;</span>, <span style="color:#e6db74">&#34;access_reviews&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Role definitions&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Access matrices&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Quarterly access reviews&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;requirement_id&#34;</span>: <span style="color:#e6db74">&#34;PCI-8&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Identify and Authenticate Access&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Assign unique ID to each person with computer access&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;controls&#34;</span>: [<span style="color:#e6db74">&#34;unique_user_ids&#34;</span>, <span style="color:#e6db74">&#34;strong_authentication&#34;</span>, <span style="color:#e6db74">&#34;account_management&#34;</span>],
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;evidence_requirements&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;User account listings&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Authentication policies&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;Account management procedures&#34;</span>
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_compliance</span>(self, frameworks<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Validate compliance across specified frameworks&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> frameworks <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            frameworks <span style="color:#f92672">=</span> list(ComplianceFramework)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        validation_results <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;validation_id&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;compliance_</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">_%H%M%S&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;validation_date&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;frameworks_assessed&#34;</span>: [f<span style="color:#f92672">.</span>value <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> frameworks],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;overall_status&#34;</span>: <span style="color:#e6db74">&#34;COMPLIANT&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;framework_results&#34;</span>: {},
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence_gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation_required&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Validate each framework</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> framework <span style="color:#f92672">in</span> frameworks:
+</span></span><span style="display:flex;"><span>            framework_result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>validate_framework(framework)
+</span></span><span style="display:flex;"><span>            validation_results[<span style="color:#e6db74">&#34;framework_results&#34;</span>][framework<span style="color:#f92672">.</span>value] <span style="color:#f92672">=</span> framework_result
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Update overall status</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> framework_result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;COMPLIANT&#34;</span>:
+</span></span><span style="display:flex;"><span>                validation_results[<span style="color:#e6db74">&#34;overall_status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NON_COMPLIANT&#34;</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Collect gaps and remediation items</span>
+</span></span><span style="display:flex;"><span>            validation_results[<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>]<span style="color:#f92672">.</span>extend(framework_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>, []))
+</span></span><span style="display:flex;"><span>            validation_results[<span style="color:#e6db74">&#34;remediation_required&#34;</span>]<span style="color:#f92672">.</span>extend(framework_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;remediation_items&#34;</span>, []))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store validation results</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>store_compliance_results(validation_results)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate compliance report</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>generate_compliance_report(validation_results)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> validation_results
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_framework</span>(self, framework):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Validate compliance for a specific framework&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        framework_config <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>compliance_requirements[framework]
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        framework_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;framework&#34;</span>: framework<span style="color:#f92672">.</span>value,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;framework_name&#34;</span>: framework_config[<span style="color:#e6db74">&#34;name&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;COMPLIANT&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;requirements_tested&#34;</span>: len(framework_config[<span style="color:#e6db74">&#34;requirements&#34;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;requirements_passed&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;requirements_failed&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence_gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation_items&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;requirement_results&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test each requirement</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> requirement <span style="color:#f92672">in</span> framework_config[<span style="color:#e6db74">&#34;requirements&#34;</span>]:
+</span></span><span style="display:flex;"><span>            requirement_result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>test_requirement(framework, requirement)
+</span></span><span style="display:flex;"><span>            framework_result[<span style="color:#e6db74">&#34;requirement_results&#34;</span>]<span style="color:#f92672">.</span>append(requirement_result)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> requirement_result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;PASS&#34;</span>:
+</span></span><span style="display:flex;"><span>                framework_result[<span style="color:#e6db74">&#34;requirements_passed&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                framework_result[<span style="color:#e6db74">&#34;requirements_failed&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                framework_result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;NON_COMPLIANT&#34;</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Collect gaps and remediation items</span>
+</span></span><span style="display:flex;"><span>                framework_result[<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>]<span style="color:#f92672">.</span>extend(requirement_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>, []))
+</span></span><span style="display:flex;"><span>                framework_result[<span style="color:#e6db74">&#34;remediation_items&#34;</span>]<span style="color:#f92672">.</span>extend(requirement_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;remediation_items&#34;</span>, []))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> framework_result
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_requirement</span>(self, framework, requirement):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test a specific compliance requirement&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        requirement_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;requirement_id&#34;</span>: requirement[<span style="color:#e6db74">&#34;requirement_id&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;title&#34;</span>: requirement[<span style="color:#e6db74">&#34;title&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;PASS&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence_collected&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence_gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation_items&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;test_date&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test each control</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> control <span style="color:#f92672">in</span> requirement[<span style="color:#e6db74">&#34;controls&#34;</span>]:
+</span></span><span style="display:flex;"><span>            control_result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>test_control(framework, control, requirement)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> control_result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;PASS&#34;</span>:
+</span></span><span style="display:flex;"><span>                requirement_result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FAIL&#34;</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            requirement_result[<span style="color:#e6db74">&#34;evidence_collected&#34;</span>]<span style="color:#f92672">.</span>extend(control_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;evidence&#34;</span>, []))
+</span></span><span style="display:flex;"><span>            requirement_result[<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>]<span style="color:#f92672">.</span>extend(control_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;gaps&#34;</span>, []))
+</span></span><span style="display:flex;"><span>            requirement_result[<span style="color:#e6db74">&#34;remediation_items&#34;</span>]<span style="color:#f92672">.</span>extend(control_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;remediation&#34;</span>, []))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> requirement_result
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_control</span>(self, framework, control, requirement):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test a specific control&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        control_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;control&#34;</span>: control,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;PASS&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Route to specific control test</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> control <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;access_segregation&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_access_segregation(framework, requirement)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> control <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;access_reviews&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_access_reviews(framework, requirement)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> control <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;multi_factor_auth&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_mfa_compliance(framework, requirement)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> control <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;privileged_access&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_privileged_access_compliance(framework, requirement)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> control <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;access_logging&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_access_logging(framework, requirement)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> control <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;user_lifecycle&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_user_lifecycle(framework, requirement)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Generic control test</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>test_generic_control(control, framework, requirement)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_access_segregation</span>(self, framework, requirement):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test segregation of duties compliance&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;control&#34;</span>: <span style="color:#e6db74">&#34;access_segregation&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;PASS&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Get current access assignments</span>
+</span></span><span style="display:flex;"><span>            access_data <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_access_assignments()
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Check for conflicting permissions</span>
+</span></span><span style="display:flex;"><span>            conflicts <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>detect_segregation_conflicts(access_data)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> conflicts:
+</span></span><span style="display:flex;"><span>                result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FAIL&#34;</span>
+</span></span><span style="display:flex;"><span>                result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;SEGREGATION_VIOLATION&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>len(conflicts)<span style="color:#e6db74">}</span><span style="color:#e6db74"> segregation of duties violations&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;details&#34;</span>: conflicts[:<span style="color:#ae81ff">5</span>]  <span style="color:#75715e"># Limit for readability</span>
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                result[<span style="color:#e6db74">&#34;remediation&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;action&#34;</span>: <span style="color:#e6db74">&#34;RESOLVE_SEGREGATION_CONFLICTS&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Review and resolve segregation of duties conflicts&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;HIGH&#34;</span>
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Document evidence</span>
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;evidence&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;evidence_type&#34;</span>: <span style="color:#e6db74">&#34;SEGREGATION_ANALYSIS&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Segregation of duties analysis completed&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;timestamp&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;details&#34;</span>: {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;total_users_analyzed&#34;</span>: len(access_data),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;conflicts_found&#34;</span>: len(conflicts)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ERROR&#34;</span>
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;TEST_ERROR&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error testing segregation: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_access_reviews</span>(self, framework, requirement):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test access review compliance&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;control&#34;</span>: <span style="color:#e6db74">&#34;access_reviews&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;PASS&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Check certification completion rates</span>
+</span></span><span style="display:flex;"><span>            certification_data <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_certification_data()
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Calculate compliance metrics</span>
+</span></span><span style="display:flex;"><span>            total_certifications <span style="color:#f92672">=</span> len(certification_data)
+</span></span><span style="display:flex;"><span>            completed_certifications <span style="color:#f92672">=</span> len([c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> certification_data <span style="color:#66d9ef">if</span> c<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;status&#39;</span>) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;COMPLETED&#39;</span>])
+</span></span><span style="display:flex;"><span>            overdue_certifications <span style="color:#f92672">=</span> len([c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> certification_data <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>is_overdue(c)])
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            completion_rate <span style="color:#f92672">=</span> (completed_certifications <span style="color:#f92672">/</span> total_certifications <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">if</span> total_certifications <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Framework-specific thresholds</span>
+</span></span><span style="display:flex;"><span>            required_rate <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_required_completion_rate(framework)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> completion_rate <span style="color:#f92672">&lt;</span> required_rate:
+</span></span><span style="display:flex;"><span>                result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FAIL&#34;</span>
+</span></span><span style="display:flex;"><span>                result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;LOW_COMPLETION_RATE&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Access review completion rate </span><span style="color:#e6db74">{</span>completion_rate<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">% below required </span><span style="color:#e6db74">{</span>required_rate<span style="color:#e6db74">}</span><span style="color:#e6db74">%&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;details&#34;</span>: {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;actual_rate&#34;</span>: completion_rate,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;required_rate&#34;</span>: required_rate,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;overdue_count&#34;</span>: overdue_certifications
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                result[<span style="color:#e6db74">&#34;remediation&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;action&#34;</span>: <span style="color:#e6db74">&#34;IMPROVE_CERTIFICATION_PROCESS&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Improve access certification completion rates&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;HIGH&#34;</span>
+</span></span><span style="display:flex;"><span>                })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Document evidence</span>
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;evidence&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;evidence_type&#34;</span>: <span style="color:#e6db74">&#34;ACCESS_REVIEW_METRICS&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Access review completion analysis&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;timestamp&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;details&#34;</span>: {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;completion_rate&#34;</span>: completion_rate,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;total_certifications&#34;</span>: total_certifications,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;completed&#34;</span>: completed_certifications,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;overdue&#34;</span>: overdue_certifications
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ERROR&#34;</span>
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;TEST_ERROR&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error testing access reviews: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_mfa_compliance</span>(self, framework, requirement):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Test MFA compliance&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;control&#34;</span>: <span style="color:#e6db74">&#34;multi_factor_auth&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;PASS&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gaps&#34;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation&#34;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Get MFA status for all users</span>
+</span></span><span style="display:flex;"><span>            mfa_data <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_mfa_status()
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Framework-specific requirements</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> framework <span style="color:#f92672">==</span> ComplianceFramework<span style="color:#f92672">.</span>SOX:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># SOX requires MFA for financial system access</span>
+</span></span><span style="display:flex;"><span>                financial_users_without_mfa <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                    user <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> mfa_data 
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> user<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;has_financial_access&#39;</span>) <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> user<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;mfa_enabled&#39;</span>)
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> financial_users_without_mfa:
+</span></span><span style="display:flex;"><span>                    result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FAIL&#34;</span>
+</span></span><span style="display:flex;"><span>                    result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;SOX_MFA_VIOLATION&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Financial system users without MFA: </span><span style="color:#e6db74">{</span>len(financial_users_without_mfa)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;details&#34;</span>: [user[<span style="color:#e6db74">&#39;username&#39;</span>] <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> financial_users_without_mfa[:<span style="color:#ae81ff">10</span>]]
+</span></span><span style="display:flex;"><span>                    })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> framework <span style="color:#f92672">==</span> ComplianceFramework<span style="color:#f92672">.</span>PCI_DSS:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># PCI requires MFA for CDE access</span>
+</span></span><span style="display:flex;"><span>                cde_users_without_mfa <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                    user <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> mfa_data 
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> user<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;has_cde_access&#39;</span>) <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> user<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;mfa_enabled&#39;</span>)
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> cde_users_without_mfa:
+</span></span><span style="display:flex;"><span>                    result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FAIL&#34;</span>
+</span></span><span style="display:flex;"><span>                    result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;PCI_MFA_VIOLATION&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;CDE users without MFA: </span><span style="color:#e6db74">{</span>len(cde_users_without_mfa)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;details&#34;</span>: [user[<span style="color:#e6db74">&#39;username&#39;</span>] <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> cde_users_without_mfa[:<span style="color:#ae81ff">10</span>]]
+</span></span><span style="display:flex;"><span>                    })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Document evidence</span>
+</span></span><span style="display:flex;"><span>            total_users <span style="color:#f92672">=</span> len(mfa_data)
+</span></span><span style="display:flex;"><span>            mfa_enabled_users <span style="color:#f92672">=</span> len([user <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> mfa_data <span style="color:#66d9ef">if</span> user<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;mfa_enabled&#39;</span>)])
+</span></span><span style="display:flex;"><span>            mfa_rate <span style="color:#f92672">=</span> (mfa_enabled_users <span style="color:#f92672">/</span> total_users <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">if</span> total_users <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;evidence&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;evidence_type&#34;</span>: <span style="color:#e6db74">&#34;MFA_COMPLIANCE_ANALYSIS&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Multi-factor authentication compliance analysis&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;timestamp&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;details&#34;</span>: {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;total_users&#34;</span>: total_users,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;mfa_enabled_users&#34;</span>: mfa_enabled_users,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;mfa_compliance_rate&#34;</span>: mfa_rate
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ERROR&#34;</span>
+</span></span><span style="display:flex;"><span>            result[<span style="color:#e6db74">&#34;gaps&#34;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;gap_type&#34;</span>: <span style="color:#e6db74">&#34;TEST_ERROR&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;description&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error testing MFA compliance: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_required_completion_rate</span>(self, framework):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Get required completion rate for framework&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        rates <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>SOX: <span style="color:#ae81ff">98</span>,
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>SOC2: <span style="color:#ae81ff">95</span>,
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>ISO27001: <span style="color:#ae81ff">95</span>,
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>PCI_DSS: <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>NIST: <span style="color:#ae81ff">95</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> rates<span style="color:#f92672">.</span>get(framework, <span style="color:#ae81ff">95</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">store_compliance_results</span>(self, results):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Store compliance validation results&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        bucket_name <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;privilege-analytics-</span><span style="color:#e6db74">{</span>boto3<span style="color:#f92672">.</span>Session()<span style="color:#f92672">.</span>region_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>        key <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;compliance-validation/</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y/%m&#34;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">/validation-</span><span style="color:#e6db74">{</span>results[<span style="color:#e6db74">&#34;validation_id&#34;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">.json&#39;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>s3_client<span style="color:#f92672">.</span>put_object(
+</span></span><span style="display:flex;"><span>                Bucket<span style="color:#f92672">=</span>bucket_name,
+</span></span><span style="display:flex;"><span>                Key<span style="color:#f92672">=</span>key,
+</span></span><span style="display:flex;"><span>                Body<span style="color:#f92672">=</span>json<span style="color:#f92672">.</span>dumps(results, indent<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, default<span style="color:#f92672">=</span>str),
+</span></span><span style="display:flex;"><span>                ContentType<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;application/json&#39;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Compliance results stored: s3://</span><span style="color:#e6db74">{</span>bucket_name<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error storing compliance results: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_compliance_report</span>(self, results):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Generate compliance validation report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;report_id&#34;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;compliance_report_</span><span style="color:#e6db74">{</span>results[<span style="color:#e6db74">&#39;validation_id&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;executive_summary&#34;</span>: self<span style="color:#f92672">.</span>generate_compliance_summary(results),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;framework_details&#34;</span>: results[<span style="color:#e6db74">&#34;framework_results&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;evidence_gaps&#34;</span>: results[<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;remediation_plan&#34;</span>: self<span style="color:#f92672">.</span>prioritize_remediation(results[<span style="color:#e6db74">&#34;remediation_required&#34;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;next_assessment_date&#34;</span>: (datetime<span style="color:#f92672">.</span>now() <span style="color:#f92672">+</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">90</span>))<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store report</span>
+</span></span><span style="display:flex;"><span>        bucket_name <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;privilege-analytics-</span><span style="color:#e6db74">{</span>boto3<span style="color:#f92672">.</span>Session()<span style="color:#f92672">.</span>region_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>        key <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;compliance-reports/</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y/%m&#34;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">/report-</span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#34;report_id&#34;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">.json&#39;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s3_client<span style="color:#f92672">.</span>put_object(
+</span></span><span style="display:flex;"><span>            Bucket<span style="color:#f92672">=</span>bucket_name,
+</span></span><span style="display:flex;"><span>            Key<span style="color:#f92672">=</span>key,
+</span></span><span style="display:flex;"><span>            Body<span style="color:#f92672">=</span>json<span style="color:#f92672">.</span>dumps(report, indent<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, default<span style="color:#f92672">=</span>str),
+</span></span><span style="display:flex;"><span>            ContentType<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;application/json&#39;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_compliance_summary</span>(self, results):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Generate executive summary of compliance status&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        summary <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;overall_status&#34;</span>: results[<span style="color:#e6db74">&#34;overall_status&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;frameworks_assessed&#34;</span>: len(results[<span style="color:#e6db74">&#34;frameworks_assessed&#34;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;compliant_frameworks&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;non_compliant_frameworks&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;total_evidence_gaps&#34;</span>: len(results[<span style="color:#e6db74">&#34;evidence_gaps&#34;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;high_priority_remediation&#34;</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> framework_result <span style="color:#f92672">in</span> results[<span style="color:#e6db74">&#34;framework_results&#34;</span>]<span style="color:#f92672">.</span>values():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> framework_result[<span style="color:#e6db74">&#34;status&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;COMPLIANT&#34;</span>:
+</span></span><span style="display:flex;"><span>                summary[<span style="color:#e6db74">&#34;compliant_frameworks&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                summary[<span style="color:#e6db74">&#34;non_compliant_frameworks&#34;</span>] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Count high priority remediation items</span>
+</span></span><span style="display:flex;"><span>        summary[<span style="color:#e6db74">&#34;high_priority_remediation&#34;</span>] <span style="color:#f92672">=</span> len([
+</span></span><span style="display:flex;"><span>            item <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> results[<span style="color:#e6db74">&#34;remediation_required&#34;</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> item<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;priority&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;HIGH&#34;</span>
+</span></span><span style="display:flex;"><span>        ])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> summary
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Lambda handler for compliance validation&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    engine <span style="color:#f92672">=</span> ComplianceValidationEngine()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get frameworks to validate from event</span>
+</span></span><span style="display:flex;"><span>    frameworks_to_validate <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;frameworks&#39;</span>, [<span style="color:#e6db74">&#39;sox&#39;</span>, <span style="color:#e6db74">&#39;soc2&#39;</span>, <span style="color:#e6db74">&#39;iso27001&#39;</span>])
+</span></span><span style="display:flex;"><span>    frameworks <span style="color:#f92672">=</span> [ComplianceFramework(f) <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> frameworks_to_validate]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Execute compliance validation</span>
+</span></span><span style="display:flex;"><span>    results <span style="color:#f92672">=</span> engine<span style="color:#f92672">.</span>validate_compliance(frameworks)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps({
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;Compliance validation completed&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;validation_id&#39;</span>: results[<span style="color:#e6db74">&#39;validation_id&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overall_status&#39;</span>: results[<span style="color:#e6db74">&#39;overall_status&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;frameworks_assessed&#39;</span>: len(results[<span style="color:#e6db74">&#39;frameworks_assessed&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;evidence_gaps&#39;</span>: len(results[<span style="color:#e6db74">&#39;evidence_gaps&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;remediation_items&#39;</span>: len(results[<span style="color:#e6db74">&#39;remediation_required&#39;</span>])
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="bước-2-compliance-dashboard">Bước 2: Compliance Dashboard</h2>
+<h3 id="21-real-time-compliance-monitoring">2.1 Real-time Compliance Monitoring</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComplianceDashboard</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_compliance_metrics</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Generate real-time compliance metrics&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        metrics <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;timestamp&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;overall_compliance_score&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;framework_scores&#34;</span>: {},
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;trending_metrics&#34;</span>: {},
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;risk_indicators&#34;</span>: {}
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate compliance scores for each framework</span>
+</span></span><span style="display:flex;"><span>        frameworks <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;sox&#39;</span>, <span style="color:#e6db74">&#39;soc2&#39;</span>, <span style="color:#e6db74">&#39;iso27001&#39;</span>, <span style="color:#e6db74">&#39;pci_dss&#39;</span>]
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> framework <span style="color:#f92672">in</span> frameworks:
+</span></span><span style="display:flex;"><span>            score <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>calculate_framework_score(framework)
+</span></span><span style="display:flex;"><span>            metrics[<span style="color:#e6db74">&#34;framework_scores&#34;</span>][framework] <span style="color:#f92672">=</span> score
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate overall score</span>
+</span></span><span style="display:flex;"><span>        metrics[<span style="color:#e6db74">&#34;overall_compliance_score&#34;</span>] <span style="color:#f92672">=</span> sum(metrics[<span style="color:#e6db74">&#34;framework_scores&#34;</span>]<span style="color:#f92672">.</span>values()) <span style="color:#f92672">/</span> len(frameworks)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate trending data</span>
+</span></span><span style="display:flex;"><span>        metrics[<span style="color:#e6db74">&#34;trending_metrics&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>generate_trending_data()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Identify risk indicators</span>
+</span></span><span style="display:flex;"><span>        metrics[<span style="color:#e6db74">&#34;risk_indicators&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>identify_risk_indicators()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Send metrics to CloudWatch</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>send_metrics_to_cloudwatch(metrics)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> metrics
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_framework_score</span>(self, framework):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Calculate compliance score for a specific framework&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Get latest validation results</span>
+</span></span><span style="display:flex;"><span>            bucket_name <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;privilege-analytics-</span><span style="color:#e6db74">{</span>boto3<span style="color:#f92672">.</span>Session()<span style="color:#f92672">.</span>region_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># List recent validation files</span>
+</span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>s3_client<span style="color:#f92672">.</span>list_objects_v2(
+</span></span><span style="display:flex;"><span>                Bucket<span style="color:#f92672">=</span>bucket_name,
+</span></span><span style="display:flex;"><span>                Prefix<span style="color:#f92672">=</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;compliance-validation/</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y/%m&#34;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">/&#39;</span>,
+</span></span><span style="display:flex;"><span>                MaxKeys<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            latest_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">85</span>  <span style="color:#75715e"># Default score</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> obj <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Contents&#39;</span>, []):
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Get validation result</span>
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>s3_client<span style="color:#f92672">.</span>get_object(
+</span></span><span style="display:flex;"><span>                    Bucket<span style="color:#f92672">=</span>bucket_name,
+</span></span><span style="display:flex;"><span>                    Key<span style="color:#f92672">=</span>obj[<span style="color:#e6db74">&#39;Key&#39;</span>]
+</span></span><span style="display:flex;"><span>                )
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                validation_data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(result[<span style="color:#e6db74">&#39;Body&#39;</span>]<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> framework <span style="color:#f92672">in</span> validation_data<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;framework_results&#39;</span>, {}):
+</span></span><span style="display:flex;"><span>                    framework_result <span style="color:#f92672">=</span> validation_data[<span style="color:#e6db74">&#39;framework_results&#39;</span>][framework]
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Calculate score based on pass rate</span>
+</span></span><span style="display:flex;"><span>                    total_requirements <span style="color:#f92672">=</span> framework_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;requirements_tested&#39;</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>                    passed_requirements <span style="color:#f92672">=</span> framework_result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;requirements_passed&#39;</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>                    latest_score <span style="color:#f92672">=</span> (passed_requirements <span style="color:#f92672">/</span> total_requirements <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">if</span> total_requirements <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> latest_score
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error calculating framework score for </span><span style="color:#e6db74">{</span>framework<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_metrics_to_cloudwatch</span>(self, metrics):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Send compliance metrics to CloudWatch&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        metric_data <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Overall compliance score</span>
+</span></span><span style="display:flex;"><span>        metric_data<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;MetricName&#39;</span>: <span style="color:#e6db74">&#39;OverallComplianceScore&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Value&#39;</span>: metrics[<span style="color:#e6db74">&#39;overall_compliance_score&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Unit&#39;</span>: <span style="color:#e6db74">&#39;Percent&#39;</span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Framework-specific scores</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> framework, score <span style="color:#f92672">in</span> metrics[<span style="color:#e6db74">&#39;framework_scores&#39;</span>]<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            metric_data<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;MetricName&#39;</span>: <span style="color:#e6db74">&#39;ComplianceScore&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Dimensions&#39;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#39;Name&#39;</span>: <span style="color:#e6db74">&#39;Framework&#39;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#39;Value&#39;</span>: framework<span style="color:#f92672">.</span>upper()
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                ],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Value&#39;</span>: score,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Unit&#39;</span>: <span style="color:#e6db74">&#39;Percent&#39;</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Send to CloudWatch</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>cloudwatch<span style="color:#f92672">.</span>put_metric_data(
+</span></span><span style="display:flex;"><span>                Namespace<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;IdentityGovernance/Compliance&#39;</span>,
+</span></span><span style="display:flex;"><span>                MetricData<span style="color:#f92672">=</span>metric_data
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Sent </span><span style="color:#e6db74">{</span>len(metric_data)<span style="color:#e6db74">}</span><span style="color:#e6db74"> compliance metrics to CloudWatch&#34;</span>)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error sending metrics to CloudWatch: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Lambda handler for compliance dashboard&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    dashboard <span style="color:#f92672">=</span> ComplianceDashboard()
+</span></span><span style="display:flex;"><span>    metrics <span style="color:#f92672">=</span> dashboard<span style="color:#f92672">.</span>generate_compliance_metrics()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps({
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;Compliance metrics generated successfully&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overall_score&#39;</span>: metrics[<span style="color:#e6db74">&#39;overall_compliance_score&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;framework_count&#39;</span>: len(metrics[<span style="color:#e6db74">&#39;framework_scores&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;timestamp&#39;</span>: metrics[<span style="color:#e6db74">&#39;timestamp&#39;</span>]
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="bước-3-regulatory-reporting">Bước 3: Regulatory Reporting</h2>
+<h3 id="31-automated-compliance-reports">3.1 Automated Compliance Reports</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># CloudFormation template for compliance reporting</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">AWSTemplateFormatVersion</span>: <span style="color:#e6db74">&#39;2010-09-09&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Description</span>: <span style="color:#e6db74">&#39;Compliance Reporting Infrastructure&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">Resources</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ComplianceReportingBucket</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::S3::Bucket</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">BucketName</span>: !<span style="color:#ae81ff">Sub &#39;compliance-reports-${AWS::AccountId}&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">VersioningConfiguration</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Status</span>: <span style="color:#ae81ff">Enabled</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">LifecycleConfiguration</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Rules</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">Id</span>: <span style="color:#ae81ff">RetainReports</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">Status</span>: <span style="color:#ae81ff">Enabled</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">ExpirationInDays</span>: <span style="color:#ae81ff">2555</span>  <span style="color:#75715e"># 7 years retention</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ComplianceReportingRole</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::IAM::Role</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">AssumeRolePolicyDocument</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Version</span>: <span style="color:#e6db74">&#39;2012-10-17&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Statement</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">Effect</span>: <span style="color:#ae81ff">Allow</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">Principal</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">Service</span>: <span style="color:#ae81ff">lambda.amazonaws.com</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">Action</span>: <span style="color:#ae81ff">sts:AssumeRole</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ManagedPolicyArns</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Policies</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">PolicyName</span>: <span style="color:#ae81ff">ComplianceReportingPolicy</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">PolicyDocument</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">Version</span>: <span style="color:#e6db74">&#39;2012-10-17&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">Statement</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#f92672">Effect</span>: <span style="color:#ae81ff">Allow</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">Action</span>:
+</span></span><span style="display:flex;"><span>                  - <span style="color:#ae81ff">s3:GetObject</span>
+</span></span><span style="display:flex;"><span>                  - <span style="color:#ae81ff">s3:PutObject</span>
+</span></span><span style="display:flex;"><span>                  - <span style="color:#ae81ff">s3:ListBucket</span>
+</span></span><span style="display:flex;"><span>                  - <span style="color:#ae81ff">dynamodb:Query</span>
+</span></span><span style="display:flex;"><span>                  - <span style="color:#ae81ff">dynamodb:Scan</span>
+</span></span><span style="display:flex;"><span>                  - <span style="color:#ae81ff">ses:SendEmail</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">Resource</span>: <span style="color:#e6db74">&#39;*&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">QuarterlyComplianceReport</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::Events::Rule</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Name</span>: <span style="color:#ae81ff">QuarterlyComplianceReporting</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Description</span>: <span style="color:#ae81ff">Generate quarterly compliance reports</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ScheduleExpression</span>: <span style="color:#e6db74">&#34;cron(0 9 1 */3 *)&#34;</span>  <span style="color:#75715e"># First day of quarter at 9 AM</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">State</span>: <span style="color:#ae81ff">ENABLED</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Targets</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">Arn</span>: !<span style="color:#ae81ff">GetAtt ComplianceReportingFunction.Arn</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">Id</span>: <span style="color:#e6db74">&#34;ComplianceReportTarget&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ComplianceReportingFunction</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::Lambda::Function</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">FunctionName</span>: <span style="color:#ae81ff">ComplianceReportingFunction</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Runtime</span>: <span style="color:#ae81ff">python3.9</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Handler</span>: <span style="color:#ae81ff">compliance_reporting.lambda_handler</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Role</span>: !<span style="color:#ae81ff">GetAtt ComplianceReportingRole.Arn</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Timeout</span>: <span style="color:#ae81ff">900</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Environment</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Variables</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">REPORTS_BUCKET</span>: !<span style="color:#ae81ff">Ref ComplianceReportingBucket</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">Code</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ZipFile</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          import json
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          def lambda_handler(event, context):
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              return {&#39;statusCode&#39;: 200, &#39;body&#39;: &#39;Compliance reporting function&#39;}</span>          
+</span></span></code></pre></div><h2 id="bước-4-deployment-và-validation">Bước 4: Deployment và Validation</h2>
+<h3 id="41-complete-deployment-script">4.1 Complete Deployment Script</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Deploying Identity Governance Compliance Validation...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Deploy compliance infrastructure</span>
+</span></span><span style="display:flex;"><span>aws cloudformation deploy <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --template-file compliance-infrastructure.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --stack-name identity-governance-compliance <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --capabilities CAPABILITY_IAM
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create DynamoDB table for compliance evidence</span>
+</span></span><span style="display:flex;"><span>aws dynamodb create-table <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --table-name ComplianceEvidence <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --attribute-definitions <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    AttributeName<span style="color:#f92672">=</span>evidence_id,AttributeType<span style="color:#f92672">=</span>S <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    AttributeName<span style="color:#f92672">=</span>framework,AttributeType<span style="color:#f92672">=</span>S <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --key-schema <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    AttributeName<span style="color:#f92672">=</span>evidence_id,KeyType<span style="color:#f92672">=</span>HASH <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --global-secondary-indexes <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    IndexName<span style="color:#f92672">=</span>FrameworkIndex,KeySchema<span style="color:#f92672">=[{</span>AttributeName<span style="color:#f92672">=</span>framework,KeyType<span style="color:#f92672">=</span>HASH<span style="color:#f92672">}]</span>,Projection<span style="color:#f92672">={</span>ProjectionType<span style="color:#f92672">=</span>ALL<span style="color:#f92672">}</span>,ProvisionedThroughput<span style="color:#f92672">={</span>ReadCapacityUnits<span style="color:#f92672">=</span>5,WriteCapacityUnits<span style="color:#f92672">=</span>5<span style="color:#f92672">}</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --billing-mode PAY_PER_REQUEST
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Deploy Lambda functions</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Deploying compliance validation functions...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Package compliance validation function</span>
+</span></span><span style="display:flex;"><span>zip -r compliance-validation.zip compliance_validation.py
+</span></span><span style="display:flex;"><span>aws lambda create-function <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --function-name ComplianceValidationEngine <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --runtime python3.9 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --role arn:aws:iam::<span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>:role/ComplianceValidationRole <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --handler compliance_validation.lambda_handler <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --zip-file fileb://compliance-validation.zip <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --timeout <span style="color:#ae81ff">900</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Package compliance dashboard function</span>
+</span></span><span style="display:flex;"><span>zip -r compliance-dashboard.zip compliance_dashboard.py
+</span></span><span style="display:flex;"><span>aws lambda create-function <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --function-name ComplianceDashboard <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --runtime python3.9 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --role arn:aws:iam::<span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>:role/ComplianceValidationRole <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --handler compliance_dashboard.lambda_handler <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --zip-file fileb://compliance-dashboard.zip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create EventBridge rules for scheduled compliance validation</span>
+</span></span><span style="display:flex;"><span>aws events put-rule <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --name MonthlyComplianceValidation <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --schedule-expression <span style="color:#e6db74">&#34;cron(0 9 1 * ? *)&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --description <span style="color:#e6db74">&#34;Monthly compliance validation&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>aws events put-targets <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --rule MonthlyComplianceValidation <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --targets <span style="color:#e6db74">&#34;Id&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;Arn&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;arn:aws:lambda:</span><span style="color:#66d9ef">$(</span>aws configure get region<span style="color:#66d9ef">)</span><span style="color:#e6db74">:</span><span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span><span style="color:#e6db74">:function:ComplianceValidationEngine&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create rule for daily compliance metrics</span>
+</span></span><span style="display:flex;"><span>aws events put-rule <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --name DailyComplianceMetrics <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --schedule-expression <span style="color:#e6db74">&#34;cron(0 8 * * ? *)&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --description <span style="color:#e6db74">&#34;Daily compliance metrics generation&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>aws events put-targets <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --rule DailyComplianceMetrics <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --targets <span style="color:#e6db74">&#34;Id&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;Arn&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;arn:aws:lambda:</span><span style="color:#66d9ef">$(</span>aws configure get region<span style="color:#66d9ef">)</span><span style="color:#e6db74">:</span><span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span><span style="color:#e6db74">:function:ComplianceDashboard&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Compliance validation deployment completed successfully!&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Access compliance dashboard at: https://console.aws.amazon.com/cloudwatch/home#dashboards:name=ComplianceDashboard&#34;</span>
+</span></span></code></pre></div><h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
+<p>Sau khi hoàn thành workshop này, bạn sẽ có:</p>
+<h3 id="-comprehensive-identity-governance-system">✅ Comprehensive Identity Governance System</h3>
+<ul>
+<li>Centralized access management với AWS IAM Identity Center</li>
+<li>Automated access certification workflows</li>
+<li>Real-time privilege analytics và risk assessment</li>
+<li>Continuous monitoring và alerting</li>
+</ul>
+<h3 id="-compliance-framework-implementation">✅ Compliance Framework Implementation</h3>
+<ul>
+<li>SOX, SOC2, ISO27001, PCI-DSS compliance validation</li>
+<li>Automated evidence collection</li>
+<li>Regulatory reporting capabilities</li>
+<li>Audit trail maintenance</li>
+</ul>
+<h3 id="-operational-excellence">✅ Operational Excellence</h3>
+<ul>
+<li>Standardized operational procedures</li>
+<li>Incident response capabilities</li>
+<li>Change management processes</li>
+<li>Performance monitoring</li>
+</ul>
+<h3 id="-audit-và-governance">✅ Audit và Governance</h3>
+<ul>
+<li>Comprehensive audit framework</li>
+<li>Automated control testing</li>
+<li>Finding tracking và remediation</li>
+<li>Management reporting</li>
+</ul>
+<h2 id="best-practices-summary">Best Practices Summary</h2>
+<ol>
+<li><strong>Implement Least Privilege</strong>: Chỉ cấp quyền tối thiểu cần thiết</li>
+<li><strong>Automate Where Possible</strong>: Tự động hóa các quy trình lặp lại</li>
+<li><strong>Monitor Continuously</strong>: Giám sát liên tục các hoạt động</li>
+<li><strong>Document Everything</strong>: Ghi chép đầy đủ cho audit trail</li>
+<li><strong>Regular Reviews</strong>: Thực hiện review định kỳ</li>
+<li><strong>Stay Updated</strong>: Cập nhật theo các thay đổi compliance</li>
+</ol>
+<h2 id="tài-liệu-tham-khảo">Tài liệu Tham khảo</h2>
+<ul>
+<li><a href="https://docs.aws.amazon.com/singlesignon/">AWS IAM Identity Center Documentation</a></li>
+<li><a href="https://docs.aws.amazon.com/organizations/">AWS Organizations Best Practices</a></li>
+<li><a href="https://www.sec.gov/about/laws/soa2002.pdf">SOX Compliance Guidelines</a></li>
+<li><a href="https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report.html">SOC 2 Framework</a></li>
+<li><a href="https://www.iso.org/isoiec-27001-information-security.html">ISO 27001 Standard</a></li>
+</ul>
+<h2 id="hỗ-trợ">Hỗ trợ</h2>
+<p>Nếu bạn gặp vấn đề trong quá trình triển khai, vui lòng:</p>
+<ol>
+<li>Kiểm tra CloudWatch Logs để debug</li>
+<li>Xem lại IAM permissions</li>
+<li>Tham khảo AWS documentation</li>
+<li>Liên hệ team support nếu cần thiết</li>
+</ol>
+<p><strong>Workshop hoàn thành thành công! 🎉</strong></p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/5-identity-governance-access-certification/5.7-audit-procedures/" title="5.7 Audit Procedures"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/5-identity-governance-access-certification/5.5-monitoring-setup/" title="5.5 Monitoring Setup" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1754858469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754858469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754858469"></script>
+    <script src="/js/jquery.sticky.js?1754858469"></script>
+    <script src="/js/featherlight.min.js?1754858469"></script>
+    <script src="/js/highlight.pack.js?1754858469"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754858469"></script>
+    <script src="/js/learn.js?1754858469"></script>
+    <script src="/js/hugo-learn.js?1754858469"></script>
+
+    <link href="/mermaid/mermaid.css?1754858469" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754858469"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
