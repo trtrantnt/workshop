@@ -6,45 +6,68 @@ weight: 3
 
 ## Mục tiêu
 
-Thiết lập nền tảng quản lý truy cập tập trung với AWS IAM Identity Center và Organizations.
+Thiết lập nền tảng quản lý truy cập tập trung với AWS IAM Identity Center và IAM.
 
 ## Kiến trúc
 
-```mermaid
-graph LR
-    A[Management Account] --> B[AWS Organizations]
-    B --> C[Member Accounts]
-    C --> D[IAM Identity Center]
-    D --> E[Permission Sets]
-    E --> F[User Assignments]
+![Kiến trúc Access Governance](/images/3/access-governance-architecture.png)
+
+## Bước 1: Thiết lập IAM Foundation
+
+### 1.1 Tạo IAM Groups
+
+1. Điều hướng đến dịch vụ **IAM** trong AWS Console
+2. Click **User groups** trong sidebar
+3. Click **Create group**
+
+![Tạo IAM Group](/images/3/create-iam-group.png)
+
+4. Nhập thông tin group:
+   - **Group name**: SecurityAuditors
+   - **Description**: Security auditing team
+5. Click **Create group**
+
+![Chi tiết IAM Group](/images/3/iam-group-details.png)
+
+### 1.2 Tạo IAM Policies
+
+1. Click **Policies** trong sidebar
+2. Click **Create policy**
+
+![Tạo IAM Policy](/images/3/create-iam-policy.png)
+
+3. Sử dụng JSON editor để tạo custom policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*",
+                "iam:Generate*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudtrail:Get*",
+                "cloudtrail:List*",
+                "cloudtrail:Describe*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
 ```
 
-## Bước 1: Thiết lập AWS Organizations
+4. Đặt tên policy: **SecurityAuditPolicy**
+5. Click **Create policy**
 
-### 1.1 Tạo Organization
-
-1. Đăng nhập vào AWS Console với tài khoản root
-2. Tìm kiếm và mở service **AWS Organizations**
-3. Click **Create organization**
-
-![Tạo Organization](/images/3/create-organization.png?featherlight=false&width=90pc)
-
-4. Chọn **Enable all features** để có đầy đủ tính năng quản lý
-5. Click **Create organization**
-
-![Kích hoạt Tất cả Tính năng](/images/3/enable-all-features.png?featherlight=false&width=90pc)
-
-### 1.2 Tạo Organizational Units
-
-1. Trong AWS Organizations console, click **AWS accounts** ở sidebar
-2. Click **Actions** → **Create organizational unit**
-
-![Tạo OU](/images/3/create-ou.png?featherlight=false&width=90pc)
-
-3. Nhập tên OU: **Security**
-4. Click **Create organizational unit**
-
-![Tên OU](/images/3/ou-name.png?featherlight=false&width=90pc)
+![IAM Policy JSON](/images/3/iam-policy-json.png)
 
 ## Bước 2: Cấu hình IAM Identity Center
 
@@ -53,12 +76,12 @@ graph LR
 1. Tìm kiếm và mở **IAM Identity Center** trong AWS Console
 2. Click **Enable** để kích hoạt IAM Identity Center
 
-![Kích hoạt IAM Identity Center](/images/3/enable-identity-center.png?featherlight=false&width=90pc)
+![Kích hoạt IAM Identity Center](/images/3/enable-identity-center.png)
 
 3. Chọn region để lưu trữ identity store
-4. Click **Create AWS organization** nếu chưa có
+4. Chọn **Use IAM Identity Center as my identity source**
 
-![Chọn Region](/images/3/choose-region.png?featherlight=false&width=90pc)
+![Chọn Identity Source](/images/3/choose-identity-source.png)
 
 ### 2.2 Tạo Permission Sets
 
@@ -152,13 +175,13 @@ graph LR
 
 Sau khi hoàn thành bước này, bạn sẽ có:
 
-- ✅ AWS Organizations được cấu hình với OUs
+- ✅ IAM Groups và Policies được cấu hình
 - ✅ IAM Identity Center được kích hoạt
 - ✅ Permission Sets cho các vai trò governance
 - ✅ Identity Store với groups và users
 - ✅ Các assignment quyền được cấu hình
 
-![Thiết lập Hoàn tất](/images/3/final-setup.png?featherlight=false&width=90pc)
+![Thiết lập Hoàn tất](/images/3/final-setup.png)
 
 ## Tiếp theo
 

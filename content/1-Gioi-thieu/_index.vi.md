@@ -24,7 +24,7 @@ Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity
 ## AWS Services Sử dụng
 
 - **AWS IAM Identity Center** - Centralized access management
-- **AWS Organizations** - Multi-account governance
+- **AWS IAM** - Identity and access management
 - **AWS CloudTrail** - Audit logging
 - **AWS Config** - Compliance monitoring
 - **AWS Lambda** - Automation functions

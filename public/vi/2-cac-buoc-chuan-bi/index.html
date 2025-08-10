@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/workshop/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=workshop/livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
     <meta name="description" content="">
 <meta name="author" content="journeyoftheaverageguy@gmail.com">
 
-    <link rel="icon" href="/workshop/images/favicon.png" type="image/png">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
 
     <title>2. Các bước chuẩn bị :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/workshop/css/nucleus.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/fontawesome-all.min.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/hybrid.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/featherlight.min.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/perfect-scrollbar.min.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/auto-complete.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/atom-one-dark-reasonable.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/theme.css?1754865407" rel="stylesheet">
-    <link href="/workshop/css/hugo-theme.css?1754865407" rel="stylesheet">
+    <link href="/css/nucleus.css?1754867449" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754867449" rel="stylesheet">
+    <link href="/css/hybrid.css?1754867449" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754867449" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754867449" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754867449" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754867449" rel="stylesheet">
+    <link href="/css/theme.css?1754867449" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754867449" rel="stylesheet">
     
-    <link href="/workshop/css/theme-workshop.css?1754865407" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754867449" rel="stylesheet">
     
     
 
-    <script src="/workshop/js/jquery-3.3.1.min.js?1754865407"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754867449"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -36,14 +36,14 @@
     </style>
     
   </head>
-  <body class="" data-url="/workshop/vi/2-cac-buoc-chuan-bi/">
+  <body class="" data-url="/vi/2-cac-buoc-chuan-bi/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
 
   <div id="header-wrapper">
     <div id="header">
-      <a id="logo" href="/">
+      <a id="logo" href="https://trtrantnt.github.io/workshop/">
 
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
 
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/workshop/js/lunr.min.js?1754865407"></script>
-<script type="text/javascript" src="/workshop/js/auto-complete.js?1754865407"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754867449"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754867449"></script>
 <script type="text/javascript">
     
-        var baseurl = "http:\/\/localhost:1313\/workshop\/\/vi";
+        var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/workshop/js/search.js?1754865407"></script>
+<script type="text/javascript" src="/js/search.js?1754867449"></script>
 
     
   </div>
@@ -82,12 +82,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/1-gioi-thieu/" title="1. Giới thiệu" class="dd-item 
+    <li data-nav-id="/vi/1-gioi-thieu/" title="1. Giới thiệu" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/1-gioi-thieu/">
+      <a href="/vi/1-gioi-thieu/">
           1. Giới thiệu
           
             <i class="fas fa-check read-icon"></i>
@@ -108,12 +108,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/2-cac-buoc-chuan-bi/" title="2. Các bước chuẩn bị" class="dd-item 
+    <li data-nav-id="/vi/2-cac-buoc-chuan-bi/" title="2. Các bước chuẩn bị" class="dd-item 
         
         active
         
         ">
-      <a href="/workshop/vi/2-cac-buoc-chuan-bi/">
+      <a href="/vi/2-cac-buoc-chuan-bi/">
           2. Các bước chuẩn bị
           
             <i class="fas fa-check read-icon"></i>
@@ -134,12 +134,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/3-thiet-lap-access-governance/" title="3. Thiết lập Access Governance" class="dd-item 
+    <li data-nav-id="/vi/3-thiet-lap-access-governance/" title="3. Thiết lập Access Governance" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/3-thiet-lap-access-governance/">
+      <a href="/vi/3-thiet-lap-access-governance/">
           3. Thiết lập Access Governance
           
             <i class="fas fa-check read-icon"></i>
@@ -160,12 +160,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/4-tu-dong-hoa-certification/" title="4. Tự động hóa Certification" class="dd-item 
+    <li data-nav-id="/vi/4-tu-dong-hoa-certification/" title="4. Tự động hóa Certification" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/4-tu-dong-hoa-certification/">
+      <a href="/vi/4-tu-dong-hoa-certification/">
           4. Tự động hóa Certification
           
             <i class="fas fa-check read-icon"></i>
@@ -186,12 +186,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/5-phan-tich-dac-quyen/" title="5. Phân tích Đặc quyền" class="dd-item 
+    <li data-nav-id="/vi/5-phan-tich-dac-quyen/" title="5. Phân tích Đặc quyền" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/5-phan-tich-dac-quyen/">
+      <a href="/vi/5-phan-tich-dac-quyen/">
           5. Phân tích Đặc quyền
           
             <i class="fas fa-check read-icon"></i>
@@ -212,12 +212,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/6-danh-gia-rui-ro/" title="6. Đánh giá Rủi ro" class="dd-item 
+    <li data-nav-id="/vi/6-danh-gia-rui-ro/" title="6. Đánh giá Rủi ro" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/6-danh-gia-rui-ro/">
+      <a href="/vi/6-danh-gia-rui-ro/">
           6. Đánh giá Rủi ro
           
             <i class="fas fa-check read-icon"></i>
@@ -238,12 +238,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/7-thiet-lap-giam-sat/" title="7. Thiết lập Giám sát" class="dd-item 
+    <li data-nav-id="/vi/7-thiet-lap-giam-sat/" title="7. Thiết lập Giám sát" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/7-thiet-lap-giam-sat/">
+      <a href="/vi/7-thiet-lap-giam-sat/">
           7. Thiết lập Giám sát
           
             <i class="fas fa-check read-icon"></i>
@@ -264,12 +264,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/8-quy-trinh-van-hanh/" title="8. Quy trình Vận hành" class="dd-item 
+    <li data-nav-id="/vi/8-quy-trinh-van-hanh/" title="8. Quy trình Vận hành" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/8-quy-trinh-van-hanh/">
+      <a href="/vi/8-quy-trinh-van-hanh/">
           8. Quy trình Vận hành
           
             <i class="fas fa-check read-icon"></i>
@@ -290,12 +290,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/9-quy-trinh-kiem-toan/" title="9. Quy trình Kiểm toán" class="dd-item 
+    <li data-nav-id="/vi/9-quy-trinh-kiem-toan/" title="9. Quy trình Kiểm toán" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/9-quy-trinh-kiem-toan/">
+      <a href="/vi/9-quy-trinh-kiem-toan/">
           9. Quy trình Kiểm toán
           
             <i class="fas fa-check read-icon"></i>
@@ -316,12 +316,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/10-xac-thuc-tuan-thu/" title="10. Xác thực Tuân thủ" class="dd-item 
+    <li data-nav-id="/vi/10-xac-thuc-tuan-thu/" title="10. Xác thực Tuân thủ" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/10-xac-thuc-tuan-thu/">
+      <a href="/vi/10-xac-thuc-tuan-thu/">
           10. Xác thực Tuân thủ
           
             <i class="fas fa-check read-icon"></i>
@@ -342,12 +342,12 @@
  
   
     
-    <li data-nav-id="/workshop/vi/11-clean-resources/" title="11. Dọn dẹp Tài nguyên" class="dd-item 
+    <li data-nav-id="/vi/11-clean-resources/" title="11. Dọn dẹp Tài nguyên" class="dd-item 
         
         
         
         ">
-      <a href="/workshop/vi/11-clean-resources/">
+      <a href="/vi/11-clean-resources/">
           11. Dọn dẹp Tài nguyên
           
             <i class="fas fa-check read-icon"></i>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="http://localhost:1313/workshop/2-cac-buoc-chuan-bi/">English</option>
+                      <option id="en" value="//localhost:1313/2-cac-buoc-chuan-bi/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="http://localhost:1313/workshop/vi/2-cac-buoc-chuan-bi/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/2-cac-buoc-chuan-bi/" selected>Tiếng Việt</option>
                     
                   
               
@@ -499,7 +499,7 @@
             
           
           
-            <a href='/workshop/vi/'>Quản trị Danh tính với Chứng nhận Truy cập</a> > 2. Các bước chuẩn bị
+            <a href='/vi/'>Quản trị Danh tính với Chứng nhận Truy cập</a> > 2. Các bước chuẩn bị
           
         
           
@@ -516,33 +516,29 @@
       <ul>
         <li><a href="#1-aws-account">1. AWS Account</a></li>
         <li><a href="#2-kiến-thức-cần-thiết">2. Kiến thức cần thiết</a></li>
-        <li><a href="#3-công-cụ-cần-thiết">3. Công cụ cần thiết</a></li>
+        <li><a href="#3-yêu-cầu-truy-cập">3. Yêu cầu truy cập</a></li>
       </ul>
     </li>
     <li><a href="#thiết-lập-môi-trường">Thiết lập môi trường</a>
       <ul>
-        <li><a href="#1-cấu-hình-aws-cli">1. Cấu hình AWS CLI</a></li>
-        <li><a href="#2-kiểm-tra-quyền">2. Kiểm tra quyền</a></li>
-        <li><a href="#3-tạo-s3-bucket-cho-dữ-liệu">3. Tạo S3 Bucket cho dữ liệu</a></li>
+        <li><a href="#1-truy-cập-aws-console">1. Truy cập AWS Console</a></li>
+        <li><a href="#2-xác-minh-quyền-tài-khoản">2. Xác minh quyền tài khoản</a></li>
+        <li><a href="#3-tạo-s3-bucket-cho-lưu-trữ-dữ-liệu">3. Tạo S3 Bucket cho lưu trữ dữ liệu</a></li>
       </ul>
     </li>
     <li><a href="#chuẩn-bị-infrastructure">Chuẩn bị Infrastructure</a>
       <ul>
-        <li><a href="#1-enable-aws-services">1. Enable AWS Services</a></li>
-        <li><a href="#2-tạo-iam-roles-cần-thiết">2. Tạo IAM Roles cần thiết</a></li>
+        <li><a href="#1-kích-hoạt-aws-cloudtrail">1. Kích hoạt AWS CloudTrail</a></li>
+        <li><a href="#2-kích-hoạt-aws-config">2. Kích hoạt AWS Config</a></li>
+        <li><a href="#3-kích-hoạt-amazon-guardduty">3. Kích hoạt Amazon GuardDuty</a></li>
+        <li><a href="#4-tạo-iam-roles-cần-thiết">4. Tạo IAM Roles cần thiết</a></li>
+        <li><a href="#5-tạo-dynamodb-tables">5. Tạo DynamoDB Tables</a></li>
       </ul>
     </li>
-    <li><a href="#chuẩn-bị-code-và-templates">Chuẩn bị Code và Templates</a>
+    <li><a href="#xác-thực-thiết-lập">Xác thực thiết lập</a>
       <ul>
-        <li><a href="#1-download-workshop-materials">1. Download Workshop Materials</a></li>
-        <li><a href="#2-chuẩn-bị-cloudformation-templates">2. Chuẩn bị CloudFormation Templates</a></li>
-        <li><a href="#3-deploy-base-infrastructure">3. Deploy Base Infrastructure</a></li>
-      </ul>
-    </li>
-    <li><a href="#validation">Validation</a>
-      <ul>
-        <li><a href="#1-kiểm-tra-services">1. Kiểm tra Services</a></li>
-        <li><a href="#2-test-permissions">2. Test Permissions</a></li>
+        <li><a href="#1-kiểm-tra-các-dịch-vụ-đã-kích-hoạt">1. Kiểm tra các dịch vụ đã kích hoạt</a></li>
+        <li><a href="#2-kiểm-tra-quyền-truy-cập">2. Kiểm tra quyền truy cập</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -576,175 +572,165 @@
 <h3 id="1-aws-account">1. AWS Account</h3>
 <ul>
 <li>AWS Account với quyền Administrator</li>
-<li>Quyền tạo và quản lý AWS Organizations</li>
+<li>Quyền tạo và quản lý IAM users, groups, và roles</li>
 <li>Quyền sử dụng IAM Identity Center</li>
 </ul>
 <h3 id="2-kiến-thức-cần-thiết">2. Kiến thức cần thiết</h3>
 <ul>
 <li>Hiểu biết cơ bản về AWS IAM</li>
-<li>Kinh nghiệm với AWS Organizations</li>
+<li>Kinh nghiệm với IAM users, groups, và policies</li>
 <li>Kiến thức về compliance frameworks (SOX, SOC2, ISO27001)</li>
 <li>Hiểu biết về Python và AWS CLI</li>
 </ul>
-<h3 id="3-công-cụ-cần-thiết">3. Công cụ cần thiết</h3>
+<h3 id="3-yêu-cầu-truy-cập">3. Yêu cầu truy cập</h3>
 <ul>
-<li>AWS CLI đã được cấu hình</li>
-<li>Python 3.9 hoặc cao hơn</li>
-<li>Git để clone code examples</li>
-<li>Text editor hoặc IDE</li>
+<li>Trình duyệt web (Chrome, Firefox, Safari, hoặc Edge)</li>
+<li>Kết nối internet ổn định</li>
+<li>Quyền truy cập AWS Console</li>
+<li>Quyền quản trị trong AWS account</li>
 </ul>
 <h2 id="thiết-lập-môi-trường">Thiết lập môi trường</h2>
-<h3 id="1-cấu-hình-aws-cli">1. Cấu hình AWS CLI</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Cài đặt AWS CLI</span>
-</span></span><span style="display:flex;"><span>pip install awscli
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cấu hình credentials</span>
-</span></span><span style="display:flex;"><span>aws configure
-</span></span></code></pre></div><h3 id="2-kiểm-tra-quyền">2. Kiểm tra quyền</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra account hiện tại</span>
-</span></span><span style="display:flex;"><span>aws sts get-caller-identity
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra quyền Organizations</span>
-</span></span><span style="display:flex;"><span>aws organizations describe-organization
-</span></span></code></pre></div><h3 id="3-tạo-s3-bucket-cho-dữ-liệu">3. Tạo S3 Bucket cho dữ liệu</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Tạo bucket cho analytics data</span>
-</span></span><span style="display:flex;"><span>aws s3 mb s3://privilege-analytics-<span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tạo bucket cho compliance reports</span>
-</span></span><span style="display:flex;"><span>aws s3 mb s3://compliance-reports-<span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>
-</span></span></code></pre></div><h2 id="chuẩn-bị-infrastructure">Chuẩn bị Infrastructure</h2>
-<h3 id="1-enable-aws-services">1. Enable AWS Services</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Enable CloudTrail</span>
-</span></span><span style="display:flex;"><span>aws cloudtrail create-trail <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --name IdentityGovernanceTrail <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --s3-bucket-name privilege-analytics-<span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable Config</span>
-</span></span><span style="display:flex;"><span>aws configservice put-configuration-recorder <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --configuration-recorder name<span style="color:#f92672">=</span>IdentityGovernanceRecorder,roleARN<span style="color:#f92672">=</span>arn:aws:iam::<span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable GuardDuty</span>
-</span></span><span style="display:flex;"><span>aws guardduty create-detector --enable
-</span></span></code></pre></div><h3 id="2-tạo-iam-roles-cần-thiết">2. Tạo IAM Roles cần thiết</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Tạo role cho Lambda functions</span>
-</span></span><span style="display:flex;"><span>aws iam create-role <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --role-name IdentityGovernanceLambdaRole <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --assume-role-policy-document <span style="color:#e6db74">&#39;{
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;Version&#34;: &#34;2012-10-17&#34;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;Statement&#34;: [
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      {
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;Effect&#34;: &#34;Allow&#34;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;Principal&#34;: {
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &#34;Service&#34;: &#34;lambda.amazonaws.com&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        },
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;Action&#34;: &#34;sts:AssumeRole&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  }&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Attach policies</span>
-</span></span><span style="display:flex;"><span>aws iam attach-role-policy <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --role-name IdentityGovernanceLambdaRole <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-</span></span></code></pre></div><h2 id="chuẩn-bị-code-và-templates">Chuẩn bị Code và Templates</h2>
-<h3 id="1-download-workshop-materials">1. Download Workshop Materials</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Clone workshop repository</span>
-</span></span><span style="display:flex;"><span>git clone https://github.com/aws-samples/identity-governance-workshop.git
-</span></span><span style="display:flex;"><span>cd identity-governance-workshop
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install Python dependencies</span>
-</span></span><span style="display:flex;"><span>pip install -r requirements.txt
-</span></span></code></pre></div><h3 id="2-chuẩn-bị-cloudformation-templates">2. Chuẩn bị CloudFormation Templates</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># infrastructure-base.yaml</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">AWSTemplateFormatVersion</span>: <span style="color:#e6db74">&#39;2010-09-09&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">Description</span>: <span style="color:#e6db74">&#39;Base infrastructure for Identity Governance Workshop&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">Resources</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># S3 Buckets</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">AnalyticsDataBucket</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::S3::Bucket</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">BucketName</span>: !<span style="color:#ae81ff">Sub &#39;privilege-analytics-${AWS::AccountId}&#39;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">VersioningConfiguration</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Status</span>: <span style="color:#ae81ff">Enabled</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ComplianceReportsBucket</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::S3::Bucket</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">BucketName</span>: !<span style="color:#ae81ff">Sub &#39;compliance-reports-${AWS::AccountId}&#39;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">VersioningConfiguration</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">Status</span>: <span style="color:#ae81ff">Enabled</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># DynamoDB Tables</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">OperationsLogTable</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::DynamoDB::Table</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">TableName</span>: <span style="color:#ae81ff">OperationsLog</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">AttributeDefinitions</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AttributeName</span>: <span style="color:#ae81ff">operation_id</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">AttributeType</span>: <span style="color:#ae81ff">S</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">KeySchema</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AttributeName</span>: <span style="color:#ae81ff">operation_id</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">KeyType</span>: <span style="color:#ae81ff">HASH</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">BillingMode</span>: <span style="color:#ae81ff">PAY_PER_REQUEST</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">CertificationTasksTable</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::DynamoDB::Table</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">TableName</span>: <span style="color:#ae81ff">CertificationTasks</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">AttributeDefinitions</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AttributeName</span>: <span style="color:#ae81ff">task_id</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">AttributeType</span>: <span style="color:#ae81ff">S</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">KeySchema</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AttributeName</span>: <span style="color:#ae81ff">task_id</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">KeyType</span>: <span style="color:#ae81ff">HASH</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">BillingMode</span>: <span style="color:#ae81ff">PAY_PER_REQUEST</span>
-</span></span></code></pre></div><h3 id="3-deploy-base-infrastructure">3. Deploy Base Infrastructure</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Deploy base infrastructure</span>
-</span></span><span style="display:flex;"><span>aws cloudformation deploy <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --template-file infrastructure-base.yaml <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --stack-name identity-governance-base <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --capabilities CAPABILITY_IAM
-</span></span></code></pre></div><h2 id="validation">Validation</h2>
-<h3 id="1-kiểm-tra-services">1. Kiểm tra Services</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra CloudTrail</span>
-</span></span><span style="display:flex;"><span>aws cloudtrail describe-trails
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra S3 buckets</span>
-</span></span><span style="display:flex;"><span>aws s3 ls | grep -E <span style="color:#e6db74">&#34;(privilege-analytics|compliance-reports)&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Kiểm tra DynamoDB tables</span>
-</span></span><span style="display:flex;"><span>aws dynamodb list-tables
-</span></span></code></pre></div><h3 id="2-test-permissions">2. Test Permissions</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_permissions</span>():
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test required AWS permissions&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test IAM permissions</span>
-</span></span><span style="display:flex;"><span>        iam <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;iam&#39;</span>)
-</span></span><span style="display:flex;"><span>        iam<span style="color:#f92672">.</span>list_users(MaxItems<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;✅ IAM permissions OK&#34;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test Organizations permissions</span>
-</span></span><span style="display:flex;"><span>        org <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;organizations&#39;</span>)
-</span></span><span style="display:flex;"><span>        org<span style="color:#f92672">.</span>describe_organization()
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;✅ Organizations permissions OK&#34;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test SSO permissions</span>
-</span></span><span style="display:flex;"><span>        sso <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sso-admin&#39;</span>)
-</span></span><span style="display:flex;"><span>        sso<span style="color:#f92672">.</span>list_instances()
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;✅ SSO permissions OK&#34;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;🎉 All permissions validated successfully!&#34;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;❌ Permission error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
-</span></span><span style="display:flex;"><span>    test_permissions()
-</span></span></code></pre></div><h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
+<h3 id="1-truy-cập-aws-console">1. Truy cập AWS Console</h3>
+<ol>
+<li>Mở trình duyệt web và truy cập <a href="https://console.aws.amazon.com/">AWS Console</a></li>
+<li>Đăng nhập bằng thông tin tài khoản AWS của bạn</li>
+<li>Đảm bảo bạn có quyền Administrator</li>
+</ol>
+<p><img alt="AWS Console Login" src="images/aws-console-login.png"></p>
+<h3 id="2-xác-minh-quyền-tài-khoản">2. Xác minh quyền tài khoản</h3>
+<ol>
+<li>Trong AWS Console, click vào tên tài khoản ở góc trên bên phải</li>
+<li>Chọn <strong>My Account</strong> để xem chi tiết tài khoản</li>
+<li>Xác minh bạn có quyền truy cập:
+<ul>
+<li>AWS IAM service</li>
+<li>IAM Identity Center</li>
+<li>Quyền quản trị</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Account Verification" src="images/account-verification.png"></p>
+<h3 id="3-tạo-s3-bucket-cho-lưu-trữ-dữ-liệu">3. Tạo S3 Bucket cho lưu trữ dữ liệu</h3>
+<ol>
+<li>Điều hướng đến dịch vụ <strong>S3</strong> trong AWS Console</li>
+<li>Click <strong>Create bucket</strong></li>
+<li>Tạo bucket đầu tiên:
+<ul>
+<li><strong>Bucket name</strong>: <code>privilege-analytics-[YOUR-ACCOUNT-ID]</code></li>
+<li><strong>Region</strong>: Chọn region ưa thích</li>
+<li>Giữ cài đặt mặc định</li>
+<li>Click <strong>Create bucket</strong></li>
+</ul>
+</li>
+</ol>
+<p><img alt="S3 Bucket Creation 1" src="images/s3-bucket-analytics.png"></p>
+<ol start="4">
+<li>Tạo bucket thứ hai:
+<ul>
+<li><strong>Bucket name</strong>: <code>compliance-reports-[YOUR-ACCOUNT-ID]</code></li>
+<li><strong>Region</strong>: Giống bucket đầu tiên</li>
+<li>Giữ cài đặt mặc định</li>
+<li>Click <strong>Create bucket</strong></li>
+</ul>
+</li>
+</ol>
+<p><img alt="S3 Bucket Creation 2" src="images/s3-bucket-compliance.png"></p>
+<h2 id="chuẩn-bị-infrastructure">Chuẩn bị Infrastructure</h2>
+<h3 id="1-kích-hoạt-aws-cloudtrail">1. Kích hoạt AWS CloudTrail</h3>
+<ol>
+<li>Điều hướng đến dịch vụ <strong>CloudTrail</strong></li>
+<li>Click <strong>Create trail</strong></li>
+<li>Cấu hình trail:
+<ul>
+<li><strong>Trail name</strong>: <code>IdentityGovernanceTrail</code></li>
+<li><strong>S3 bucket</strong>: Chọn bucket <code>privilege-analytics-[YOUR-ACCOUNT-ID]</code></li>
+<li><strong>Log file prefix</strong>: <code>cloudtrail-logs/</code></li>
+</ul>
+</li>
+<li>Click <strong>Create trail</strong></li>
+</ol>
+<p><img alt="CloudTrail Setup" src="images/cloudtrail-setup.png"></p>
+<h3 id="2-kích-hoạt-aws-config">2. Kích hoạt AWS Config</h3>
+<ol>
+<li>Điều hướng đến dịch vụ <strong>AWS Config</strong></li>
+<li>Click <strong>Get started</strong></li>
+<li>Cấu hình:
+<ul>
+<li><strong>Resource types</strong>: Chọn <strong>All resources</strong></li>
+<li><strong>S3 bucket</strong>: Tạo bucket mới hoặc sử dụng có sẵn</li>
+<li><strong>SNS topic</strong>: Tạo topic mới</li>
+</ul>
+</li>
+<li>Click <strong>Next</strong> và <strong>Confirm</strong></li>
+</ol>
+<p><img alt="Config Setup" src="images/config-setup.png"></p>
+<h3 id="3-kích-hoạt-amazon-guardduty">3. Kích hoạt Amazon GuardDuty</h3>
+<ol>
+<li>Điều hướng đến dịch vụ <strong>GuardDuty</strong></li>
+<li>Click <strong>Get Started</strong></li>
+<li>Click <strong>Enable GuardDuty</strong></li>
+<li>Xem lại quyền dịch vụ và click <strong>Enable</strong></li>
+</ol>
+<p><img alt="GuardDuty Setup" src="images/guardduty-setup.png"></p>
+<h3 id="4-tạo-iam-roles-cần-thiết">4. Tạo IAM Roles cần thiết</h3>
+<ol>
+<li>Điều hướng đến dịch vụ <strong>IAM</strong></li>
+<li>Click <strong>Roles</strong> trong sidebar</li>
+<li>Click <strong>Create role</strong></li>
+<li>Tạo role cho Lambda:
+<ul>
+<li><strong>Trusted entity</strong>: AWS service</li>
+<li><strong>Service</strong>: Lambda</li>
+<li><strong>Role name</strong>: <code>IdentityGovernanceLambdaRole</code></li>
+<li><strong>Policies</strong>: Attach <code>AWSLambdaBasicExecutionRole</code></li>
+</ul>
+</li>
+</ol>
+<p><img alt="IAM Role Creation" src="images/iam-role-lambda.png"></p>
+<h3 id="5-tạo-dynamodb-tables">5. Tạo DynamoDB Tables</h3>
+<ol>
+<li>Điều hướng đến dịch vụ <strong>DynamoDB</strong></li>
+<li>Click <strong>Create table</strong></li>
+<li>Tạo bảng đầu tiên:
+<ul>
+<li><strong>Table name</strong>: <code>OperationsLog</code></li>
+<li><strong>Partition key</strong>: <code>operation_id</code> (String)</li>
+<li><strong>Billing mode</strong>: On-demand</li>
+</ul>
+</li>
+<li>Click <strong>Create table</strong></li>
+</ol>
+<p><img alt="DynamoDB Table 1" src="images/dynamodb-operations-log.png"></p>
+<ol start="5">
+<li>Tạo bảng thứ hai:
+<ul>
+<li><strong>Table name</strong>: <code>CertificationTasks</code></li>
+<li><strong>Partition key</strong>: <code>task_id</code> (String)</li>
+<li><strong>Billing mode</strong>: On-demand</li>
+</ul>
+</li>
+<li>Click <strong>Create table</strong></li>
+</ol>
+<p><img alt="DynamoDB Table 2" src="images/dynamodb-certification-tasks.png"></p>
+<h2 id="xác-thực-thiết-lập">Xác thực thiết lập</h2>
+<h3 id="1-kiểm-tra-các-dịch-vụ-đã-kích-hoạt">1. Kiểm tra các dịch vụ đã kích hoạt</h3>
+<ol>
+<li><strong>CloudTrail</strong>: Vào CloudTrail console, xác nhận trail đã được tạo và đang hoạt động</li>
+<li><strong>S3</strong>: Vào S3 console, xác nhận 2 bucket đã được tạo</li>
+<li><strong>Config</strong>: Vào Config console, xác nhận service đang ghi lại resources</li>
+<li><strong>GuardDuty</strong>: Vào GuardDuty console, xác nhận detector đang hoạt động</li>
+<li><strong>DynamoDB</strong>: Vào DynamoDB console, xác nhận 2 table đã được tạo</li>
+</ol>
+<p><img alt="Services Verification" src="images/services-verification.png"></p>
+<h3 id="2-kiểm-tra-quyền-truy-cập">2. Kiểm tra quyền truy cập</h3>
+<ol>
+<li>Vào <strong>IAM</strong> console</li>
+<li>Click <strong>Users</strong> và xác nhận user hiện tại có quyền cần thiết</li>
+<li>Click <strong>Roles</strong> và xác nhận các role đã được tạo</li>
+<li>Kiểm tra <strong>Organizations</strong> service để đảm bảo có quyền quản lý</li>
+</ol>
+<p><img alt="Permissions Check" src="images/permissions-check.png"></p>
+<h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành các bước chuẩn bị:</p>
 <ul>
 <li>✅ AWS Account được cấu hình đúng</li>
@@ -754,7 +740,7 @@
 <li>✅ Workshop materials đã sẵn sàng</li>
 </ul>
 <h2 id="tiếp-theo">Tiếp theo</h2>
-<p>Chuyển sang <a href="/workshop/vi/3-thiet-lap-access-governance/">3. Thiết lập Access Governance</a> để bắt đầu triển khai hệ thống.</p>
+<p>Chuyển sang <a href="/vi/3-thiet-lap-access-governance/">3. Thiết lập Access Governance</a> để bắt đầu triển khai hệ thống.</p>
 
 
 
@@ -982,10 +968,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/workshop/vi/1-gioi-thieu/" title="1. Giới thiệu"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/vi/1-gioi-thieu/" title="1. Giới thiệu"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/workshop/vi/3-thiet-lap-access-governance/" title="3. Thiết lập Access Governance" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/vi/3-thiet-lap-access-governance/" title="3. Thiết lập Access Governance" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -995,19 +981,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/workshop/js/clipboard.min.js?1754865407"></script>
-    <script src="/workshop/js/perfect-scrollbar.min.js?1754865407"></script>
-    <script src="/workshop/js/perfect-scrollbar.jquery.min.js?1754865407"></script>
-    <script src="/workshop/js/jquery.sticky.js?1754865407"></script>
-    <script src="/workshop/js/featherlight.min.js?1754865407"></script>
-    <script src="/workshop/js/highlight.pack.js?1754865407"></script>
+    <script src="/js/clipboard.min.js?1754867449"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754867449"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754867449"></script>
+    <script src="/js/jquery.sticky.js?1754867449"></script>
+    <script src="/js/featherlight.min.js?1754867449"></script>
+    <script src="/js/highlight.pack.js?1754867449"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/workshop/js/modernizr.custom-3.6.0.js?1754865407"></script>
-    <script src="/workshop/js/learn.js?1754865407"></script>
-    <script src="/workshop/js/hugo-learn.js?1754865407"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754867449"></script>
+    <script src="/js/learn.js?1754867449"></script>
+    <script src="/js/hugo-learn.js?1754867449"></script>
 
-    <link href="/workshop/mermaid/mermaid.css?1754865407" rel="stylesheet" />
-    <script src="/workshop/mermaid/mermaid.js?1754865407"></script>
+    <link href="/mermaid/mermaid.css?1754867449" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754867449"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

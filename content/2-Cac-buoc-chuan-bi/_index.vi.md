@@ -8,12 +8,12 @@ weight: 2
 
 ### 1. AWS Account
 - AWS Account với quyền Administrator
-- Quyền tạo và quản lý AWS Organizations
+- Quyền tạo và quản lý IAM users, groups, và roles
 - Quyền sử dụng IAM Identity Center
 
 ### 2. Kiến thức cần thiết
 - Hiểu biết cơ bản về AWS IAM
-- Kinh nghiệm với AWS Organizations
+- Kinh nghiệm với IAM users, groups, và policies
 - Kiến thức về compliance frameworks (SOX, SOC2, ISO27001)
 - Hiểu biết về Python và AWS CLI
 
@@ -38,7 +38,7 @@ weight: 2
 1. Trong AWS Console, click vào tên tài khoản ở góc trên bên phải
 2. Chọn **My Account** để xem chi tiết tài khoản
 3. Xác minh bạn có quyền truy cập:
-   - AWS Organizations
+   - AWS IAM service
    - IAM Identity Center
    - Quyền quản trị
 

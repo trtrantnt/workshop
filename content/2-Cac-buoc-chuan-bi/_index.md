@@ -8,14 +8,13 @@ weight: 2
 
 ### 1. AWS Account
 - AWS Account with Administrator privileges
-- Permission to create and manage AWS Organizations
+- Permission to create and manage IAM users, groups, and roles
 - Permission to use IAM Identity Center
 
 ### 2. Required Knowledge
 - Basic understanding of AWS IAM
-- Experience with AWS Organizations
+- Experience with IAM users, groups, and policies
 - Knowledge of compliance frameworks (SOX, SOC2, ISO27001)
-- Understanding of Python and AWS CLI
 
 ### 3. Required Access
 - Web browser (Chrome, Firefox, Safari, or Edge)
@@ -38,7 +37,7 @@ weight: 2
 1. In the AWS Console, click on your account name in the top-right corner
 2. Select **My Account** to view account details
 3. Verify you have access to:
-   - AWS Organizations
+   - AWS IAM service
    - IAM Identity Center
    - Administrative permissions
 
