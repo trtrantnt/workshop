@@ -122,26 +122,56 @@ def lambda_handler(event, context):
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
 
-#### Step 4: Configure tags (Optional)
-16. Skip the tags section, click **Next**
+#### Step 4: Settings (Optional)
+16. In **Schedule state**, keep **Enable** selected
+17. In **Action after schedule completion**, keep default
+18. In **Retry policy**, keep **Retry** selected
+19. In **Dead-letter queue (DLQ)**, select **None**
+20. In **Encryption**, keep default (AWS owned key)
+21. In **Permissions**, select **Create new role for this schedule**
+    - Role name will be auto-generated: `Amazon_EventBridge_Scheduler_LAMBDA_xxx`
+22. Click **Next**
 
-#### Step 5: Review and create
-17. Review configuration and click **Create rule**
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
+
+#### Step 5: Review and create schedule
+23. Review configuration:
+    - Schedule name: AccessCertificationSchedule
+    - Schedule pattern: Rate(90 days)
+    - Target: Lambda function
+    - Permissions: New role created
+24. Click **Create schedule**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
 ## Step 4: Test the Automation
 
-### 4.1 Manual Test Execution
+### 4.1 Verify EventBridge Schedule
 
-1. In EventBridge, select your rule
-2. Click **Actions** → **Test rule**
+1. In **Amazon EventBridge** console
+2. Click **Schedules** in the sidebar (not Rules)
+3. Verify that schedule **AccessCertificationSchedule** is created and **Enabled**
 
-![Test EventBridge Rule](https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc)
+![Test EventBridge Schedule](https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc)
 
-3. Monitor Lambda function execution in CloudWatch Logs
+### 4.2 Test Lambda Function Manually
 
-![CloudWatch Logs](https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc)
+1. Go to **AWS Lambda** console
+2. Select function **AccessCertificationTrigger**
+3. Click **Test** to create a test event
+4. Use default test event and click **Test**
+5. Check execution results
+
+![Test Lambda Function](https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc)
+
+### 4.3 Verify DynamoDB Record
+
+1. Go to **Amazon DynamoDB** console
+2. Select table **AccessCertifications**
+3. Click **Explore table items**
+4. Verify that a new record was created by the Lambda function
+
+![DynamoDB Verification](https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc)
 
 ## Expected Results
 

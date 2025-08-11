@@ -16,7 +16,6 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
 2. Xác minh table `AccessCertifications` đã được tạo trong chương 2
 3. Table này sẽ được sử dụng để lưu certification data
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc)
 
 ## Bước 2: Tạo Lambda Function
 
@@ -24,16 +23,13 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
 
 1. Mở **AWS Lambda** trong console
 2. Click **Create function**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc)
-
 3. Chọn **Author from scratch**
 4. Nhập thông tin function:
    - **Function name**: `AccessCertificationTrigger`
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/ld1.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
@@ -69,19 +65,19 @@ def lambda_handler(event, context):
     }
 ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda3.png?featherlight=false&width=90pc)
-
 2. Click **Deploy** để lưu thay đổi
 
 ### 2.3 Cấu hình IAM Role cho Lambda
-
 1. Chuyển đến tab **Configuration**
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/ld2.png?featherlight=false&width=90pc)
 2. Click **Permissions**
 3. Click vào role name để mở IAM console
 4. Click **Add permissions** → **Attach policies**
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/ld3.png?featherlight=false&width=90pc)
 5. Tìm và attach policy **AmazonDynamoDBFullAccess**
+6. Chọn **Add permissions**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/ld4.png?featherlight=false&width=90pc)
 
 ## Bước 3: Thiết lập EventBridge Scheduler
 
@@ -96,7 +92,7 @@ def lambda_handler(event, context):
    - **Name**: `AccessCertificationSchedule`
    - **Description**: `Quarterly access certification review`
    - **Event bus**: default
-   - **Enable the rule on the selected event bus**: ✅ Checked
+   - **Enable the rule on the selected event bus**
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
 
@@ -115,8 +111,7 @@ def lambda_handler(event, context):
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
 #### Bước 3: Select target
-12. Trong **Target API**, chọn **AWS Lambda**
-13. Chọn API **Invoke**
+12. Trong **Target API**, chọn **AWS Lambda Invoke**
 14. Trong **Lambda function**, chọn **AccessCertificationTrigger**
 15. Click **Next**
 
@@ -128,20 +123,35 @@ def lambda_handler(event, context):
 #### Bước 5: Review and create
 17. Xem lại cấu hình và click **Create rule**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
 ## Bước 4: Kiểm tra Tự động hóa
 
-### 4.1 Thực thi Kiểm tra Thủ công
+### 4.1 Kiểm tra EventBridge Schedule
 
-1. Trong EventBridge, chọn rule của bạn
-2. Click **Actions** → **Test rule**
+1. Trong **Amazon EventBridge** console
+2. Click **Schedules** ở sidebar (không phải Rules)
+3. Xác minh schedule **AccessCertificationSchedule** đã được tạo và đang **Enabled**
 
-![Kiểm tra EventBridge Rule](https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc)
+![Kiểm tra EventBridge Schedule](https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc)
 
-3. Giám sát thực thi Lambda function trong CloudWatch Logs
+### 4.2 Test Lambda Function thủ công
 
-![CloudWatch Logs](https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc)
+1. Vào **AWS Lambda** console
+2. Chọn function **AccessCertificationTrigger**
+3. Click **Test** để tạo test event
+4. Sử dụng default test event và click **Test**
+5. Kiểm tra kết quả thực thi
+
+![Test Lambda Function](https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc)
+
+### 4.3 Xác minh DynamoDB Record
+
+1. Vào **Amazon DynamoDB** console
+2. Chọn table **AccessCertifications**
+3. Click **Explore table items**
+4. Xác minh có record mới được tạo bởi Lambda function
+
+![DynamoDB Verification](https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 

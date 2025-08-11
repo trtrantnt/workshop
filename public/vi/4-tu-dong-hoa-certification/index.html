@@ -12,21 +12,21 @@
     <title>4. Tự động hóa Certification :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754948554" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754948554" rel="stylesheet">
-    <link href="/css/hybrid.css?1754948554" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754948554" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754948554" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754948554" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754948554" rel="stylesheet">
-    <link href="/css/theme.css?1754948554" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754948554" rel="stylesheet">
+    <link href="/css/nucleus.css?1754950912" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754950912" rel="stylesheet">
+    <link href="/css/hybrid.css?1754950912" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754950912" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754950912" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754950912" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754950912" rel="stylesheet">
+    <link href="/css/theme.css?1754950912" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754950912" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754948554" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754950912" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754948554"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754950912"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754948554"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754948554"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754950912"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754950912"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754948554"></script>
+<script type="text/javascript" src="/js/search.js?1754950912"></script>
 
     
   </div>
@@ -532,7 +532,9 @@
     </li>
     <li><a href="#bước-4-kiểm-tra-tự-động-hóa">Bước 4: Kiểm tra Tự động hóa</a>
       <ul>
-        <li><a href="#41-thực-thi-kiểm-tra-thủ-công">4.1 Thực thi Kiểm tra Thủ công</a></li>
+        <li><a href="#41-kiểm-tra-eventbridge-schedule">4.1 Kiểm tra EventBridge Schedule</a></li>
+        <li><a href="#42-test-lambda-function-thủ-công">4.2 Test Lambda Function thủ công</a></li>
+        <li><a href="#43-xác-minh-dynamodb-record">4.3 Xác minh DynamoDB Record</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -571,15 +573,11 @@
 <li>Xác minh table <code>AccessCertifications</code> đã được tạo trong chương 2</li>
 <li>Table này sẽ được sử dụng để lưu certification data</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-2-tạo-lambda-function">Bước 2: Tạo Lambda Function</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
 <li>Mở <strong>AWS Lambda</strong> trong console</li>
 <li>Click <strong>Create function</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc"></p>
-<ol start="3">
 <li>Chọn <strong>Author from scratch</strong></li>
 <li>Nhập thông tin function:
 <ul>
@@ -589,7 +587,7 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/lambda2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/ld1.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Click <strong>Create function</strong></li>
 </ol>
@@ -622,19 +620,21 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">&#39;Certification process triggered successfully&#39;</span>)
 </span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/lambda3.png?featherlight=false&width=90pc"></p>
-<ol start="2">
+</span></span></code></pre></div><ol start="2">
 <li>Click <strong>Deploy</strong> để lưu thay đổi</li>
 </ol>
 <h3 id="23-cấu-hình-iam-role-cho-lambda">2.3 Cấu hình IAM Role cho Lambda</h3>
 <ol>
-<li>Chuyển đến tab <strong>Configuration</strong></li>
+<li>Chuyển đến tab <strong>Configuration</strong>
+<img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/ld2.png?featherlight=false&width=90pc"></li>
 <li>Click <strong>Permissions</strong></li>
 <li>Click vào role name để mở IAM console</li>
-<li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong>
+<img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/ld3.png?featherlight=false&width=90pc"></li>
 <li>Tìm và attach policy <strong>AmazonDynamoDBFullAccess</strong></li>
+<li>Chọn <strong>Add permissions</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/ld4.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-3-thiết-lập-eventbridge-scheduler">Bước 3: Thiết lập EventBridge Scheduler</h2>
 <h3 id="31-tạo-scheduled-rule">3.1 Tạo Scheduled Rule</h3>
 <ol>
@@ -649,7 +649,7 @@
 <li><strong>Name</strong>: <code>AccessCertificationSchedule</code></li>
 <li><strong>Description</strong>: <code>Quarterly access certification review</code></li>
 <li><strong>Event bus</strong>: default</li>
-<li><strong>Enable the rule on the selected event bus</strong>: ✅ Checked</li>
+<li><strong>Enable the rule on the selected event bus</strong></li>
 </ul>
 </li>
 </ol>
@@ -670,8 +670,7 @@
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
 <h4 id="bước-3-select-target">Bước 3: Select target</h4>
 <ol start="12">
-<li>Trong <strong>Target API</strong>, chọn <strong>AWS Lambda</strong></li>
-<li>Chọn API <strong>Invoke</strong></li>
+<li>Trong <strong>Target API</strong>, chọn <strong>AWS Lambda Invoke</strong></li>
 <li>Trong <strong>Lambda function</strong>, chọn <strong>AccessCertificationTrigger</strong></li>
 <li>Click <strong>Next</strong></li>
 </ol>
@@ -684,18 +683,31 @@
 <ol start="17">
 <li>Xem lại cấu hình và click <strong>Create rule</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-kiểm-tra-tự-động-hóa">Bước 4: Kiểm tra Tự động hóa</h2>
-<h3 id="41-thực-thi-kiểm-tra-thủ-công">4.1 Thực thi Kiểm tra Thủ công</h3>
+<h3 id="41-kiểm-tra-eventbridge-schedule">4.1 Kiểm tra EventBridge Schedule</h3>
 <ol>
-<li>Trong EventBridge, chọn rule của bạn</li>
-<li>Click <strong>Actions</strong> → <strong>Test rule</strong></li>
+<li>Trong <strong>Amazon EventBridge</strong> console</li>
+<li>Click <strong>Schedules</strong> ở sidebar (không phải Rules)</li>
+<li>Xác minh schedule <strong>AccessCertificationSchedule</strong> đã được tạo và đang <strong>Enabled</strong></li>
 </ol>
-<p><img alt="Kiểm tra EventBridge Rule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Giám sát thực thi Lambda function trong CloudWatch Logs</li>
+<p><img alt="Kiểm tra EventBridge Schedule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
+<h3 id="42-test-lambda-function-thủ-công">4.2 Test Lambda Function thủ công</h3>
+<ol>
+<li>Vào <strong>AWS Lambda</strong> console</li>
+<li>Chọn function <strong>AccessCertificationTrigger</strong></li>
+<li>Click <strong>Test</strong> để tạo test event</li>
+<li>Sử dụng default test event và click <strong>Test</strong></li>
+<li>Kiểm tra kết quả thực thi</li>
 </ol>
-<p><img alt="CloudWatch Logs" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Test Lambda Function" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
+<h3 id="43-xác-minh-dynamodb-record">4.3 Xác minh DynamoDB Record</h3>
+<ol>
+<li>Vào <strong>Amazon DynamoDB</strong> console</li>
+<li>Chọn table <strong>AccessCertifications</strong></li>
+<li>Click <strong>Explore table items</strong></li>
+<li>Xác minh có record mới được tạo bởi Lambda function</li>
+</ol>
+<p><img alt="DynamoDB Verification" src="https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
@@ -948,19 +960,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754948554"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754948554"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754948554"></script>
-    <script src="/js/jquery.sticky.js?1754948554"></script>
-    <script src="/js/featherlight.min.js?1754948554"></script>
-    <script src="/js/highlight.pack.js?1754948554"></script>
+    <script src="/js/clipboard.min.js?1754950912"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754950912"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754950912"></script>
+    <script src="/js/jquery.sticky.js?1754950912"></script>
+    <script src="/js/featherlight.min.js?1754950912"></script>
+    <script src="/js/highlight.pack.js?1754950912"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754948554"></script>
-    <script src="/js/learn.js?1754948554"></script>
-    <script src="/js/hugo-learn.js?1754948554"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754950912"></script>
+    <script src="/js/learn.js?1754950912"></script>
+    <script src="/js/hugo-learn.js?1754950912"></script>
 
-    <link href="/mermaid/mermaid.css?1754948554" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754948554"></script>
+    <link href="/mermaid/mermaid.css?1754950912" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754950912"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

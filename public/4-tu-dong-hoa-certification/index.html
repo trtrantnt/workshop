@@ -12,21 +12,21 @@
     <title>4. Certification Automation :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754948554" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754948554" rel="stylesheet">
-    <link href="/css/hybrid.css?1754948554" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754948554" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754948554" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754948554" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754948554" rel="stylesheet">
-    <link href="/css/theme.css?1754948554" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754948554" rel="stylesheet">
+    <link href="/css/nucleus.css?1754950912" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754950912" rel="stylesheet">
+    <link href="/css/hybrid.css?1754950912" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754950912" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754950912" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754950912" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754950912" rel="stylesheet">
+    <link href="/css/theme.css?1754950912" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754950912" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754948554" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754950912" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754948554"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754950912"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754948554"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754948554"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754950912"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754950912"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754948554"></script>
+<script type="text/javascript" src="/js/search.js?1754950912"></script>
 
     
   </div>
@@ -532,7 +532,9 @@
     </li>
     <li><a href="#step-4-test-the-automation">Step 4: Test the Automation</a>
       <ul>
-        <li><a href="#41-manual-test-execution">4.1 Manual Test Execution</a></li>
+        <li><a href="#41-verify-eventbridge-schedule">4.1 Verify EventBridge Schedule</a></li>
+        <li><a href="#42-test-lambda-function-manually">4.2 Test Lambda Function Manually</a></li>
+        <li><a href="#43-verify-dynamodb-record">4.3 Verify DynamoDB Record</a></li>
       </ul>
     </li>
     <li><a href="#expected-results">Expected Results</a></li>
@@ -676,26 +678,59 @@
 <li>Click <strong>Next</strong></li>
 </ol>
 <p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
-<h4 id="step-4-configure-tags-optional">Step 4: Configure tags (Optional)</h4>
+<h4 id="step-4-settings-optional">Step 4: Settings (Optional)</h4>
 <ol start="16">
-<li>Skip the tags section, click <strong>Next</strong></li>
+<li>In <strong>Schedule state</strong>, keep <strong>Enable</strong> selected</li>
+<li>In <strong>Action after schedule completion</strong>, keep default</li>
+<li>In <strong>Retry policy</strong>, keep <strong>Retry</strong> selected</li>
+<li>In <strong>Dead-letter queue (DLQ)</strong>, select <strong>None</strong></li>
+<li>In <strong>Encryption</strong>, keep default (AWS owned key)</li>
+<li>In <strong>Permissions</strong>, select <strong>Create new role for this schedule</strong>
+<ul>
+<li>Role name will be auto-generated: <code>Amazon_EventBridge_Scheduler_LAMBDA_xxx</code></li>
+</ul>
+</li>
+<li>Click <strong>Next</strong></li>
 </ol>
-<h4 id="step-5-review-and-create">Step 5: Review and create</h4>
-<ol start="17">
-<li>Review configuration and click <strong>Create rule</strong></li>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
+<h4 id="step-5-review-and-create-schedule">Step 5: Review and create schedule</h4>
+<ol start="23">
+<li>Review configuration:
+<ul>
+<li>Schedule name: AccessCertificationSchedule</li>
+<li>Schedule pattern: Rate(90 days)</li>
+<li>Target: Lambda function</li>
+<li>Permissions: New role created</li>
+</ul>
+</li>
+<li>Click <strong>Create schedule</strong></li>
 </ol>
 <p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
 <h2 id="step-4-test-the-automation">Step 4: Test the Automation</h2>
-<h3 id="41-manual-test-execution">4.1 Manual Test Execution</h3>
+<h3 id="41-verify-eventbridge-schedule">4.1 Verify EventBridge Schedule</h3>
 <ol>
-<li>In EventBridge, select your rule</li>
-<li>Click <strong>Actions</strong> → <strong>Test rule</strong></li>
+<li>In <strong>Amazon EventBridge</strong> console</li>
+<li>Click <strong>Schedules</strong> in the sidebar (not Rules)</li>
+<li>Verify that schedule <strong>AccessCertificationSchedule</strong> is created and <strong>Enabled</strong></li>
 </ol>
-<p><img alt="Test EventBridge Rule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Monitor Lambda function execution in CloudWatch Logs</li>
+<p><img alt="Test EventBridge Schedule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
+<h3 id="42-test-lambda-function-manually">4.2 Test Lambda Function Manually</h3>
+<ol>
+<li>Go to <strong>AWS Lambda</strong> console</li>
+<li>Select function <strong>AccessCertificationTrigger</strong></li>
+<li>Click <strong>Test</strong> to create a test event</li>
+<li>Use default test event and click <strong>Test</strong></li>
+<li>Check execution results</li>
 </ol>
-<p><img alt="CloudWatch Logs" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Test Lambda Function" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
+<h3 id="43-verify-dynamodb-record">4.3 Verify DynamoDB Record</h3>
+<ol>
+<li>Go to <strong>Amazon DynamoDB</strong> console</li>
+<li>Select table <strong>AccessCertifications</strong></li>
+<li>Click <strong>Explore table items</strong></li>
+<li>Verify that a new record was created by the Lambda function</li>
+</ol>
+<p><img alt="DynamoDB Verification" src="https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="expected-results">Expected Results</h2>
 <p>After completion:</p>
 <ul>
@@ -948,19 +983,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754948554"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754948554"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754948554"></script>
-    <script src="/js/jquery.sticky.js?1754948554"></script>
-    <script src="/js/featherlight.min.js?1754948554"></script>
-    <script src="/js/highlight.pack.js?1754948554"></script>
+    <script src="/js/clipboard.min.js?1754950912"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754950912"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754950912"></script>
+    <script src="/js/jquery.sticky.js?1754950912"></script>
+    <script src="/js/featherlight.min.js?1754950912"></script>
+    <script src="/js/highlight.pack.js?1754950912"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754948554"></script>
-    <script src="/js/learn.js?1754948554"></script>
-    <script src="/js/hugo-learn.js?1754948554"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754950912"></script>
+    <script src="/js/learn.js?1754950912"></script>
+    <script src="/js/hugo-learn.js?1754950912"></script>
 
-    <link href="/mermaid/mermaid.css?1754948554" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754948554"></script>
+    <link href="/mermaid/mermaid.css?1754950912" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754950912"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
