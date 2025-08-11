@@ -10,29 +10,29 @@ weight: 2
 
 1. Điều hướng đến dịch vụ **Amazon S3** trong AWS Console
 
-![Điều hướng đến S3](/images/2/s3b1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b1.png?featherlight=false&width=90pc)
 
 2. Click **Create bucket**
 
-![Điều hướng đến S3](/images/2/s3b2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b2.png?featherlight=false&width=90pc)
 
 3. Tạo bucket đầu tiên cho dữ liệu phân tích:
    - **Bucket name**: `identity-governance-analytics`
    - **AWS Region**: Chọn region ưa thích (ví dụ: us-east-1)
    - **Object Ownership**: ACLs disabled (khuyến nghị)
 
-![Điều hướng đến S3](/images/2/s3b3.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b3.png?featherlight=false&width=90pc)
 
    - **Block Public Access settings**: Giữ tất cả đều bị chặn (khuyến nghị)
    - **Bucket Versioning**: Kích hoạt
    - **Default encryption**: Server-side encryption với Amazon S3 managed keys (SSE-S3)
    - **Bucket Key**: Kích hoạt
 
-![Điều hướng đến S3](/images/2/s3b4.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b4.png?featherlight=false&width=90pc)
 
 4. Click **Create bucket**
 
-![Điều hướng đến S3](/images/2/s3b5.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b5.png?featherlight=false&width=90pc)
 
 5. Tạo bucket thứ hai cho báo cáo tuân thủ:
    - **Bucket name**: `identity-governance-reports`
@@ -45,11 +45,11 @@ weight: 2
    - **Object Lock**: Kích hoạt cho compliance retention
 6. Click **Create bucket**
 
-![Điều hướng đến S3](/images/2/s3b6.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b6.png?featherlight=false&width=90pc)
 
 7. Xác minh cả hai bucket đã được tạo thành công:
 
-![Điều hướng đến S3](/images/2/s3b7.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b7.png?featherlight=false&width=90pc)
 
 
 ## Chuẩn bị Infrastructure
@@ -59,9 +59,9 @@ weight: 2
 1. Điều hướng đến dịch vụ **CloudTrail** trong AWS Console
 2. Click **Create trail**
 
-![Mở CloudTrail Console](/images/2/cloudtrailb1.png?featherlight=false&width=90pc)
+![Mở CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb1.png?featherlight=false&width=90pc)
 
-![Mở CloudTrail Console](/images/2/cloudtrailb2.png?featherlight=false&width=90pc)
+![Mở CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb2.png?featherlight=false&width=90pc)
 
 #### Bước 1: General details
 
@@ -69,7 +69,7 @@ weight: 2
    - **Trail name**: `IdentityGovernanceTrail`
    - **Enable for all accounts in my organization**: Để trống (unchecked)
 
-![Mở CloudTrail Console](/images/2/cloudtrailb3.png?featherlight=false&width=90pc)
+![Mở CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb3.png?featherlight=false&width=90pc)
 
 #### Bước 2: S3 bucket configuration
 
@@ -108,13 +108,13 @@ weight: 2
 - **BẮT BUỘC** chọn "Create new S3 bucket" để CloudTrail tự tạo bucket riêng
 - CloudTrail sẽ tự động cấu hình bucket policy đúng, tránh lỗi `InsufficientS3BucketPolicyException`
 
-![Mở CloudTrail Console](/images/2/cloudtrailb4.png?featherlight=false&width=90pc)
+![Mở CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb4.png?featherlight=false&width=90pc)
 
 ### 2. Kích hoạt AWS Security Hub
 
 1. Điều hướng đến dịch vụ **AWS Security Hub** trong AWS Console
 
-![Security Hub Onboard Page](/images/2/secuHub1.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](https://trtrantnt.github.io/workshop/images/2/secuHub1.png?featherlight=false&width=90pc)
 
 2. Bạn sẽ thấy trang **Security Hub Onboard**
 
@@ -134,7 +134,7 @@ weight: 2
    - Giữ cài đặt mặc định
 7. Click **Onboard** ở cuối trang
 
-![Security Hub Onboard Page](/images/2/secuHub2.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](https://trtrantnt.github.io/workshop/images/2/secuHub2.png?featherlight=false&width=90pc)
 
 #### Bước 5: Xác minh kích hoạt thành công
 8. Sau khi onboard thành công, bạn sẽ thấy Security Hub dashboard:
@@ -142,13 +142,13 @@ weight: 2
    - **Findings** bắt đầu được thu thập
    - **Standards** tự động kích hoạt
 
-![Security Hub Onboard Page](/images/2/secuHub3.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](https://trtrantnt.github.io/workshop/images/2/secuHub3.png?featherlight=false&width=90pc)
 
 ### 3. Tạo DynamoDB Tables
 
 1. Điều hướng đến dịch vụ **DynamoDB**
 
-![DynamoDB Console](/images/2/dynab1.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/dynab1.png?featherlight=false&width=90pc)
 
 2. Click **Create table**
 3. Tạo bảng đầu tiên:
@@ -157,7 +157,7 @@ weight: 2
    - **Sort key**: `CertificationDate` (String)
    - **Billing mode**: On-demand
 
-![DynamoDB Console](/images/2/dynab2.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/dynab2.png?featherlight=false&width=90pc)
 
 4. Click **Create table**
 
@@ -167,14 +167,14 @@ weight: 2
    - **Billing mode**: On-demand
 6. Click **Create table**
 
-![DynamoDB Console](/images/2/dynab3.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/dynab3.png?featherlight=false&width=90pc)
 
 ### 4. Tạo IAM Roles cần thiết
 
 1. Điều hướng đến dịch vụ **IAM**
 2. Click **Roles** trong sidebar
 
-![DynamoDB Console](/images/2/IAMb1.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/IAMb1.png?featherlight=false&width=90pc)
 
 3. Click **Create role**
 4. Tạo role cho Lambda:
@@ -183,7 +183,7 @@ weight: 2
    - **Role name**: `IdentityGovernanceLambdaRole`
    - **Policies**: Attach `AWSLambdaBasicExecutionRole`
 
-![DynamoDB Console](/images/2/IAMb2.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/IAMb2.png?featherlight=false&width=90pc)
 
 ## Xác thực thiết lập
 
