@@ -10,161 +10,132 @@ Thiết lập hệ thống giám sát toàn diện để theo dõi liên tục c
 
 ## Kiến trúc Monitoring
 
-```mermaid
-graph TB
-    A[CloudTrail] --> B[CloudWatch Logs]
-    C[Config] --> B
-    D[GuardDuty] --> B
-    B --> E[CloudWatch Metrics]
-    E --> F[CloudWatch Alarms]
-    F --> G[SNS Notifications]
-    E --> H[Custom Dashboard]
-    B --> I[Log Analytics]
-    I --> J[Anomaly Detection]
-```
+![Kiến trúc Monitoring](/images/7/monitoring-architecture.png)
 
-## Bước 1: CloudWatch Monitoring Setup
+## Bước 1: Thiết lập CloudWatch Monitoring
 
-### 1.1 Custom Metrics và Alarms
+### 1.1 Tạo SNS Topic cho Alerts
 
-```yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Identity Governance Monitoring Infrastructure'
+1. Mở **Amazon SNS** trong console
+2. Click **Topics** → **Create topic**
+3. Cấu hình:
+   - **Type**: Standard
+   - **Name**: IdentityGovernanceAlerts
+   - **Display name**: Identity Governance Monitoring Alerts
 
-Parameters:
-  NotificationEmail:
-    Type: String
-    Description: Email for monitoring alerts
-    Default: security-team@company.com
+![SNS Topic Creation](/images/7/sns-topic-creation.png)
 
-Resources:
-  # SNS Topic for Alerts
-  MonitoringAlertsTopic:
-    Type: AWS::SNS::Topic
-    Properties:
-      TopicName: IdentityGovernanceAlerts
-      DisplayName: Identity Governance Monitoring Alerts
-      Subscription:
-        - Protocol: email
-          Endpoint: !Ref NotificationEmail
+4. Click **Create subscription**
+5. Thêm email subscription cho security team
 
-  # CloudWatch Log Group for Identity Events
-  IdentityLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: /aws/identity-governance/events
-      RetentionInDays: 365
-```
+![SNS Subscription](/images/7/sns-subscription.png)
 
-### 1.2 Monitoring Lambda Function
+### 1.2 Tạo CloudWatch Log Group
 
-```python
-import boto3
-import json
-import os
-from datetime import datetime, timedelta
+1. Mở **CloudWatch** console
+2. Click **Log groups** → **Create log group**
+3. Cấu hình:
+   - **Log group name**: /aws/identity-governance/events
+   - **Retention setting**: 1 year
 
-class IdentityGovernanceMonitor:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.logs_client = boto3.client('logs')
-        self.iam_client = boto3.client('iam')
-        self.sso_client = boto3.client('sso-admin')
-        self.sns_client = boto3.client('sns')
-        
-        self.log_group = os.environ.get('LOG_GROUP_NAME', '/aws/identity-governance/events')
-        self.sns_topic = os.environ.get('SNS_TOPIC_ARN')
-    
-    def monitor_identity_events(self):
-        """Monitor and analyze identity-related events"""
-        
-        monitoring_results = {
-            'timestamp': datetime.now().isoformat(),
-            'metrics_collected': [],
-            'anomalies_detected': [],
-            'alerts_sent': []
-        }
-        
-        return monitoring_results
-```
+![Log Group Creation](/images/7/log-group-creation.png)
 
-## Bước 2: Log Analytics Setup
+### 1.3 Thiết lập CloudWatch Alarms
+
+1. Trong CloudWatch, click **Alarms** → **Create alarm**
+2. Tạo các alarms:
+   - **Failed Login Attempts**: Nhiều lần đăng nhập thất bại
+   - **Privilege Escalation**: Phát hiện leo thang quyền
+   - **Off-hours Access**: Truy cập ngoài giờ làm việc
+
+![CloudWatch Alarms](/images/7/cloudwatch-alarms.png)
+
+## Bước 2: Thiết lập Log Analytics
 
 ### 2.1 CloudWatch Insights Queries
 
-```sql
--- Query 1: Failed login attempts by user
+1. Mở **CloudWatch Logs Insights**
+2. Chọn log group: **/aws/cloudtrail**
+3. Tạo saved queries:
+
+**Query 1: Failed Login Attempts**
+```
 fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
 | filter eventName = "ConsoleLogin" and errorCode != "Success"
 | stats count() by userIdentity.userName
 | sort count desc
+```
 
--- Query 2: Privilege escalation events
+![Insights Query 1](/images/7/insights-query-1.png)
+
+**Query 2: Privilege Escalation Events**
+```
 fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
 | filter eventName in ["AttachUserPolicy", "CreateRole", "PutUserPolicy"]
 | sort @timestamp desc
-
--- Query 3: Off-hours access patterns
-fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
-| filter @timestamp like /T(0[0-5]|2[2-3])/
-| stats count() by userIdentity.userName
-| sort count desc
 ```
 
-### 2.2 Automated Log Analysis
+![Insights Query 2](/images/7/insights-query-2.png)
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+### 2.2 Tạo Custom Dashboard
 
-class LogAnalyzer:
-    def __init__(self):
-        self.logs_client = boto3.client('logs')
-        self.cloudwatch = boto3.client('cloudwatch')
-    
-    def analyze_security_logs(self):
-        """Analyze security logs for patterns and anomalies"""
-        
-        analysis_results = {
-            'analysis_timestamp': datetime.now().isoformat(),
-            'patterns_detected': [],
-            'recommendations': []
-        }
-        
-        return analysis_results
-```
+1. Trong CloudWatch, click **Dashboards** → **Create dashboard**
+2. Tên: **IdentityGovernanceMonitoring**
+3. Thêm widgets:
+   - **Failed Login Attempts (Line chart)**
+   - **Active Users (Number)**
+   - **Policy Changes (Log table)**
+   - **Geographic Access Map**
 
-## Bước 3: Deployment Script
+![Custom Dashboard](/images/7/custom-dashboard.png)
 
-### 3.1 Complete Monitoring Deployment
+## Bước 3: Thiết lập Lambda Monitoring Function
 
-```bash
-#!/bin/bash
+### 3.1 Tạo Lambda Function
 
-echo "Deploying Identity Governance Monitoring..."
+1. Mở **AWS Lambda** console
+2. Click **Create function**
+3. Cấu hình:
+   - **Function name**: IdentityGovernanceMonitor
+   - **Runtime**: Python 3.9
+   - **Role**: IdentityGovernanceMonitoringRole
 
-# Deploy CloudFormation stack
-aws cloudformation deploy \
-  --template-file monitoring-infrastructure.yaml \
-  --stack-name identity-governance-monitoring \
-  --parameter-overrides NotificationEmail=security-team@company.com \
-  --capabilities CAPABILITY_IAM
+![Lambda Function Creation](/images/7/lambda-function-creation.png)
 
-# Create Lambda functions
-echo "Creating monitoring Lambda functions..."
+4. Cấu hình environment variables:
+   - **LOG_GROUP_NAME**: /aws/identity-governance/events
+   - **SNS_TOPIC_ARN**: ARN của SNS topic
 
-# Package and deploy monitoring function
-zip -r monitoring-function.zip monitoring_lambda.py
-aws lambda create-function \
-  --function-name IdentityGovernanceMonitor \
-  --runtime python3.9 \
-  --role arn:aws:iam::$(aws sts get-caller-identity --query Account --output text):role/IdentityGovernanceMonitoringRole \
-  --handler monitoring_lambda.lambda_handler \
-  --zip-file fileb://monitoring-function.zip
+![Lambda Environment Variables](/images/7/lambda-env-variables.png)
 
-echo "Monitoring setup completed successfully!"
-```
+### 3.2 Thiết lập EventBridge Schedule
+
+1. Mở **EventBridge** console
+2. Click **Rules** → **Create rule**
+3. Cấu hình:
+   - **Name**: IdentityMonitoringSchedule
+   - **Schedule**: Rate(5 minutes)
+   - **Target**: Lambda IdentityGovernanceMonitor
+
+![EventBridge Schedule](/images/7/eventbridge-schedule.png)
+
+## Bước 4: Anomaly Detection Setup
+
+### 4.1 CloudWatch Anomaly Detection
+
+1. Trong CloudWatch Metrics, chọn metric cần monitor
+2. Click **Actions** → **Create anomaly detector**
+3. Cấu hình threshold và notification
+
+![Anomaly Detection](/images/7/anomaly-detection.png)
+
+### 4.2 GuardDuty Integration
+
+1. Mở **GuardDuty** console
+2. Cấu hình findings export đến S3
+3. Thiết lập EventBridge rule cho GuardDuty findings
+
+![GuardDuty Integration](/images/7/guardduty-integration.png)
 
 ## Kết quả Mong đợi
 

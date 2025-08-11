@@ -10,165 +10,108 @@ Xác thực và duy trì tuân thủ các framework bảo mật và quy định 
 
 ## Compliance Framework Mapping
 
-```mermaid
-graph TB
-    A[Identity Governance Controls] --> B[SOX Compliance]
-    A --> C[SOC2 Type II]
-    A --> D[ISO 27001]
-    A --> E[PCI-DSS]
-    A --> F[NIST Framework]
-    
-    B --> G[Audit Evidence]
-    C --> G
-    D --> G
-    E --> G
-    F --> G
-    
-    G --> H[Compliance Dashboard]
-    G --> I[Regulatory Reports]
-```
+![Compliance Framework Mapping](/images/10/compliance-framework-mapping.png)
 
-## Bước 1: Compliance Framework Implementation
+## Bước 1: Thiết lập AWS Artifact cho Compliance Documentation
 
-### 1.1 Multi-Framework Compliance Engine
+### 1.1 Truy cập AWS Artifact
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
-from enum import Enum
+1. Mở **AWS Artifact** trong console
+2. Click **Reports** để xem các báo cáo compliance
+3. Download các báo cáo cần thiết:
+   - **SOC 2 Type II**
+   - **ISO 27001**
+   - **PCI DSS AOC**
 
-class ComplianceFramework(Enum):
-    SOX = "sox"
-    SOC2 = "soc2"
-    ISO27001 = "iso27001"
-    PCI_DSS = "pci_dss"
-    NIST = "nist"
-    GDPR = "gdpr"
+![AWS Artifact](/images/10/aws-artifact.png)
 
-class ComplianceValidationEngine:
-    def __init__(self):
-        self.s3_client = boto3.client('s3')
-        self.dynamodb = boto3.resource('dynamodb')
-        self.compliance_table = self.dynamodb.Table('ComplianceEvidence')
-        
-        # Load compliance requirements
-        self.compliance_requirements = self.load_compliance_requirements()
-    
-    def load_compliance_requirements(self):
-        """Load compliance requirements for each framework"""
-        
-        return {
-            ComplianceFramework.SOX: {
-                "name": "Sarbanes-Oxley Act",
-                "requirements": [
-                    {
-                        "requirement_id": "SOX-302",
-                        "title": "Corporate Responsibility for Financial Reports",
-                        "description": "Ensure proper access controls for financial systems",
-                        "controls": ["access_segregation", "approval_workflows", "audit_trails"]
-                    }
-                ]
-            }
-        }
-```
+4. Xem lại AWS responsibility matrix
+5. Lưu trữ documents trong S3 bucket compliance
 
-## Bước 2: Compliance Dashboard
+![Compliance Documents](/images/10/compliance-documents.png)
 
-### 2.1 Real-time Compliance Monitoring
+## Bước 2: Thiết lập AWS Security Hub
 
-```python
-import boto3
-import json
-from datetime import datetime, timedelta
+### 2.1 Kích hoạt Security Standards
 
-class ComplianceDashboard:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.s3_client = boto3.client('s3')
-    
-    def generate_compliance_metrics(self):
-        """Generate real-time compliance metrics"""
-        
-        metrics = {
-            "timestamp": datetime.now().isoformat(),
-            "overall_compliance_score": 0,
-            "framework_scores": {},
-            "trending_metrics": {},
-            "risk_indicators": {}
-        }
-        
-        # Calculate compliance scores for each framework
-        frameworks = ['sox', 'soc2', 'iso27001', 'pci_dss']
-        
-        for framework in frameworks:
-            score = self.calculate_framework_score(framework)
-            metrics["framework_scores"][framework] = score
-        
-        # Calculate overall score
-        metrics["overall_compliance_score"] = sum(metrics["framework_scores"].values()) / len(frameworks)
-        
-        return metrics
-```
+1. Mở **AWS Security Hub**
+2. Click **Security standards**
+3. Kích hoạt các standards:
+   - **AWS Foundational Security Standard**
+   - **CIS AWS Foundations Benchmark**
+   - **PCI DSS**
 
-## Bước 3: Regulatory Reporting
+![Security Hub Standards](/images/10/security-hub-standards.png)
 
-### 3.1 Automated Compliance Reports
+4. Cấu hình compliance scoring
+5. Thiết lập automated remediation
 
-```yaml
-# CloudFormation template for compliance reporting
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Compliance Reporting Infrastructure'
+![Compliance Scoring](/images/10/compliance-scoring.png)
 
-Resources:
-  ComplianceReportingBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub 'compliance-reports-${AWS::AccountId}'
-      VersioningConfiguration:
-        Status: Enabled
-      LifecycleConfiguration:
-        Rules:
-          - Id: RetainReports
-            Status: Enabled
-            ExpirationInDays: 2555  # 7 years retention
+## Bước 3: Tạo Compliance Dashboard
 
-  QuarterlyComplianceReport:
-    Type: AWS::Events::Rule
-    Properties:
-      Name: QuarterlyComplianceReporting
-      Description: Generate quarterly compliance reports
-      ScheduleExpression: "cron(0 9 1 */3 *)"  # First day of quarter at 9 AM
-      State: ENABLED
-```
+### 3.1 CloudWatch Dashboard
 
-## Bước 4: Deployment và Validation
+1. Mở **CloudWatch**
+2. Click **Dashboards** → **Create dashboard**
+3. Tên dashboard: **ComplianceMonitoring**
+4. Thêm widgets:
+   - **Compliance Score Metrics**
+   - **Failed Controls Count**
+   - **Remediation Status**
 
-### 4.1 Complete Deployment Script
+![Compliance Dashboard](/images/10/compliance-dashboard.png)
 
-```bash
-#!/bin/bash
+### 3.2 Thiết lập Compliance Alarms
 
-echo "Deploying Identity Governance Compliance Validation..."
+1. Trong CloudWatch, click **Alarms**
+2. Tạo alarm cho:
+   - **Low Compliance Score**
+   - **Critical Finding Detected**
+   - **Failed Remediation**
 
-# Deploy compliance infrastructure
-aws cloudformation deploy \
-  --template-file compliance-infrastructure.yaml \
-  --stack-name identity-governance-compliance \
-  --capabilities CAPABILITY_IAM
+![Compliance Alarms](/images/10/compliance-alarms.png)
 
-# Create DynamoDB table for compliance evidence
-aws dynamodb create-table \
-  --table-name ComplianceEvidence \
-  --attribute-definitions \
-    AttributeName=evidence_id,AttributeType=S \
-    AttributeName=framework,AttributeType=S \
-  --key-schema \
-    AttributeName=evidence_id,KeyType=HASH \
-  --billing-mode PAY_PER_REQUEST
+## Bước 4: Automated Compliance Validation
 
-echo "Compliance validation deployment completed successfully!"
-```
+### 4.1 Tạo Lambda Function
+
+1. Mở **AWS Lambda**
+2. Click **Create function**
+3. Cấu hình:
+   - **Function name**: ComplianceValidator
+   - **Runtime**: Python 3.9
+   - **Role**: ComplianceValidationRole
+
+![Lambda Compliance Function](/images/10/lambda-compliance-function.png)
+
+### 4.2 Thiết lập EventBridge Schedule
+
+1. Mở **EventBridge**
+2. Tạo rule cho daily compliance check
+3. Target: Lambda ComplianceValidator function
+
+![EventBridge Compliance Rule](/images/10/eventbridge-compliance-rule.png)
+
+## Bước 5: Compliance Evidence Collection
+
+### 5.1 Sử dụng AWS Config
+
+1. Sử dụng **AWS Config** để validate:
+   - **IAM password policies**
+   - **S3 bucket encryption**
+   - **CloudTrail logging**
+   - **VPC security groups**
+
+![Config Compliance Rules](/images/10/config-compliance-rules.png)
+
+### 5.2 Automated Evidence Storage
+
+1. Cấu hình Config để lưu compliance evidence vào S3
+2. Thiết lập retention policies
+3. Tạo compliance reports tự động
+
+![Evidence Collection](/images/10/evidence-collection.png)
 
 ## Kết quả Mong đợi
 

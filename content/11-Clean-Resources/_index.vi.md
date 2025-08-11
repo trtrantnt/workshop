@@ -30,95 +30,137 @@ Tài nguyên nên được dọn dẹp theo thứ tự sau để tránh xung đ�
 
 ### Xóa Lambda Functions
 
-```bash
-# Liệt kê tất cả Lambda functions được tạo trong workshop
-aws lambda list-functions --query 'Functions[?contains(FunctionName, `IdentityGovernance`) || contains(FunctionName, `Compliance`) || contains(FunctionName, `AccessReview`)].FunctionName' --output table
+1. Mở **AWS Lambda** console
+2. Lọc functions theo tên workshop:
+   - **IdentityGovernance**
+   - **AccessCertification**
+   - **ComplianceValidation**
 
-# Xóa Lambda functions
-aws lambda delete-function --function-name IdentityGovernanceMonitor
-aws lambda delete-function --function-name AccessReviewGenerator
-aws lambda delete-function --function-name ComplianceValidationEngine
-aws lambda delete-function --function-name RiskAssessmentEngine
-aws lambda delete-function --function-name CertificationNotifier
-```
+![Danh sách Lambda Functions](/images/11/lambda-functions-list.png)
+
+3. Chọn workshop functions
+4. Click **Actions** → **Delete**
+
+![Xóa Lambda Functions](/images/11/delete-lambda-functions.png)
+
+5. Xác nhận xóa bằng cách gõ **delete**
+
+![Xác nhận Xóa Lambda](/images/11/confirm-lambda-deletion.png)
 
 ### Xóa EventBridge Rules
 
-```bash
-# Liệt kê EventBridge rules
-aws events list-rules --query 'Rules[?contains(Name, `IdentityGovernance`) || contains(Name, `Compliance`) || contains(Name, `Certification`)].Name' --output table
+1. Mở **Amazon EventBridge** console
+2. Vào **Rules**
+3. Chọn workshop rules:
+   - **AccessCertificationSchedule**
+   - **ComplianceValidationSchedule**
 
-# Xóa EventBridge rules
-aws events delete-rule --name AccessCertificationSchedule
-aws events delete-rule --name ComplianceValidationSchedule
-aws events delete-rule --name RiskAssessmentSchedule
-```
+![EventBridge Rules](/images/11/eventbridge-rules.png)
+
+4. Click **Delete** cho từng rule
+
+![Xóa EventBridge Rules](/images/11/delete-eventbridge-rules.png)
 
 ## Bước 2: Step Functions
 
-```bash
-# Liệt kê Step Functions
-aws stepfunctions list-state-machines --query 'stateMachines[?contains(name, `Certification`) || contains(name, `Governance`)].name' --output table
+1. Mở **AWS Step Functions** console
+2. Chọn workshop state machines:
+   - **AccessCertificationWorkflow**
+   - **ComplianceValidationWorkflow**
 
-# Xóa Step Functions
-aws stepfunctions delete-state-machine --state-machine-arn arn:aws:states:REGION:ACCOUNT:stateMachine:CertificationWorkflow
-```
+![Danh sách Step Functions](/images/11/step-functions-list.png)
+
+3. Click **Delete**
+4. Xác nhận xóa
+
+![Xóa Step Functions](/images/11/delete-step-functions.png)
 
 ## Bước 3: DynamoDB Tables
 
-```bash
-# Liệt kê DynamoDB tables
-aws dynamodb list-tables --query 'TableNames[?contains(@, `Certification`) || contains(@, `Operations`) || contains(@, `Compliance`) || contains(@, `Risk`)]' --output table
+1. Mở **Amazon DynamoDB** console
+2. Vào **Tables**
+3. Chọn workshop tables:
+   - **OperationalProcedures**
+   - **ComplianceEvidence**
+   - **AuditFindings**
 
-# Xóa DynamoDB tables
-aws dynamodb delete-table --table-name CertificationTasks
-aws dynamodb delete-table --table-name OperationsLog
-aws dynamodb delete-table --table-name ComplianceEvidence
-aws dynamodb delete-table --table-name RiskMonitoring
-aws dynamodb delete-table --table-name AuditFindings
-```
+![DynamoDB Tables](/images/11/dynamodb-tables.png)
+
+4. Click **Delete** cho từng table
+5. Gõ **delete** để xác nhận
+
+![Xóa DynamoDB Tables](/images/11/delete-dynamodb-tables.png)
 
 ## Bước 4: S3 Buckets
 
-### Làm trống và Xóa S3 Buckets
+### Làm trống S3 Buckets
 
-```bash
-# Lấy account ID
-ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+1. Mở **Amazon S3** console
+2. Xác định workshop buckets:
+   - **privilege-analytics-***
+   - **compliance-reports-***
 
-# Liệt kê workshop S3 buckets
-aws s3 ls | grep -E "(privilege-analytics|compliance-reports|identity-governance)"
+![Danh sách S3 Buckets](/images/11/s3-buckets-list.png)
 
-# Làm trống buckets trước
-aws s3 rm s3://privilege-analytics-${ACCOUNT_ID} --recursive
-aws s3 rm s3://compliance-reports-${ACCOUNT_ID} --recursive
+3. Chọn bucket và click **Empty**
+4. Gõ **permanently delete** để xác nhận
 
-# Xóa buckets
-aws s3 rb s3://privilege-analytics-${ACCOUNT_ID}
-aws s3 rb s3://compliance-reports-${ACCOUNT_ID}
-```
+![Làm trống S3 Bucket](/images/11/empty-s3-bucket.png)
+
+### Xóa S3 Buckets
+
+1. Sau khi làm trống, chọn bucket
+2. Click **Delete**
+3. Gõ tên bucket để xác nhận
+
+![Xóa S3 Bucket](/images/11/delete-s3-bucket.png)
 
 ## Bước 5: CloudWatch Resources
 
 ### Xóa CloudWatch Dashboards
 
-```bash
-# Liệt kê dashboards
-aws cloudwatch list-dashboards --query 'DashboardEntries[?contains(DashboardName, `IdentityGovernance`) || contains(DashboardName, `Compliance`)].DashboardName' --output table
+1. Mở **Amazon CloudWatch** console
+2. Vào **Dashboards**
+3. Chọn workshop dashboards:
+   - **IdentityGovernanceRiskDashboard**
+   - **DailyOperationsDashboard**
 
-# Xóa dashboards
-aws cloudwatch delete-dashboards --dashboard-names IdentityGovernanceRiskDashboard IdentityGovernanceMonitoring ComplianceDashboard
-```
+![CloudWatch Dashboards](/images/11/cloudwatch-dashboards.png)
+
+4. Click **Delete** cho từng dashboard
+
+![Xóa Dashboard](/images/11/delete-dashboard.png)
 
 ### Xóa CloudWatch Alarms
 
-```bash
-# Liệt kê alarms
-aws cloudwatch describe-alarms --query 'MetricAlarms[?contains(AlarmName, `IdentityGovernance`) || contains(AlarmName, `Compliance`) || contains(AlarmName, `Risk`)].AlarmName' --output table
+1. Vào **Alarms**
+2. Chọn workshop alarms
+3. Click **Actions** → **Delete**
 
-# Xóa alarms
-aws cloudwatch delete-alarms --alarm-names HighFailedLoginAttempts PrivilegeEscalationDetected HighRiskEventsAlarm ComplianceViolationAlarm
-```
+![Xóa CloudWatch Alarms](/images/11/delete-cloudwatch-alarms.png)
+
+### Xóa Log Groups
+
+1. Vào **Log groups**
+2. Chọn workshop log groups
+3. Click **Actions** → **Delete log group**
+
+![Xóa Log Groups](/images/11/delete-log-groups.png)
+
+## Bước 6: SNS Topics
+
+1. Mở **Amazon SNS** console
+2. Vào **Topics**
+3. Chọn workshop topics:
+   - **IdentityGovernanceAlerts**
+   - **ComplianceAlerts**
+
+![SNS Topics](/images/11/sns-topics.png)
+
+4. Click **Delete** cho từng topic
+5. Xác nhận xóa
+
+![Xóa SNS Topics](/images/11/delete-sns-topics.png)
 
 ## Bước 6: IAM Resources
 
@@ -280,25 +322,35 @@ aws cloudwatch delete-alarms --alarm-names HighFailedLoginAttempts PrivilegeEsca
 
 ![Checklist Dọn dẹp](/images/11/cleanup-checklist.png)
 
-## Xác minh
-
-Sau khi chạy dọn dẹp, hãy xác minh rằng tất cả tài nguyên đã được xóa:
+## Bước 10: Xác minh Dọn dẹp
 
 ### Kiểm tra Tài nguyên Còn lại
 
-```bash
-# Kiểm tra Lambda functions
-aws lambda list-functions --query 'Functions[?contains(FunctionName, `IdentityGovernance`)].FunctionName'
+1. Kiểm tra **AWS Cost Explorer** để xác nhận không còn phí phát sinh
 
-# Kiểm tra DynamoDB tables
-aws dynamodb list-tables --query 'TableNames[?contains(@, `Certification`) || contains(@, `Compliance`)]'
+![Xác minh Cost Explorer](/images/11/cost-explorer-verification.png)
 
-# Kiểm tra S3 buckets
-aws s3 ls | grep -E "(privilege-analytics|compliance-reports)"
+2. Sử dụng **AWS Resource Groups** để tìm tagged resources
+3. Tìm kiếm tag: **Project=IdentityGovernance**
 
-# Kiểm tra CloudFormation stacks
-aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query 'StackSummaries[?contains(StackName, `identity-governance`)].StackName'
-```
+![Kiểm tra Resource Groups](/images/11/resource-groups-check.png)
+
+### Kiểm tra Dịch vụ Cuối cùng
+
+1. **AWS Config**: Tắt configuration recorder nếu không cần
+2. **AWS Security Hub**: Tắt nếu không sử dụng ở nơi khác
+3. **Amazon GuardDuty**: Tắt nếu không cần
+4. **AWS Audit Manager**: Tắt data collection
+
+![Kiểm tra Dịch vụ Cuối](/images/11/final-service-checks.png)
+
+### Báo cáo Xác minh Dọn dẹp
+
+1. Tạo báo cáo tóm tắt dọn dẹp
+2. Ghi chép các tài nguyên không thể xóa
+3. Lưu ý các phí đang phát sinh
+
+![Báo cáo Xác minh Dọn dẹp](/images/11/cleanup-verification-report.png)
 
 ## Xác minh Chi phí
 

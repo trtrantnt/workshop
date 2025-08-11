@@ -12,21 +12,21 @@
     <title>11. Clean Resources :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754867449" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754867449" rel="stylesheet">
-    <link href="/css/hybrid.css?1754867449" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754867449" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754867449" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754867449" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754867449" rel="stylesheet">
-    <link href="/css/theme.css?1754867449" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754867449" rel="stylesheet">
+    <link href="/css/nucleus.css?1754912825" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754912825" rel="stylesheet">
+    <link href="/css/hybrid.css?1754912825" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754912825" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754912825" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754912825" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754912825" rel="stylesheet">
+    <link href="/css/theme.css?1754912825" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754912825" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754867449" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754912825" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754867449"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754912825"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754867449"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754867449"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754912825"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754912825"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754867449"></script>
+<script type="text/javascript" src="/js/search.js?1754912825"></script>
 
     
   </div>
@@ -541,12 +541,23 @@
       <ul>
         <li><a href="#delete-iam-roles">Delete IAM Roles</a></li>
         <li><a href="#delete-custom-iam-policies">Delete Custom IAM Policies</a></li>
+        <li><a href="#delete-iam-users-and-groups">Delete IAM Users and Groups</a></li>
       </ul>
     </li>
-    <li><a href="#step-8-cloudformation-stacks">Step 8: CloudFormation Stacks</a></li>
-    <li><a href="#step-9-aws-config-if-enabled-for-workshop">Step 9: AWS Config (if enabled for workshop)</a></li>
-    <li><a href="#step-10-cloudtrail-if-created-for-workshop">Step 10: CloudTrail (if created for workshop)</a></li>
-    <li><a href="#automated-cleanup-script">Automated Cleanup Script</a></li>
+    <li><a href="#step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</a>
+      <ul>
+        <li><a href="#remove-permission-set-assignments">Remove Permission Set Assignments</a></li>
+        <li><a href="#delete-permission-sets">Delete Permission Sets</a></li>
+        <li><a href="#delete-users-and-groups">Delete Users and Groups</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-9-aws-config-cleanup">Step 9: AWS Config Cleanup</a></li>
+    <li><a href="#step-10-cloudtrail-cleanup">Step 10: CloudTrail Cleanup</a></li>
+    <li><a href="#console-based-cleanup-checklist">Console-Based Cleanup Checklist</a>
+      <ul>
+        <li><a href="#-cleanup-checklist">✅ Cleanup Checklist</a></li>
+      </ul>
+    </li>
     <li><a href="#step-7-final-verification">Step 7: Final Verification</a>
       <ul>
         <li><a href="#verify-resource-deletion">Verify Resource Deletion</a></li>
@@ -751,106 +762,172 @@
 <p><img alt="Delete SNS Topics" src="/images/11/delete-sns-topics.png?featherlight=false&width=90pc"></p>
 <h2 id="step-7-iam-resources">Step 7: IAM Resources</h2>
 <h3 id="delete-iam-roles">Delete IAM Roles</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List IAM roles created for workshop</span>
-</span></span><span style="display:flex;"><span>aws iam list-roles --query <span style="color:#e6db74">&#39;Roles[?contains(RoleName, `IdentityGovernance`) || contains(RoleName, `Compliance`) || contains(RoleName, `Certification`)].RoleName&#39;</span> --output table
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Detach policies and delete roles</span>
-</span></span><span style="display:flex;"><span>aws iam detach-role-policy --role-name IdentityGovernanceLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-</span></span><span style="display:flex;"><span>aws iam delete-role --role-name IdentityGovernanceLambdaRole
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>aws iam delete-role --role-name ComplianceValidationRole
-</span></span><span style="display:flex;"><span>aws iam delete-role --role-name CertificationWorkflowRole
-</span></span></code></pre></div><h3 id="delete-custom-iam-policies">Delete Custom IAM Policies</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List custom policies</span>
-</span></span><span style="display:flex;"><span>aws iam list-policies --scope Local --query <span style="color:#e6db74">&#39;Policies[?contains(PolicyName, `IdentityGovernance`) || contains(PolicyName, `Compliance`)].PolicyName&#39;</span> --output table
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete custom policies</span>
-</span></span><span style="display:flex;"><span>aws iam delete-policy --policy-arn arn:aws:iam::ACCOUNT:policy/IdentityGovernancePolicy
-</span></span><span style="display:flex;"><span>aws iam delete-policy --policy-arn arn:aws:iam::ACCOUNT:policy/ComplianceValidationPolicy
-</span></span></code></pre></div><h2 id="step-8-cloudformation-stacks">Step 8: CloudFormation Stacks</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List CloudFormation stacks</span>
-</span></span><span style="display:flex;"><span>aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query <span style="color:#e6db74">&#39;StackSummaries[?contains(StackName, `identity-governance`) || contains(StackName, `compliance`)].StackName&#39;</span> --output table
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete CloudFormation stacks</span>
-</span></span><span style="display:flex;"><span>aws cloudformation delete-stack --stack-name identity-governance-base
-</span></span><span style="display:flex;"><span>aws cloudformation delete-stack --stack-name identity-governance-monitoring
-</span></span><span style="display:flex;"><span>aws cloudformation delete-stack --stack-name identity-governance-compliance
-</span></span></code></pre></div><h2 id="step-9-aws-config-if-enabled-for-workshop">Step 9: AWS Config (if enabled for workshop)</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Stop configuration recorder</span>
-</span></span><span style="display:flex;"><span>aws configservice stop-configuration-recorder --configuration-recorder-name IdentityGovernanceRecorder
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete configuration recorder</span>
-</span></span><span style="display:flex;"><span>aws configservice delete-configuration-recorder --configuration-recorder-name IdentityGovernanceRecorder
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete delivery channel</span>
-</span></span><span style="display:flex;"><span>aws configservice delete-delivery-channel --delivery-channel-name IdentityGovernanceDeliveryChannel
-</span></span></code></pre></div><h2 id="step-10-cloudtrail-if-created-for-workshop">Step 10: CloudTrail (if created for workshop)</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List CloudTrail trails</span>
-</span></span><span style="display:flex;"><span>aws cloudtrail describe-trails --query <span style="color:#e6db74">&#39;trailList[?contains(Name, `IdentityGovernance`)].Name&#39;</span> --output table
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete CloudTrail</span>
-</span></span><span style="display:flex;"><span>aws cloudtrail delete-trail --name IdentityGovernanceTrail
-</span></span></code></pre></div><h2 id="automated-cleanup-script">Automated Cleanup Script</h2>
-<p>For convenience, here&rsquo;s a comprehensive cleanup script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Starting Identity Governance Workshop Cleanup...&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get account ID</span>
-</span></span><span style="display:flex;"><span>ACCOUNT_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>aws sts get-caller-identity --query Account --output text<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>REGION<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>aws configure get region<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Account ID: </span>$ACCOUNT_ID<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Region: </span>$REGION<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function to check if resource exists before deletion</span>
-</span></span><span style="display:flex;"><span>check_and_delete<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    local resource_type<span style="color:#f92672">=</span>$1
-</span></span><span style="display:flex;"><span>    local resource_name<span style="color:#f92672">=</span>$2
-</span></span><span style="display:flex;"><span>    local delete_command<span style="color:#f92672">=</span>$3
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Checking </span>$resource_type<span style="color:#e6db74">: </span>$resource_name<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> eval <span style="color:#e6db74">&#34;</span>$delete_command<span style="color:#e6db74">&#34;</span> 2&gt;/dev/null; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;✅ Deleted </span>$resource_type<span style="color:#e6db74">: </span>$resource_name<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;⚠️  </span>$resource_type<span style="color:#e6db74"> not found or already deleted: </span>$resource_name<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete Lambda functions</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Cleaning up Lambda functions...&#34;</span>
-</span></span><span style="display:flex;"><span>LAMBDA_FUNCTIONS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;IdentityGovernanceMonitor&#34;</span> <span style="color:#e6db74">&#34;AccessReviewGenerator&#34;</span> <span style="color:#e6db74">&#34;ComplianceValidationEngine&#34;</span> <span style="color:#e6db74">&#34;RiskAssessmentEngine&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> func in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>LAMBDA_FUNCTIONS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
-</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;Lambda function&#34;</span> <span style="color:#e6db74">&#34;</span>$func<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws lambda delete-function --function-name </span>$func<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete DynamoDB tables</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Cleaning up DynamoDB tables...&#34;</span>
-</span></span><span style="display:flex;"><span>DYNAMODB_TABLES<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;CertificationTasks&#34;</span> <span style="color:#e6db74">&#34;OperationsLog&#34;</span> <span style="color:#e6db74">&#34;ComplianceEvidence&#34;</span> <span style="color:#e6db74">&#34;RiskMonitoring&#34;</span> <span style="color:#e6db74">&#34;AuditFindings&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> table in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>DYNAMODB_TABLES[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
-</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;DynamoDB table&#34;</span> <span style="color:#e6db74">&#34;</span>$table<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws dynamodb delete-table --table-name </span>$table<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete S3 buckets</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Cleaning up S3 buckets...&#34;</span>
-</span></span><span style="display:flex;"><span>S3_BUCKETS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;privilege-analytics-</span><span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;compliance-reports-</span><span style="color:#e6db74">${</span>ACCOUNT_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> bucket in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>S3_BUCKETS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Emptying S3 bucket: </span>$bucket<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    aws s3 rm s3://$bucket --recursive 2&gt;/dev/null <span style="color:#f92672">||</span> echo <span style="color:#e6db74">&#34;Bucket </span>$bucket<span style="color:#e6db74"> not found&#34;</span>
-</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;S3 bucket&#34;</span> <span style="color:#e6db74">&#34;</span>$bucket<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws s3 rb s3://</span>$bucket<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete CloudFormation stacks</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🧹 Cleaning up CloudFormation stacks...&#34;</span>
-</span></span><span style="display:flex;"><span>CF_STACKS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;identity-governance-base&#34;</span> <span style="color:#e6db74">&#34;identity-governance-monitoring&#34;</span> <span style="color:#e6db74">&#34;identity-governance-compliance&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> stack in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CF_STACKS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
-</span></span><span style="display:flex;"><span>    check_and_delete <span style="color:#e6db74">&#34;CloudFormation stack&#34;</span> <span style="color:#e6db74">&#34;</span>$stack<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;aws cloudformation delete-stack --stack-name </span>$stack<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;🎉 Cleanup completed!&#34;</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Note: Some resources may take a few minutes to be fully deleted.&#34;</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Please check the AWS Console to verify all resources have been removed.&#34;</span>
-</span></span></code></pre></div><h2 id="step-7-final-verification">Step 7: Final Verification</h2>
+<ol>
+<li>Navigate to <strong>IAM</strong> service in AWS Console</li>
+<li>Click <strong>Roles</strong> in the sidebar</li>
+<li>Search for workshop roles:
+<ul>
+<li><strong>IdentityGovernanceLambdaRole</strong></li>
+<li><strong>ComplianceValidationRole</strong></li>
+<li><strong>CertificationWorkflowRole</strong></li>
+</ul>
+</li>
+</ol>
+<p><img alt="IAM Roles List" src="/images/11/iam-roles-list.png"></p>
+<ol start="4">
+<li>Select each role and click <strong>Delete</strong></li>
+<li>Type role name to confirm deletion</li>
+</ol>
+<p><img alt="Delete IAM Role" src="/images/11/delete-iam-role.png"></p>
+<h3 id="delete-custom-iam-policies">Delete Custom IAM Policies</h3>
+<ol>
+<li>Click <strong>Policies</strong> in the sidebar</li>
+<li>Filter by <strong>Customer managed</strong></li>
+<li>Search for workshop policies:
+<ul>
+<li><strong>SecurityAuditPolicy</strong></li>
+<li><strong>IdentityGovernancePolicy</strong></li>
+<li><strong>ComplianceValidationPolicy</strong></li>
+</ul>
+</li>
+</ol>
+<p><img alt="IAM Policies List" src="/images/11/iam-policies-list.png"></p>
+<ol start="4">
+<li>Select each policy and click <strong>Actions</strong> → <strong>Delete</strong></li>
+<li>Confirm deletion</li>
+</ol>
+<p><img alt="Delete IAM Policy" src="/images/11/delete-iam-policy.png"></p>
+<h3 id="delete-iam-users-and-groups">Delete IAM Users and Groups</h3>
+<ol>
+<li>Click <strong>Users</strong> in the sidebar</li>
+<li>Select workshop users and click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete IAM Users" src="/images/11/delete-iam-users.png"></p>
+<ol start="3">
+<li>Click <strong>User groups</strong> in the sidebar</li>
+<li>Select workshop groups and click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete IAM Groups" src="/images/11/delete-iam-groups.png"></p>
+<h2 id="step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</h2>
+<h3 id="remove-permission-set-assignments">Remove Permission Set Assignments</h3>
+<ol>
+<li>Navigate to <strong>IAM Identity Center</strong></li>
+<li>Click <strong>AWS accounts</strong> in the sidebar</li>
+<li>Select your account and click <strong>Remove access</strong></li>
+</ol>
+<p><img alt="Remove SSO Access" src="/images/11/remove-sso-access.png"></p>
+<h3 id="delete-permission-sets">Delete Permission Sets</h3>
+<ol>
+<li>Click <strong>Permission sets</strong> in the sidebar</li>
+<li>Select workshop permission sets:
+<ul>
+<li><strong>SecurityAuditor</strong></li>
+<li><strong>ComplianceReviewer</strong></li>
+</ul>
+</li>
+<li>Click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete Permission Sets" src="/images/11/delete-permission-sets.png"></p>
+<h3 id="delete-users-and-groups">Delete Users and Groups</h3>
+<ol>
+<li>Click <strong>Users</strong> in the sidebar</li>
+<li>Select workshop users and click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete SSO Users" src="/images/11/delete-sso-users.png"></p>
+<ol start="3">
+<li>Click <strong>Groups</strong> in the sidebar</li>
+<li>Select workshop groups and click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete SSO Groups" src="/images/11/delete-sso-groups.png"></p>
+<h2 id="step-9-aws-config-cleanup">Step 9: AWS Config Cleanup</h2>
+<ol>
+<li>Navigate to <strong>AWS Config</strong> service</li>
+<li>Click <strong>Settings</strong> in the sidebar</li>
+<li>Click <strong>Edit</strong> and then <strong>Delete configuration recorder</strong></li>
+</ol>
+<p><img alt="Delete Config Recorder" src="/images/11/delete-config-recorder.png"></p>
+<ol start="4">
+<li>Confirm deletion by typing <strong>delete</strong></li>
+</ol>
+<h2 id="step-10-cloudtrail-cleanup">Step 10: CloudTrail Cleanup</h2>
+<ol>
+<li>Navigate to <strong>CloudTrail</strong> service</li>
+<li>Click <strong>Trails</strong> in the sidebar</li>
+<li>Select <strong>IdentityGovernanceTrail</strong></li>
+<li>Click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete CloudTrail" src="/images/11/delete-cloudtrail.png"></p>
+<ol start="5">
+<li>Type trail name to confirm deletion</li>
+</ol>
+<h2 id="console-based-cleanup-checklist">Console-Based Cleanup Checklist</h2>
+<p>For systematic cleanup through AWS Console, follow this checklist:</p>
+<h3 id="-cleanup-checklist">✅ Cleanup Checklist</h3>
+<p><strong>Lambda Functions:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> IdentityGovernanceMonitor</li>
+<li><input disabled="" type="checkbox"> AccessReviewGenerator</li>
+<li><input disabled="" type="checkbox"> ComplianceValidationEngine</li>
+<li><input disabled="" type="checkbox"> RiskAssessmentEngine</li>
+<li><input disabled="" type="checkbox"> CertificationNotifier</li>
+</ul>
+<p><strong>EventBridge Rules:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> AccessCertificationSchedule</li>
+<li><input disabled="" type="checkbox"> ComplianceValidationSchedule</li>
+<li><input disabled="" type="checkbox"> RiskAssessmentSchedule</li>
+</ul>
+<p><strong>Step Functions:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> AccessCertificationWorkflow</li>
+<li><input disabled="" type="checkbox"> ComplianceValidationWorkflow</li>
+</ul>
+<p><strong>DynamoDB Tables:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> CertificationTasks</li>
+<li><input disabled="" type="checkbox"> OperationsLog</li>
+<li><input disabled="" type="checkbox"> ComplianceEvidence</li>
+<li><input disabled="" type="checkbox"> RiskMonitoring</li>
+<li><input disabled="" type="checkbox"> AuditFindings</li>
+</ul>
+<p><strong>S3 Buckets:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> privilege-analytics-[ACCOUNT-ID]</li>
+<li><input disabled="" type="checkbox"> compliance-reports-[ACCOUNT-ID]</li>
+</ul>
+<p><strong>CloudWatch Resources:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> IdentityGovernanceRiskDashboard</li>
+<li><input disabled="" type="checkbox"> DailyOperationsDashboard</li>
+<li><input disabled="" type="checkbox"> All workshop alarms</li>
+<li><input disabled="" type="checkbox"> All workshop log groups</li>
+</ul>
+<p><strong>SNS Topics:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> IdentityGovernanceAlerts</li>
+<li><input disabled="" type="checkbox"> ComplianceAlerts</li>
+</ul>
+<p><strong>IAM Resources:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> Workshop IAM roles</li>
+<li><input disabled="" type="checkbox"> Workshop IAM policies</li>
+<li><input disabled="" type="checkbox"> Workshop IAM users</li>
+<li><input disabled="" type="checkbox"> Workshop IAM groups</li>
+</ul>
+<p><strong>IAM Identity Center:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> Permission set assignments</li>
+<li><input disabled="" type="checkbox"> Permission sets</li>
+<li><input disabled="" type="checkbox"> SSO users and groups</li>
+</ul>
+<p><strong>Other Services:</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> AWS Config recorder</li>
+<li><input disabled="" type="checkbox"> CloudTrail trail</li>
+<li><input disabled="" type="checkbox"> GuardDuty detector (if not needed)</li>
+</ul>
+<p><img alt="Cleanup Checklist" src="/images/11/cleanup-checklist.png"></p>
+<h2 id="step-7-final-verification">Step 7: Final Verification</h2>
 <h3 id="verify-resource-deletion">Verify Resource Deletion</h3>
 <ol>
 <li>Check <strong>AWS Cost Explorer</strong> for any remaining charges</li>
@@ -1152,19 +1229,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754867449"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754867449"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754867449"></script>
-    <script src="/js/jquery.sticky.js?1754867449"></script>
-    <script src="/js/featherlight.min.js?1754867449"></script>
-    <script src="/js/highlight.pack.js?1754867449"></script>
+    <script src="/js/clipboard.min.js?1754912825"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754912825"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754912825"></script>
+    <script src="/js/jquery.sticky.js?1754912825"></script>
+    <script src="/js/featherlight.min.js?1754912825"></script>
+    <script src="/js/highlight.pack.js?1754912825"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754867449"></script>
-    <script src="/js/learn.js?1754867449"></script>
-    <script src="/js/hugo-learn.js?1754867449"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754912825"></script>
+    <script src="/js/learn.js?1754912825"></script>
+    <script src="/js/hugo-learn.js?1754912825"></script>
 
-    <link href="/mermaid/mermaid.css?1754867449" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754867449"></script>
+    <link href="/mermaid/mermaid.css?1754912825" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754912825"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
