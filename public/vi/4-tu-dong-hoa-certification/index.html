@@ -12,21 +12,21 @@
     <title>4. Tự động hóa Certification :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754946121" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754946121" rel="stylesheet">
-    <link href="/css/hybrid.css?1754946121" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754946121" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754946121" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754946121" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754946121" rel="stylesheet">
-    <link href="/css/theme.css?1754946121" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754946121" rel="stylesheet">
+    <link href="/css/nucleus.css?1754946493" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754946493" rel="stylesheet">
+    <link href="/css/hybrid.css?1754946493" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754946493" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754946493" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754946493" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754946493" rel="stylesheet">
+    <link href="/css/theme.css?1754946493" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754946493" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754946121" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754946493" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754946121"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754946493"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754946121"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754946121"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754946493"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754946493"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754946121"></script>
+<script type="text/javascript" src="/js/search.js?1754946493"></script>
 
     
   </div>
@@ -607,6 +607,12 @@
 </li>
 <li>Trong <strong>Schedule pattern</strong>, chọn <strong>Rate-based schedule</strong></li>
 <li>Nhập <strong>90</strong> và chọn <strong>Days</strong></li>
+<li>Trong <strong>Flexible time window</strong>, nhập <strong>15</strong> minutes
+<ul>
+<li>Cho phép schedule chạy trong vòng 15 phút sau thời gian bắt đầu</li>
+<li>Giúp giảm tải hệ thống và tăng tính linh hoạt</li>
+</ul>
+</li>
 <li>Click <strong>Next</strong></li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
@@ -685,11 +691,11 @@
 <p><img alt="Lambda DynamoDB Integration" src="/images/4/lambda-dynamodb-integration.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-kết-nối-eventbridge-với-lambda">Bước 4: Kết nối EventBridge với Lambda</h2>
 <h3 id="41-thêm-lambda-target-vào-eventbridge-rule">4.1 Thêm Lambda Target vào EventBridge Rule</h3>
-<h4 id="bước-3-select-targets">Bước 3: Select target(s)</h4>
+<h4 id="bước-3-select-target">Bước 3: Select target</h4>
 <ol>
-<li>Trong <strong>Target types</strong>, chọn <strong>AWS service</strong></li>
-<li>Trong <strong>Select a target</strong>, chọn <strong>Lambda function</strong></li>
-<li>Trong <strong>Function</strong>, chọn <strong>AccessCertificationTrigger</strong></li>
+<li>Trong <strong>Target API</strong>, chọn <strong>AWS Lambda</strong></li>
+<li>Chọn API <strong>Invoke</strong></li>
+<li>Trong <strong>Lambda function</strong>, chọn <strong>AccessCertificationTrigger</strong></li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
 <ol start="4">
@@ -974,19 +980,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754946121"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754946121"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754946121"></script>
-    <script src="/js/jquery.sticky.js?1754946121"></script>
-    <script src="/js/featherlight.min.js?1754946121"></script>
-    <script src="/js/highlight.pack.js?1754946121"></script>
+    <script src="/js/clipboard.min.js?1754946493"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754946493"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754946493"></script>
+    <script src="/js/jquery.sticky.js?1754946493"></script>
+    <script src="/js/featherlight.min.js?1754946493"></script>
+    <script src="/js/highlight.pack.js?1754946493"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754946121"></script>
-    <script src="/js/learn.js?1754946121"></script>
-    <script src="/js/hugo-learn.js?1754946121"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754946493"></script>
+    <script src="/js/learn.js?1754946493"></script>
+    <script src="/js/hugo-learn.js?1754946493"></script>
 
-    <link href="/mermaid/mermaid.css?1754946121" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754946121"></script>
+    <link href="/mermaid/mermaid.css?1754946493" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754946493"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -36,7 +36,10 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
    - Chọn "Recurring schedule" vì chúng ta muốn chạy định kỳ hàng quý
 8. Trong **Schedule pattern**, chọn **Rate-based schedule**
 9. Nhập **90** và chọn **Days**
-10. Click **Next**
+10. Trong **Flexible time window**, nhập **15** minutes
+    - Cho phép schedule chạy trong vòng 15 phút sau thời gian bắt đầu
+    - Giúp giảm tải hệ thống và tăng tính linh hoạt
+11. Click **Next**
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
@@ -112,10 +115,10 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
 
 ### 4.1 Thêm Lambda Target vào EventBridge Rule
 
-#### Bước 3: Select target(s)
-1. Trong **Target types**, chọn **AWS service**
-2. Trong **Select a target**, chọn **Lambda function**
-3. Trong **Function**, chọn **AccessCertificationTrigger**
+#### Bước 3: Select target
+1. Trong **Target API**, chọn **AWS Lambda**
+2. Chọn API **Invoke**
+3. Trong **Lambda function**, chọn **AccessCertificationTrigger**
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
 

@@ -48,7 +48,10 @@ graph TB
    - Choose "Recurring schedule" because we want to run quarterly reviews
 8. In **Schedule pattern**, select **Rate-based schedule**
 9. Enter **90** and select **Days**
-10. Click **Next**
+10. In **Flexible time window**, enter **15** minutes
+    - Allows the schedule to run within 15 minutes after the start time
+    - Helps reduce system load and increases flexibility
+11. Click **Next**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
@@ -124,10 +127,10 @@ graph TB
 
 ### 4.1 Add Lambda Target to EventBridge Rule
 
-#### Step 3: Select target(s)
-1. In **Target types**, select **AWS service**
-2. In **Select a target**, choose **Lambda function**
-3. In **Function**, select **AccessCertificationTrigger**
+#### Step 3: Select target
+1. In **Target API**, select **AWS Lambda**
+2. Choose API **Invoke**
+3. In **Lambda function**, select **AccessCertificationTrigger**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
 
