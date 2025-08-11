@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>7. Monitoring Setup on Identity Governance with Access Certification</title>
-    <link>http://localhost:1313/workshop/7-thiet-lap-giam-sat/</link>
+    <link>//localhost:1313/7-thiet-lap-giam-sat/</link>
     <description>Recent content in 7. Monitoring Setup on Identity Governance with Access Certification</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="http://localhost:1313/workshop/7-thiet-lap-giam-sat/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/7-thiet-lap-giam-sat/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

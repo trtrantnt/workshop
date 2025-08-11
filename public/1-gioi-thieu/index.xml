@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>1. Introduction on Identity Governance with Access Certification</title>
-    <link>http://localhost:62814/workshop/1-gioi-thieu/</link>
+    <link>//localhost:62814/1-gioi-thieu/</link>
     <description>Recent content in 1. Introduction on Identity Governance with Access Certification</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="http://localhost:62814/workshop/1-gioi-thieu/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62814/1-gioi-thieu/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

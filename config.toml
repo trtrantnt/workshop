@@ -1,6 +1,6 @@
 # Change the default theme to be use when building the site with Hugo
 theme = "hugo-theme-learn"
-baseURL = "https://trtrantnt.github.io/workshop/"
+
 
 # For search functionality
 [outputs]
