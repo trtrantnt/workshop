@@ -16,24 +16,19 @@ Automate access certification processes to ensure access rights are reviewed per
 2. Verify that the `AccessCertifications` table was created in chapter 2
 3. This table will be used to store certification data
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc)
-
 ## Step 2: Create Lambda Function
 
 ### 2.1 Create Lambda Function
 
 1. Open **AWS Lambda** in the console
 2. Click **Create function**
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc)
-
 3. Choose **Author from scratch**
 4. Enter function details:
    - **Function name**: `AccessCertificationTrigger`
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda2.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/ld1.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
@@ -69,19 +64,24 @@ def lambda_handler(event, context):
     }
 ```
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda3.png?featherlight=false&width=90pc)
-
 2. Click **Deploy** to save changes
 
 ### 2.3 Configure IAM Role for Lambda
 
 1. Go to **Configuration** tab
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/ld2.png?featherlight=false&width=90pc)
+
 2. Click **Permissions**
 3. Click on the role name to open IAM console
 4. Click **Add permissions** → **Attach policies**
-5. Search and attach policy **AmazonDynamoDBFullAccess**
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/ld3.png?featherlight=false&width=90pc)
+
+5. Search and attach policy **AmazonDynamoDBFullAccess**
+6. Select **Add permissions**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/ld4.png?featherlight=false&width=90pc)
 
 ## Step 3: Setup EventBridge Scheduler
 
@@ -96,53 +96,37 @@ def lambda_handler(event, context):
    - **Name**: `AccessCertificationSchedule`
    - **Description**: `Quarterly access certification review`
    - **Event bus**: default
-   - **Enable the rule on the selected event bus**: ✅ Checked
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
+   - **Enable the rule on the selected event bus**
 
 5. In **Rule type**, select **Schedule**
 6. Click **Next**
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
 
 #### Step 2: Define schedule
 7. In **Occurrence**, select **Recurring schedule**
 8. In **Schedule pattern**, select **Rate-based schedule**
 9. Enter **90** and select **Days**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
+
 10. In **Flexible time window**, enter **15** minutes
 11. Click **Next**
 
+#### Step 3: Select target
+12. In **Target API**, select **AWS Lambda Invoke**
+13. In **Lambda function**, select **AccessCertificationTrigger**
+14. Click **Next**
+
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
-#### Step 3: Select target
-12. In **Target API**, select **AWS Lambda**
-13. Choose API **Invoke**
-14. In **Lambda function**, select **AccessCertificationTrigger**
-15. Click **Next**
+#### Step 4: Configure tags (Optional)
+15. Skip the tags section, click **Next**
+
+#### Step 5: Review and create
+16. Review configuration and click **Create rule**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
-
-#### Step 4: Settings (Optional)
-16. In **Schedule state**, keep **Enable** selected
-17. In **Action after schedule completion**, keep default
-18. In **Retry policy**, keep **Retry** selected
-19. In **Dead-letter queue (DLQ)**, select **None**
-20. In **Encryption**, keep default (AWS owned key)
-21. In **Permissions**, select **Create new role for this schedule**
-    - Role name will be auto-generated: `Amazon_EventBridge_Scheduler_LAMBDA_xxx`
-22. Click **Next**
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
-
-#### Step 5: Review and create schedule
-23. Review configuration:
-    - Schedule name: AccessCertificationSchedule
-    - Schedule pattern: Rate(90 days)
-    - Target: Lambda function
-    - Permissions: New role created
-24. Click **Create schedule**
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
 ## Step 4: Test the Automation
 
@@ -152,8 +136,6 @@ def lambda_handler(event, context):
 2. Click **Schedules** in the sidebar (not Rules)
 3. Verify that schedule **AccessCertificationSchedule** is created and **Enabled**
 
-![Test EventBridge Schedule](https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc)
-
 ### 4.2 Test Lambda Function Manually
 
 1. Go to **AWS Lambda** console
@@ -162,16 +144,12 @@ def lambda_handler(event, context):
 4. Use default test event and click **Test**
 5. Check execution results
 
-![Test Lambda Function](https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc)
-
 ### 4.3 Verify DynamoDB Record
 
 1. Go to **Amazon DynamoDB** console
 2. Select table **AccessCertifications**
 3. Click **Explore table items**
 4. Verify that a new record was created by the Lambda function
-
-![DynamoDB Verification](https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
@@ -182,8 +160,6 @@ After completion:
 - ✅ EventBridge scheduled triggers quarterly
 - ✅ Automated quarterly access reviews
 - ✅ Audit trail and monitoring
-
-![Certification Automation Complete](https://trtrantnt.github.io/workshop/images/4/complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

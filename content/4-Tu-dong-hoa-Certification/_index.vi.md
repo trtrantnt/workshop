@@ -94,28 +94,29 @@ def lambda_handler(event, context):
    - **Event bus**: default
    - **Enable the rule on the selected event bus**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
+
 
 5. Trong **Rule type**, chọn **Schedule**
 6. Click **Next**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
 
 #### Bước 2: Define schedule
 7. Trong **Occurrence**, chọn **Recurring schedule**
 8. Trong **Schedule pattern**, chọn **Rate-based schedule**
 9. Nhập **90** và chọn **Days**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
 10. Trong **Flexible time window**, nhập **15** minutes
 11. Click **Next**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
+
 
 #### Bước 3: Select target
 12. Trong **Target API**, chọn **AWS Lambda Invoke**
 14. Trong **Lambda function**, chọn **AccessCertificationTrigger**
 15. Click **Next**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
 #### Bước 4: Configure tags (Optional)
 16. Bỏ qua phần tags, click **Next**
@@ -123,7 +124,7 @@ def lambda_handler(event, context):
 #### Bước 5: Review and create
 17. Xem lại cấu hình và click **Create rule**
 
-
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
 ## Bước 4: Kiểm tra Tự động hóa
 
 ### 4.1 Kiểm tra EventBridge Schedule
@@ -132,7 +133,6 @@ def lambda_handler(event, context):
 2. Click **Schedules** ở sidebar (không phải Rules)
 3. Xác minh schedule **AccessCertificationSchedule** đã được tạo và đang **Enabled**
 
-![Kiểm tra EventBridge Schedule](https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc)
 
 ### 4.2 Test Lambda Function thủ công
 
@@ -142,8 +142,6 @@ def lambda_handler(event, context):
 4. Sử dụng default test event và click **Test**
 5. Kiểm tra kết quả thực thi
 
-![Test Lambda Function](https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc)
-
 ### 4.3 Xác minh DynamoDB Record
 
 1. Vào **Amazon DynamoDB** console
@@ -151,7 +149,6 @@ def lambda_handler(event, context):
 3. Click **Explore table items**
 4. Xác minh có record mới được tạo bởi Lambda function
 
-![DynamoDB Verification](https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 
@@ -163,7 +160,6 @@ Sau khi hoàn thành:
 - ✅ Tự động hóa đánh giá truy cập định kỳ
 - ✅ Audit trail và giám sát
 
-![Hoàn thành Tự động hóa Certification](https://trtrantnt.github.io/workshop/images/4/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 

@@ -12,21 +12,21 @@
     <title>4. Tự động hóa Certification :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754950912" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754950912" rel="stylesheet">
-    <link href="/css/hybrid.css?1754950912" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754950912" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754950912" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754950912" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754950912" rel="stylesheet">
-    <link href="/css/theme.css?1754950912" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754950912" rel="stylesheet">
+    <link href="/css/nucleus.css?1754951328" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754951328" rel="stylesheet">
+    <link href="/css/hybrid.css?1754951328" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754951328" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754951328" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754951328" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754951328" rel="stylesheet">
+    <link href="/css/theme.css?1754951328" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754951328" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754950912" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754951328" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754950912"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754951328"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754950912"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754950912"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754951328"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754951328"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754950912"></script>
+<script type="text/javascript" src="/js/search.js?1754951328"></script>
 
     
   </div>
@@ -644,7 +644,8 @@
 </ol>
 <h4 id="bước-1-define-rule-detail">Bước 1: Define rule detail</h4>
 <ol start="4">
-<li>Nhập thông tin rule:
+<li>
+<p>Nhập thông tin rule:</p>
 <ul>
 <li><strong>Name</strong>: <code>AccessCertificationSchedule</code></li>
 <li><strong>Description</strong>: <code>Quarterly access certification review</code></li>
@@ -652,29 +653,30 @@
 <li><strong>Enable the rule on the selected event bus</strong></li>
 </ul>
 </li>
+<li>
+<p>Trong <strong>Rule type</strong>, chọn <strong>Schedule</strong></p>
+</li>
+<li>
+<p>Click <strong>Next</strong></p>
+</li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Trong <strong>Rule type</strong>, chọn <strong>Schedule</strong></li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc"></p>
 <h4 id="bước-2-define-schedule">Bước 2: Define schedule</h4>
 <ol start="7">
 <li>Trong <strong>Occurrence</strong>, chọn <strong>Recurring schedule</strong></li>
 <li>Trong <strong>Schedule pattern</strong>, chọn <strong>Rate-based schedule</strong></li>
 <li>Nhập <strong>90</strong> và chọn <strong>Days</strong></li>
-<li>Trong <strong>Flexible time window</strong>, nhập <strong>15</strong> minutes</li>
-<li>Click <strong>Next</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc">
+10. Trong <strong>Flexible time window</strong>, nhập <strong>15</strong> minutes
+11. Click <strong>Next</strong></p>
 <h4 id="bước-3-select-target">Bước 3: Select target</h4>
 <ol start="12">
 <li>Trong <strong>Target API</strong>, chọn <strong>AWS Lambda Invoke</strong></li>
 <li>Trong <strong>Lambda function</strong>, chọn <strong>AccessCertificationTrigger</strong></li>
-<li>Click <strong>Next</strong></li>
+<li>Click <strong>Next</strong>
+<img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
 <h4 id="bước-4-configure-tags-optional">Bước 4: Configure tags (Optional)</h4>
 <ol start="16">
 <li>Bỏ qua phần tags, click <strong>Next</strong></li>
@@ -683,6 +685,7 @@
 <ol start="17">
 <li>Xem lại cấu hình và click <strong>Create rule</strong></li>
 </ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-kiểm-tra-tự-động-hóa">Bước 4: Kiểm tra Tự động hóa</h2>
 <h3 id="41-kiểm-tra-eventbridge-schedule">4.1 Kiểm tra EventBridge Schedule</h3>
 <ol>
@@ -690,7 +693,6 @@
 <li>Click <strong>Schedules</strong> ở sidebar (không phải Rules)</li>
 <li>Xác minh schedule <strong>AccessCertificationSchedule</strong> đã được tạo và đang <strong>Enabled</strong></li>
 </ol>
-<p><img alt="Kiểm tra EventBridge Schedule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
 <h3 id="42-test-lambda-function-thủ-công">4.2 Test Lambda Function thủ công</h3>
 <ol>
 <li>Vào <strong>AWS Lambda</strong> console</li>
@@ -699,7 +701,6 @@
 <li>Sử dụng default test event và click <strong>Test</strong></li>
 <li>Kiểm tra kết quả thực thi</li>
 </ol>
-<p><img alt="Test Lambda Function" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
 <h3 id="43-xác-minh-dynamodb-record">4.3 Xác minh DynamoDB Record</h3>
 <ol>
 <li>Vào <strong>Amazon DynamoDB</strong> console</li>
@@ -707,7 +708,6 @@
 <li>Click <strong>Explore table items</strong></li>
 <li>Xác minh có record mới được tạo bởi Lambda function</li>
 </ol>
-<p><img alt="DynamoDB Verification" src="https://trtrantnt.github.io/workshop/images/4/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
@@ -717,7 +717,6 @@
 <li>✅ Tự động hóa đánh giá truy cập định kỳ</li>
 <li>✅ Audit trail và giám sát</li>
 </ul>
-<p><img alt="Hoàn thành Tự động hóa Certification" src="https://trtrantnt.github.io/workshop/images/4/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/5-phan-tich-dac-quyen/">5. Phân tích Đặc quyền</a> để thiết lập phân tích đặc quyền.</p>
 
@@ -960,19 +959,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754950912"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754950912"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754950912"></script>
-    <script src="/js/jquery.sticky.js?1754950912"></script>
-    <script src="/js/featherlight.min.js?1754950912"></script>
-    <script src="/js/highlight.pack.js?1754950912"></script>
+    <script src="/js/clipboard.min.js?1754951328"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754951328"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754951328"></script>
+    <script src="/js/jquery.sticky.js?1754951328"></script>
+    <script src="/js/featherlight.min.js?1754951328"></script>
+    <script src="/js/highlight.pack.js?1754951328"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754950912"></script>
-    <script src="/js/learn.js?1754950912"></script>
-    <script src="/js/hugo-learn.js?1754950912"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754951328"></script>
+    <script src="/js/learn.js?1754951328"></script>
+    <script src="/js/hugo-learn.js?1754951328"></script>
 
-    <link href="/mermaid/mermaid.css?1754950912" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754950912"></script>
+    <link href="/mermaid/mermaid.css?1754951328" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754951328"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
