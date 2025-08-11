@@ -12,21 +12,21 @@
     <title>4. Certification Automation :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754947488" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754947488" rel="stylesheet">
-    <link href="/css/hybrid.css?1754947488" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754947488" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754947488" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754947488" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754947488" rel="stylesheet">
-    <link href="/css/theme.css?1754947488" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754947488" rel="stylesheet">
+    <link href="/css/nucleus.css?1754948197" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754948197" rel="stylesheet">
+    <link href="/css/hybrid.css?1754948197" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754948197" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754948197" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754948197" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754948197" rel="stylesheet">
+    <link href="/css/theme.css?1754948197" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754948197" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754947488" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754948197" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754947488"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754948197"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754947488"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754947488"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754948197"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754948197"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754947488"></script>
+<script type="text/javascript" src="/js/search.js?1754948197"></script>
 
     
   </div>
@@ -513,27 +513,26 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#objective">Objective</a></li>
-    <li><a href="#automation-architecture">Automation Architecture</a></li>
-    <li><a href="#step-1-eventbridge-scheduler-setup">Step 1: EventBridge Scheduler Setup</a>
+    <li><a href="#step-1-setup-dynamodb-for-certification-data">Step 1: Setup DynamoDB for Certification Data</a>
       <ul>
-        <li><a href="#11-create-scheduled-rule">1.1 Create Scheduled Rule</a></li>
+        <li><a href="#11-create-dynamodb-table">1.1 Create DynamoDB Table</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-create-lambda-function-for-eventbridge">Step 2: Create Lambda Function for EventBridge</a>
+    <li><a href="#step-2-create-lambda-function">Step 2: Create Lambda Function</a>
       <ul>
         <li><a href="#21-create-lambda-function">2.1 Create Lambda Function</a></li>
         <li><a href="#22-configure-lambda-function-code">2.2 Configure Lambda Function Code</a></li>
         <li><a href="#23-configure-iam-role-for-lambda">2.3 Configure IAM Role for Lambda</a></li>
       </ul>
     </li>
-    <li><a href="#step-3-complete-eventbridge-configuration">Step 3: Complete EventBridge Configuration</a>
+    <li><a href="#step-3-setup-eventbridge-scheduler">Step 3: Setup EventBridge Scheduler</a>
       <ul>
-        <li><a href="#31-return-to-eventbridge-and-select-lambda-function">3.1 Return to EventBridge and Select Lambda Function</a></li>
+        <li><a href="#31-create-scheduled-rule">3.1 Create Scheduled Rule</a></li>
       </ul>
     </li>
     <li><a href="#step-4-test-the-automation">Step 4: Test the Automation</a>
       <ul>
-        <li><a href="#51-manual-test-execution">5.1 Manual Test Execution</a></li>
+        <li><a href="#41-manual-test-execution">4.1 Manual Test Execution</a></li>
       </ul>
     </li>
     <li><a href="#expected-results">Expected Results</a></li>
@@ -565,73 +564,31 @@
 
 	<h2 id="objective">Objective</h2>
 <p>Automate access certification processes to ensure access rights are reviewed periodically and comply with security requirements.</p>
-<h2 id="automation-architecture">Automation Architecture</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[EventBridge Schedule] --&gt; B[Lambda Trigger]
-    B --&gt; C[Access Review Generator]
-    C --&gt; D[Certification Workflow]
-    D --&gt; E[Manager Approval]
-    E --&gt; F[Remediation Actions]
-    F --&gt; G[Compliance Report]
-</code></pre><h2 id="step-1-eventbridge-scheduler-setup">Step 1: EventBridge Scheduler Setup</h2>
-<h3 id="11-create-scheduled-rule">1.1 Create Scheduled Rule</h3>
+<h2 id="step-1-setup-dynamodb-for-certification-data">Step 1: Setup DynamoDB for Certification Data</h2>
+<h3 id="11-create-dynamodb-table">1.1 Create DynamoDB Table</h3>
 <ol>
-<li>Open <strong>Amazon EventBridge</strong> in AWS Console</li>
-<li>Click <strong>Rules</strong> in the sidebar</li>
-<li>Click <strong>Create rule</strong></li>
+<li>Open <strong>Amazon DynamoDB</strong> in the console</li>
+<li>Click <strong>Create table</strong></li>
 </ol>
-<h4 id="step-1-define-rule-detail">Step 1: Define rule detail</h4>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc"></p>
+<ol start="3">
+<li>Enter table details:
+<ul>
+<li><strong>Table name</strong>: <code>AccessCertifications</code></li>
+<li><strong>Partition key</strong>: <code>UserId</code> (String)</li>
+<li><strong>Sort key</strong>: <code>CertificationDate</code> (String)</li>
+<li><strong>Billing mode</strong>: On-demand</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo2.png?featherlight=false&width=90pc"></p>
 <ol start="4">
-<li>Enter rule information:
-<ul>
-<li><strong>Name</strong>: <code>AccessCertificationSchedule</code></li>
-<li><strong>Description</strong>: <code>Quarterly access certification review</code></li>
-<li><strong>Event bus</strong>: default</li>
-<li><strong>Enable the rule on the selected event bus</strong>: ✅ Checked</li>
-</ul>
-</li>
+<li>Click <strong>Create table</strong></li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>In <strong>Rule type</strong>, select <strong>Schedule</strong>
-<ul>
-<li>Choose &ldquo;A rule that runs on a schedule&rdquo;</li>
-</ul>
-</li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc"></p>
-<h4 id="step-2-define-schedule">Step 2: Define schedule</h4>
-<ol start="7">
-<li>In <strong>Occurrence</strong>, select <strong>Recurring schedule</strong>
-<ul>
-<li>Choose &ldquo;Recurring schedule&rdquo; because we want to run quarterly reviews</li>
-</ul>
-</li>
-<li>In <strong>Schedule pattern</strong>, select <strong>Rate-based schedule</strong></li>
-<li>Enter <strong>90</strong> and select <strong>Days</strong></li>
-<li>In <strong>Flexible time window</strong>, enter <strong>15</strong> minutes
-<ul>
-<li>Allows the schedule to run within 15 minutes after the start time</li>
-<li>Helps reduce system load and increases flexibility</li>
-</ul>
-</li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
-<h4 id="step-3-select-target">Step 3: Select target</h4>
-<ol start="12">
-<li>In <strong>Target API</strong>, select <strong>AWS Lambda</strong></li>
-<li>Choose API <strong>Invoke</strong></li>
-</ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
-<ol start="14">
-<li>Now we need to create a Lambda function first. Click <strong>Create a new Lambda function</strong> or open a new tab to create the Lambda function.</li>
-</ol>
-<h2 id="step-2-create-lambda-function-for-eventbridge">Step 2: Create Lambda Function for EventBridge</h2>
+<h2 id="step-2-create-lambda-function">Step 2: Create Lambda Function</h2>
 <h3 id="21-create-lambda-function">2.1 Create Lambda Function</h3>
 <ol>
-<li>Open a new tab and go to <strong>AWS Lambda</strong> in the console</li>
+<li>Open <strong>AWS Lambda</strong> in the console</li>
 <li>Click <strong>Create function</strong></li>
 </ol>
 <p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc"></p>
@@ -687,60 +644,81 @@
 <li>Go to <strong>Configuration</strong> tab</li>
 <li>Click <strong>Permissions</strong></li>
 <li>Click on the role name to open IAM console</li>
-<li>Add policy for DynamoDB access</li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
+<li>Search and attach policy <strong>AmazonDynamoDBFullAccess</strong></li>
 </ol>
 <p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-complete-eventbridge-configuration">Step 3: Complete EventBridge Configuration</h2>
-<h3 id="31-return-to-eventbridge-and-select-lambda-function">3.1 Return to EventBridge and Select Lambda Function</h3>
+<h2 id="step-3-setup-eventbridge-scheduler">Step 3: Setup EventBridge Scheduler</h2>
+<h3 id="31-create-scheduled-rule">3.1 Create Scheduled Rule</h3>
 <ol>
-<li>
-<p>Return to the EventBridge tab</p>
-</li>
-<li>
-<p>In <strong>Lambda function</strong>, select <strong>AccessCertificationTrigger</strong></p>
-</li>
-<li>
-<p>Click <strong>Next</strong></p>
+<li>Open <strong>Amazon EventBridge</strong> in AWS Console</li>
+<li>Click <strong>Rules</strong> in the sidebar</li>
+<li>Click <strong>Create rule</strong></li>
+</ol>
+<h4 id="step-1-define-rule-detail">Step 1: Define rule detail</h4>
+<ol start="4">
+<li>Enter rule information:
+<ul>
+<li><strong>Name</strong>: <code>AccessCertificationSchedule</code></li>
+<li><strong>Description</strong>: <code>Quarterly access certification review</code></li>
+<li><strong>Event bus</strong>: default</li>
+<li><strong>Enable the rule on the selected event bus</strong>: ✅ Checked</li>
+</ul>
 </li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>In <strong>Rule type</strong>, select <strong>Schedule</strong></li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc"></p>
+<h4 id="step-2-define-schedule">Step 2: Define schedule</h4>
+<ol start="7">
+<li>In <strong>Occurrence</strong>, select <strong>Recurring schedule</strong></li>
+<li>In <strong>Schedule pattern</strong>, select <strong>Rate-based schedule</strong></li>
+<li>Enter <strong>90</strong> and select <strong>Days</strong></li>
+<li>In <strong>Flexible time window</strong>, enter <strong>15</strong> minutes</li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
+<h4 id="step-3-select-target">Step 3: Select target</h4>
+<ol start="12">
+<li>In <strong>Target API</strong>, select <strong>AWS Lambda</strong></li>
+<li>Choose API <strong>Invoke</strong></li>
+<li>In <strong>Lambda function</strong>, select <strong>AccessCertificationTrigger</strong></li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
 <h4 id="step-4-configure-tags-optional">Step 4: Configure tags (Optional)</h4>
-<ol start="4">
+<ol start="16">
 <li>Skip the tags section, click <strong>Next</strong></li>
 </ol>
 <h4 id="step-5-review-and-create">Step 5: Review and create</h4>
-<ol start="5">
-<li>Review configuration:
-<ul>
-<li>Rule name: AccessCertificationSchedule</li>
-<li>Schedule: Rate(90 days)</li>
-<li>Target: Lambda function (AccessCertificationTrigger)</li>
-</ul>
-</li>
-<li>Click <strong>Create rule</strong></li>
+<ol start="17">
+<li>Review configuration and click <strong>Create rule</strong></li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb6.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
 <h2 id="step-4-test-the-automation">Step 4: Test the Automation</h2>
-<h3 id="51-manual-test-execution">5.1 Manual Test Execution</h3>
+<h3 id="41-manual-test-execution">4.1 Manual Test Execution</h3>
 <ol>
 <li>In EventBridge, select your rule</li>
 <li>Click <strong>Actions</strong> → <strong>Test rule</strong></li>
 </ol>
-<p><img alt="Test EventBridge Rule" src="/images/4/test-eventbridge-rule.png?featherlight=false&width=90pc"></p>
+<p><img alt="Test EventBridge Rule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
 <ol start="3">
 <li>Monitor Lambda function execution in CloudWatch Logs</li>
 </ol>
-<p><img alt="CloudWatch Logs" src="/images/4/cloudwatch-logs.png?featherlight=false&width=90pc"></p>
+<p><img alt="CloudWatch Logs" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
 <h2 id="expected-results">Expected Results</h2>
 <p>After completion:</p>
 <ul>
+<li>✅ DynamoDB table for certification data storage</li>
+<li>✅ Lambda function processing certification logic</li>
+<li>✅ EventBridge scheduled triggers quarterly</li>
 <li>✅ Automated quarterly access reviews</li>
-<li>✅ EventBridge scheduled triggers</li>
-<li>✅ Lambda function processing</li>
-<li>✅ Step Functions workflow orchestration</li>
 <li>✅ Audit trail and monitoring</li>
 </ul>
-<p><img alt="Certification Automation Complete" src="/images/4/automation-complete.png?featherlight=false&width=90pc"></p>
+<p><img alt="Certification Automation Complete" src="https://trtrantnt.github.io/workshop/images/4/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="next-steps">Next Steps</h2>
 <p>Continue to <a href="/5-phan-tich-dac-quyen/">5. Privilege Analytics</a> to set up privilege analysis.</p>
 
@@ -983,19 +961,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754947488"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754947488"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754947488"></script>
-    <script src="/js/jquery.sticky.js?1754947488"></script>
-    <script src="/js/featherlight.min.js?1754947488"></script>
-    <script src="/js/highlight.pack.js?1754947488"></script>
+    <script src="/js/clipboard.min.js?1754948197"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754948197"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754948197"></script>
+    <script src="/js/jquery.sticky.js?1754948197"></script>
+    <script src="/js/featherlight.min.js?1754948197"></script>
+    <script src="/js/highlight.pack.js?1754948197"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754947488"></script>
-    <script src="/js/learn.js?1754947488"></script>
-    <script src="/js/hugo-learn.js?1754947488"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754948197"></script>
+    <script src="/js/learn.js?1754948197"></script>
+    <script src="/js/hugo-learn.js?1754948197"></script>
 
-    <link href="/mermaid/mermaid.css?1754947488" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754947488"></script>
+    <link href="/mermaid/mermaid.css?1754948197" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754948197"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

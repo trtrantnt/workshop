@@ -12,21 +12,21 @@
     <title>4. Tự động hóa Certification :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754947488" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754947488" rel="stylesheet">
-    <link href="/css/hybrid.css?1754947488" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754947488" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754947488" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754947488" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754947488" rel="stylesheet">
-    <link href="/css/theme.css?1754947488" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754947488" rel="stylesheet">
+    <link href="/css/nucleus.css?1754948197" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754948197" rel="stylesheet">
+    <link href="/css/hybrid.css?1754948197" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754948197" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754948197" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754948197" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754948197" rel="stylesheet">
+    <link href="/css/theme.css?1754948197" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754948197" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754947488" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754948197" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754947488"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754948197"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754947488"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754947488"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754948197"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754948197"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754947488"></script>
+<script type="text/javascript" src="/js/search.js?1754948197"></script>
 
     
   </div>
@@ -513,26 +513,26 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#mục-tiêu">Mục tiêu</a></li>
-    <li><a href="#bước-1-thiết-lập-eventbridge-scheduler">Bước 1: Thiết lập EventBridge Scheduler</a>
+    <li><a href="#bước-1-thiết-lập-dynamodb-cho-certification-data">Bước 1: Thiết lập DynamoDB cho Certification Data</a>
       <ul>
-        <li><a href="#11-tạo-scheduled-rule">1.1 Tạo Scheduled Rule</a></li>
+        <li><a href="#11-tạo-dynamodb-table">1.1 Tạo DynamoDB Table</a></li>
       </ul>
     </li>
-    <li><a href="#bước-2-tạo-lambda-function-cho-eventbridge">Bước 2: Tạo Lambda Function cho EventBridge</a>
+    <li><a href="#bước-2-tạo-lambda-function">Bước 2: Tạo Lambda Function</a>
       <ul>
         <li><a href="#21-tạo-lambda-function">2.1 Tạo Lambda Function</a></li>
         <li><a href="#22-cấu-hình-code-cho-lambda-function">2.2 Cấu hình Code cho Lambda Function</a></li>
         <li><a href="#23-cấu-hình-iam-role-cho-lambda">2.3 Cấu hình IAM Role cho Lambda</a></li>
       </ul>
     </li>
-    <li><a href="#bước-3-hoàn-thành-eventbridge-configuration">Bước 3: Hoàn thành EventBridge Configuration</a>
+    <li><a href="#bước-3-thiết-lập-eventbridge-scheduler">Bước 3: Thiết lập EventBridge Scheduler</a>
       <ul>
-        <li><a href="#31-quay-lại-eventbridge-và-chọn-lambda-function">3.1 Quay lại EventBridge và chọn Lambda function</a></li>
+        <li><a href="#31-tạo-scheduled-rule">3.1 Tạo Scheduled Rule</a></li>
       </ul>
     </li>
     <li><a href="#bước-4-kiểm-tra-tự-động-hóa">Bước 4: Kiểm tra Tự động hóa</a>
       <ul>
-        <li><a href="#51-thực-thi-kiểm-tra-thủ-công">5.1 Thực thi Kiểm tra Thủ công</a></li>
+        <li><a href="#41-thực-thi-kiểm-tra-thủ-công">4.1 Thực thi Kiểm tra Thủ công</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -564,65 +564,31 @@
 
 	<h2 id="mục-tiêu">Mục tiêu</h2>
 <p>Tự động hóa quy trình access certification để đảm bảo quyền truy cập được xem xét định kỳ và tuân thủ các yêu cầu bảo mật.</p>
-<h2 id="bước-1-thiết-lập-eventbridge-scheduler">Bước 1: Thiết lập EventBridge Scheduler</h2>
-<h3 id="11-tạo-scheduled-rule">1.1 Tạo Scheduled Rule</h3>
+<h2 id="bước-1-thiết-lập-dynamodb-cho-certification-data">Bước 1: Thiết lập DynamoDB cho Certification Data</h2>
+<h3 id="11-tạo-dynamodb-table">1.1 Tạo DynamoDB Table</h3>
 <ol>
-<li>Mở <strong>Amazon EventBridge</strong> trong AWS Console</li>
-<li>Click <strong>Rules</strong> ở sidebar</li>
-<li>Click <strong>Create rule</strong></li>
+<li>Mở <strong>Amazon DynamoDB</strong> trong console</li>
+<li>Click <strong>Create table</strong></li>
 </ol>
-<h4 id="bước-1-define-rule-detail">Bước 1: Define rule detail</h4>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc"></p>
+<ol start="3">
+<li>Nhập thông tin table:
+<ul>
+<li><strong>Table name</strong>: <code>AccessCertifications</code></li>
+<li><strong>Partition key</strong>: <code>UserId</code> (String)</li>
+<li><strong>Sort key</strong>: <code>CertificationDate</code> (String)</li>
+<li><strong>Billing mode</strong>: On-demand</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo2.png?featherlight=false&width=90pc"></p>
 <ol start="4">
-<li>Nhập thông tin rule:
-<ul>
-<li><strong>Name</strong>: <code>AccessCertificationSchedule</code></li>
-<li><strong>Description</strong>: <code>Quarterly access certification review</code></li>
-<li><strong>Event bus</strong>: default</li>
-<li><strong>Enable the rule on the selected event bus</strong></li>
-</ul>
-</li>
+<li>Click <strong>Create table</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Trong <strong>Rule type</strong>, chọn <strong>Schedule</strong>
-<ul>
-<li>Chọn &ldquo;A rule that runs on a schedule&rdquo;</li>
-</ul>
-</li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc"></p>
-<h4 id="bước-2-define-schedule">Bước 2: Define schedule</h4>
-<ol start="7">
-<li>Trong <strong>Occurrence</strong>, chọn <strong>Recurring schedule</strong>
-<ul>
-<li>Chọn &ldquo;Recurring schedule&rdquo; vì chúng ta muốn chạy định kỳ hàng quý</li>
-</ul>
-</li>
-<li>Trong <strong>Schedule pattern</strong>, chọn <strong>Rate-based schedule</strong></li>
-<li>Nhập <strong>90</strong> và chọn <strong>Days</strong></li>
-<li>Trong <strong>Flexible time window</strong>, nhập <strong>15</strong> minutes
-<ul>
-<li>Cho phép schedule chạy trong vòng 15 phút sau thời gian bắt đầu</li>
-<li>Giúp giảm tải hệ thống và tăng tính linh hoạt</li>
-</ul>
-</li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
-<h4 id="bước-3-select-target">Bước 3: Select target</h4>
-<ol start="12">
-<li>Trong <strong>Target API</strong>, chọn <strong>AWS Lambda</strong></li>
-<li>Chọn API <strong>Invoke</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
-<ol start="14">
-<li>Bây giờ chúng ta cần tạo Lambda function trước. Click <strong>Create a new Lambda function</strong> hoặc mở tab mới để tạo Lambda function.</li>
-</ol>
-<h2 id="bước-2-tạo-lambda-function-cho-eventbridge">Bước 2: Tạo Lambda Function cho EventBridge</h2>
+<h2 id="bước-2-tạo-lambda-function">Bước 2: Tạo Lambda Function</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
-<li>Mở tab mới và đi đến <strong>AWS Lambda</strong> trong console</li>
+<li>Mở <strong>AWS Lambda</strong> trong console</li>
 <li>Click <strong>Create function</strong></li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc"></p>
@@ -678,60 +644,81 @@
 <li>Chuyển đến tab <strong>Configuration</strong></li>
 <li>Click <strong>Permissions</strong></li>
 <li>Click vào role name để mở IAM console</li>
-<li>Thêm policy cho DynamoDB access</li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
+<li>Tìm và attach policy <strong>AmazonDynamoDBFullAccess</strong></li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc"></p>
-<h2 id="bước-3-hoàn-thành-eventbridge-configuration">Bước 3: Hoàn thành EventBridge Configuration</h2>
-<h3 id="31-quay-lại-eventbridge-và-chọn-lambda-function">3.1 Quay lại EventBridge và chọn Lambda function</h3>
+<h2 id="bước-3-thiết-lập-eventbridge-scheduler">Bước 3: Thiết lập EventBridge Scheduler</h2>
+<h3 id="31-tạo-scheduled-rule">3.1 Tạo Scheduled Rule</h3>
 <ol>
-<li>
-<p>Quay lại tab EventBridge</p>
-</li>
-<li>
-<p>Trong <strong>Lambda function</strong>, chọn <strong>AccessCertificationTrigger</strong></p>
-</li>
-<li>
-<p>Click <strong>Next</strong></p>
+<li>Mở <strong>Amazon EventBridge</strong> trong AWS Console</li>
+<li>Click <strong>Rules</strong> ở sidebar</li>
+<li>Click <strong>Create rule</strong></li>
+</ol>
+<h4 id="bước-1-define-rule-detail">Bước 1: Define rule detail</h4>
+<ol start="4">
+<li>Nhập thông tin rule:
+<ul>
+<li><strong>Name</strong>: <code>AccessCertificationSchedule</code></li>
+<li><strong>Description</strong>: <code>Quarterly access certification review</code></li>
+<li><strong>Event bus</strong>: default</li>
+<li><strong>Enable the rule on the selected event bus</strong>: ✅ Checked</li>
+</ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Trong <strong>Rule type</strong>, chọn <strong>Schedule</strong></li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc"></p>
+<h4 id="bước-2-define-schedule">Bước 2: Define schedule</h4>
+<ol start="7">
+<li>Trong <strong>Occurrence</strong>, chọn <strong>Recurring schedule</strong></li>
+<li>Trong <strong>Schedule pattern</strong>, chọn <strong>Rate-based schedule</strong></li>
+<li>Nhập <strong>90</strong> và chọn <strong>Days</strong></li>
+<li>Trong <strong>Flexible time window</strong>, nhập <strong>15</strong> minutes</li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc"></p>
+<h4 id="bước-3-select-target">Bước 3: Select target</h4>
+<ol start="12">
+<li>Trong <strong>Target API</strong>, chọn <strong>AWS Lambda</strong></li>
+<li>Chọn API <strong>Invoke</strong></li>
+<li>Trong <strong>Lambda function</strong>, chọn <strong>AccessCertificationTrigger</strong></li>
+<li>Click <strong>Next</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc"></p>
 <h4 id="bước-4-configure-tags-optional">Bước 4: Configure tags (Optional)</h4>
-<ol start="4">
+<ol start="16">
 <li>Bỏ qua phần tags, click <strong>Next</strong></li>
 </ol>
 <h4 id="bước-5-review-and-create">Bước 5: Review and create</h4>
-<ol start="5">
-<li>Xem lại cấu hình:
-<ul>
-<li>Rule name: AccessCertificationSchedule</li>
-<li>Schedule: Rate(90 days)</li>
-<li>Target: Lambda function (AccessCertificationTrigger)</li>
-</ul>
-</li>
-<li>Click <strong>Create rule</strong></li>
+<ol start="17">
+<li>Xem lại cấu hình và click <strong>Create rule</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb6.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-kiểm-tra-tự-động-hóa">Bước 4: Kiểm tra Tự động hóa</h2>
-<h3 id="51-thực-thi-kiểm-tra-thủ-công">5.1 Thực thi Kiểm tra Thủ công</h3>
+<h3 id="41-thực-thi-kiểm-tra-thủ-công">4.1 Thực thi Kiểm tra Thủ công</h3>
 <ol>
 <li>Trong EventBridge, chọn rule của bạn</li>
 <li>Click <strong>Actions</strong> → <strong>Test rule</strong></li>
 </ol>
-<p><img alt="Kiểm tra EventBridge Rule" src="/images/4/test-eventbridge-rule.png?featherlight=false&width=90pc"></p>
+<p><img alt="Kiểm tra EventBridge Rule" src="https://trtrantnt.github.io/workshop/images/4/test1.png?featherlight=false&width=90pc"></p>
 <ol start="3">
 <li>Giám sát thực thi Lambda function trong CloudWatch Logs</li>
 </ol>
-<p><img alt="CloudWatch Logs" src="/images/4/cloudwatch-logs.png?featherlight=false&width=90pc"></p>
+<p><img alt="CloudWatch Logs" src="https://trtrantnt.github.io/workshop/images/4/test2.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
-<li>✅ Tự động hóa đánh giá truy cập hàng quý</li>
-<li>✅ EventBridge scheduled triggers</li>
-<li>✅ Lambda function xử lý</li>
-<li>✅ Step Functions workflow orchestration</li>
+<li>✅ DynamoDB table để lưu certification data</li>
+<li>✅ Lambda function xử lý certification logic</li>
+<li>✅ EventBridge scheduled triggers hàng quý</li>
+<li>✅ Tự động hóa đánh giá truy cập định kỳ</li>
 <li>✅ Audit trail và giám sát</li>
 </ul>
-<p><img alt="Hoàn thành Tự động hóa Certification" src="/images/4/automation-complete.png?featherlight=false&width=90pc"></p>
+<p><img alt="Hoàn thành Tự động hóa Certification" src="https://trtrantnt.github.io/workshop/images/4/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/5-phan-tich-dac-quyen/">5. Phân tích Đặc quyền</a> để thiết lập phân tích đặc quyền.</p>
 
@@ -974,19 +961,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754947488"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754947488"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754947488"></script>
-    <script src="/js/jquery.sticky.js?1754947488"></script>
-    <script src="/js/featherlight.min.js?1754947488"></script>
-    <script src="/js/highlight.pack.js?1754947488"></script>
+    <script src="/js/clipboard.min.js?1754948197"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754948197"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754948197"></script>
+    <script src="/js/jquery.sticky.js?1754948197"></script>
+    <script src="/js/featherlight.min.js?1754948197"></script>
+    <script src="/js/highlight.pack.js?1754948197"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754947488"></script>
-    <script src="/js/learn.js?1754947488"></script>
-    <script src="/js/hugo-learn.js?1754947488"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754948197"></script>
+    <script src="/js/learn.js?1754948197"></script>
+    <script src="/js/hugo-learn.js?1754948197"></script>
 
-    <link href="/mermaid/mermaid.css?1754947488" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754947488"></script>
+    <link href="/mermaid/mermaid.css?1754948197" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754948197"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
