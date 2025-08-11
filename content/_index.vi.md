@@ -15,21 +15,7 @@ Workshop toàn diện này hướng dẫn bạn triển khai Quản trị Danh t
 
 ## Tổng quan Kiến trúc
 
-```mermaid
-graph TB
-    A[Nhà cung cấp Danh tính] --> B[AWS IAM Identity Center]
-    B --> C[Quản lý Truy cập]
-    C --> D[Phân tích Đặc quyền]
-    D --> E[Đánh giá Rủi ro]
-    E --> F[Chứng nhận Truy cập]
-    F --> G[Báo cáo Tuân thủ]
-  
-    H[CloudTrail] --> I[Giám sát & Cảnh báo]
-    I --> J[Dashboard Vận hành]
-  
-    K[Engine Tự động hóa] --> L[Quy trình Chứng nhận]
-    L --> M[Hành động Khắc phục]
-```
+![Kiến trúc AWS Identity Governance](/images/architecture-diagram.png)
 
 ## Lợi ích Chính
 

@@ -12,16 +12,13 @@ Thiết lập hệ thống đánh giá rủi ro toàn diện để phát hiện,
 
 ```mermaid
 graph TB
-    A[Data Sources] --> B[Risk Engine]
-    B --> C[Risk Scoring]
-    C --> D[Risk Classification]
-    D --> E[Risk Prioritization]
-    E --> F[Remediation Recommendations]
-    F --> G[Risk Dashboard]
-    
-    H[Threat Intelligence] --> B
-    I[Compliance Rules] --> B
-    J[Business Context] --> B
+    A[CloudTrail Events] --> B[Lambda Risk Engine]
+    C[IAM Data] --> B
+    B --> D[DynamoDB Risk Data]
+    D --> E[Security Hub Findings]
+    E --> F[CloudWatch Metrics]
+    F --> G[SNS Alerts]
+    D --> H[QuickSight Dashboard]
 ```
 
 ## Bước 1: Risk Assessment Framework
@@ -128,42 +125,28 @@ class RealTimeRiskMonitor:
         }
 ```
 
-## Bước 4: Risk Dashboard
+## Bước 4: Tích hợp Security Hub
 
-### 4.1 CloudFormation cho Dashboard Resources
+### 4.1 Thiết lập Security Hub
 
-```yaml
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Risk Assessment Dashboard Resources'
+1. Mở **AWS Security Hub** trong console
+2. Click **Enable Security Hub**
 
-Resources:
-  RiskDashboard:
-    Type: AWS::CloudWatch::Dashboard
-    Properties:
-      DashboardName: IdentityGovernanceRiskDashboard
-      DashboardBody: !Sub |
-        {
-          "widgets": [
-            {
-              "type": "metric",
-              "x": 0,
-              "y": 0,
-              "width": 12,
-              "height": 6,
-              "properties": {
-                "metrics": [
-                  [ "IdentityGovernance/Risk", "RiskScore" ],
-                  [ ".", "HighRiskEvents" ]
-                ],
-                "period": 300,
-                "stat": "Average",
-                "region": "${AWS::Region}",
-                "title": "Risk Metrics Overview"
-              }
-            }
-          ]
-        }
-```
+![Kích hoạt Security Hub](/images/6/enable-security-hub.png?featherlight=false&width=90pc)
+
+3. Chọn security standards:
+   - AWS Foundational Security Standard
+   - CIS AWS Foundations Benchmark
+
+![Chọn Security Standards](/images/6/security-standards.png?featherlight=false&width=90pc)
+
+### 4.2 Cấu hình Lambda gửi Findings
+
+1. Cập nhật Lambda risk engine
+2. Thêm code gửi findings đến Security Hub
+3. Cấu hình IAM permissions
+
+![Lambda Security Hub Integration](/images/6/lambda-securityhub-integration.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 

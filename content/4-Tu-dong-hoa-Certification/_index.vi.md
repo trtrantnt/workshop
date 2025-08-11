@@ -86,33 +86,31 @@ graph TB
 
 ![Thêm Biến Môi trường](/images/4/add-env-variables.png?featherlight=false&width=90pc)
 
-## Bước 3: Quy trình Step Functions
+## Bước 3: Thiết lập DynamoDB cho Certification Data
 
-### 3.1 Tạo State Machine
+### 3.1 Tạo DynamoDB Table
 
-1. Mở **AWS Step Functions** trong console
-2. Click **Create state machine**
+1. Mở **Amazon DynamoDB** trong console
+2. Click **Create table**
 
-![Tạo State Machine](/images/4/create-state-machine.png?featherlight=false&width=90pc)
+![Tạo DynamoDB Table](/images/4/create-dynamodb-table.png?featherlight=false&width=90pc)
 
-3. Chọn **Write your workflow in code**
-4. Chọn loại **Standard**
+3. Nhập thông tin table:
+   - **Table name**: AccessCertifications
+   - **Partition key**: UserId (String)
+   - **Sort key**: CertificationDate (String)
 
-![Loại State Machine](/images/4/state-machine-type.png?featherlight=false&width=90pc)
+![Chi tiết DynamoDB Table](/images/4/dynamodb-table-details.png?featherlight=false&width=90pc)
 
-5. Nhập định nghĩa workflow ở định dạng JSON
-6. Đặt tên state machine: **AccessCertificationWorkflow**
+4. Click **Create table**
 
-![Định nghĩa State Machine](/images/4/state-machine-definition.png?featherlight=false&width=90pc)
+### 3.2 Cấu hình Lambda để ghi DynamoDB
 
-### 3.2 Cấu hình IAM Role
+1. Quay lại Lambda function **AccessCertificationTrigger**
+2. Thêm DynamoDB permissions vào IAM role
+3. Cập nhật code để ghi certification records
 
-1. Tạo hoặc chọn IAM role cho Step Functions
-2. Đảm bảo nó có quyền invoke Lambda functions
-
-![Step Functions IAM Role](/images/4/stepfunctions-iam-role.png?featherlight=false&width=90pc)
-
-3. Click **Create state machine**
+![Lambda DynamoDB Integration](/images/4/lambda-dynamodb-integration.png?featherlight=false&width=90pc)
 
 ## Bước 4: Kết nối EventBridge với Lambda
 

@@ -13,14 +13,12 @@ Phân tích và giám sát việc sử dụng đặc quyền để phát hiện 
 ```mermaid
 graph TB
     A[CloudTrail Logs] --> B[S3 Data Lake]
-    C[Config Data] --> B
-    D[IAM Data] --> B
-    B --> E[Athena Queries]
-    E --> F[Analytics Engine]
-    F --> G[Risk Scoring]
-    G --> H[QuickSight Dashboard]
-    F --> I[Anomaly Detection]
-    I --> J[Alerts]
+    C[IAM Data] --> B
+    B --> D[Lambda Analytics]
+    D --> E[DynamoDB Results]
+    E --> F[QuickSight Dashboard]
+    D --> G[CloudWatch Metrics]
+    G --> H[SNS Alerts]
 ```
 
 ## Bước 1: Data Collection Setup
@@ -43,42 +41,23 @@ Resources:
       EnableLogFileValidation: true
 ```
 
-## Bước 2: Athena Queries cho Analytics
+## Bước 2: Lambda Analytics Engine
 
-### 2.1 Create Athena Tables
+### 2.1 Tạo Lambda Function cho Analytics
 
-```sql
--- Create table for privilege analytics data
-CREATE EXTERNAL TABLE privilege_analytics (
-  collection_timestamp string,
-  iam_data struct<
-    users: array<struct<
-      username: string,
-      user_id: string,
-      arn: string,
-      create_date: string,
-      risk_score: double
-    >>
-  >
-)
-STORED AS JSON
-LOCATION 's3://privilege-analytics-REGION/analytics-data/'
-```
+1. Mở **AWS Lambda** trong console
+2. Tạo function mới: **PrivilegeAnalyticsEngine**
+3. Chọn runtime **Python 3.9**
 
-### 2.2 Analytics Queries
+![Tạo Analytics Lambda](/images/5/create-analytics-lambda.png?featherlight=false&width=90pc)
 
-```sql
--- Query 1: High-risk users
-SELECT 
-  user.username,
-  user.risk_score,
-  cardinality(user.attached_policies) as policy_count,
-  user.last_activity
-FROM privilege_analytics
-CROSS JOIN UNNEST(iam_data.users) AS t(user)
-WHERE user.risk_score > 7.0
-ORDER BY user.risk_score DESC;
-```
+### 2.2 Cấu hình Lambda để đọc S3 Data
+
+1. Thêm IAM permissions cho S3 và DynamoDB
+2. Cấu hình trigger từ S3 bucket
+3. Upload analytics code
+
+![Lambda S3 Integration](/images/5/lambda-s3-integration.png?featherlight=false&width=90pc)
 
 ## Bước 3: Risk Scoring Engine
 

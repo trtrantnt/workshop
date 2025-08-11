@@ -62,43 +62,24 @@ class AuditFramework:
 
 ## Bước 2: Continuous Audit Monitoring
 
-### 2.1 Real-time Compliance Monitoring
+### 2.1 Lambda-based Compliance Monitoring
 
-```python
-import boto3
-import json
-from datetime import datetime
+1. Mở **AWS Lambda** trong console
+2. Tạo function: **ComplianceAuditMonitor**
+3. Cấu hình trigger từ EventBridge (daily schedule)
 
-class ContinuousAuditMonitor:
-    def __init__(self):
-        self.config_client = boto3.client('config')
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.sns = boto3.client('sns')
-    
-    def monitor_compliance_rules(self):
-        """Monitor AWS Config compliance rules"""
-        
-        monitoring_results = {
-            "timestamp": datetime.now().isoformat(),
-            "compliance_summary": {},
-            "non_compliant_resources": [],
-            "alerts_sent": []
-        }
-        
-        # Get compliance summary
-        response = self.config_client.get_compliance_summary_by_config_rule()
-        
-        for rule_summary in response['ComplianceSummary']:
-            rule_name = rule_summary['ConfigRuleName']
-            compliance_summary = rule_summary['ComplianceSummary']
-            
-            monitoring_results["compliance_summary"][rule_name] = {
-                "compliant": compliance_summary.get('CompliantResourceCount', {}).get('CappedCount', 0),
-                "non_compliant": compliance_summary.get('NonCompliantResourceCount', {}).get('CappedCount', 0)
-            }
-        
-        return monitoring_results
-```
+![Tạo Compliance Monitor Lambda](/images/9/create-compliance-lambda.png?featherlight=false&width=90pc)
+
+4. Upload code kiểm tra compliance:
+   - Kiểm tra IAM policies
+   - Kiểm tra access patterns
+   - Ghi kết quả vào DynamoDB
+
+![Lambda Compliance Code](/images/9/lambda-compliance-code.png?featherlight=false&width=90pc)
+
+5. Cấu hình CloudWatch Logs để theo dõi
+
+![CloudWatch Logs Monitoring](/images/9/cloudwatch-logs-monitoring.png?featherlight=false&width=90pc)
 
 ## Bước 3: Audit Report Generation
 

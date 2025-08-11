@@ -12,21 +12,21 @@
     <title>5. Phân tích Đặc quyền :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754915326" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754915326" rel="stylesheet">
-    <link href="/css/hybrid.css?1754915326" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754915326" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754915326" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754915326" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754915326" rel="stylesheet">
-    <link href="/css/theme.css?1754915326" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754915326" rel="stylesheet">
+    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
+    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
+    <link href="/css/theme.css?1754929215" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754915326" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754915326"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754915326"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754915326"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754915326"></script>
+<script type="text/javascript" src="/js/search.js?1754929215"></script>
 
     
   </div>
@@ -519,10 +519,10 @@
         <li><a href="#11-cloudtrail-configuration">1.1 CloudTrail Configuration</a></li>
       </ul>
     </li>
-    <li><a href="#bước-2-athena-queries-cho-analytics">Bước 2: Athena Queries cho Analytics</a>
+    <li><a href="#bước-2-lambda-analytics-engine">Bước 2: Lambda Analytics Engine</a>
       <ul>
-        <li><a href="#21-create-athena-tables">2.1 Create Athena Tables</a></li>
-        <li><a href="#22-analytics-queries">2.2 Analytics Queries</a></li>
+        <li><a href="#21-tạo-lambda-function-cho-analytics">2.1 Tạo Lambda Function cho Analytics</a></li>
+        <li><a href="#22-cấu-hình-lambda-để-đọc-s3-data">2.2 Cấu hình Lambda để đọc S3 Data</a></li>
       </ul>
     </li>
     <li><a href="#bước-3-risk-scoring-engine">Bước 3: Risk Scoring Engine</a>
@@ -562,14 +562,12 @@
 <h2 id="kiến-trúc-analytics">Kiến trúc Analytics</h2>
 <pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
     A[CloudTrail Logs] --&gt; B[S3 Data Lake]
-    C[Config Data] --&gt; B
-    D[IAM Data] --&gt; B
-    B --&gt; E[Athena Queries]
-    E --&gt; F[Analytics Engine]
-    F --&gt; G[Risk Scoring]
-    G --&gt; H[QuickSight Dashboard]
-    F --&gt; I[Anomaly Detection]
-    I --&gt; J[Alerts]
+    C[IAM Data] --&gt; B
+    B --&gt; D[Lambda Analytics]
+    D --&gt; E[DynamoDB Results]
+    E --&gt; F[QuickSight Dashboard]
+    D --&gt; G[CloudWatch Metrics]
+    G --&gt; H[SNS Alerts]
 </code></pre><h2 id="bước-1-data-collection-setup">Bước 1: Data Collection Setup</h2>
 <h3 id="11-cloudtrail-configuration">1.1 CloudTrail Configuration</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">AWSTemplateFormatVersion</span>: <span style="color:#e6db74">&#39;2010-09-09&#39;</span>
@@ -585,35 +583,22 @@
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">IncludeGlobalServiceEvents</span>: <span style="color:#66d9ef">true</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">IsMultiRegionTrail</span>: <span style="color:#66d9ef">true</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">EnableLogFileValidation</span>: <span style="color:#66d9ef">true</span>
-</span></span></code></pre></div><h2 id="bước-2-athena-queries-cho-analytics">Bước 2: Athena Queries cho Analytics</h2>
-<h3 id="21-create-athena-tables">2.1 Create Athena Tables</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Create table for privilege analytics data
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">EXTERNAL</span> <span style="color:#66d9ef">TABLE</span> privilege_analytics (
-</span></span><span style="display:flex;"><span>  collection_timestamp string,
-</span></span><span style="display:flex;"><span>  iam_data struct<span style="color:#f92672">&lt;</span>
-</span></span><span style="display:flex;"><span>    users: array<span style="color:#f92672">&lt;</span>struct<span style="color:#f92672">&lt;</span>
-</span></span><span style="display:flex;"><span>      username: string,
-</span></span><span style="display:flex;"><span>      user_id: string,
-</span></span><span style="display:flex;"><span>      arn: string,
-</span></span><span style="display:flex;"><span>      create_date: string,
-</span></span><span style="display:flex;"><span>      risk_score: double
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&gt;&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>STORED <span style="color:#66d9ef">AS</span> JSON
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LOCATION</span> <span style="color:#e6db74">&#39;s3://privilege-analytics-REGION/analytics-data/&#39;</span>
-</span></span></code></pre></div><h3 id="22-analytics-queries">2.2 Analytics Queries</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Query 1: High-risk users
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">user</span>.username,
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">user</span>.risk_score,
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">cardinality</span>(<span style="color:#66d9ef">user</span>.attached_policies) <span style="color:#66d9ef">as</span> policy_count,
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">user</span>.last_activity
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> privilege_analytics
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CROSS</span> <span style="color:#66d9ef">JOIN</span> <span style="color:#66d9ef">UNNEST</span>(iam_data.users) <span style="color:#66d9ef">AS</span> t(<span style="color:#66d9ef">user</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">user</span>.risk_score <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">7</span>.<span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">user</span>.risk_score <span style="color:#66d9ef">DESC</span>;
-</span></span></code></pre></div><h2 id="bước-3-risk-scoring-engine">Bước 3: Risk Scoring Engine</h2>
+</span></span></code></pre></div><h2 id="bước-2-lambda-analytics-engine">Bước 2: Lambda Analytics Engine</h2>
+<h3 id="21-tạo-lambda-function-cho-analytics">2.1 Tạo Lambda Function cho Analytics</h3>
+<ol>
+<li>Mở <strong>AWS Lambda</strong> trong console</li>
+<li>Tạo function mới: <strong>PrivilegeAnalyticsEngine</strong></li>
+<li>Chọn runtime <strong>Python 3.9</strong></li>
+</ol>
+<p><img alt="Tạo Analytics Lambda" src="/images/5/create-analytics-lambda.png?featherlight=false&width=90pc"></p>
+<h3 id="22-cấu-hình-lambda-để-đọc-s3-data">2.2 Cấu hình Lambda để đọc S3 Data</h3>
+<ol>
+<li>Thêm IAM permissions cho S3 và DynamoDB</li>
+<li>Cấu hình trigger từ S3 bucket</li>
+<li>Upload analytics code</li>
+</ol>
+<p><img alt="Lambda S3 Integration" src="/images/5/lambda-s3-integration.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-3-risk-scoring-engine">Bước 3: Risk Scoring Engine</h2>
 <h3 id="31-risk-calculation-lambda">3.1 Risk Calculation Lambda</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
@@ -900,19 +885,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754915326"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754915326"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754915326"></script>
-    <script src="/js/jquery.sticky.js?1754915326"></script>
-    <script src="/js/featherlight.min.js?1754915326"></script>
-    <script src="/js/highlight.pack.js?1754915326"></script>
+    <script src="/js/clipboard.min.js?1754929215"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
+    <script src="/js/jquery.sticky.js?1754929215"></script>
+    <script src="/js/featherlight.min.js?1754929215"></script>
+    <script src="/js/highlight.pack.js?1754929215"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754915326"></script>
-    <script src="/js/learn.js?1754915326"></script>
-    <script src="/js/hugo-learn.js?1754915326"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
+    <script src="/js/learn.js?1754929215"></script>
+    <script src="/js/hugo-learn.js?1754929215"></script>
 
-    <link href="/mermaid/mermaid.css?1754915326" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754915326"></script>
+    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754929215"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

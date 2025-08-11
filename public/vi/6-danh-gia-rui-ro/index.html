@@ -12,21 +12,21 @@
     <title>6. Đánh giá Rủi ro :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754915326" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754915326" rel="stylesheet">
-    <link href="/css/hybrid.css?1754915326" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754915326" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754915326" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754915326" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754915326" rel="stylesheet">
-    <link href="/css/theme.css?1754915326" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754915326" rel="stylesheet">
+    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
+    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
+    <link href="/css/theme.css?1754929215" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754915326" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754915326"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754915326"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754915326"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754915326"></script>
+<script type="text/javascript" src="/js/search.js?1754929215"></script>
 
     
   </div>
@@ -529,9 +529,10 @@
         <li><a href="#31-real-time-risk-monitor">3.1 Real-time Risk Monitor</a></li>
       </ul>
     </li>
-    <li><a href="#bước-4-risk-dashboard">Bước 4: Risk Dashboard</a>
+    <li><a href="#bước-4-tích-hợp-security-hub">Bước 4: Tích hợp Security Hub</a>
       <ul>
-        <li><a href="#41-cloudformation-cho-dashboard-resources">4.1 CloudFormation cho Dashboard Resources</a></li>
+        <li><a href="#41-thiết-lập-security-hub">4.1 Thiết lập Security Hub</a></li>
+        <li><a href="#42-cấu-hình-lambda-gửi-findings">4.2 Cấu hình Lambda gửi Findings</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -565,16 +566,13 @@
 <p>Thiết lập hệ thống đánh giá rủi ro toàn diện để phát hiện, phân tích và ưu tiên các rủi ro bảo mật liên quan đến identity và access management.</p>
 <h2 id="kiến-trúc-risk-assessment">Kiến trúc Risk Assessment</h2>
 <pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[Data Sources] --&gt; B[Risk Engine]
-    B --&gt; C[Risk Scoring]
-    C --&gt; D[Risk Classification]
-    D --&gt; E[Risk Prioritization]
-    E --&gt; F[Remediation Recommendations]
-    F --&gt; G[Risk Dashboard]
-    
-    H[Threat Intelligence] --&gt; B
-    I[Compliance Rules] --&gt; B
-    J[Business Context] --&gt; B
+    A[CloudTrail Events] --&gt; B[Lambda Risk Engine]
+    C[IAM Data] --&gt; B
+    B --&gt; D[DynamoDB Risk Data]
+    D --&gt; E[Security Hub Findings]
+    E --&gt; F[CloudWatch Metrics]
+    F --&gt; G[SNS Alerts]
+    D --&gt; H[QuickSight Dashboard]
 </code></pre><h2 id="bước-1-risk-assessment-framework">Bước 1: Risk Assessment Framework</h2>
 <h3 id="11-risk-categories-definition">1.1 Risk Categories Definition</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
@@ -664,39 +662,30 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;risk_score&#39;</span>: risk_score,
 </span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;action_taken&#39;</span>: risk_score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">7</span>
 </span></span><span style="display:flex;"><span>        }
-</span></span></code></pre></div><h2 id="bước-4-risk-dashboard">Bước 4: Risk Dashboard</h2>
-<h3 id="41-cloudformation-cho-dashboard-resources">4.1 CloudFormation cho Dashboard Resources</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">AWSTemplateFormatVersion</span>: <span style="color:#e6db74">&#39;2010-09-09&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">Description</span>: <span style="color:#e6db74">&#39;Risk Assessment Dashboard Resources&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">Resources</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">RiskDashboard</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Type</span>: <span style="color:#ae81ff">AWS::CloudWatch::Dashboard</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Properties</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DashboardName</span>: <span style="color:#ae81ff">IdentityGovernanceRiskDashboard</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DashboardBody</span>: !<span style="color:#ae81ff">Sub |</span>
-</span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;widgets&#34;: </span>[
-</span></span><span style="display:flex;"><span>            {
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;: </span><span style="color:#e6db74">&#34;metric&#34;</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;x&#34;: </span><span style="color:#ae81ff">0</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;y&#34;: </span><span style="color:#ae81ff">0</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;width&#34;: </span><span style="color:#ae81ff">12</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;height&#34;: </span><span style="color:#ae81ff">6</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;properties&#34;: </span>{
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;metrics&#34;: </span>[
-</span></span><span style="display:flex;"><span>                  [ <span style="color:#e6db74">&#34;IdentityGovernance/Risk&#34;</span>, <span style="color:#e6db74">&#34;RiskScore&#34;</span> ],
-</span></span><span style="display:flex;"><span>                  [ <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;HighRiskEvents&#34;</span> ]
-</span></span><span style="display:flex;"><span>                ],
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;period&#34;: </span><span style="color:#ae81ff">300</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;stat&#34;: </span><span style="color:#e6db74">&#34;Average&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;region&#34;: </span><span style="color:#e6db74">&#34;${AWS::Region}&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;title&#34;: </span><span style="color:#e6db74">&#34;Risk Metrics Overview&#34;</span>
-</span></span><span style="display:flex;"><span>              }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>          ]
-</span></span><span style="display:flex;"><span>        }
-</span></span></code></pre></div><h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
+</span></span></code></pre></div><h2 id="bước-4-tích-hợp-security-hub">Bước 4: Tích hợp Security Hub</h2>
+<h3 id="41-thiết-lập-security-hub">4.1 Thiết lập Security Hub</h3>
+<ol>
+<li>Mở <strong>AWS Security Hub</strong> trong console</li>
+<li>Click <strong>Enable Security Hub</strong></li>
+</ol>
+<p><img alt="Kích hoạt Security Hub" src="/images/6/enable-security-hub.png?featherlight=false&width=90pc"></p>
+<ol start="3">
+<li>Chọn security standards:
+<ul>
+<li>AWS Foundational Security Standard</li>
+<li>CIS AWS Foundations Benchmark</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Chọn Security Standards" src="/images/6/security-standards.png?featherlight=false&width=90pc"></p>
+<h3 id="42-cấu-hình-lambda-gửi-findings">4.2 Cấu hình Lambda gửi Findings</h3>
+<ol>
+<li>Cập nhật Lambda risk engine</li>
+<li>Thêm code gửi findings đến Security Hub</li>
+<li>Cấu hình IAM permissions</li>
+</ol>
+<p><img alt="Lambda Security Hub Integration" src="/images/6/lambda-securityhub-integration.png?featherlight=false&width=90pc"></p>
+<h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
 <li>✅ Comprehensive risk assessment framework</li>
@@ -948,19 +937,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754915326"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754915326"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754915326"></script>
-    <script src="/js/jquery.sticky.js?1754915326"></script>
-    <script src="/js/featherlight.min.js?1754915326"></script>
-    <script src="/js/highlight.pack.js?1754915326"></script>
+    <script src="/js/clipboard.min.js?1754929215"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
+    <script src="/js/jquery.sticky.js?1754929215"></script>
+    <script src="/js/featherlight.min.js?1754929215"></script>
+    <script src="/js/highlight.pack.js?1754929215"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754915326"></script>
-    <script src="/js/learn.js?1754915326"></script>
-    <script src="/js/hugo-learn.js?1754915326"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
+    <script src="/js/learn.js?1754929215"></script>
+    <script src="/js/hugo-learn.js?1754929215"></script>
 
-    <link href="/mermaid/mermaid.css?1754915326" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754915326"></script>
+    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754929215"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -12,21 +12,21 @@
     <title>9. Quy trình Kiểm toán :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754915326" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754915326" rel="stylesheet">
-    <link href="/css/hybrid.css?1754915326" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754915326" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754915326" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754915326" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754915326" rel="stylesheet">
-    <link href="/css/theme.css?1754915326" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754915326" rel="stylesheet">
+    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
+    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
+    <link href="/css/theme.css?1754929215" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754915326" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754915326"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754915326"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754915326"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754915326"></script>
+<script type="text/javascript" src="/js/search.js?1754929215"></script>
 
     
   </div>
@@ -521,7 +521,7 @@
     </li>
     <li><a href="#bước-2-continuous-audit-monitoring">Bước 2: Continuous Audit Monitoring</a>
       <ul>
-        <li><a href="#21-real-time-compliance-monitoring">2.1 Real-time Compliance Monitoring</a></li>
+        <li><a href="#21-lambda-based-compliance-monitoring">2.1 Lambda-based Compliance Monitoring</a></li>
       </ul>
     </li>
     <li><a href="#bước-3-audit-report-generation">Bước 3: Audit Report Generation</a>
@@ -602,41 +602,28 @@
 </span></span><span style="display:flex;"><span>            ]
 </span></span><span style="display:flex;"><span>        }
 </span></span></code></pre></div><h2 id="bước-2-continuous-audit-monitoring">Bước 2: Continuous Audit Monitoring</h2>
-<h3 id="21-real-time-compliance-monitoring">2.1 Real-time Compliance Monitoring</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ContinuousAuditMonitor</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>config_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;config&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sns <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sns&#39;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">monitor_compliance_rules</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Monitor AWS Config compliance rules&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        monitoring_results <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;timestamp&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;compliance_summary&#34;</span>: {},
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;non_compliant_resources&#34;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;alerts_sent&#34;</span>: []
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get compliance summary</span>
-</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>config_client<span style="color:#f92672">.</span>get_compliance_summary_by_config_rule()
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> rule_summary <span style="color:#f92672">in</span> response[<span style="color:#e6db74">&#39;ComplianceSummary&#39;</span>]:
-</span></span><span style="display:flex;"><span>            rule_name <span style="color:#f92672">=</span> rule_summary[<span style="color:#e6db74">&#39;ConfigRuleName&#39;</span>]
-</span></span><span style="display:flex;"><span>            compliance_summary <span style="color:#f92672">=</span> rule_summary[<span style="color:#e6db74">&#39;ComplianceSummary&#39;</span>]
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            monitoring_results[<span style="color:#e6db74">&#34;compliance_summary&#34;</span>][rule_name] <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;compliant&#34;</span>: compliance_summary<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CompliantResourceCount&#39;</span>, {})<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CappedCount&#39;</span>, <span style="color:#ae81ff">0</span>),
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;non_compliant&#34;</span>: compliance_summary<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;NonCompliantResourceCount&#39;</span>, {})<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CappedCount&#39;</span>, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> monitoring_results
-</span></span></code></pre></div><h2 id="bước-3-audit-report-generation">Bước 3: Audit Report Generation</h2>
+<h3 id="21-lambda-based-compliance-monitoring">2.1 Lambda-based Compliance Monitoring</h3>
+<ol>
+<li>Mở <strong>AWS Lambda</strong> trong console</li>
+<li>Tạo function: <strong>ComplianceAuditMonitor</strong></li>
+<li>Cấu hình trigger từ EventBridge (daily schedule)</li>
+</ol>
+<p><img alt="Tạo Compliance Monitor Lambda" src="/images/9/create-compliance-lambda.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Upload code kiểm tra compliance:
+<ul>
+<li>Kiểm tra IAM policies</li>
+<li>Kiểm tra access patterns</li>
+<li>Ghi kết quả vào DynamoDB</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Lambda Compliance Code" src="/images/9/lambda-compliance-code.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Cấu hình CloudWatch Logs để theo dõi</li>
+</ol>
+<p><img alt="CloudWatch Logs Monitoring" src="/images/9/cloudwatch-logs-monitoring.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-3-audit-report-generation">Bước 3: Audit Report Generation</h2>
 <h3 id="31-automated-report-generator">3.1 Automated Report Generator</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
@@ -920,19 +907,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754915326"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754915326"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754915326"></script>
-    <script src="/js/jquery.sticky.js?1754915326"></script>
-    <script src="/js/featherlight.min.js?1754915326"></script>
-    <script src="/js/highlight.pack.js?1754915326"></script>
+    <script src="/js/clipboard.min.js?1754929215"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
+    <script src="/js/jquery.sticky.js?1754929215"></script>
+    <script src="/js/featherlight.min.js?1754929215"></script>
+    <script src="/js/highlight.pack.js?1754929215"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754915326"></script>
-    <script src="/js/learn.js?1754915326"></script>
-    <script src="/js/hugo-learn.js?1754915326"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
+    <script src="/js/learn.js?1754929215"></script>
+    <script src="/js/hugo-learn.js?1754929215"></script>
 
-    <link href="/mermaid/mermaid.css?1754915326" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754915326"></script>
+    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754929215"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
