@@ -44,9 +44,11 @@ graph TB
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
 
 #### Step 2: Define schedule
-7. In **Schedule pattern**, select **Rate-based schedule**
-8. Enter **90** and select **Days**
-9. Click **Next**
+7. In **Occurrence**, select **Recurring schedule**
+   - Choose "Recurring schedule" because we want to run quarterly reviews
+8. In **Schedule pattern**, select **Rate-based schedule**
+9. Enter **90** and select **Days**
+10. Click **Next**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 

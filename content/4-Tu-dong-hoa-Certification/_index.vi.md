@@ -32,9 +32,11 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
 
 #### Bước 2: Define schedule
-7. Trong **Schedule pattern**, chọn **Rate-based schedule**
-8. Nhập **90** và chọn **Days**
-9. Click **Next**
+7. Trong **Occurrence**, chọn **Recurring schedule**
+   - Chọn "Recurring schedule" vì chúng ta muốn chạy định kỳ hàng quý
+8. Trong **Schedule pattern**, chọn **Rate-based schedule**
+9. Nhập **90** và chọn **Days**
+10. Click **Next**
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
