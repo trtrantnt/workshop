@@ -21,7 +21,7 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
    - **Name**: `AccessCertificationSchedule`
    - **Description**: `Quarterly access certification review`
    - **Event bus**: default
-   - **Enable the rule on the selected event bus**: ✅ Checked
+   - **Enable the rule on the selected event bus**
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
 
@@ -43,100 +43,102 @@ Tự động hóa quy trình access certification để đảm bảo quyền tru
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
-## Bước 2: Thiết lập Lambda Function
+#### Bước 3: Select target
+12. Trong **Target API**, chọn **AWS Lambda**
+13. Chọn API **Invoke**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
+
+14. Bây giờ chúng ta cần tạo Lambda function trước. Click **Create a new Lambda function** hoặc mở tab mới để tạo Lambda function.
+
+## Bước 2: Tạo Lambda Function cho EventBridge
 
 ### 2.1 Tạo Lambda Function
 
-1. Mở **AWS Lambda** trong console
+1. Mở tab mới và đi đến **AWS Lambda** trong console
 2. Click **Create function**
 
-![Tạo Lambda Function](/images/4/create-lambda-function.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc)
 
 3. Chọn **Author from scratch**
 4. Nhập thông tin function:
-   - **Function name**: AccessCertificationTrigger
+   - **Function name**: `AccessCertificationTrigger`
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Chi tiết Lambda Function](/images/4/lambda-function-details.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda2.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
 ### 2.2 Cấu hình Code cho Lambda Function
 
-1. Trong tab **Code**, thay thế code mặc định
-2. Upload logic code cho certification
+1. Trong tab **Code**, thay thế code mặc định bằng code sau:
 
-![Lambda Code Editor](/images/4/lambda-code-editor.png?featherlight=false&width=90pc)
+```python
+import json
+import boto3
+from datetime import datetime
 
-3. Click **Deploy** để lưu thay đổi
+def lambda_handler(event, context):
+    print("Access Certification Trigger Started")
+    
+    # Initialize AWS clients
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('AccessCertifications')
+    
+    # Create certification record
+    response = table.put_item(
+        Item={
+            'UserId': 'system',
+            'CertificationDate': datetime.now().isoformat(),
+            'Status': 'Triggered',
+            'Type': 'Quarterly Review'
+        }
+    )
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Certification process triggered successfully')
+    }
+```
 
-### 2.3 Thiết lập Environment Variables
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda3.png?featherlight=false&width=90pc)
+
+2. Click **Deploy** để lưu thay đổi
+
+### 2.3 Cấu hình IAM Role cho Lambda
 
 1. Chuyển đến tab **Configuration**
-2. Click **Environment variables**
-3. Click **Edit**
+2. Click **Permissions**
+3. Click vào role name để mở IAM console
+4. Thêm policy cho DynamoDB access
 
-![Biến Môi trường](/images/4/environment-variables.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc)
 
-4. Thêm các biến cần thiết:
-   - **S3_BUCKET**: certification-data-bucket
-   - **SNS_TOPIC**: certification-notifications
+## Bước 3: Hoàn thành EventBridge Configuration
 
-![Thêm Biến Môi trường](/images/4/add-env-variables.png?featherlight=false&width=90pc)
+### 3.1 Quay lại EventBridge và chọn Lambda function
 
-## Bước 3: Thiết lập DynamoDB cho Certification Data
+1. Quay lại tab EventBridge
+2. Trong **Lambda function**, chọn **AccessCertificationTrigger**
 
-### 3.1 Tạo DynamoDB Table
-
-1. Mở **Amazon DynamoDB** trong console
-2. Click **Create table**
-
-![Tạo DynamoDB Table](/images/4/create-dynamodb-table.png?featherlight=false&width=90pc)
-
-3. Nhập thông tin table:
-   - **Table name**: AccessCertifications
-   - **Partition key**: UserId (String)
-   - **Sort key**: CertificationDate (String)
-
-![Chi tiết DynamoDB Table](/images/4/dynamodb-table-details.png?featherlight=false&width=90pc)
-
-4. Click **Create table**
-
-### 3.2 Cấu hình Lambda để ghi DynamoDB
-
-1. Quay lại Lambda function **AccessCertificationTrigger**
-2. Thêm DynamoDB permissions vào IAM role
-3. Cập nhật code để ghi certification records
-
-![Lambda DynamoDB Integration](/images/4/lambda-dynamodb-integration.png?featherlight=false&width=90pc)
-
-## Bước 4: Kết nối EventBridge với Lambda
-
-### 4.1 Thêm Lambda Target vào EventBridge Rule
-
-#### Bước 3: Select target
-1. Trong **Target API**, chọn **AWS Lambda**
-2. Chọn API **Invoke**
-3. Trong **Lambda function**, chọn **AccessCertificationTrigger**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
-
-4. Click **Next**
-
-#### Bước 4: Configure tags (Optional)
-5. Bỏ qua phần tags, click **Next**
-
-#### Bước 5: Review and create
-6. Xem lại cấu hình:
-   - Rule name: AccessCertificationSchedule
-   - Schedule: Rate(90 days)
-   - Target: Lambda function
-7. Click **Create rule**
+3. Click **Next**
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
-## Bước 5: Kiểm tra Tự động hóa
+#### Bước 4: Configure tags (Optional)
+4. Bỏ qua phần tags, click **Next**
+
+#### Bước 5: Review and create
+5. Xem lại cấu hình:
+   - Rule name: AccessCertificationSchedule
+   - Schedule: Rate(90 days)
+   - Target: Lambda function (AccessCertificationTrigger)
+6. Click **Create rule**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb6.png?featherlight=false&width=90pc)
+
+## Bước 4: Kiểm tra Tự động hóa
 
 ### 5.1 Thực thi Kiểm tra Thủ công
 

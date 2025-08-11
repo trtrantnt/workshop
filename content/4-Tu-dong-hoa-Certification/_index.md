@@ -55,100 +55,102 @@ graph TB
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
-## Step 2: Lambda Function Setup
+#### Step 3: Select target
+12. In **Target API**, select **AWS Lambda**
+13. Choose API **Invoke**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
+
+14. Now we need to create a Lambda function first. Click **Create a new Lambda function** or open a new tab to create the Lambda function.
+
+## Step 2: Create Lambda Function for EventBridge
 
 ### 2.1 Create Lambda Function
 
-1. Open **AWS Lambda** in the console
+1. Open a new tab and go to **AWS Lambda** in the console
 2. Click **Create function**
 
-![Create Lambda Function](/images/4/create-lambda-function.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda1.png?featherlight=false&width=90pc)
 
 3. Choose **Author from scratch**
 4. Enter function details:
-   - **Function name**: AccessCertificationTrigger
+   - **Function name**: `AccessCertificationTrigger`
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Lambda Function Details](/images/4/lambda-function-details.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda2.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
 ### 2.2 Configure Lambda Function Code
 
-1. In the **Code** tab, replace the default code
-2. Upload the certification logic code
+1. In the **Code** tab, replace the default code with the following:
 
-![Lambda Code Editor](/images/4/lambda-code-editor.png?featherlight=false&width=90pc)
+```python
+import json
+import boto3
+from datetime import datetime
 
-3. Click **Deploy** to save changes
+def lambda_handler(event, context):
+    print("Access Certification Trigger Started")
+    
+    # Initialize AWS clients
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('AccessCertifications')
+    
+    # Create certification record
+    response = table.put_item(
+        Item={
+            'UserId': 'system',
+            'CertificationDate': datetime.now().isoformat(),
+            'Status': 'Triggered',
+            'Type': 'Quarterly Review'
+        }
+    )
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Certification process triggered successfully')
+    }
+```
 
-### 2.3 Set Environment Variables
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda3.png?featherlight=false&width=90pc)
+
+2. Click **Deploy** to save changes
+
+### 2.3 Configure IAM Role for Lambda
 
 1. Go to **Configuration** tab
-2. Click **Environment variables**
-3. Click **Edit**
+2. Click **Permissions**
+3. Click on the role name to open IAM console
+4. Add policy for DynamoDB access
 
-![Environment Variables](/images/4/environment-variables.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/lambda4.png?featherlight=false&width=90pc)
 
-4. Add required variables:
-   - **S3_BUCKET**: certification-data-bucket
-   - **SNS_TOPIC**: certification-notifications
+## Step 3: Complete EventBridge Configuration
 
-![Add Environment Variables](/images/4/add-env-variables.png?featherlight=false&width=90pc)
+### 3.1 Return to EventBridge and Select Lambda Function
 
-## Step 3: DynamoDB Setup for Certification Data
+1. Return to the EventBridge tab
+2. In **Lambda function**, select **AccessCertificationTrigger**
 
-### 3.1 Create DynamoDB Table
-
-1. Open **Amazon DynamoDB** in the console
-2. Click **Create table**
-
-![Create DynamoDB Table](/images/4/create-dynamodb-table.png?featherlight=false&width=90pc)
-
-3. Enter table details:
-   - **Table name**: AccessCertifications
-   - **Partition key**: UserId (String)
-   - **Sort key**: CertificationDate (String)
-   - **Billing mode**: On-demand
-4. Click **Create table**
-
-![DynamoDB Table Details](/images/4/dynamodb-table-details.png?featherlight=false&width=90pc)
-
-### 3.2 Configure Lambda for DynamoDB Integration
-
-1. Return to Lambda function **AccessCertificationTrigger**
-2. Add DynamoDB permissions to IAM role
-3. Update code to write certification records
-
-![Lambda DynamoDB Integration](/images/4/lambda-dynamodb-integration.png?featherlight=false&width=90pc)
-
-## Step 4: Connect EventBridge to Lambda
-
-### 4.1 Add Lambda Target to EventBridge Rule
-
-#### Step 3: Select target
-1. In **Target API**, select **AWS Lambda**
-2. Choose API **Invoke**
-3. In **Lambda function**, select **AccessCertificationTrigger**
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
-
-4. Click **Next**
-
-#### Step 4: Configure tags (Optional)
-5. Skip the tags section, click **Next**
-
-#### Step 5: Review and create
-6. Review configuration:
-   - Rule name: AccessCertificationSchedule
-   - Schedule: Rate(90 days)
-   - Target: Lambda function
-7. Click **Create rule**
+3. Click **Next**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
-## Step 5: Test the Automation
+#### Step 4: Configure tags (Optional)
+4. Skip the tags section, click **Next**
+
+#### Step 5: Review and create
+5. Review configuration:
+   - Rule name: AccessCertificationSchedule
+   - Schedule: Rate(90 days)
+   - Target: Lambda function (AccessCertificationTrigger)
+6. Click **Create rule**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb6.png?featherlight=false&width=90pc)
+
+## Step 4: Test the Automation
 
 ### 5.1 Manual Test Execution
 
