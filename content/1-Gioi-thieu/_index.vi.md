@@ -3,7 +3,6 @@ title: "1. Giới thiệu"
 chapter: false
 weight: 1
 ---
-
 ## Tổng quan Workshop
 
 Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity Governance toàn diện với Access Certification trên AWS, bao gồm:
@@ -19,7 +18,7 @@ Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity
 
 ## Kiến trúc Tổng thể
 
-![Architecture Diagram](images/architecture-diagram.png)
+![Architecture Diagram](/images/architecture-diagram.png)
 
 ## AWS Services Sử dụng
 
@@ -37,23 +36,22 @@ Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity
 ## Lợi ích của Identity Governance
 
 ### 1. Bảo mật nâng cao
+
 - Kiểm soát quyền truy cập chặt chẽ
 - Phát hiện và ngăn chặn rủi ro bảo mật
 - Giám sát liên tục các hoạt động
 
 ### 2. Tuân thủ quy định
+
 - Đáp ứng các yêu cầu SOX, SOC2, ISO27001
 - Tự động hóa quy trình audit
 - Lưu trữ bằng chứng tuân thủ
 
 ### 3. Hiệu quả vận hành
+
 - Tự động hóa quy trình certification
 - Giảm thiểu công việc thủ công
 - Cải thiện quy trình quản lý
-
-## Thời gian Hoàn thành
-
-Khoảng 4-6 giờ (có thể chia thành nhiều session)
 
 ## Tiếp theo
 

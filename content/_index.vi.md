@@ -3,7 +3,6 @@ title: "Quản trị Danh tính với Chứng nhận Truy cập"
 chapter: false
 weight: 1
 ---
-
 # Workshop Quản trị Danh tính với Chứng nhận Truy cập
 
 ## Tổng quan Workshop
@@ -24,10 +23,10 @@ graph TB
     D --> E[Đánh giá Rủi ro]
     E --> F[Chứng nhận Truy cập]
     F --> G[Báo cáo Tuân thủ]
-    
+  
     H[CloudTrail] --> I[Giám sát & Cảnh báo]
     I --> J[Dashboard Vận hành]
-    
+  
     K[Engine Tự động hóa] --> L[Quy trình Chứng nhận]
     L --> M[Hành động Khắc phục]
 ```
@@ -45,7 +44,3 @@ graph TB
 - Hiểu biết cơ bản về AWS IAM và Organizations
 - Kiến thức về các framework tuân thủ
 - Kinh nghiệm với Python và AWS CLI
-
-## Thời gian Ước tính
-
-4-6 giờ (có thể hoàn thành trong nhiều phiên)

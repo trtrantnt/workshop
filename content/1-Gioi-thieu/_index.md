@@ -19,7 +19,7 @@ This workshop will guide you through implementing a comprehensive Identity Gover
 
 ## Overall Architecture
 
-![Architecture Diagram](images/architecture-diagram.png)
+![Architecture Diagram](/images/architecture-diagram.png)
 
 ## AWS Services Used
 
