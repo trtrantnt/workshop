@@ -15,7 +15,7 @@ Workshop toàn diện này hướng dẫn bạn triển khai Quản trị Danh t
 
 ## Tổng quan Kiến trúc
 
-![Kiến trúc AWS Identity Governance](/images/architecture-diagram.png)
+![AWS Identity Governance Architecture](https://trtrantnt.github.io/workshop/images/architecture-diagram.png?featherlight=false&width=90pc)
 
 ## Lợi ích Chính
 

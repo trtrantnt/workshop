@@ -10,29 +10,29 @@ weight: 2
 
 1. Navigate to **Amazon S3** service in the AWS Console
 
-![Navigate to S3](/images/2/s3b1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b1.png?featherlight=false&width=90pc)
 
 2. Click **Create bucket**
 
-![Navigate to S3](/images/2/s3b2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b2.png?featherlight=false&width=90pc)
 
 3. Create first bucket for analytics data:
    - **Bucket name**: `identity-governance-analytics`
    - **AWS Region**: Select your preferred region (e.g., us-east-1)
    - **Object Ownership**: ACLs disabled (recommended)
 
-![Navigate to S3](/images/2/s3b3.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b3.png?featherlight=false&width=90pc)
 
    - **Block Public Access settings**: Keep all blocked (recommended)
    - **Bucket Versioning**: Enable
    - **Default encryption**: Server-side encryption with Amazon S3 managed keys (SSE-S3)
    - **Bucket Key**: Enable
 
-![Navigate to S3](/images/2/s3b4.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b4.png?featherlight=false&width=90pc)
 
 4. Click **Create bucket**
 
-![Navigate to S3](/images/2/s3b5.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b5.png?featherlight=false&width=90pc)
 
 5. Create second bucket for compliance reports:
    - **Bucket name**: `identity-governance-reports`
@@ -45,11 +45,11 @@ weight: 2
    - **Object Lock**: Enable for compliance retention
 6. Click **Create bucket**
 
-![Navigate to S3](/images/2/s3b6.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/2/s3b6.png?featherlight=false&width=90pc)
 
 7. Verify both buckets are created successfully:
 
-![Navigate to S3](/images/2/s3b7.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/2/s3b7.png?featherlight=false&width=90pc)
 
 ## Infrastructure Preparation
 
@@ -58,9 +58,9 @@ weight: 2
 1. Navigate to **CloudTrail** service in AWS Console
 2. Click **Create trail**
 
-![Open CloudTrail Console](/images/2/cloudtrailb1.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb1.png?featherlight=false&width=90pc)
 
-![Open CloudTrail Console](/images/2/cloudtrailb2.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb2.png?featherlight=false&width=90pc)
 
 #### Step 1: General details
 
@@ -68,7 +68,7 @@ weight: 2
    - **Trail name**: `IdentityGovernanceTrail`
    - **Enable for all accounts in my organization**: Leave unchecked
 
-![Open CloudTrail Console](/images/2/cloudtrailb3.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb3.png?featherlight=false&width=90pc)
 
 #### Step 2: S3 bucket configuration
 
@@ -107,13 +107,13 @@ weight: 2
 - **ALWAYS** choose "Create new S3 bucket" to let CloudTrail create its own bucket
 - CloudTrail will automatically configure the correct bucket policy, avoiding `InsufficientS3BucketPolicyException` error
 
-![Open CloudTrail Console](/images/2/cloudtrailb4.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](https://trtrantnt.github.io/workshop/images/2/cloudtrailb4.png?featherlight=false&width=90pc)
 
 ### 2. Enable AWS Security Hub
 
 1. Navigate to **AWS Security Hub** service in AWS Console
 
-![Security Hub Onboard Page](/images/2/secuHub1.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](https://trtrantnt.github.io/workshop/images/2/secuHub1.png?featherlight=false&width=90pc)
 
 2. You'll see the **Security Hub Onboard** page
 
@@ -133,7 +133,7 @@ weight: 2
    - Keep default settings
 7. Click **Onboard** at the bottom of the page
 
-![Security Hub Onboard Page](/images/2/secuHub2.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](https://trtrantnt.github.io/workshop/images/2/secuHub2.png?featherlight=false&width=90pc)
 
 #### Step 5: Verify successful activation
 8. After successful onboarding, you'll see the Security Hub dashboard:
@@ -141,13 +141,13 @@ weight: 2
    - **Findings** start being collected
    - **Standards** automatically enabled
 
-![Security Hub Onboard Page](/images/2/secuHub3.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](https://trtrantnt.github.io/workshop/images/2/secuHub3.png?featherlight=false&width=90pc)
 
 ### 3. Create DynamoDB Tables
 
 1. Navigate to **DynamoDB** service
 
-![DynamoDB Console](/images/2/dynab1.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/dynab1.png?featherlight=false&width=90pc)
 
 2. Click **Create table**
 3. Create first table:
@@ -156,7 +156,7 @@ weight: 2
    - **Sort key**: `CertificationDate` (String)
    - **Billing mode**: On-demand
 
-![DynamoDB Console](/images/2/dynab2.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/dynab2.png?featherlight=false&width=90pc)
 
 4. Click **Create table**
 
@@ -166,14 +166,14 @@ weight: 2
    - **Billing mode**: On-demand
 6. Click **Create table**
 
-![DynamoDB Console](/images/2/dynab3.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/dynab3.png?featherlight=false&width=90pc)
 
 ### 4. Create Required IAM Roles
 
 1. Navigate to **IAM** service
 2. Click **Roles** in the sidebar
 
-![DynamoDB Console](/images/2/IAMb1.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/IAMb1.png?featherlight=false&width=90pc)
 
 3. Click **Create role**
 4. Create role for Lambda:
@@ -182,7 +182,7 @@ weight: 2
    - **Role name**: `IdentityGovernanceLambdaRole`
    - **Policies**: Attach `AWSLambdaBasicExecutionRole`
 
-![DynamoDB Console](/images/2/IAMb2.png?featherlight=false&width=90pc)
+![DynamoDB Console](https://trtrantnt.github.io/workshop/images/2/IAMb2.png?featherlight=false&width=90pc)
 
 ## Verification
 
@@ -194,7 +194,7 @@ weight: 2
 4. **DynamoDB**: Go to DynamoDB console, confirm 2 tables created
 5. **IAM**: Go to IAM console, confirm Lambda role is created
 
-![Services Verification](/images/2/services-verification.png?featherlight=false&width=90pc)
+![Services Verification](https://trtrantnt.github.io/workshop/images/2/services-verification.png?featherlight=false&width=90pc)
 
 ### 2. Check Access Permissions
 
@@ -202,7 +202,7 @@ weight: 2
 2. Click **Users** and confirm current user has required permissions
 3. Click **Roles** and confirm roles are created
 
-![Permissions Check](/images/2/permissions-check.png?featherlight=false&width=90pc)
+![Permissions Check](https://trtrantnt.github.io/workshop/images/2/permissions-check.png?featherlight=false&width=90pc)
 
 ## Expected Results
 

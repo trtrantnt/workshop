@@ -15,7 +15,7 @@ This comprehensive workshop guides you through implementing Identity Governance 
 
 ## Architecture Overview
 
-![AWS Identity Governance Architecture](/images/architecture-diagram.png)
+![AWS Identity Governance Architecture](https://trtrantnt.github.io/workshop/images/architecture-diagram.png?featherlight=false&width=90pc)
 
 ## Key Benefits
 
