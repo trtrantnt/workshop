@@ -9,27 +9,33 @@ weight: 2
 ### 1. Create S3 Buckets for Data Storage
 
 1. Navigate to **Amazon S3** service in the AWS Console
+
+![Navigate to S3](/images/2/s3b1.png?featherlight=false&width=90pc)
+
 2. Click **Create bucket**
 
-![Navigate to S3](/images/2/navigate-to-s3.png?featherlight=false&width=90pc)
+![Navigate to S3](/images/2/s3b2.png?featherlight=false&width=90pc)
 
 3. Create first bucket for analytics data:
-   - **Bucket name**: `identity-governance-analytics-[YOUR-ACCOUNT-ID]`
+   - **Bucket name**: `identity-governance-analytics`
    - **AWS Region**: Select your preferred region (e.g., us-east-1)
    - **Object Ownership**: ACLs disabled (recommended)
+
+![Navigate to S3](/images/2/s3b3.png?featherlight=false&width=90pc)
+
    - **Block Public Access settings**: Keep all blocked (recommended)
    - **Bucket Versioning**: Enable
    - **Default encryption**: Server-side encryption with Amazon S3 managed keys (SSE-S3)
    - **Bucket Key**: Enable
 
-![S3 Analytics Bucket Configuration](/images/2/s3-analytics-bucket-config.png?featherlight=false&width=90pc)
+![Navigate to S3](/images/2/s3b4.png?featherlight=false&width=90pc)
 
 4. Click **Create bucket**
 
-![S3 Analytics Bucket Created](/images/2/s3-analytics-bucket-created.png?featherlight=false&width=90pc)
+![Navigate to S3](/images/2/s3b5.png?featherlight=false&width=90pc)
 
 5. Create second bucket for compliance reports:
-   - **Bucket name**: `identity-governance-reports-[YOUR-ACCOUNT-ID]`
+   - **Bucket name**: `identity-governance-reports`
    - **AWS Region**: Same as first bucket
    - **Object Ownership**: ACLs disabled (recommended)
    - **Block Public Access settings**: Keep all blocked (recommended)
@@ -37,16 +43,13 @@ weight: 2
    - **Default encryption**: Server-side encryption with Amazon S3 managed keys (SSE-S3)
    - **Bucket Key**: Enable
    - **Object Lock**: Enable for compliance retention
-
-![S3 Reports Bucket Configuration](/images/2/s3-reports-bucket-config.png?featherlight=false&width=90pc)
-
 6. Click **Create bucket**
 
-![S3 Reports Bucket Created](/images/2/s3-reports-bucket-created.png?featherlight=false&width=90pc)
+![Navigate to S3](/images/2/s3b6.png?featherlight=false&width=90pc)
 
 7. Verify both buckets are created successfully:
 
-![S3 Buckets List](/images/2/s3-buckets-list.png?featherlight=false&width=90pc)
+![Navigate to S3](/images/2/s3b7.png?featherlight=false&width=90pc)
 
 ## Infrastructure Preparation
 
@@ -55,7 +58,9 @@ weight: 2
 1. Navigate to **CloudTrail** service in AWS Console
 2. Click **Create trail**
 
-![Open CloudTrail Console](/images/2/open-cloudtrail-console.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](/images/2/cloudtrailb1.png?featherlight=false&width=90pc)
+
+![Open CloudTrail Console](/images/2/cloudtrailb2.png?featherlight=false&width=90pc)
 
 #### Step 1: General details
 
@@ -63,43 +68,31 @@ weight: 2
    - **Trail name**: `IdentityGovernanceTrail`
    - **Enable for all accounts in my organization**: Leave unchecked
 
-![CloudTrail General Details](/images/2/cloudtrail-general-details.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](/images/2/cloudtrailb3.png?featherlight=false&width=90pc)
 
 #### Step 2: S3 bucket configuration
 
 4. Configure S3 storage:
    - **Create new S3 bucket**: Select this option (LEAVE BLANK - DO NOT select "Use existing S3 bucket")
    - **S3 bucket name**: CloudTrail will auto-generate name (e.g., aws-cloudtrail-logs-123456789012-abc12345)
-   - **Log file prefix**: `cloudtrail-logs/` (optional)
-
-![CloudTrail S3 Configuration](/images/2/cloudtrail-s3-config.png?featherlight=false&width=90pc)
 
 5. Configure security settings:
    - **Log file SSE-KMS encryption**: Unchecked (keep default)
    - **Log file validation**: Checked (recommended)
-
-![CloudTrail Security Settings](/images/2/cloudtrail-security-settings.png?featherlight=false&width=90pc)
 
 #### Step 3: CloudWatch Logs (Optional)
 
 6. CloudWatch Logs configuration:
    - **CloudWatch Logs**: Unchecked (skip for now)
 
-![CloudTrail CloudWatch Logs](/images/2/cloudtrail-cloudwatch-logs.png?featherlight=false&width=90pc)
-
 7. Click **Next**
-
 #### Step 4: Choose log events
-
 8. Select event types to log:
    - **Management events**: Checked
      - **Read**: Checked
      - **Write**: Checked
    - **Data events**: Unchecked (skip)
    - **Insight events**: Unchecked (skip)
-
-![CloudTrail Event Types](/images/2/cloudtrail-event-types.png?featherlight=false&width=90pc)
-
 9. Click **Next**
 
 #### Step 5: Review and create
@@ -108,83 +101,64 @@ weight: 2
     - Confirm trail name
     - Confirm new S3 bucket will be created
     - Confirm management events are enabled
-
-![CloudTrail Review](/images/2/cloudtrail-review.png?featherlight=false&width=90pc)
-
 11. Click **Create trail**
-
-![CloudTrail Created Successfully](/images/2/cloudtrail-created-success.png?featherlight=false&width=90pc)
-
 **IMPORTANT**: 
 - **NEVER** select the `identity-governance-analytics` bucket or any bucket you created before
 - **ALWAYS** choose "Create new S3 bucket" to let CloudTrail create its own bucket
 - CloudTrail will automatically configure the correct bucket policy, avoiding `InsufficientS3BucketPolicyException` error
 
-![Choose Create New S3 Bucket](/images/2/cloudtrail-create-new-bucket.png?featherlight=false&width=90pc)
+![Open CloudTrail Console](/images/2/cloudtrailb4.png?featherlight=false&width=90pc)
 
 ### 2. Enable AWS Security Hub
 
 1. Navigate to **AWS Security Hub** service in AWS Console
+
+![Security Hub Onboard Page](/images/2/secuHub1.png?featherlight=false&width=90pc)
+
 2. You'll see the **Security Hub Onboard** page
 
-![Security Hub Onboard Page](/images/2/security-hub-onboard.png?featherlight=false&width=90pc)
-
 #### Step 1: Configure Security Hub
-
 3. In the **Configure Security Hub** section:
    - Read information about Service Linked Roles (SLRs)
    - Keep default settings
-
-![Configure Security Hub](/images/2/configure-security-hub.png?featherlight=false&width=90pc)
-
 #### Step 2: Delegated Administrator Account
-
 4. In the **Delegated administrator account** section:
    - Choose **Do not select an account** (for single account setup)
-   - Or choose **Set the administrator later**
-
-![Delegated Administrator](/images/2/delegated-administrator.png?featherlight=false&width=90pc)
-
 #### Step 3: Account Enablement
-
 5. In the **Account enablement** section:
    - ☑️ **Enable Security Hub for my account** (keep checked)
-
-![Account Enablement](/images/2/account-enablement.png?featherlight=false&width=90pc)
-
 #### Step 4: Delegated Administrator Policy
-
 6. In the **Delegated administrator policy** section:
    - Read policy details
    - Keep default settings
-
-![Delegated Administrator Policy](/images/2/delegated-admin-policy.png?featherlight=false&width=90pc)
-
 7. Click **Onboard** at the bottom of the page
 
-![Click Onboard Button](/images/2/click-onboard-button.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](/images/2/secuHub2.png?featherlight=false&width=90pc)
 
 #### Step 5: Verify successful activation
-
 8. After successful onboarding, you'll see the Security Hub dashboard:
    - **Security score** displayed
    - **Findings** start being collected
    - **Standards** automatically enabled
 
-![Security Hub Dashboard](/images/2/security-hub-dashboard-active.png?featherlight=false&width=90pc)
+![Security Hub Onboard Page](/images/2/secuHub3.png?featherlight=false&width=90pc)
 
 ### 3. Create DynamoDB Tables
 
 1. Navigate to **DynamoDB** service
+
+![DynamoDB Console](/images/2/dynab1.png?featherlight=false&width=90pc)
+
 2. Click **Create table**
 3. Create first table:
    - **Table name**: `AccessCertifications`
    - **Partition key**: `UserId` (String)
    - **Sort key**: `CertificationDate` (String)
    - **Billing mode**: On-demand
-4. Click **Create table**
 
-![DynamoDB Table 1](images/dynamodb-certifications.png)
+![DynamoDB Console](/images/2/dynab2.png?featherlight=false&width=90pc)
+
+4. Click **Create table**
 
 5. Create second table:
    - **Table name**: `RiskAssessments`
@@ -192,18 +166,43 @@ weight: 2
    - **Billing mode**: On-demand
 6. Click **Create table**
 
-![DynamoDB Table 2](images/dynamodb-risk-assessments.png)
+![DynamoDB Console](/images/2/dynab3.png?featherlight=false&width=90pc)
+
+### 4. Create Required IAM Roles
+
+1. Navigate to **IAM** service
+2. Click **Roles** in the sidebar
+
+![DynamoDB Console](/images/2/IAMb1.png?featherlight=false&width=90pc)
+
+3. Click **Create role**
+4. Create role for Lambda:
+   - **Trusted entity**: AWS service
+   - **Service**: Lambda
+   - **Role name**: `IdentityGovernanceLambdaRole`
+   - **Policies**: Attach `AWSLambdaBasicExecutionRole`
+
+![DynamoDB Console](/images/2/IAMb2.png?featherlight=false&width=90pc)
 
 ## Verification
 
-### Check Enabled Services
+### 1. Check Enabled Services
 
 1. **CloudTrail**: Go to CloudTrail console, confirm trail is created and active
 2. **S3**: Go to S3 console, confirm 3 buckets created (2 your buckets + 1 CloudTrail bucket)
 3. **Security Hub**: Go to Security Hub console, confirm service is enabled with security score
 4. **DynamoDB**: Go to DynamoDB console, confirm 2 tables created
+5. **IAM**: Go to IAM console, confirm Lambda role is created
 
-![Services Verification](images/services-verification.png)
+![Services Verification](/images/2/services-verification.png?featherlight=false&width=90pc)
+
+### 2. Check Access Permissions
+
+1. Go to **IAM** console
+2. Click **Users** and confirm current user has required permissions
+3. Click **Roles** and confirm roles are created
+
+![Permissions Check](/images/2/permissions-check.png?featherlight=false&width=90pc)
 
 ## Expected Results
 

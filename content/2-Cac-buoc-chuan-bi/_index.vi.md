@@ -195,15 +195,11 @@ weight: 2
 4. **DynamoDB**: Vào DynamoDB console, xác nhận 2 table đã được tạo
 5. **IAM**: Vào IAM console, xác nhận Lambda role đã được tạo
 
-![Services Verification](/images/2/services-verification.png?featherlight=false&width=90pc)
-
 ### 2. Kiểm tra quyền truy cập
 
 1. Vào **IAM** console
 2. Click **Users** và xác nhận user hiện tại có quyền cần thiết
 3. Click **Roles** và xác nhận các role đã được tạo
-
-![Permissions Check](/images/2/permissions-check.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 

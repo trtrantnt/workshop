@@ -2,172 +2,172 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:62814/1-gioi-thieu/</loc>
+    <loc>http://localhost:1313/workshop/1-gioi-thieu/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/1-gioi-thieu/"
+                href="http://localhost:1313/workshop/vi/1-gioi-thieu/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/1-gioi-thieu/"
+                href="http://localhost:1313/workshop/1-gioi-thieu/"
                 />
   </url><url>
-    <loc>//localhost:62814/</loc>
+    <loc>http://localhost:1313/workshop/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/"
+                href="http://localhost:1313/workshop/vi/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/"
+                href="http://localhost:1313/workshop/"
                 />
   </url><url>
-    <loc>//localhost:62814/2-cac-buoc-chuan-bi/</loc>
+    <loc>http://localhost:1313/workshop/2-cac-buoc-chuan-bi/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/2-cac-buoc-chuan-bi/"
+                href="http://localhost:1313/workshop/vi/2-cac-buoc-chuan-bi/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/2-cac-buoc-chuan-bi/"
+                href="http://localhost:1313/workshop/2-cac-buoc-chuan-bi/"
                 />
   </url><url>
-    <loc>//localhost:62814/3-thiet-lap-access-governance/</loc>
+    <loc>http://localhost:1313/workshop/3-thiet-lap-access-governance/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/3-thiet-lap-access-governance/"
+                href="http://localhost:1313/workshop/vi/3-thiet-lap-access-governance/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/3-thiet-lap-access-governance/"
+                href="http://localhost:1313/workshop/3-thiet-lap-access-governance/"
                 />
   </url><url>
-    <loc>//localhost:62814/4-tu-dong-hoa-certification/</loc>
+    <loc>http://localhost:1313/workshop/4-tu-dong-hoa-certification/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/4-tu-dong-hoa-certification/"
+                href="http://localhost:1313/workshop/vi/4-tu-dong-hoa-certification/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/4-tu-dong-hoa-certification/"
+                href="http://localhost:1313/workshop/4-tu-dong-hoa-certification/"
                 />
   </url><url>
-    <loc>//localhost:62814/5-phan-tich-dac-quyen/</loc>
+    <loc>http://localhost:1313/workshop/5-phan-tich-dac-quyen/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/5-phan-tich-dac-quyen/"
+                href="http://localhost:1313/workshop/vi/5-phan-tich-dac-quyen/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/5-phan-tich-dac-quyen/"
+                href="http://localhost:1313/workshop/5-phan-tich-dac-quyen/"
                 />
   </url><url>
-    <loc>//localhost:62814/6-danh-gia-rui-ro/</loc>
+    <loc>http://localhost:1313/workshop/6-danh-gia-rui-ro/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/6-danh-gia-rui-ro/"
+                href="http://localhost:1313/workshop/vi/6-danh-gia-rui-ro/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/6-danh-gia-rui-ro/"
+                href="http://localhost:1313/workshop/6-danh-gia-rui-ro/"
                 />
   </url><url>
-    <loc>//localhost:62814/7-thiet-lap-giam-sat/</loc>
+    <loc>http://localhost:1313/workshop/7-thiet-lap-giam-sat/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/7-thiet-lap-giam-sat/"
+                href="http://localhost:1313/workshop/vi/7-thiet-lap-giam-sat/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/7-thiet-lap-giam-sat/"
+                href="http://localhost:1313/workshop/7-thiet-lap-giam-sat/"
                 />
   </url><url>
-    <loc>//localhost:62814/8-quy-trinh-van-hanh/</loc>
+    <loc>http://localhost:1313/workshop/8-quy-trinh-van-hanh/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/8-quy-trinh-van-hanh/"
+                href="http://localhost:1313/workshop/vi/8-quy-trinh-van-hanh/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/8-quy-trinh-van-hanh/"
+                href="http://localhost:1313/workshop/8-quy-trinh-van-hanh/"
                 />
   </url><url>
-    <loc>//localhost:62814/9-quy-trinh-kiem-toan/</loc>
+    <loc>http://localhost:1313/workshop/9-quy-trinh-kiem-toan/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/9-quy-trinh-kiem-toan/"
+                href="http://localhost:1313/workshop/vi/9-quy-trinh-kiem-toan/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/9-quy-trinh-kiem-toan/"
+                href="http://localhost:1313/workshop/9-quy-trinh-kiem-toan/"
                 />
   </url><url>
-    <loc>//localhost:62814/10-xac-thuc-tuan-thu/</loc>
+    <loc>http://localhost:1313/workshop/10-xac-thuc-tuan-thu/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/10-xac-thuc-tuan-thu/"
+                href="http://localhost:1313/workshop/vi/10-xac-thuc-tuan-thu/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/10-xac-thuc-tuan-thu/"
+                href="http://localhost:1313/workshop/10-xac-thuc-tuan-thu/"
                 />
   </url><url>
-    <loc>//localhost:62814/11-clean-resources/</loc>
+    <loc>http://localhost:1313/workshop/11-clean-resources/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/11-clean-resources/"
+                href="http://localhost:1313/workshop/vi/11-clean-resources/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/11-clean-resources/"
+                href="http://localhost:1313/workshop/11-clean-resources/"
                 />
   </url><url>
-    <loc>//localhost:62814/categories/</loc>
+    <loc>http://localhost:1313/workshop/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/categories/"
+                href="http://localhost:1313/workshop/vi/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/categories/"
+                href="http://localhost:1313/workshop/categories/"
                 />
   </url><url>
-    <loc>//localhost:62814/tags/</loc>
+    <loc>http://localhost:1313/workshop/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:62814/vi/tags/"
+                href="http://localhost:1313/workshop/vi/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:62814/tags/"
+                href="http://localhost:1313/workshop/tags/"
                 />
   </url>
 </urlset>
