@@ -108,6 +108,112 @@ fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
 
 ![Lambda Environment Variables](/images/7/lambda-env-variables.png)
 
+5. Thêm Lambda function code:
+
+```python
+import boto3
+import json
+import os
+from datetime import datetime, timedelta
+
+class IdentityGovernanceMonitor:
+    def __init__(self):
+        self.cloudwatch = boto3.client('cloudwatch')
+        self.logs_client = boto3.client('logs')
+        self.iam_client = boto3.client('iam')
+        self.sso_client = boto3.client('sso-admin')
+        self.sns_client = boto3.client('sns')
+        
+        self.log_group = os.environ.get('LOG_GROUP_NAME', '/aws/identity-governance/events')
+        self.sns_topic = os.environ.get('SNS_TOPIC_ARN')
+    
+    def monitor_identity_events(self):
+        """Monitor and analyze identity-related events"""
+        
+        monitoring_results = {
+            'timestamp': datetime.now().isoformat(),
+            'metrics_collected': [],
+            'anomalies_detected': [],
+            'alerts_sent': []
+        }
+        
+        # Check for failed login attempts
+        failed_logins = self.check_failed_logins()
+        if failed_logins > 5:
+            self.send_alert(f"High failed login attempts detected: {failed_logins}")
+            monitoring_results['anomalies_detected'].append('high_failed_logins')
+        
+        # Check for privilege escalation
+        privilege_changes = self.check_privilege_escalation()
+        if privilege_changes:
+            self.send_alert(f"Privilege escalation detected: {privilege_changes}")
+            monitoring_results['anomalies_detected'].append('privilege_escalation')
+        
+        return monitoring_results
+    
+    def check_failed_logins(self):
+        """Check for failed login attempts in the last hour"""
+        end_time = datetime.now()
+        start_time = end_time - timedelta(hours=1)
+        
+        query = """
+        fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
+        | filter eventName = "ConsoleLogin" and errorCode != "Success"
+        | stats count() as failed_attempts
+        """
+        
+        try:
+            response = self.logs_client.start_query(
+                logGroupName='/aws/cloudtrail',
+                startTime=int(start_time.timestamp()),
+                endTime=int(end_time.timestamp()),
+                queryString=query
+            )
+            
+            # Get query results (simplified for demo)
+            return 0  # Would return actual count
+        except Exception as e:
+            print(f"Error checking failed logins: {e}")
+            return 0
+    
+    def check_privilege_escalation(self):
+        """Check for privilege escalation events"""
+        escalation_events = [
+            'AttachUserPolicy',
+            'CreateRole', 
+            'PutUserPolicy',
+            'AttachRolePolicy'
+        ]
+        
+        # Check recent IAM events
+        try:
+            # This would query CloudTrail logs for privilege changes
+            return []  # Would return actual events
+        except Exception as e:
+            print(f"Error checking privilege escalation: {e}")
+            return []
+    
+    def send_alert(self, message):
+        """Send alert via SNS"""
+        try:
+            self.sns_client.publish(
+                TopicArn=self.sns_topic,
+                Message=message,
+                Subject='Identity Governance Alert'
+            )
+        except Exception as e:
+            print(f"Error sending alert: {e}")
+
+def lambda_handler(event, context):
+    monitor = IdentityGovernanceMonitor()
+    results = monitor.monitor_identity_events()
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps(results)
+    }
+```
+
 ### 3.2 Thiết lập EventBridge Schedule
 
 1. Mở **EventBridge** console

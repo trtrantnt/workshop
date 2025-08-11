@@ -12,21 +12,21 @@
     <title>10. Xác thực Tuân thủ :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754912700" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754912700" rel="stylesheet">
-    <link href="/css/hybrid.css?1754912700" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754912700" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754912700" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754912700" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754912700" rel="stylesheet">
-    <link href="/css/theme.css?1754912700" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754912700" rel="stylesheet">
+    <link href="/css/nucleus.css?1754913121" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754913121" rel="stylesheet">
+    <link href="/css/hybrid.css?1754913121" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754913121" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754913121" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754913121" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754913121" rel="stylesheet">
+    <link href="/css/theme.css?1754913121" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754913121" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754912700" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754913121" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754912700"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754913121"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754912700"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754912700"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754913121"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754913121"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754912700"></script>
+<script type="text/javascript" src="/js/search.js?1754913121"></script>
 
     
   </div>
@@ -661,7 +661,193 @@
 </li>
 </ol>
 <p><img alt="Lambda Compliance Function" src="/images/10/lambda-compliance-function.png"></p>
-<h3 id="42-thiết-lập-eventbridge-schedule">4.2 Thiết lập EventBridge Schedule</h3>
+<ol start="4">
+<li>Thêm Lambda function code:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> enum <span style="color:#f92672">import</span> Enum
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComplianceFramework</span>(Enum):
+</span></span><span style="display:flex;"><span>    SOX <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sox&#34;</span>
+</span></span><span style="display:flex;"><span>    SOC2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;soc2&#34;</span>
+</span></span><span style="display:flex;"><span>    ISO27001 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;iso27001&#34;</span>
+</span></span><span style="display:flex;"><span>    PCI_DSS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pci_dss&#34;</span>
+</span></span><span style="display:flex;"><span>    NIST <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nist&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComplianceValidator</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>config_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;config&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>security_hub <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;securityhub&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Compliance requirements mapping</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>compliance_requirements <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>SOX: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Sarbanes-Oxley Act&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;controls&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;access_segregation&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;approval_workflows&#34;</span>, 
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;audit_trails&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;financial_access_controls&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>SOC2: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;SOC 2 Type II&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;controls&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;logical_access_controls&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;system_monitoring&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;change_management&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;data_protection&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            ComplianceFramework<span style="color:#f92672">.</span>ISO27001: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;ISO 27001&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;controls&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;information_security_policy&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;access_control_management&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;incident_management&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;business_continuity&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_compliance</span>(self, framework):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Validate compliance for specific framework&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        validation_results <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;framework&#39;</span>: framework<span style="color:#f92672">.</span>value,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overall_score&#39;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;control_results&#39;</span>: {},
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;findings&#39;</span>: [],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;recommendations&#39;</span>: []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> framework <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>compliance_requirements:
+</span></span><span style="display:flex;"><span>            controls <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>compliance_requirements[framework][<span style="color:#e6db74">&#39;controls&#39;</span>]
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> control <span style="color:#f92672">in</span> controls:
+</span></span><span style="display:flex;"><span>                control_score <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>validate_control(control)
+</span></span><span style="display:flex;"><span>                validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>][control] <span style="color:#f92672">=</span> control_score
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> control_score <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">80</span>:  <span style="color:#75715e"># Threshold for compliance</span>
+</span></span><span style="display:flex;"><span>                    validation_results[<span style="color:#e6db74">&#39;findings&#39;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#39;control&#39;</span>: control,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#39;score&#39;</span>: control_score,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#39;severity&#39;</span>: <span style="color:#e6db74">&#39;HIGH&#39;</span> <span style="color:#66d9ef">if</span> control_score <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">50</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;MEDIUM&#39;</span>
+</span></span><span style="display:flex;"><span>                    })
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Calculate overall score</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>]:
+</span></span><span style="display:flex;"><span>                validation_results[<span style="color:#e6db74">&#39;overall_score&#39;</span>] <span style="color:#f92672">=</span> sum(
+</span></span><span style="display:flex;"><span>                    validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>]<span style="color:#f92672">.</span>values()
+</span></span><span style="display:flex;"><span>                ) <span style="color:#f92672">/</span> len(validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> validation_results
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_control</span>(self, control_name):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Validate specific control implementation&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Control validation logic based on AWS Config rules</span>
+</span></span><span style="display:flex;"><span>        control_mappings <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;access_segregation&#39;</span>: self<span style="color:#f92672">.</span>check_iam_separation(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;audit_trails&#39;</span>: self<span style="color:#f92672">.</span>check_cloudtrail_enabled(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;logical_access_controls&#39;</span>: self<span style="color:#f92672">.</span>check_mfa_enabled(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;system_monitoring&#39;</span>: self<span style="color:#f92672">.</span>check_cloudwatch_monitoring(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;data_protection&#39;</span>: self<span style="color:#f92672">.</span>check_encryption_enabled()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> control_mappings<span style="color:#f92672">.</span>get(control_name, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_iam_separation</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check IAM role separation&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Check for proper role separation</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># This would implement actual IAM policy analysis</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">85</span>  <span style="color:#75715e"># Demo score</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_cloudtrail_enabled</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check CloudTrail configuration&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            cloudtrail <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudtrail&#39;</span>)
+</span></span><span style="display:flex;"><span>            trails <span style="color:#f92672">=</span> cloudtrail<span style="color:#f92672">.</span>describe_trails()
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> trails[<span style="color:#e6db74">&#39;trailList&#39;</span>]:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Check if trails are properly configured</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">90</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_mfa_enabled</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check MFA enforcement&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Check MFA policies and enforcement</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">75</span>  <span style="color:#75715e"># Demo score</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_cloudwatch_monitoring</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check CloudWatch monitoring setup&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
+</span></span><span style="display:flex;"><span>            alarms <span style="color:#f92672">=</span> cloudwatch<span style="color:#f92672">.</span>describe_alarms()
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> alarms[<span style="color:#e6db74">&#39;MetricAlarms&#39;</span>]:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_encryption_enabled</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check encryption configuration&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Check S3 bucket encryption, EBS encryption, etc.</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">85</span>  <span style="color:#75715e"># Demo score</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_compliance_report</span>(self, validation_results):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Generate compliance report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;report_id&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;compliance-</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-%H%M%S&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;generated_at&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;framework&#39;</span>: validation_results[<span style="color:#e6db74">&#39;framework&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overall_compliance&#39;</span>: validation_results[<span style="color:#e6db74">&#39;overall_score&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;COMPLIANT&#39;</span> <span style="color:#66d9ef">if</span> validation_results[<span style="color:#e6db74">&#39;overall_score&#39;</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">80</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;NON_COMPLIANT&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;summary&#39;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;total_controls&#39;</span>: len(validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>]),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;passed_controls&#39;</span>: len([s <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>]<span style="color:#f92672">.</span>values() <span style="color:#66d9ef">if</span> s <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">80</span>]),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;failed_controls&#39;</span>: len([s <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> validation_results[<span style="color:#e6db74">&#39;control_results&#39;</span>]<span style="color:#f92672">.</span>values() <span style="color:#66d9ef">if</span> s <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">80</span>]),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;critical_findings&#39;</span>: len([f <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> validation_results[<span style="color:#e6db74">&#39;findings&#39;</span>] <span style="color:#66d9ef">if</span> f[<span style="color:#e6db74">&#39;severity&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;HIGH&#39;</span>])
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;detailed_results&#39;</span>: validation_results
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    validator <span style="color:#f92672">=</span> ComplianceValidator()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Validate all frameworks</span>
+</span></span><span style="display:flex;"><span>    all_results <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> framework <span style="color:#f92672">in</span> ComplianceFramework:
+</span></span><span style="display:flex;"><span>        results <span style="color:#f92672">=</span> validator<span style="color:#f92672">.</span>validate_compliance(framework)
+</span></span><span style="display:flex;"><span>        report <span style="color:#f92672">=</span> validator<span style="color:#f92672">.</span>generate_compliance_report(results)
+</span></span><span style="display:flex;"><span>        all_results[framework<span style="color:#f92672">.</span>value] <span style="color:#f92672">=</span> report
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(all_results, default<span style="color:#f92672">=</span>str)
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h3 id="42-thiết-lập-eventbridge-schedule">4.2 Thiết lập EventBridge Schedule</h3>
 <ol>
 <li>Mở <strong>EventBridge</strong></li>
 <li>Tạo rule cho daily compliance check</li>
@@ -984,19 +1170,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754912700"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754912700"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754912700"></script>
-    <script src="/js/jquery.sticky.js?1754912700"></script>
-    <script src="/js/featherlight.min.js?1754912700"></script>
-    <script src="/js/highlight.pack.js?1754912700"></script>
+    <script src="/js/clipboard.min.js?1754913121"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754913121"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754913121"></script>
+    <script src="/js/jquery.sticky.js?1754913121"></script>
+    <script src="/js/featherlight.min.js?1754913121"></script>
+    <script src="/js/highlight.pack.js?1754913121"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754912700"></script>
-    <script src="/js/learn.js?1754912700"></script>
-    <script src="/js/hugo-learn.js?1754912700"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754913121"></script>
+    <script src="/js/learn.js?1754913121"></script>
+    <script src="/js/hugo-learn.js?1754913121"></script>
 
-    <link href="/mermaid/mermaid.css?1754912700" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754912700"></script>
+    <link href="/mermaid/mermaid.css?1754913121" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754913121"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

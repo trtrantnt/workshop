@@ -85,6 +85,194 @@ Xác thực và duy trì tuân thủ các framework bảo mật và quy định 
 
 ![Lambda Compliance Function](/images/10/lambda-compliance-function.png)
 
+4. Thêm Lambda function code:
+
+```python
+import boto3
+import json
+from datetime import datetime, timedelta
+from enum import Enum
+
+class ComplianceFramework(Enum):
+    SOX = "sox"
+    SOC2 = "soc2"
+    ISO27001 = "iso27001"
+    PCI_DSS = "pci_dss"
+    NIST = "nist"
+
+class ComplianceValidator:
+    def __init__(self):
+        self.s3_client = boto3.client('s3')
+        self.dynamodb = boto3.resource('dynamodb')
+        self.config_client = boto3.client('config')
+        self.security_hub = boto3.client('securityhub')
+        
+        # Compliance requirements mapping
+        self.compliance_requirements = {
+            ComplianceFramework.SOX: {
+                "name": "Sarbanes-Oxley Act",
+                "controls": [
+                    "access_segregation",
+                    "approval_workflows", 
+                    "audit_trails",
+                    "financial_access_controls"
+                ]
+            },
+            ComplianceFramework.SOC2: {
+                "name": "SOC 2 Type II",
+                "controls": [
+                    "logical_access_controls",
+                    "system_monitoring",
+                    "change_management",
+                    "data_protection"
+                ]
+            },
+            ComplianceFramework.ISO27001: {
+                "name": "ISO 27001",
+                "controls": [
+                    "information_security_policy",
+                    "access_control_management",
+                    "incident_management",
+                    "business_continuity"
+                ]
+            }
+        }
+    
+    def validate_compliance(self, framework):
+        """Validate compliance for specific framework"""
+        
+        validation_results = {
+            'framework': framework.value,
+            'timestamp': datetime.now().isoformat(),
+            'overall_score': 0,
+            'control_results': {},
+            'findings': [],
+            'recommendations': []
+        }
+        
+        if framework in self.compliance_requirements:
+            controls = self.compliance_requirements[framework]['controls']
+            
+            for control in controls:
+                control_score = self.validate_control(control)
+                validation_results['control_results'][control] = control_score
+                
+                if control_score < 80:  # Threshold for compliance
+                    validation_results['findings'].append({
+                        'control': control,
+                        'score': control_score,
+                        'severity': 'HIGH' if control_score < 50 else 'MEDIUM'
+                    })
+            
+            # Calculate overall score
+            if validation_results['control_results']:
+                validation_results['overall_score'] = sum(
+                    validation_results['control_results'].values()
+                ) / len(validation_results['control_results'])
+        
+        return validation_results
+    
+    def validate_control(self, control_name):
+        """Validate specific control implementation"""
+        
+        # Control validation logic based on AWS Config rules
+        control_mappings = {
+            'access_segregation': self.check_iam_separation(),
+            'audit_trails': self.check_cloudtrail_enabled(),
+            'logical_access_controls': self.check_mfa_enabled(),
+            'system_monitoring': self.check_cloudwatch_monitoring(),
+            'data_protection': self.check_encryption_enabled()
+        }
+        
+        return control_mappings.get(control_name, 0)
+    
+    def check_iam_separation(self):
+        """Check IAM role separation"""
+        try:
+            # Check for proper role separation
+            # This would implement actual IAM policy analysis
+            return 85  # Demo score
+        except Exception:
+            return 0
+    
+    def check_cloudtrail_enabled(self):
+        """Check CloudTrail configuration"""
+        try:
+            cloudtrail = boto3.client('cloudtrail')
+            trails = cloudtrail.describe_trails()
+            
+            if trails['trailList']:
+                # Check if trails are properly configured
+                return 90
+            return 0
+        except Exception:
+            return 0
+    
+    def check_mfa_enabled(self):
+        """Check MFA enforcement"""
+        try:
+            # Check MFA policies and enforcement
+            return 75  # Demo score
+        except Exception:
+            return 0
+    
+    def check_cloudwatch_monitoring(self):
+        """Check CloudWatch monitoring setup"""
+        try:
+            cloudwatch = boto3.client('cloudwatch')
+            alarms = cloudwatch.describe_alarms()
+            
+            if alarms['MetricAlarms']:
+                return 80
+            return 0
+        except Exception:
+            return 0
+    
+    def check_encryption_enabled(self):
+        """Check encryption configuration"""
+        try:
+            # Check S3 bucket encryption, EBS encryption, etc.
+            return 85  # Demo score
+        except Exception:
+            return 0
+    
+    def generate_compliance_report(self, validation_results):
+        """Generate compliance report"""
+        
+        report = {
+            'report_id': f"compliance-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+            'generated_at': datetime.now().isoformat(),
+            'framework': validation_results['framework'],
+            'overall_compliance': validation_results['overall_score'],
+            'status': 'COMPLIANT' if validation_results['overall_score'] >= 80 else 'NON_COMPLIANT',
+            'summary': {
+                'total_controls': len(validation_results['control_results']),
+                'passed_controls': len([s for s in validation_results['control_results'].values() if s >= 80]),
+                'failed_controls': len([s for s in validation_results['control_results'].values() if s < 80]),
+                'critical_findings': len([f for f in validation_results['findings'] if f['severity'] == 'HIGH'])
+            },
+            'detailed_results': validation_results
+        }
+        
+        return report
+
+def lambda_handler(event, context):
+    validator = ComplianceValidator()
+    
+    # Validate all frameworks
+    all_results = {}
+    
+    for framework in ComplianceFramework:
+        results = validator.validate_compliance(framework)
+        report = validator.generate_compliance_report(results)
+        all_results[framework.value] = report
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps(all_results, default=str)
+    }
+```
+
 ### 4.2 Thiết lập EventBridge Schedule
 
 1. Mở **EventBridge**
