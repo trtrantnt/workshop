@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>9. Audit Procedures :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/9-quy-trinh-kiem-toan/" selected>English</option>
+                      <option id="en" value="//localhost:62814/9-quy-trinh-kiem-toan/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/9-quy-trinh-kiem-toan/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/9-quy-trinh-kiem-toan/">Tiếng Việt</option>
                     
                   
               
@@ -514,16 +514,16 @@
   <ul>
     <li><a href="#objective">Objective</a></li>
     <li><a href="#audit-architecture">Audit Architecture</a></li>
-    <li><a href="#step-1-aws-audit-manager-setup">Step 1: AWS Audit Manager Setup</a>
+    <li><a href="#step-1-lambda-based-audit-framework-setup">Step 1: Lambda-based Audit Framework Setup</a>
       <ul>
-        <li><a href="#11-enable-aws-audit-manager">1.1 Enable AWS Audit Manager</a></li>
-        <li><a href="#12-create-audit-framework">1.2 Create Audit Framework</a></li>
+        <li><a href="#11-create-audit-lambda-function">1.1 Create Audit Lambda Function</a></li>
+        <li><a href="#12-configure-audit-logic">1.2 Configure Audit Logic</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-create-assessment">Step 2: Create Assessment</a>
+    <li><a href="#step-2-dynamodb-audit-data-storage">Step 2: DynamoDB Audit Data Storage</a>
       <ul>
-        <li><a href="#21-start-new-assessment">2.1 Start New Assessment</a></li>
-        <li><a href="#22-configure-evidence-collection">2.2 Configure Evidence Collection</a></li>
+        <li><a href="#21-configure-audit-data-storage">2.1 Configure Audit Data Storage</a></li>
+        <li><a href="#22-set-up-cloudwatch-monitoring">2.2 Set Up CloudWatch Monitoring</a></li>
       </ul>
     </li>
     <li><a href="#step-3-control-testing-and-evidence-review">Step 3: Control Testing and Evidence Review</a>
@@ -578,93 +578,49 @@
     G[Continuous Monitoring] --&gt; H[Automated Controls Testing]
     H --&gt; I[Exception Reporting]
     I --&gt; J[Management Dashboard]
-</code></pre><h2 id="step-1-aws-audit-manager-setup">Step 1: AWS Audit Manager Setup</h2>
-<h3 id="11-enable-aws-audit-manager">1.1 Enable AWS Audit Manager</h3>
+</code></pre><h2 id="step-1-lambda-based-audit-framework-setup">Step 1: Lambda-based Audit Framework Setup</h2>
+<h3 id="11-create-audit-lambda-function">1.1 Create Audit Lambda Function</h3>
 <ol>
-<li>Open <strong>AWS Audit Manager</strong> in the console</li>
-<li>Click <strong>Get started</strong></li>
+<li>Open <strong>AWS Lambda</strong> console</li>
+<li>Create function: <strong>ComplianceAuditEngine</strong></li>
+<li>Configure EventBridge trigger for daily execution</li>
 </ol>
-<p><img alt="Enable Audit Manager" src="/images/9/enable-audit-manager.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Configure service settings:
-<ul>
-<li><strong>Enable data collection</strong>: Yes</li>
-<li><strong>KMS encryption</strong>: Use default key</li>
-<li><strong>S3 bucket</strong>: Create new bucket for audit evidence</li>
-</ul>
-</li>
-</ol>
-<p><img alt="Audit Manager Settings" src="/images/9/audit-manager-settings.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Click <strong>Complete setup</strong></li>
-</ol>
-<h3 id="12-create-audit-framework">1.2 Create Audit Framework</h3>
+<p><img alt="Create Audit Lambda" src="/images/9/create-audit-lambda.png?featherlight=false&width=90pc"></p>
+<h3 id="12-configure-audit-logic">1.2 Configure Audit Logic</h3>
 <ol>
-<li>Click <strong>Assessment frameworks</strong> in sidebar</li>
-<li>Click <strong>Create custom framework</strong></li>
-</ol>
-<p><img alt="Create Audit Framework" src="/images/9/create-audit-framework.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Configure framework:
+<li>Add environment variables:
 <ul>
-<li><strong>Name</strong>: Identity Governance Audit Framework</li>
-<li><strong>Description</strong>: Comprehensive identity governance audit</li>
-<li><strong>Compliance type</strong>: SOX, SOC2, ISO27001</li>
+<li><strong>AUDIT_TABLE</strong>: RiskAssessments</li>
+<li><strong>SNS_TOPIC</strong>: Audit notification topic</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Framework Configuration" src="/images/9/framework-configuration.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Add control sets for:
-<ul>
-<li><strong>Access Management</strong></li>
-<li><strong>Privilege Governance</strong></li>
-<li><strong>Compliance Monitoring</strong></li>
-</ul>
-</li>
-</ol>
-<p><img alt="Control Sets" src="/images/9/control-sets.png?featherlight=false&width=90pc"></p>
-<h2 id="step-2-create-assessment">Step 2: Create Assessment</h2>
-<h3 id="21-start-new-assessment">2.1 Start New Assessment</h3>
-<ol>
-<li>Click <strong>Assessments</strong> in Audit Manager</li>
-<li>Click <strong>Create assessment</strong></li>
-</ol>
-<p><img alt="Create Assessment" src="/images/9/create-assessment.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Configure assessment:
-<ul>
-<li><strong>Name</strong>: Q1 Identity Governance Audit</li>
-<li><strong>Framework</strong>: Identity Governance Audit Framework</li>
-<li><strong>Scope</strong>: Select AWS accounts and services</li>
-</ul>
-</li>
-</ol>
-<p><img alt="Assessment Configuration" src="/images/9/assessment-configuration.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Assign roles:
-<ul>
-<li><strong>Assessment owner</strong>: Security team lead</li>
-<li><strong>Reviewers</strong>: Compliance team</li>
-</ul>
-</li>
-</ol>
-<p><img alt="Assessment Roles" src="/images/9/assessment-roles.png?featherlight=false&width=90pc"></p>
-<h3 id="22-configure-evidence-collection">2.2 Configure Evidence Collection</h3>
-<ol>
-<li>Set up <strong>automatic evidence collection</strong>:
-<ul>
-<li><strong>AWS Config</strong>: Compliance data</li>
-<li><strong>CloudTrail</strong>: Activity logs</li>
-<li><strong>Security Hub</strong>: Security findings</li>
-</ul>
-</li>
-</ol>
-<p><img alt="Evidence Collection" src="/images/9/evidence-collection.png?featherlight=false&width=90pc"></p>
+<p><img alt="Audit Lambda Config" src="/images/9/audit-lambda-config.png?featherlight=false&width=90pc"></p>
 <ol start="2">
-<li>Configure <strong>manual evidence</strong> upload process</li>
+<li>Upload audit code to check:
+<ul>
+<li><strong>IAM policies compliance</strong></li>
+<li><strong>Access patterns analysis</strong></li>
+<li><strong>Security Hub findings review</strong></li>
+</ul>
+</li>
 </ol>
-<p><img alt="Manual Evidence" src="/images/9/manual-evidence.png?featherlight=false&width=90pc"></p>
+<p><img alt="Audit Lambda Code" src="/images/9/audit-lambda-code.png?featherlight=false&width=90pc"></p>
+<h2 id="step-2-dynamodb-audit-data-storage">Step 2: DynamoDB Audit Data Storage</h2>
+<h3 id="21-configure-audit-data-storage">2.1 Configure Audit Data Storage</h3>
+<ol>
+<li>Use existing <strong>DynamoDB</strong> table: <strong>RiskAssessments</strong></li>
+<li>Lambda function stores audit results</li>
+<li>Configure data retention policies</li>
+</ol>
+<p><img alt="Audit Data Storage" src="/images/9/audit-data-storage.png?featherlight=false&width=90pc"></p>
+<h3 id="22-set-up-cloudwatch-monitoring">2.2 Set Up CloudWatch Monitoring</h3>
+<ol>
+<li>Lambda sends metrics to <strong>CloudWatch</strong></li>
+<li>Configure alarms for audit failures</li>
+<li>Set up <strong>SNS</strong> notifications</li>
+</ol>
+<p><img alt="Audit CloudWatch Monitoring" src="/images/9/audit-cloudwatch-monitoring.png?featherlight=false&width=90pc"></p>
 <h2 id="step-3-control-testing-and-evidence-review">Step 3: Control Testing and Evidence Review</h2>
 <h3 id="31-review-control-evidence">3.1 Review Control Evidence</h3>
 <ol>
@@ -983,19 +939,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

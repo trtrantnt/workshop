@@ -46,24 +46,22 @@ graph TB
 
 ### 1.2 Set Up Daily Checklist Automation
 
-1. Open **AWS Systems Manager**
-2. Click **Documents** in sidebar
-3. Click **Create document**
+1. Open **AWS Lambda** console
+2. Create function: **DailyOperationsChecklist**
+3. Configure EventBridge trigger for daily execution
 
-![Create SSM Document](/images/8/create-ssm-document.png?featherlight=false&width=90pc)
+![Create Daily Operations Lambda](/images/8/create-daily-operations-lambda.png?featherlight=false&width=90pc)
 
-4. Create **Automation document** for daily checks:
-   - **Name**: DailyOperationsChecklist
-   - **Document type**: Automation
+4. Configure Lambda to check:
+   - **Security Hub findings**
+   - **CloudWatch alarms**
+   - **DynamoDB table health**
 
-![SSM Document Details](/images/8/ssm-document-details.png?featherlight=false&width=90pc)
+![Daily Operations Lambda Code](/images/8/daily-operations-lambda-code.png?featherlight=false&width=90pc)
 
-5. Configure automation steps for:
-   - **Security alerts review**
-   - **System health validation**
-   - **Backup status check**
+5. Store results in **DynamoDB** table: **AccessCertifications**
 
-![Automation Steps](/images/8/automation-steps.png?featherlight=false&width=90pc)
+![Store Daily Results](/images/8/store-daily-results.png?featherlight=false&width=90pc)
 
 ## Step 2: Standard Operating Procedures (SOPs)
 

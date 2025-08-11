@@ -12,81 +12,42 @@ Establish a comprehensive risk assessment system to detect, analyze, and priorit
 
 ```mermaid
 graph TB
-    A[Data Sources] --> B[Risk Engine]
-    B --> C[Risk Scoring]
-    C --> D[Risk Classification]
-    D --> E[Risk Prioritization]
-    E --> F[Remediation Recommendations]
-    F --> G[Risk Dashboard]
-    
-    H[Threat Intelligence] --> B
-    I[Compliance Rules] --> B
-    J[Business Context] --> B
+    A[CloudTrail Events] --> B[Lambda Risk Engine]
+    C[IAM Data] --> B
+    B --> D[DynamoDB Risk Data]
+    D --> E[Security Hub Findings]
+    E --> F[CloudWatch Metrics]
+    F --> G[SNS Alerts]
+    D --> H[QuickSight Dashboard]
 ```
 
-## Step 1: AWS Config Setup for Risk Assessment
+## Step 1: Lambda Risk Engine Setup
 
-### 1.1 Enable AWS Config
+### 1.1 Create Risk Assessment Lambda
 
-1. Open **AWS Config** in the console
-2. Click **Get started**
+1. Open **AWS Lambda** in the console
+2. Click **Create function**
+3. Configure:
+   - **Function name**: IdentityRiskEngine
+   - **Runtime**: Python 3.9
+   - **Role**: Create new role with DynamoDB and Security Hub permissions
 
-![Enable AWS Config](/images/6/enable-aws-config.png?featherlight=false&width=90pc)
+![Create Risk Lambda](/images/6/create-risk-lambda.png?featherlight=false&width=90pc)
 
-3. Configure settings:
-   - **Resource types**: All supported resource types
-   - **Amazon S3 bucket**: Create new bucket
-   - **Amazon SNS topic**: Create new topic
+### 1.2 Configure Risk Assessment Logic
 
-![Config Settings](/images/6/config-settings.png?featherlight=false&width=90pc)
+1. Add environment variables:
+   - **RISK_TABLE**: RiskAssessments
+   - **SNS_TOPIC**: Risk alert topic ARN
 
-4. Choose **AWS Config role**: Create new role
-5. Click **Next**
+![Risk Lambda Config](/images/6/risk-lambda-config.png?featherlight=false&width=90pc)
 
-![Config Role](/images/6/config-role.png?featherlight=false&width=90pc)
+2. Upload risk assessment code
+3. Configure EventBridge trigger for daily execution
 
-### 1.2 Add Config Rules
+![Lambda EventBridge Trigger](/images/6/lambda-eventbridge-trigger.png?featherlight=false&width=90pc)
 
-1. Click **Rules** in AWS Config
-2. Click **Add rule**
-
-![Add Config Rule](/images/6/add-config-rule.png?featherlight=false&width=90pc)
-
-3. Add security-related rules:
-   - **iam-user-mfa-enabled**
-   - **root-access-key-check**
-   - **iam-password-policy**
-
-![Security Rules](/images/6/security-rules.png?featherlight=false&width=90pc)
-
-## Step 2: GuardDuty Integration
-
-### 2.1 Enable Amazon GuardDuty
-
-1. Open **Amazon GuardDuty** in the console
-2. Click **Get started**
-
-![Enable GuardDuty](/images/6/enable-guardduty.png?featherlight=false&width=90pc)
-
-3. Review service permissions
-4. Click **Enable GuardDuty**
-
-![GuardDuty Permissions](/images/6/guardduty-permissions.png?featherlight=false&width=90pc)
-
-### 2.2 Configure Threat Intelligence
-
-1. Go to **Settings** in GuardDuty
-2. Click **Threat Intelligence**
-3. Enable **AWS threat intelligence**
-
-![Threat Intelligence](/images/6/threat-intelligence.png?featherlight=false&width=90pc)
-
-4. Configure **Malware Protection**
-5. Enable **S3 Protection**
-
-![Malware Protection](/images/6/malware-protection.png?featherlight=false&width=90pc)
-
-## Step 3: Security Hub Integration
+## Step 2: Security Hub Integration
 
 ### 3.1 Enable AWS Security Hub
 
@@ -118,7 +79,7 @@ graph TB
 
 ![Custom Insights](/images/6/custom-insights.png?featherlight=false&width=90pc)
 
-## Step 4: CloudWatch Dashboard for Risk Monitoring
+## Step 3: CloudWatch Dashboard for Risk Monitoring
 
 ### 4.1 Create Risk Assessment Dashboard
 

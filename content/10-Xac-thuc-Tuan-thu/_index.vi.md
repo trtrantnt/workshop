@@ -283,21 +283,21 @@ def lambda_handler(event, context):
 
 ## Bước 5: Compliance Evidence Collection
 
-### 5.1 Sử dụng AWS Config
+### 5.1 Sử dụng Security Hub Findings
 
-1. Sử dụng **AWS Config** để validate:
+1. Sử dụng **AWS Security Hub** để validate:
    - **IAM password policies**
    - **S3 bucket encryption**
    - **CloudTrail logging**
    - **VPC security groups**
 
-![Config Compliance Rules](/images/10/config-compliance-rules.png)
+![Security Hub Compliance Rules](/images/10/security-hub-compliance-rules.png)
 
 ### 5.2 Automated Evidence Storage
 
-1. Cấu hình Config để lưu compliance evidence vào S3
-2. Thiết lập retention policies
-3. Tạo compliance reports tự động
+1. Cấu hình Security Hub để lưu compliance evidence vào S3
+2. Sử dụng DynamoDB để lưu trữ compliance records
+3. Tạo compliance reports tự động với Lambda
 
 ![Evidence Collection](/images/10/evidence-collection.png)
 

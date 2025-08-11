@@ -86,33 +86,31 @@ graph TB
 
 ![Add Environment Variables](/images/4/add-env-variables.png?featherlight=false&width=90pc)
 
-## Step 3: Step Functions Workflow
+## Step 3: DynamoDB Setup for Certification Data
 
-### 3.1 Create State Machine
+### 3.1 Create DynamoDB Table
 
-1. Open **AWS Step Functions** in the console
-2. Click **Create state machine**
+1. Open **Amazon DynamoDB** in the console
+2. Click **Create table**
 
-![Create State Machine](/images/4/create-state-machine.png?featherlight=false&width=90pc)
+![Create DynamoDB Table](/images/4/create-dynamodb-table.png?featherlight=false&width=90pc)
 
-3. Choose **Write your workflow in code**
-4. Select **Standard** type
+3. Enter table details:
+   - **Table name**: AccessCertifications
+   - **Partition key**: UserId (String)
+   - **Sort key**: CertificationDate (String)
+   - **Billing mode**: On-demand
+4. Click **Create table**
 
-![State Machine Type](/images/4/state-machine-type.png?featherlight=false&width=90pc)
+![DynamoDB Table Details](/images/4/dynamodb-table-details.png?featherlight=false&width=90pc)
 
-5. Enter the workflow definition in JSON format
-6. Name the state machine: **AccessCertificationWorkflow**
+### 3.2 Configure Lambda for DynamoDB Integration
 
-![State Machine Definition](/images/4/state-machine-definition.png?featherlight=false&width=90pc)
+1. Return to Lambda function **AccessCertificationTrigger**
+2. Add DynamoDB permissions to IAM role
+3. Update code to write certification records
 
-### 3.2 Configure IAM Role
-
-1. Create or select an IAM role for Step Functions
-2. Ensure it has permissions to invoke Lambda functions
-
-![Step Functions IAM Role](/images/4/stepfunctions-iam-role.png?featherlight=false&width=90pc)
-
-3. Click **Create state machine**
+![Lambda DynamoDB Integration](/images/4/lambda-dynamodb-integration.png?featherlight=false&width=90pc)
 
 ## Step 4: Connect EventBridge to Lambda
 

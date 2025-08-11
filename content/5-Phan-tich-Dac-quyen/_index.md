@@ -13,14 +13,12 @@ Analyze and monitor privilege usage to detect security risks, excessive permissi
 ```mermaid
 graph TB
     A[CloudTrail Logs] --> B[S3 Data Lake]
-    C[Config Data] --> B
-    D[IAM Data] --> B
-    B --> E[Athena Queries]
-    E --> F[Analytics Engine]
-    F --> G[Risk Scoring]
-    G --> H[QuickSight Dashboard]
-    F --> I[Anomaly Detection]
-    I --> J[Alerts]
+    C[IAM Data] --> B
+    B --> D[Lambda Analytics]
+    D --> E[DynamoDB Results]
+    E --> F[QuickSight Dashboard]
+    D --> G[CloudWatch Metrics]
+    G --> H[SNS Alerts]
 ```
 
 ## Step 1: CloudTrail Setup for Data Collection
@@ -49,54 +47,31 @@ graph TB
 5. Enable **Log file validation**
 6. Click **Create trail**
 
-## Step 2: Amazon Athena Setup
+## Step 2: Lambda Analytics Engine Setup
 
-### 2.1 Create Athena Database
+### 2.1 Create Lambda Function for Analytics
 
-1. Open **Amazon Athena** in the console
-2. Click **Query editor**
-3. Set up query result location if prompted
+1. Open **AWS Lambda** in the console
+2. Create new function: **PrivilegeAnalyticsEngine**
+3. Choose runtime **Python 3.9**
 
-![Athena Query Editor](/images/5/athena-query-editor.png?featherlight=false&width=90pc)
+![Create Analytics Lambda](/images/5/create-analytics-lambda.png?featherlight=false&width=90pc)
 
-4. Create database for privilege analytics:
+### 2.2 Configure Lambda to Read S3 Data
 
-```sql
-CREATE DATABASE privilege_analytics_db;
-```
+1. Add IAM permissions for S3 and DynamoDB
+2. Configure S3 trigger from bucket
+3. Upload analytics code
 
-![Create Database](/images/5/create-database.png?featherlight=false&width=90pc)
+![Lambda S3 Integration](/images/5/lambda-s3-integration.png?featherlight=false&width=90pc)
 
-### 2.2 Create CloudTrail Table
+### 2.3 Process Analytics Data
 
-1. Use the database:
+1. Lambda function processes CloudTrail logs
+2. Calculates risk scores and usage patterns
+3. Stores results in DynamoDB
 
-```sql
-USE privilege_analytics_db;
-```
-
-2. Create table for CloudTrail logs:
-
-![Create CloudTrail Table](/images/5/create-cloudtrail-table.png?featherlight=false&width=90pc)
-
-### 2.3 Run Analytics Queries
-
-1. Query for high-privilege activities:
-
-```sql
-SELECT 
-  useridentity.username,
-  eventname,
-  sourceipaddress,
-  eventtime,
-  COUNT(*) as event_count
-FROM cloudtrail_logs
-WHERE eventname IN ('AssumeRole', 'AttachUserPolicy', 'CreateRole')
-GROUP BY useridentity.username, eventname, sourceipaddress, eventtime
-ORDER BY event_count DESC;
-```
-
-![Analytics Query Results](/images/5/analytics-query-results.png?featherlight=false&width=90pc)
+![Analytics Processing](/images/5/analytics-processing.png?featherlight=false&width=90pc)
 
 ## Step 3: QuickSight Dashboard Setup
 

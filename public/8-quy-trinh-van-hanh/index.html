@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>8. Operational Procedures :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/8-quy-trinh-van-hanh/" selected>English</option>
+                      <option id="en" value="//localhost:62814/8-quy-trinh-van-hanh/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/8-quy-trinh-van-hanh/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/8-quy-trinh-van-hanh/">Tiếng Việt</option>
                     
                   
               
@@ -603,30 +603,25 @@
 <p><img alt="Operations Dashboard Widgets" src="/images/8/operations-dashboard-widgets.png?featherlight=false&width=90pc"></p>
 <h3 id="12-set-up-daily-checklist-automation">1.2 Set Up Daily Checklist Automation</h3>
 <ol>
-<li>Open <strong>AWS Systems Manager</strong></li>
-<li>Click <strong>Documents</strong> in sidebar</li>
-<li>Click <strong>Create document</strong></li>
+<li>Open <strong>AWS Lambda</strong> console</li>
+<li>Create function: <strong>DailyOperationsChecklist</strong></li>
+<li>Configure EventBridge trigger for daily execution</li>
 </ol>
-<p><img alt="Create SSM Document" src="/images/8/create-ssm-document.png?featherlight=false&width=90pc"></p>
+<p><img alt="Create Daily Operations Lambda" src="/images/8/create-daily-operations-lambda.png?featherlight=false&width=90pc"></p>
 <ol start="4">
-<li>Create <strong>Automation document</strong> for daily checks:
+<li>Configure Lambda to check:
 <ul>
-<li><strong>Name</strong>: DailyOperationsChecklist</li>
-<li><strong>Document type</strong>: Automation</li>
+<li><strong>Security Hub findings</strong></li>
+<li><strong>CloudWatch alarms</strong></li>
+<li><strong>DynamoDB table health</strong></li>
 </ul>
 </li>
 </ol>
-<p><img alt="SSM Document Details" src="/images/8/ssm-document-details.png?featherlight=false&width=90pc"></p>
+<p><img alt="Daily Operations Lambda Code" src="/images/8/daily-operations-lambda-code.png?featherlight=false&width=90pc"></p>
 <ol start="5">
-<li>Configure automation steps for:
-<ul>
-<li><strong>Security alerts review</strong></li>
-<li><strong>System health validation</strong></li>
-<li><strong>Backup status check</strong></li>
-</ul>
-</li>
+<li>Store results in <strong>DynamoDB</strong> table: <strong>AccessCertifications</strong></li>
 </ol>
-<p><img alt="Automation Steps" src="/images/8/automation-steps.png?featherlight=false&width=90pc"></p>
+<p><img alt="Store Daily Results" src="/images/8/store-daily-results.png?featherlight=false&width=90pc"></p>
 <h2 id="step-2-standard-operating-procedures-sops">Step 2: Standard Operating Procedures (SOPs)</h2>
 <h3 id="21-create-sop-documentation-in-wiki">2.1 Create SOP Documentation in Wiki</h3>
 <ol>
@@ -982,19 +977,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -23,79 +23,48 @@ graph TB
     I --> J[Management Dashboard]
 ```
 
-## Step 1: AWS Audit Manager Setup
+## Step 1: Lambda-based Audit Framework Setup
 
-### 1.1 Enable AWS Audit Manager
+### 1.1 Create Audit Lambda Function
 
-1. Open **AWS Audit Manager** in the console
-2. Click **Get started**
+1. Open **AWS Lambda** console
+2. Create function: **ComplianceAuditEngine**
+3. Configure EventBridge trigger for daily execution
 
-![Enable Audit Manager](/images/9/enable-audit-manager.png?featherlight=false&width=90pc)
+![Create Audit Lambda](/images/9/create-audit-lambda.png?featherlight=false&width=90pc)
 
-3. Configure service settings:
-   - **Enable data collection**: Yes
-   - **KMS encryption**: Use default key
-   - **S3 bucket**: Create new bucket for audit evidence
+### 1.2 Configure Audit Logic
 
-![Audit Manager Settings](/images/9/audit-manager-settings.png?featherlight=false&width=90pc)
+1. Add environment variables:
+   - **AUDIT_TABLE**: RiskAssessments
+   - **SNS_TOPIC**: Audit notification topic
 
-4. Click **Complete setup**
+![Audit Lambda Config](/images/9/audit-lambda-config.png?featherlight=false&width=90pc)
 
-### 1.2 Create Audit Framework
+2. Upload audit code to check:
+   - **IAM policies compliance**
+   - **Access patterns analysis**
+   - **Security Hub findings review**
 
-1. Click **Assessment frameworks** in sidebar
-2. Click **Create custom framework**
+![Audit Lambda Code](/images/9/audit-lambda-code.png?featherlight=false&width=90pc)
 
-![Create Audit Framework](/images/9/create-audit-framework.png?featherlight=false&width=90pc)
+## Step 2: DynamoDB Audit Data Storage
 
-3. Configure framework:
-   - **Name**: Identity Governance Audit Framework
-   - **Description**: Comprehensive identity governance audit
-   - **Compliance type**: SOX, SOC2, ISO27001
+### 2.1 Configure Audit Data Storage
 
-![Framework Configuration](/images/9/framework-configuration.png?featherlight=false&width=90pc)
+1. Use existing **DynamoDB** table: **RiskAssessments**
+2. Lambda function stores audit results
+3. Configure data retention policies
 
-4. Add control sets for:
-   - **Access Management**
-   - **Privilege Governance**
-   - **Compliance Monitoring**
+![Audit Data Storage](/images/9/audit-data-storage.png?featherlight=false&width=90pc)
 
-![Control Sets](/images/9/control-sets.png?featherlight=false&width=90pc)
+### 2.2 Set Up CloudWatch Monitoring
 
-## Step 2: Create Assessment
+1. Lambda sends metrics to **CloudWatch**
+2. Configure alarms for audit failures
+3. Set up **SNS** notifications
 
-### 2.1 Start New Assessment
-
-1. Click **Assessments** in Audit Manager
-2. Click **Create assessment**
-
-![Create Assessment](/images/9/create-assessment.png?featherlight=false&width=90pc)
-
-3. Configure assessment:
-   - **Name**: Q1 Identity Governance Audit
-   - **Framework**: Identity Governance Audit Framework
-   - **Scope**: Select AWS accounts and services
-
-![Assessment Configuration](/images/9/assessment-configuration.png?featherlight=false&width=90pc)
-
-4. Assign roles:
-   - **Assessment owner**: Security team lead
-   - **Reviewers**: Compliance team
-
-![Assessment Roles](/images/9/assessment-roles.png?featherlight=false&width=90pc)
-
-### 2.2 Configure Evidence Collection
-
-1. Set up **automatic evidence collection**:
-   - **AWS Config**: Compliance data
-   - **CloudTrail**: Activity logs
-   - **Security Hub**: Security findings
-
-![Evidence Collection](/images/9/evidence-collection.png?featherlight=false&width=90pc)
-
-2. Configure **manual evidence** upload process
-
-![Manual Evidence](/images/9/manual-evidence.png?featherlight=false&width=90pc)
+![Audit CloudWatch Monitoring](/images/9/audit-cloudwatch-monitoring.png?featherlight=false&width=90pc)
 
 ## Step 3: Control Testing and Evidence Review
 

@@ -20,18 +20,19 @@ Workshop này sẽ hướng dẫn bạn triển khai một hệ thống Identity
 
 ![Architecture Diagram](/images/architecture-diagram.png)
 
-## AWS Services Sử dụng
+## AWS Services Sử dụng (Kiến trúc Tối giản)
 
-- **AWS IAM Identity Center** - Centralized access management
-- **AWS IAM** - Identity and access management
-- **AWS CloudTrail** - Audit logging
-- **AWS Config** - Compliance monitoring
-- **AWS Lambda** - Automation functions
-- **Amazon EventBridge** - Event-driven automation
-- **Amazon S3** - Data storage
-- **Amazon Athena** - Analytics queries
-- **Amazon QuickSight** - Reporting dashboard
-- **AWS Systems Manager** - Operational management
+- **AWS IAM Identity Center** - Quản lý truy cập tập trung
+- **AWS IAM** - Quản lý danh tính và truy cập
+- **AWS Lambda** - Hàm tự động hóa và xử lý
+- **Amazon EventBridge** - Điều phối sự kiện
+- **Amazon DynamoDB** - Lưu trữ dữ liệu certification
+- **Amazon S3** - Lưu trữ log và data lake
+- **AWS CloudTrail** - Ghi log kiểm toán
+- **Amazon CloudWatch** - Giám sát và metrics
+- **Amazon SNS** - Thông báo và cảnh báo
+- **Amazon QuickSight** - Dashboard phân tích
+- **AWS Security Hub** - Đánh giá rủi ro và tuân thủ
 
 ## Lợi ích của Identity Governance
 

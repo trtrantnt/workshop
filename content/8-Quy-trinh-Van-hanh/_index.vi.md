@@ -39,7 +39,7 @@ class DailyOperations:
         self.cloudwatch = boto3.client('cloudwatch')
         self.sns = boto3.client('sns')
         self.dynamodb = boto3.resource('dynamodb')
-        self.operations_table = self.dynamodb.Table('OperationsLog')
+        self.operations_table = self.dynamodb.Table('AccessCertifications')
     
     def execute_daily_checklist(self):
         """Execute daily operational checklist"""

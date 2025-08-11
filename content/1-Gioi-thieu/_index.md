@@ -21,18 +21,19 @@ This workshop will guide you through implementing a comprehensive Identity Gover
 
 ![Architecture Diagram](/images/architecture-diagram.png)
 
-## AWS Services Used
+## AWS Services Used (Minimal Architecture)
 
 - **AWS IAM Identity Center** - Centralized access management
 - **AWS IAM** - Identity and access management
+- **AWS Lambda** - Automation and processing functions
+- **Amazon EventBridge** - Event-driven orchestration
+- **Amazon DynamoDB** - Data storage for certifications
+- **Amazon S3** - Log storage and data lake
 - **AWS CloudTrail** - Audit logging
-- **AWS Config** - Compliance monitoring
-- **AWS Lambda** - Automation functions
-- **Amazon EventBridge** - Event-driven automation
-- **Amazon S3** - Data storage
-- **Amazon Athena** - Analytics queries
-- **Amazon QuickSight** - Reporting dashboard
-- **AWS Systems Manager** - Operational management
+- **Amazon CloudWatch** - Monitoring and metrics
+- **Amazon SNS** - Notifications and alerts
+- **Amazon QuickSight** - Analytics dashboard
+- **AWS Security Hub** - Risk assessment and compliance
 
 ## Benefits of Identity Governance
 

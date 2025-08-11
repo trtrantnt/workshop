@@ -235,13 +235,14 @@ def lambda_handler(event, context):
 
 ![Anomaly Detection](/images/7/anomaly-detection.png)
 
-### 4.2 GuardDuty Integration
+### 4.2 Security Hub Integration
 
-1. Mở **GuardDuty** console
+1. Mở **Security Hub** console
 2. Cấu hình findings export đến S3
-3. Thiết lập EventBridge rule cho GuardDuty findings
+3. Thiết lập EventBridge rule cho Security Hub findings
+4. Tích hợp với Lambda monitoring function
 
-![GuardDuty Integration](/images/7/guardduty-integration.png)
+![Security Hub Integration](/images/7/security-hub-integration.png)
 
 ## Kết quả Mong đợi
 

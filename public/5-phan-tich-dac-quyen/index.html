@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>5. Privilege Analytics :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/5-phan-tich-dac-quyen/" selected>English</option>
+                      <option id="en" value="//localhost:62814/5-phan-tich-dac-quyen/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/5-phan-tich-dac-quyen/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/5-phan-tich-dac-quyen/">Tiếng Việt</option>
                     
                   
               
@@ -519,11 +519,11 @@
         <li><a href="#11-create-cloudtrail">1.1 Create CloudTrail</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-amazon-athena-setup">Step 2: Amazon Athena Setup</a>
+    <li><a href="#step-2-lambda-analytics-engine-setup">Step 2: Lambda Analytics Engine Setup</a>
       <ul>
-        <li><a href="#21-create-athena-database">2.1 Create Athena Database</a></li>
-        <li><a href="#22-create-cloudtrail-table">2.2 Create CloudTrail Table</a></li>
-        <li><a href="#23-run-analytics-queries">2.3 Run Analytics Queries</a></li>
+        <li><a href="#21-create-lambda-function-for-analytics">2.1 Create Lambda Function for Analytics</a></li>
+        <li><a href="#22-configure-lambda-to-read-s3-data">2.2 Configure Lambda to Read S3 Data</a></li>
+        <li><a href="#23-process-analytics-data">2.3 Process Analytics Data</a></li>
       </ul>
     </li>
     <li><a href="#step-3-quicksight-dashboard-setup">Step 3: QuickSight Dashboard Setup</a>
@@ -571,14 +571,12 @@
 <h2 id="analytics-architecture">Analytics Architecture</h2>
 <pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
     A[CloudTrail Logs] --&gt; B[S3 Data Lake]
-    C[Config Data] --&gt; B
-    D[IAM Data] --&gt; B
-    B --&gt; E[Athena Queries]
-    E --&gt; F[Analytics Engine]
-    F --&gt; G[Risk Scoring]
-    G --&gt; H[QuickSight Dashboard]
-    F --&gt; I[Anomaly Detection]
-    I --&gt; J[Alerts]
+    C[IAM Data] --&gt; B
+    B --&gt; D[Lambda Analytics]
+    D --&gt; E[DynamoDB Results]
+    E --&gt; F[QuickSight Dashboard]
+    D --&gt; G[CloudWatch Metrics]
+    G --&gt; H[SNS Alerts]
 </code></pre><h2 id="step-1-cloudtrail-setup-for-data-collection">Step 1: CloudTrail Setup for Data Collection</h2>
 <h3 id="11-create-cloudtrail">1.1 Create CloudTrail</h3>
 <ol>
@@ -610,43 +608,28 @@
 <li>Enable <strong>Log file validation</strong></li>
 <li>Click <strong>Create trail</strong></li>
 </ol>
-<h2 id="step-2-amazon-athena-setup">Step 2: Amazon Athena Setup</h2>
-<h3 id="21-create-athena-database">2.1 Create Athena Database</h3>
+<h2 id="step-2-lambda-analytics-engine-setup">Step 2: Lambda Analytics Engine Setup</h2>
+<h3 id="21-create-lambda-function-for-analytics">2.1 Create Lambda Function for Analytics</h3>
 <ol>
-<li>Open <strong>Amazon Athena</strong> in the console</li>
-<li>Click <strong>Query editor</strong></li>
-<li>Set up query result location if prompted</li>
+<li>Open <strong>AWS Lambda</strong> in the console</li>
+<li>Create new function: <strong>PrivilegeAnalyticsEngine</strong></li>
+<li>Choose runtime <strong>Python 3.9</strong></li>
 </ol>
-<p><img alt="Athena Query Editor" src="/images/5/athena-query-editor.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Create database for privilege analytics:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> privilege_analytics_db;
-</span></span></code></pre></div><p><img alt="Create Database" src="/images/5/create-database.png?featherlight=false&width=90pc"></p>
-<h3 id="22-create-cloudtrail-table">2.2 Create CloudTrail Table</h3>
+<p><img alt="Create Analytics Lambda" src="/images/5/create-analytics-lambda.png?featherlight=false&width=90pc"></p>
+<h3 id="22-configure-lambda-to-read-s3-data">2.2 Configure Lambda to Read S3 Data</h3>
 <ol>
-<li>Use the database:</li>
+<li>Add IAM permissions for S3 and DynamoDB</li>
+<li>Configure S3 trigger from bucket</li>
+<li>Upload analytics code</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>USE privilege_analytics_db;
-</span></span></code></pre></div><ol start="2">
-<li>Create table for CloudTrail logs:</li>
-</ol>
-<p><img alt="Create CloudTrail Table" src="/images/5/create-cloudtrail-table.png?featherlight=false&width=90pc"></p>
-<h3 id="23-run-analytics-queries">2.3 Run Analytics Queries</h3>
+<p><img alt="Lambda S3 Integration" src="/images/5/lambda-s3-integration.png?featherlight=false&width=90pc"></p>
+<h3 id="23-process-analytics-data">2.3 Process Analytics Data</h3>
 <ol>
-<li>Query for high-privilege activities:</li>
+<li>Lambda function processes CloudTrail logs</li>
+<li>Calculates risk scores and usage patterns</li>
+<li>Stores results in DynamoDB</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
-</span></span><span style="display:flex;"><span>  useridentity.username,
-</span></span><span style="display:flex;"><span>  eventname,
-</span></span><span style="display:flex;"><span>  sourceipaddress,
-</span></span><span style="display:flex;"><span>  eventtime,
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">as</span> event_count
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cloudtrail_logs
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> eventname <span style="color:#66d9ef">IN</span> (<span style="color:#e6db74">&#39;AssumeRole&#39;</span>, <span style="color:#e6db74">&#39;AttachUserPolicy&#39;</span>, <span style="color:#e6db74">&#39;CreateRole&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> useridentity.username, eventname, sourceipaddress, eventtime
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> event_count <span style="color:#66d9ef">DESC</span>;
-</span></span></code></pre></div><p><img alt="Analytics Query Results" src="/images/5/analytics-query-results.png?featherlight=false&width=90pc"></p>
+<p><img alt="Analytics Processing" src="/images/5/analytics-processing.png?featherlight=false&width=90pc"></p>
 <h2 id="step-3-quicksight-dashboard-setup">Step 3: QuickSight Dashboard Setup</h2>
 <h3 id="31-create-quicksight-account">3.1 Create QuickSight Account</h3>
 <ol>
@@ -956,19 +939,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

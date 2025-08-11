@@ -13,8 +13,8 @@ Set up comprehensive monitoring system to continuously track identity governance
 ```mermaid
 graph TB
     A[CloudTrail] --> B[CloudWatch Logs]
-    C[Config] --> B
-    D[GuardDuty] --> B
+    C[Lambda Functions] --> B
+    D[Security Hub] --> B
     B --> E[CloudWatch Metrics]
     E --> F[CloudWatch Alarms]
     F --> G[SNS Notifications]

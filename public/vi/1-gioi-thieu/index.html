@@ -12,21 +12,21 @@
     <title>1. Giới thiệu :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -514,7 +514,7 @@
   <ul>
     <li><a href="#tổng-quan-workshop">Tổng quan Workshop</a></li>
     <li><a href="#kiến-trúc-tổng-thể">Kiến trúc Tổng thể</a></li>
-    <li><a href="#aws-services-sử-dụng">AWS Services Sử dụng</a></li>
+    <li><a href="#aws-services-sử-dụng-kiến-trúc-tối-giản">AWS Services Sử dụng (Kiến trúc Tối giản)</a></li>
     <li><a href="#lợi-ích-của-identity-governance">Lợi ích của Identity Governance</a>
       <ul>
         <li><a href="#1-bảo-mật-nâng-cao">1. Bảo mật nâng cao</a></li>
@@ -562,18 +562,19 @@
 </ul>
 <h2 id="kiến-trúc-tổng-thể">Kiến trúc Tổng thể</h2>
 <p><img alt="Architecture Diagram" src="/images/architecture-diagram.png"></p>
-<h2 id="aws-services-sử-dụng">AWS Services Sử dụng</h2>
+<h2 id="aws-services-sử-dụng-kiến-trúc-tối-giản">AWS Services Sử dụng (Kiến trúc Tối giản)</h2>
 <ul>
-<li><strong>AWS IAM Identity Center</strong> - Centralized access management</li>
-<li><strong>AWS IAM</strong> - Identity and access management</li>
-<li><strong>AWS CloudTrail</strong> - Audit logging</li>
-<li><strong>AWS Config</strong> - Compliance monitoring</li>
-<li><strong>AWS Lambda</strong> - Automation functions</li>
-<li><strong>Amazon EventBridge</strong> - Event-driven automation</li>
-<li><strong>Amazon S3</strong> - Data storage</li>
-<li><strong>Amazon Athena</strong> - Analytics queries</li>
-<li><strong>Amazon QuickSight</strong> - Reporting dashboard</li>
-<li><strong>AWS Systems Manager</strong> - Operational management</li>
+<li><strong>AWS IAM Identity Center</strong> - Quản lý truy cập tập trung</li>
+<li><strong>AWS IAM</strong> - Quản lý danh tính và truy cập</li>
+<li><strong>AWS Lambda</strong> - Hàm tự động hóa và xử lý</li>
+<li><strong>Amazon EventBridge</strong> - Điều phối sự kiện</li>
+<li><strong>Amazon DynamoDB</strong> - Lưu trữ dữ liệu certification</li>
+<li><strong>Amazon S3</strong> - Lưu trữ log và data lake</li>
+<li><strong>AWS CloudTrail</strong> - Ghi log kiểm toán</li>
+<li><strong>Amazon CloudWatch</strong> - Giám sát và metrics</li>
+<li><strong>Amazon SNS</strong> - Thông báo và cảnh báo</li>
+<li><strong>Amazon QuickSight</strong> - Dashboard phân tích</li>
+<li><strong>AWS Security Hub</strong> - Đánh giá rủi ro và tuân thủ</li>
 </ul>
 <h2 id="lợi-ích-của-identity-governance">Lợi ích của Identity Governance</h2>
 <h3 id="1-bảo-mật-nâng-cao">1. Bảo mật nâng cao</h3>
@@ -833,19 +834,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

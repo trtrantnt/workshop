@@ -4,99 +4,206 @@ chapter: false
 weight: 2
 ---
 
-## Prerequisites
-
-### 1. AWS Account
-- AWS Account with Administrator privileges
-- Permission to create and manage IAM users, groups, and roles
-- Permission to use IAM Identity Center
-
-### 2. Required Knowledge
-- Basic understanding of AWS IAM
-- Experience with IAM users, groups, and policies
-- Knowledge of compliance frameworks (SOX, SOC2, ISO27001)
-
-### 3. Required Access
-- Web browser (Chrome, Firefox, Safari, or Edge)
-- Stable internet connection
-- AWS Console access
-- Administrative permissions in AWS account
-
 ## Environment Setup
 
-### 1. Access AWS Console
+### 1. Create S3 Buckets for Data Storage
 
-1. Open your web browser and navigate to [AWS Console](https://console.aws.amazon.com/)
-2. Sign in with your AWS account credentials
-3. Ensure you have Administrator privileges
-
-![AWS Console Login](images/aws-console-login.png)
-
-### 2. Verify Account Permissions
-
-1. In the AWS Console, click on your account name in the top-right corner
-2. Select **My Account** to view account details
-3. Verify you have access to:
-   - AWS IAM service
-   - IAM Identity Center
-   - Administrative permissions
-
-![Account Verification](images/account-verification.png)
-
-### 3. Create S3 Buckets for Data Storage
-
-1. Navigate to **S3** service in the AWS Console
+1. Navigate to **Amazon S3** service in the AWS Console
 2. Click **Create bucket**
-3. Create first bucket:
-   - **Bucket name**: `privilege-analytics-[YOUR-ACCOUNT-ID]`
-   - **Region**: Select your preferred region
-   - Keep default settings
-   - Click **Create bucket**
 
-![S3 Bucket Creation 1](images/s3-bucket-analytics.png)
+![Navigate to S3](/images/2/navigate-to-s3.png?featherlight=false&width=90pc)
 
-4. Create second bucket:
-   - **Bucket name**: `compliance-reports-[YOUR-ACCOUNT-ID]`
-   - **Region**: Same as first bucket
-   - Keep default settings
-   - Click **Create bucket**
+3. Create first bucket for analytics data:
+   - **Bucket name**: `identity-governance-analytics-[YOUR-ACCOUNT-ID]`
+   - **AWS Region**: Select your preferred region (e.g., us-east-1)
+   - **Object Ownership**: ACLs disabled (recommended)
+   - **Block Public Access settings**: Keep all blocked (recommended)
+   - **Bucket Versioning**: Enable
+   - **Default encryption**: Server-side encryption with Amazon S3 managed keys (SSE-S3)
+   - **Bucket Key**: Enable
 
-![S3 Bucket Creation 2](images/s3-bucket-compliance.png)
+![S3 Analytics Bucket Configuration](/images/2/s3-analytics-bucket-config.png?featherlight=false&width=90pc)
+
+4. Click **Create bucket**
+
+![S3 Analytics Bucket Created](/images/2/s3-analytics-bucket-created.png?featherlight=false&width=90pc)
+
+5. Create second bucket for compliance reports:
+   - **Bucket name**: `identity-governance-reports-[YOUR-ACCOUNT-ID]`
+   - **AWS Region**: Same as first bucket
+   - **Object Ownership**: ACLs disabled (recommended)
+   - **Block Public Access settings**: Keep all blocked (recommended)
+   - **Bucket Versioning**: Enable
+   - **Default encryption**: Server-side encryption with Amazon S3 managed keys (SSE-S3)
+   - **Bucket Key**: Enable
+   - **Object Lock**: Enable for compliance retention
+
+![S3 Reports Bucket Configuration](/images/2/s3-reports-bucket-config.png?featherlight=false&width=90pc)
+
+6. Click **Create bucket**
+
+![S3 Reports Bucket Created](/images/2/s3-reports-bucket-created.png?featherlight=false&width=90pc)
+
+7. Verify both buckets are created successfully:
+
+![S3 Buckets List](/images/2/s3-buckets-list.png?featherlight=false&width=90pc)
 
 ## Infrastructure Preparation
 
 ### 1. Enable AWS CloudTrail
 
-1. Navigate to **CloudTrail** service
+1. Navigate to **CloudTrail** service in AWS Console
 2. Click **Create trail**
-3. Configure trail settings:
+
+![Open CloudTrail Console](/images/2/open-cloudtrail-console.png?featherlight=false&width=90pc)
+
+#### Step 1: General details
+
+3. Enter basic information:
    - **Trail name**: `IdentityGovernanceTrail`
-   - **S3 bucket**: Select the `privilege-analytics-[YOUR-ACCOUNT-ID]` bucket
-   - **Log file prefix**: `cloudtrail-logs/`
-4. Click **Create trail**
+   - **Enable for all accounts in my organization**: Leave unchecked
 
-![CloudTrail Setup](images/cloudtrail-setup.png)
+![CloudTrail General Details](/images/2/cloudtrail-general-details.png?featherlight=false&width=90pc)
 
-### 2. Enable AWS Config
+#### Step 2: S3 bucket configuration
 
-1. Navigate to **AWS Config** service
-2. Click **Get started**
-3. Configure settings:
-   - **Resource types**: Select **All resources**
-   - **S3 bucket**: Create new bucket or use existing
-   - **SNS topic**: Create new topic
-4. Click **Next** and **Confirm**
+4. Configure S3 storage:
+   - **Create new S3 bucket**: Select this option (LEAVE BLANK - DO NOT select "Use existing S3 bucket")
+   - **S3 bucket name**: CloudTrail will auto-generate name (e.g., aws-cloudtrail-logs-123456789012-abc12345)
+   - **Log file prefix**: `cloudtrail-logs/` (optional)
 
-![Config Setup](images/config-setup.png)
+![CloudTrail S3 Configuration](/images/2/cloudtrail-s3-config.png?featherlight=false&width=90pc)
 
-### 3. Enable Amazon GuardDuty
+5. Configure security settings:
+   - **Log file SSE-KMS encryption**: Unchecked (keep default)
+   - **Log file validation**: Checked (recommended)
 
-1. Navigate to **GuardDuty** service
-2. Click **Get Started**
-3. Click **Enable GuardDuty**
-4. Review the service permissions and click **Enable**
+![CloudTrail Security Settings](/images/2/cloudtrail-security-settings.png?featherlight=false&width=90pc)
 
-![GuardDuty Setup](images/guardduty-setup.png)
+#### Step 3: CloudWatch Logs (Optional)
+
+6. CloudWatch Logs configuration:
+   - **CloudWatch Logs**: Unchecked (skip for now)
+
+![CloudTrail CloudWatch Logs](/images/2/cloudtrail-cloudwatch-logs.png?featherlight=false&width=90pc)
+
+7. Click **Next**
+
+#### Step 4: Choose log events
+
+8. Select event types to log:
+   - **Management events**: Checked
+     - **Read**: Checked
+     - **Write**: Checked
+   - **Data events**: Unchecked (skip)
+   - **Insight events**: Unchecked (skip)
+
+![CloudTrail Event Types](/images/2/cloudtrail-event-types.png?featherlight=false&width=90pc)
+
+9. Click **Next**
+
+#### Step 5: Review and create
+
+10. Review configuration:
+    - Confirm trail name
+    - Confirm new S3 bucket will be created
+    - Confirm management events are enabled
+
+![CloudTrail Review](/images/2/cloudtrail-review.png?featherlight=false&width=90pc)
+
+11. Click **Create trail**
+
+![CloudTrail Created Successfully](/images/2/cloudtrail-created-success.png?featherlight=false&width=90pc)
+
+**IMPORTANT**: 
+- **NEVER** select the `identity-governance-analytics` bucket or any bucket you created before
+- **ALWAYS** choose "Create new S3 bucket" to let CloudTrail create its own bucket
+- CloudTrail will automatically configure the correct bucket policy, avoiding `InsufficientS3BucketPolicyException` error
+
+![Choose Create New S3 Bucket](/images/2/cloudtrail-create-new-bucket.png?featherlight=false&width=90pc)
+
+### 2. Enable AWS Security Hub
+
+1. Navigate to **AWS Security Hub** service in AWS Console
+2. You'll see the **Security Hub Onboard** page
+
+![Security Hub Onboard Page](/images/2/security-hub-onboard.png?featherlight=false&width=90pc)
+
+#### Step 1: Configure Security Hub
+
+3. In the **Configure Security Hub** section:
+   - Read information about Service Linked Roles (SLRs)
+   - Keep default settings
+
+![Configure Security Hub](/images/2/configure-security-hub.png?featherlight=false&width=90pc)
+
+#### Step 2: Delegated Administrator Account
+
+4. In the **Delegated administrator account** section:
+   - Choose **Do not select an account** (for single account setup)
+   - Or choose **Set the administrator later**
+
+![Delegated Administrator](/images/2/delegated-administrator.png?featherlight=false&width=90pc)
+
+#### Step 3: Account Enablement
+
+5. In the **Account enablement** section:
+   - ☑️ **Enable Security Hub for my account** (keep checked)
+
+![Account Enablement](/images/2/account-enablement.png?featherlight=false&width=90pc)
+
+#### Step 4: Delegated Administrator Policy
+
+6. In the **Delegated administrator policy** section:
+   - Read policy details
+   - Keep default settings
+
+![Delegated Administrator Policy](/images/2/delegated-admin-policy.png?featherlight=false&width=90pc)
+
+7. Click **Onboard** at the bottom of the page
+
+![Click Onboard Button](/images/2/click-onboard-button.png?featherlight=false&width=90pc)
+
+#### Step 5: Verify successful activation
+
+8. After successful onboarding, you'll see the Security Hub dashboard:
+   - **Security score** displayed
+   - **Findings** start being collected
+   - **Standards** automatically enabled
+
+![Security Hub Dashboard](/images/2/security-hub-dashboard-active.png?featherlight=false&width=90pc)
+
+### 3. Create DynamoDB Tables
+
+1. Navigate to **DynamoDB** service
+2. Click **Create table**
+3. Create first table:
+   - **Table name**: `AccessCertifications`
+   - **Partition key**: `UserId` (String)
+   - **Sort key**: `CertificationDate` (String)
+   - **Billing mode**: On-demand
+4. Click **Create table**
+
+![DynamoDB Table 1](images/dynamodb-certifications.png)
+
+5. Create second table:
+   - **Table name**: `RiskAssessments`
+   - **Partition key**: `AssessmentId` (String)
+   - **Billing mode**: On-demand
+6. Click **Create table**
+
+![DynamoDB Table 2](images/dynamodb-risk-assessments.png)
+
+## Verification
+
+### Check Enabled Services
+
+1. **CloudTrail**: Go to CloudTrail console, confirm trail is created and active
+2. **S3**: Go to S3 console, confirm 3 buckets created (2 your buckets + 1 CloudTrail bucket)
+3. **Security Hub**: Go to Security Hub console, confirm service is enabled with security score
+4. **DynamoDB**: Go to DynamoDB console, confirm 2 tables created
+
+![Services Verification](images/services-verification.png)
 
 ## Expected Results
 

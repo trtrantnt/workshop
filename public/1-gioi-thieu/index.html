@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>1. Introduction :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/1-gioi-thieu/" selected>English</option>
+                      <option id="en" value="//localhost:62814/1-gioi-thieu/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/1-gioi-thieu/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/1-gioi-thieu/">Tiếng Việt</option>
                     
                   
               
@@ -514,7 +514,7 @@
   <ul>
     <li><a href="#workshop-overview">Workshop Overview</a></li>
     <li><a href="#overall-architecture">Overall Architecture</a></li>
-    <li><a href="#aws-services-used">AWS Services Used</a></li>
+    <li><a href="#aws-services-used-minimal-architecture">AWS Services Used (Minimal Architecture)</a></li>
     <li><a href="#benefits-of-identity-governance">Benefits of Identity Governance</a>
       <ul>
         <li><a href="#1-enhanced-security">1. Enhanced Security</a></li>
@@ -563,18 +563,19 @@
 </ul>
 <h2 id="overall-architecture">Overall Architecture</h2>
 <p><img alt="Architecture Diagram" src="/images/architecture-diagram.png"></p>
-<h2 id="aws-services-used">AWS Services Used</h2>
+<h2 id="aws-services-used-minimal-architecture">AWS Services Used (Minimal Architecture)</h2>
 <ul>
 <li><strong>AWS IAM Identity Center</strong> - Centralized access management</li>
 <li><strong>AWS IAM</strong> - Identity and access management</li>
+<li><strong>AWS Lambda</strong> - Automation and processing functions</li>
+<li><strong>Amazon EventBridge</strong> - Event-driven orchestration</li>
+<li><strong>Amazon DynamoDB</strong> - Data storage for certifications</li>
+<li><strong>Amazon S3</strong> - Log storage and data lake</li>
 <li><strong>AWS CloudTrail</strong> - Audit logging</li>
-<li><strong>AWS Config</strong> - Compliance monitoring</li>
-<li><strong>AWS Lambda</strong> - Automation functions</li>
-<li><strong>Amazon EventBridge</strong> - Event-driven automation</li>
-<li><strong>Amazon S3</strong> - Data storage</li>
-<li><strong>Amazon Athena</strong> - Analytics queries</li>
-<li><strong>Amazon QuickSight</strong> - Reporting dashboard</li>
-<li><strong>AWS Systems Manager</strong> - Operational management</li>
+<li><strong>Amazon CloudWatch</strong> - Monitoring and metrics</li>
+<li><strong>Amazon SNS</strong> - Notifications and alerts</li>
+<li><strong>Amazon QuickSight</strong> - Analytics dashboard</li>
+<li><strong>AWS Security Hub</strong> - Risk assessment and compliance</li>
 </ul>
 <h2 id="benefits-of-identity-governance">Benefits of Identity Governance</h2>
 <h3 id="1-enhanced-security">1. Enhanced Security</h3>
@@ -836,19 +837,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

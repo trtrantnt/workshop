@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>10. Compliance Validation :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/10-xac-thuc-tuan-thu/" selected>English</option>
+                      <option id="en" value="//localhost:62814/10-xac-thuc-tuan-thu/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/10-xac-thuc-tuan-thu/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/10-xac-thuc-tuan-thu/">Tiếng Việt</option>
                     
                   
               
@@ -713,7 +713,7 @@
 <h2 id="step-4-compliance-validation-testing">Step 4: Compliance Validation Testing</h2>
 <h3 id="41-test-compliance-controls">4.1 Test Compliance Controls</h3>
 <ol>
-<li>Use <strong>AWS Config</strong> to validate:
+<li>Use <strong>Security Hub</strong> findings to validate:
 <ul>
 <li><strong>IAM password policies</strong></li>
 <li><strong>MFA requirements</strong></li>
@@ -721,9 +721,9 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Config Compliance Testing" src="/images/10/config-compliance-testing.png?featherlight=false&width=90pc"></p>
+<p><img alt="Security Hub Compliance Testing" src="/images/10/security-hub-compliance-testing.png?featherlight=false&width=90pc"></p>
 <ol start="2">
-<li>Review <strong>Security Hub</strong> findings</li>
+<li>Review <strong>Lambda audit results</strong> in DynamoDB</li>
 <li>Document <strong>control effectiveness</strong></li>
 </ol>
 <p><img alt="Control Effectiveness" src="/images/10/control-effectiveness.png?featherlight=false&width=90pc"></p>
@@ -732,16 +732,16 @@
 <li>Collect evidence from:
 <ul>
 <li><strong>CloudTrail logs</strong></li>
-<li><strong>Config snapshots</strong></li>
-<li><strong>Security Hub reports</strong></li>
-<li><strong>Audit Manager assessments</strong></li>
+<li><strong>Security Hub findings</strong></li>
+<li><strong>DynamoDB audit records</strong></li>
+<li><strong>Lambda execution logs</strong></li>
 </ul>
 </li>
 </ol>
 <p><img alt="Compliance Evidence" src="/images/10/compliance-evidence.png?featherlight=false&width=90pc"></p>
 <ol start="2">
 <li>Store evidence in <strong>S3 with encryption</strong></li>
-<li>Create <strong>evidence inventory</strong></li>
+<li>Create <strong>evidence inventory</strong> in DynamoDB</li>
 </ol>
 <p><img alt="Evidence Inventory" src="/images/10/evidence-inventory.png?featherlight=false&width=90pc"></p>
 <h3 id="43-validate-report-generation">4.3 Validate Report Generation</h3>
@@ -1051,19 +1051,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

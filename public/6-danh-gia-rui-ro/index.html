@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>6. Risk Assessment :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/6-danh-gia-rui-ro/" selected>English</option>
+                      <option id="en" value="//localhost:62814/6-danh-gia-rui-ro/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/6-danh-gia-rui-ro/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/6-danh-gia-rui-ro/">Tiếng Việt</option>
                     
                   
               
@@ -514,25 +514,19 @@
   <ul>
     <li><a href="#objective">Objective</a></li>
     <li><a href="#risk-assessment-architecture">Risk Assessment Architecture</a></li>
-    <li><a href="#step-1-aws-config-setup-for-risk-assessment">Step 1: AWS Config Setup for Risk Assessment</a>
+    <li><a href="#step-1-lambda-risk-engine-setup">Step 1: Lambda Risk Engine Setup</a>
       <ul>
-        <li><a href="#11-enable-aws-config">1.1 Enable AWS Config</a></li>
-        <li><a href="#12-add-config-rules">1.2 Add Config Rules</a></li>
+        <li><a href="#11-create-risk-assessment-lambda">1.1 Create Risk Assessment Lambda</a></li>
+        <li><a href="#12-configure-risk-assessment-logic">1.2 Configure Risk Assessment Logic</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-guardduty-integration">Step 2: GuardDuty Integration</a>
-      <ul>
-        <li><a href="#21-enable-amazon-guardduty">2.1 Enable Amazon GuardDuty</a></li>
-        <li><a href="#22-configure-threat-intelligence">2.2 Configure Threat Intelligence</a></li>
-      </ul>
-    </li>
-    <li><a href="#step-3-security-hub-integration">Step 3: Security Hub Integration</a>
+    <li><a href="#step-2-security-hub-integration">Step 2: Security Hub Integration</a>
       <ul>
         <li><a href="#31-enable-aws-security-hub">3.1 Enable AWS Security Hub</a></li>
         <li><a href="#32-configure-integrations">3.2 Configure Integrations</a></li>
       </ul>
     </li>
-    <li><a href="#step-4-cloudwatch-dashboard-for-risk-monitoring">Step 4: CloudWatch Dashboard for Risk Monitoring</a>
+    <li><a href="#step-3-cloudwatch-dashboard-for-risk-monitoring">Step 3: CloudWatch Dashboard for Risk Monitoring</a>
       <ul>
         <li><a href="#41-create-risk-assessment-dashboard">4.1 Create Risk Assessment Dashboard</a></li>
         <li><a href="#42-configure-risk-alarms">4.2 Configure Risk Alarms</a></li>
@@ -569,79 +563,43 @@
 <p>Establish a comprehensive risk assessment system to detect, analyze, and prioritize security risks related to identity and access management.</p>
 <h2 id="risk-assessment-architecture">Risk Assessment Architecture</h2>
 <pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[Data Sources] --&gt; B[Risk Engine]
-    B --&gt; C[Risk Scoring]
-    C --&gt; D[Risk Classification]
-    D --&gt; E[Risk Prioritization]
-    E --&gt; F[Remediation Recommendations]
-    F --&gt; G[Risk Dashboard]
-    
-    H[Threat Intelligence] --&gt; B
-    I[Compliance Rules] --&gt; B
-    J[Business Context] --&gt; B
-</code></pre><h2 id="step-1-aws-config-setup-for-risk-assessment">Step 1: AWS Config Setup for Risk Assessment</h2>
-<h3 id="11-enable-aws-config">1.1 Enable AWS Config</h3>
+    A[CloudTrail Events] --&gt; B[Lambda Risk Engine]
+    C[IAM Data] --&gt; B
+    B --&gt; D[DynamoDB Risk Data]
+    D --&gt; E[Security Hub Findings]
+    E --&gt; F[CloudWatch Metrics]
+    F --&gt; G[SNS Alerts]
+    D --&gt; H[QuickSight Dashboard]
+</code></pre><h2 id="step-1-lambda-risk-engine-setup">Step 1: Lambda Risk Engine Setup</h2>
+<h3 id="11-create-risk-assessment-lambda">1.1 Create Risk Assessment Lambda</h3>
 <ol>
-<li>Open <strong>AWS Config</strong> in the console</li>
-<li>Click <strong>Get started</strong></li>
-</ol>
-<p><img alt="Enable AWS Config" src="/images/6/enable-aws-config.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Configure settings:
+<li>Open <strong>AWS Lambda</strong> in the console</li>
+<li>Click <strong>Create function</strong></li>
+<li>Configure:
 <ul>
-<li><strong>Resource types</strong>: All supported resource types</li>
-<li><strong>Amazon S3 bucket</strong>: Create new bucket</li>
-<li><strong>Amazon SNS topic</strong>: Create new topic</li>
+<li><strong>Function name</strong>: IdentityRiskEngine</li>
+<li><strong>Runtime</strong>: Python 3.9</li>
+<li><strong>Role</strong>: Create new role with DynamoDB and Security Hub permissions</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Config Settings" src="/images/6/config-settings.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Choose <strong>AWS Config role</strong>: Create new role</li>
-<li>Click <strong>Next</strong></li>
-</ol>
-<p><img alt="Config Role" src="/images/6/config-role.png?featherlight=false&width=90pc"></p>
-<h3 id="12-add-config-rules">1.2 Add Config Rules</h3>
+<p><img alt="Create Risk Lambda" src="/images/6/create-risk-lambda.png?featherlight=false&width=90pc"></p>
+<h3 id="12-configure-risk-assessment-logic">1.2 Configure Risk Assessment Logic</h3>
 <ol>
-<li>Click <strong>Rules</strong> in AWS Config</li>
-<li>Click <strong>Add rule</strong></li>
-</ol>
-<p><img alt="Add Config Rule" src="/images/6/add-config-rule.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Add security-related rules:
+<li>Add environment variables:
 <ul>
-<li><strong>iam-user-mfa-enabled</strong></li>
-<li><strong>root-access-key-check</strong></li>
-<li><strong>iam-password-policy</strong></li>
+<li><strong>RISK_TABLE</strong>: RiskAssessments</li>
+<li><strong>SNS_TOPIC</strong>: Risk alert topic ARN</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Security Rules" src="/images/6/security-rules.png?featherlight=false&width=90pc"></p>
-<h2 id="step-2-guardduty-integration">Step 2: GuardDuty Integration</h2>
-<h3 id="21-enable-amazon-guardduty">2.1 Enable Amazon GuardDuty</h3>
-<ol>
-<li>Open <strong>Amazon GuardDuty</strong> in the console</li>
-<li>Click <strong>Get started</strong></li>
+<p><img alt="Risk Lambda Config" src="/images/6/risk-lambda-config.png?featherlight=false&width=90pc"></p>
+<ol start="2">
+<li>Upload risk assessment code</li>
+<li>Configure EventBridge trigger for daily execution</li>
 </ol>
-<p><img alt="Enable GuardDuty" src="/images/6/enable-guardduty.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Review service permissions</li>
-<li>Click <strong>Enable GuardDuty</strong></li>
-</ol>
-<p><img alt="GuardDuty Permissions" src="/images/6/guardduty-permissions.png?featherlight=false&width=90pc"></p>
-<h3 id="22-configure-threat-intelligence">2.2 Configure Threat Intelligence</h3>
-<ol>
-<li>Go to <strong>Settings</strong> in GuardDuty</li>
-<li>Click <strong>Threat Intelligence</strong></li>
-<li>Enable <strong>AWS threat intelligence</strong></li>
-</ol>
-<p><img alt="Threat Intelligence" src="/images/6/threat-intelligence.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Configure <strong>Malware Protection</strong></li>
-<li>Enable <strong>S3 Protection</strong></li>
-</ol>
-<p><img alt="Malware Protection" src="/images/6/malware-protection.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-security-hub-integration">Step 3: Security Hub Integration</h2>
+<p><img alt="Lambda EventBridge Trigger" src="/images/6/lambda-eventbridge-trigger.png?featherlight=false&width=90pc"></p>
+<h2 id="step-2-security-hub-integration">Step 2: Security Hub Integration</h2>
 <h3 id="31-enable-aws-security-hub">3.1 Enable AWS Security Hub</h3>
 <ol>
 <li>Open <strong>AWS Security Hub</strong> in the console</li>
@@ -677,7 +635,7 @@
 <li>Configure custom insights for risk assessment</li>
 </ol>
 <p><img alt="Custom Insights" src="/images/6/custom-insights.png?featherlight=false&width=90pc"></p>
-<h2 id="step-4-cloudwatch-dashboard-for-risk-monitoring">Step 4: CloudWatch Dashboard for Risk Monitoring</h2>
+<h2 id="step-3-cloudwatch-dashboard-for-risk-monitoring">Step 3: CloudWatch Dashboard for Risk Monitoring</h2>
 <h3 id="41-create-risk-assessment-dashboard">4.1 Create Risk Assessment Dashboard</h3>
 <ol>
 <li>Open <strong>Amazon CloudWatch</strong> console</li>
@@ -969,19 +927,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

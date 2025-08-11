@@ -139,14 +139,14 @@ graph TB
 
 ### 4.1 Test Compliance Controls
 
-1. Use **AWS Config** to validate:
+1. Use **Security Hub** findings to validate:
    - **IAM password policies**
    - **MFA requirements**
    - **Access key rotation**
 
-![Config Compliance Testing](/images/10/config-compliance-testing.png?featherlight=false&width=90pc)
+![Security Hub Compliance Testing](/images/10/security-hub-compliance-testing.png?featherlight=false&width=90pc)
 
-2. Review **Security Hub** findings
+2. Review **Lambda audit results** in DynamoDB
 3. Document **control effectiveness**
 
 ![Control Effectiveness](/images/10/control-effectiveness.png?featherlight=false&width=90pc)
@@ -155,14 +155,14 @@ graph TB
 
 1. Collect evidence from:
    - **CloudTrail logs**
-   - **Config snapshots**
-   - **Security Hub reports**
-   - **Audit Manager assessments**
+   - **Security Hub findings**
+   - **DynamoDB audit records**
+   - **Lambda execution logs**
 
 ![Compliance Evidence](/images/10/compliance-evidence.png?featherlight=false&width=90pc)
 
 2. Store evidence in **S3 with encryption**
-3. Create **evidence inventory**
+3. Create **evidence inventory** in DynamoDB
 
 ![Evidence Inventory](/images/10/evidence-inventory.png?featherlight=false&width=90pc)
 

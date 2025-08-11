@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>4. Certification Automation :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754929215" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754929215" rel="stylesheet">
-    <link href="/css/hybrid.css?1754929215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754929215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754929215" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754929215" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754929215" rel="stylesheet">
-    <link href="/css/theme.css?1754929215" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754929215" rel="stylesheet">
+    <link href="/css/nucleus.css?1754939342" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754939342" rel="stylesheet">
+    <link href="/css/hybrid.css?1754939342" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754939342" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754939342" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754939342" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754939342" rel="stylesheet">
+    <link href="/css/theme.css?1754939342" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754939342" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754929215" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754939342" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754929215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754939342"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754929215"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754929215"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754939342"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754939342"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754929215"></script>
+<script type="text/javascript" src="/js/search.js?1754939342"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/4-tu-dong-hoa-certification/" selected>English</option>
+                      <option id="en" value="//localhost:62814/4-tu-dong-hoa-certification/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/4-tu-dong-hoa-certification/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/4-tu-dong-hoa-certification/">Tiếng Việt</option>
                     
                   
               
@@ -526,10 +526,10 @@
         <li><a href="#23-set-environment-variables">2.3 Set Environment Variables</a></li>
       </ul>
     </li>
-    <li><a href="#step-3-step-functions-workflow">Step 3: Step Functions Workflow</a>
+    <li><a href="#step-3-dynamodb-setup-for-certification-data">Step 3: DynamoDB Setup for Certification Data</a>
       <ul>
-        <li><a href="#31-create-state-machine">3.1 Create State Machine</a></li>
-        <li><a href="#32-configure-iam-role">3.2 Configure IAM Role</a></li>
+        <li><a href="#31-create-dynamodb-table">3.1 Create DynamoDB Table</a></li>
+        <li><a href="#32-configure-lambda-for-dynamodb-integration">3.2 Configure Lambda for DynamoDB Integration</a></li>
       </ul>
     </li>
     <li><a href="#step-4-connect-eventbridge-to-lambda">Step 4: Connect EventBridge to Lambda</a>
@@ -651,32 +651,32 @@
 </li>
 </ol>
 <p><img alt="Add Environment Variables" src="/images/4/add-env-variables.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-step-functions-workflow">Step 3: Step Functions Workflow</h2>
-<h3 id="31-create-state-machine">3.1 Create State Machine</h3>
+<h2 id="step-3-dynamodb-setup-for-certification-data">Step 3: DynamoDB Setup for Certification Data</h2>
+<h3 id="31-create-dynamodb-table">3.1 Create DynamoDB Table</h3>
 <ol>
-<li>Open <strong>AWS Step Functions</strong> in the console</li>
-<li>Click <strong>Create state machine</strong></li>
+<li>Open <strong>Amazon DynamoDB</strong> in the console</li>
+<li>Click <strong>Create table</strong></li>
 </ol>
-<p><img alt="Create State Machine" src="/images/4/create-state-machine.png?featherlight=false&width=90pc"></p>
+<p><img alt="Create DynamoDB Table" src="/images/4/create-dynamodb-table.png?featherlight=false&width=90pc"></p>
 <ol start="3">
-<li>Choose <strong>Write your workflow in code</strong></li>
-<li>Select <strong>Standard</strong> type</li>
+<li>Enter table details:
+<ul>
+<li><strong>Table name</strong>: AccessCertifications</li>
+<li><strong>Partition key</strong>: UserId (String)</li>
+<li><strong>Sort key</strong>: CertificationDate (String)</li>
+<li><strong>Billing mode</strong>: On-demand</li>
+</ul>
+</li>
+<li>Click <strong>Create table</strong></li>
 </ol>
-<p><img alt="State Machine Type" src="/images/4/state-machine-type.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Enter the workflow definition in JSON format</li>
-<li>Name the state machine: <strong>AccessCertificationWorkflow</strong></li>
-</ol>
-<p><img alt="State Machine Definition" src="/images/4/state-machine-definition.png?featherlight=false&width=90pc"></p>
-<h3 id="32-configure-iam-role">3.2 Configure IAM Role</h3>
+<p><img alt="DynamoDB Table Details" src="/images/4/dynamodb-table-details.png?featherlight=false&width=90pc"></p>
+<h3 id="32-configure-lambda-for-dynamodb-integration">3.2 Configure Lambda for DynamoDB Integration</h3>
 <ol>
-<li>Create or select an IAM role for Step Functions</li>
-<li>Ensure it has permissions to invoke Lambda functions</li>
+<li>Return to Lambda function <strong>AccessCertificationTrigger</strong></li>
+<li>Add DynamoDB permissions to IAM role</li>
+<li>Update code to write certification records</li>
 </ol>
-<p><img alt="Step Functions IAM Role" src="/images/4/stepfunctions-iam-role.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Click <strong>Create state machine</strong></li>
-</ol>
+<p><img alt="Lambda DynamoDB Integration" src="/images/4/lambda-dynamodb-integration.png?featherlight=false&width=90pc"></p>
 <h2 id="step-4-connect-eventbridge-to-lambda">Step 4: Connect EventBridge to Lambda</h2>
 <h3 id="41-add-lambda-target-to-eventbridge-rule">4.1 Add Lambda Target to EventBridge Rule</h3>
 <ol>
@@ -962,19 +962,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754929215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754929215"></script>
-    <script src="/js/jquery.sticky.js?1754929215"></script>
-    <script src="/js/featherlight.min.js?1754929215"></script>
-    <script src="/js/highlight.pack.js?1754929215"></script>
+    <script src="/js/clipboard.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754939342"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754939342"></script>
+    <script src="/js/jquery.sticky.js?1754939342"></script>
+    <script src="/js/featherlight.min.js?1754939342"></script>
+    <script src="/js/highlight.pack.js?1754939342"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754929215"></script>
-    <script src="/js/learn.js?1754929215"></script>
-    <script src="/js/hugo-learn.js?1754929215"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754939342"></script>
+    <script src="/js/learn.js?1754939342"></script>
+    <script src="/js/hugo-learn.js?1754939342"></script>
 
-    <link href="/mermaid/mermaid.css?1754929215" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754929215"></script>
+    <link href="/mermaid/mermaid.css?1754939342" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754939342"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
