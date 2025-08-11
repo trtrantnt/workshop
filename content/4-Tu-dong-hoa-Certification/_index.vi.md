@@ -8,24 +8,15 @@ weight: 4
 
 Tự động hóa quy trình access certification để đảm bảo quyền truy cập được xem xét định kỳ và tuân thủ các yêu cầu bảo mật.
 
-## Bước 1: Thiết lập DynamoDB cho Certification Data
+## Bước 1: Xác minh DynamoDB Table
 
-### 1.1 Tạo DynamoDB Table
+### 1.1 Kiểm tra Table đã tạo
 
 1. Mở **Amazon DynamoDB** trong console
-2. Click **Create table**
+2. Xác minh table `AccessCertifications` đã được tạo trong chương 2
+3. Table này sẽ được sử dụng để lưu certification data
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc)
-
-3. Nhập thông tin table:
-   - **Table name**: `AccessCertifications`
-   - **Partition key**: `UserId` (String)
-   - **Sort key**: `CertificationDate` (String)
-   - **Billing mode**: On-demand
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/dynamo2.png?featherlight=false&width=90pc)
-
-4. Click **Create table**
 
 ## Bước 2: Tạo Lambda Function
 

@@ -8,24 +8,15 @@ weight: 4
 
 Automate access certification processes to ensure access rights are reviewed periodically and comply with security requirements.
 
-## Step 1: Setup DynamoDB for Certification Data
+## Step 1: Verify DynamoDB Table
 
-### 1.1 Create DynamoDB Table
+### 1.1 Check Existing Table
 
 1. Open **Amazon DynamoDB** in the console
-2. Click **Create table**
+2. Verify that the `AccessCertifications` table was created in chapter 2
+3. This table will be used to store certification data
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc)
-
-3. Enter table details:
-   - **Table name**: `AccessCertifications`
-   - **Partition key**: `UserId` (String)
-   - **Sort key**: `CertificationDate` (String)
-   - **Billing mode**: On-demand
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/dynamo2.png?featherlight=false&width=90pc)
-
-4. Click **Create table**
 
 ## Step 2: Create Lambda Function
 

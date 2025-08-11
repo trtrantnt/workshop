@@ -12,21 +12,21 @@
     <title>4. Tự động hóa Certification :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754948197" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754948197" rel="stylesheet">
-    <link href="/css/hybrid.css?1754948197" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754948197" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754948197" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754948197" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754948197" rel="stylesheet">
-    <link href="/css/theme.css?1754948197" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754948197" rel="stylesheet">
+    <link href="/css/nucleus.css?1754948554" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754948554" rel="stylesheet">
+    <link href="/css/hybrid.css?1754948554" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754948554" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754948554" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754948554" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754948554" rel="stylesheet">
+    <link href="/css/theme.css?1754948554" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754948554" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754948197" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754948554" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754948197"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754948554"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754948197"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754948197"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754948554"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754948554"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754948197"></script>
+<script type="text/javascript" src="/js/search.js?1754948554"></script>
 
     
   </div>
@@ -513,9 +513,9 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#mục-tiêu">Mục tiêu</a></li>
-    <li><a href="#bước-1-thiết-lập-dynamodb-cho-certification-data">Bước 1: Thiết lập DynamoDB cho Certification Data</a>
+    <li><a href="#bước-1-xác-minh-dynamodb-table">Bước 1: Xác minh DynamoDB Table</a>
       <ul>
-        <li><a href="#11-tạo-dynamodb-table">1.1 Tạo DynamoDB Table</a></li>
+        <li><a href="#11-kiểm-tra-table-đã-tạo">1.1 Kiểm tra Table đã tạo</a></li>
       </ul>
     </li>
     <li><a href="#bước-2-tạo-lambda-function">Bước 2: Tạo Lambda Function</a>
@@ -564,27 +564,14 @@
 
 	<h2 id="mục-tiêu">Mục tiêu</h2>
 <p>Tự động hóa quy trình access certification để đảm bảo quyền truy cập được xem xét định kỳ và tuân thủ các yêu cầu bảo mật.</p>
-<h2 id="bước-1-thiết-lập-dynamodb-cho-certification-data">Bước 1: Thiết lập DynamoDB cho Certification Data</h2>
-<h3 id="11-tạo-dynamodb-table">1.1 Tạo DynamoDB Table</h3>
+<h2 id="bước-1-xác-minh-dynamodb-table">Bước 1: Xác minh DynamoDB Table</h2>
+<h3 id="11-kiểm-tra-table-đã-tạo">1.1 Kiểm tra Table đã tạo</h3>
 <ol>
 <li>Mở <strong>Amazon DynamoDB</strong> trong console</li>
-<li>Click <strong>Create table</strong></li>
+<li>Xác minh table <code>AccessCertifications</code> đã được tạo trong chương 2</li>
+<li>Table này sẽ được sử dụng để lưu certification data</li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo1.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Nhập thông tin table:
-<ul>
-<li><strong>Table name</strong>: <code>AccessCertifications</code></li>
-<li><strong>Partition key</strong>: <code>UserId</code> (String)</li>
-<li><strong>Sort key</strong>: <code>CertificationDate</code> (String)</li>
-<li><strong>Billing mode</strong>: On-demand</li>
-</ul>
-</li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/dynamo2.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Click <strong>Create table</strong></li>
-</ol>
 <h2 id="bước-2-tạo-lambda-function">Bước 2: Tạo Lambda Function</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
@@ -961,19 +948,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754948197"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754948197"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754948197"></script>
-    <script src="/js/jquery.sticky.js?1754948197"></script>
-    <script src="/js/featherlight.min.js?1754948197"></script>
-    <script src="/js/highlight.pack.js?1754948197"></script>
+    <script src="/js/clipboard.min.js?1754948554"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754948554"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754948554"></script>
+    <script src="/js/jquery.sticky.js?1754948554"></script>
+    <script src="/js/featherlight.min.js?1754948554"></script>
+    <script src="/js/highlight.pack.js?1754948554"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754948197"></script>
-    <script src="/js/learn.js?1754948197"></script>
-    <script src="/js/hugo-learn.js?1754948197"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754948554"></script>
+    <script src="/js/learn.js?1754948554"></script>
+    <script src="/js/hugo-learn.js?1754948554"></script>
 
-    <link href="/mermaid/mermaid.css?1754948197" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754948197"></script>
+    <link href="/mermaid/mermaid.css?1754948554" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754948554"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
