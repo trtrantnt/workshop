@@ -28,21 +28,27 @@ graph TB
 2. Click **Rules** in the sidebar
 3. Click **Create rule**
 
-![Create EventBridge Rule](/images/4/create-eventbridge-rule.png?featherlight=false&width=90pc)
-
-4. Enter rule details:
-   - **Name**: AccessCertificationSchedule
-   - **Description**: Quarterly access certification review
+#### Step 1: Define rule detail
+4. Enter rule information:
+   - **Name**: `AccessCertificationSchedule`
+   - **Description**: `Quarterly access certification review`
    - **Event bus**: default
+   - **Enable the rule on the selected event bus**: ✅ Checked
 
-![Rule Details](/images/4/rule-details.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
 
-5. In **Define pattern**, select **Schedule**
-6. Choose **Fixed rate every** and enter **90 days**
+5. In **Rule type**, select **Schedule**
+   - Choose "A rule that runs on a schedule"
+6. Click **Next**
 
-![Schedule Pattern](/images/4/schedule-pattern.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
 
-7. Click **Next**
+#### Step 2: Define schedule
+7. In **Schedule pattern**, select **Rate-based schedule**
+8. Enter **90** and select **Days**
+9. Click **Next**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
 ## Step 2: Lambda Function Setup
 
@@ -116,21 +122,26 @@ graph TB
 
 ### 4.1 Add Lambda Target to EventBridge Rule
 
-1. Go back to **EventBridge** console
-2. Select the rule **AccessCertificationSchedule**
-3. Click **Targets** tab
-4. Click **Add target**
+#### Step 3: Select target(s)
+1. In **Target types**, select **AWS service**
+2. In **Select a target**, choose **Lambda function**
+3. In **Function**, select **AccessCertificationTrigger**
 
-![Add Lambda Target](/images/4/add-lambda-target.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
 
-5. Configure target:
-   - **Target type**: AWS service
-   - **Service**: Lambda function
-   - **Function**: AccessCertificationTrigger
+4. Click **Next**
 
-![Configure Lambda Target](/images/4/configure-lambda-target.png?featherlight=false&width=90pc)
+#### Step 4: Configure tags (Optional)
+5. Skip the tags section, click **Next**
 
-6. Click **Add** and then **Update rule**
+#### Step 5: Review and create
+6. Review configuration:
+   - Rule name: AccessCertificationSchedule
+   - Schedule: Rate(90 days)
+   - Target: Lambda function
+7. Click **Create rule**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
 ## Step 5: Test the Automation
 

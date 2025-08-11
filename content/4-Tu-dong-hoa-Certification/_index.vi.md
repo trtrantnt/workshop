@@ -8,18 +8,6 @@ weight: 4
 
 Tự động hóa quy trình access certification để đảm bảo quyền truy cập được xem xét định kỳ và tuân thủ các yêu cầu bảo mật.
 
-## Kiến trúc Automation
-
-```mermaid
-graph TB
-    A[EventBridge Schedule] --> B[Lambda Trigger]
-    B --> C[Access Review Generator]
-    C --> D[Certification Workflow]
-    D --> E[Manager Approval]
-    E --> F[Remediation Actions]
-    F --> G[Compliance Report]
-```
-
 ## Bước 1: Thiết lập EventBridge Scheduler
 
 ### 1.1 Tạo Scheduled Rule
@@ -28,21 +16,27 @@ graph TB
 2. Click **Rules** ở sidebar
 3. Click **Create rule**
 
-![Tạo EventBridge Rule](/images/4/create-eventbridge-rule.png?featherlight=false&width=90pc)
-
+#### Bước 1: Define rule detail
 4. Nhập thông tin rule:
-   - **Name**: AccessCertificationSchedule
-   - **Description**: Quarterly access certification review
+   - **Name**: `AccessCertificationSchedule`
+   - **Description**: `Quarterly access certification review`
    - **Event bus**: default
+   - **Enable the rule on the selected event bus**: ✅ Checked
 
-![Chi tiết Rule](/images/4/rule-details.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb1.png?featherlight=false&width=90pc)
 
-5. Trong **Define pattern**, chọn **Schedule**
-6. Chọn **Fixed rate every** và nhập **90 days**
+5. Trong **Rule type**, chọn **Schedule**
+   - Chọn "A rule that runs on a schedule"
+6. Click **Next**
 
-![Mẫu Lịch trình](/images/4/schedule-pattern.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb2.png?featherlight=false&width=90pc)
 
-7. Click **Next**
+#### Bước 2: Define schedule
+7. Trong **Schedule pattern**, chọn **Rate-based schedule**
+8. Nhập **90** và chọn **Days**
+9. Click **Next**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb3.png?featherlight=false&width=90pc)
 
 ## Bước 2: Thiết lập Lambda Function
 
@@ -116,21 +110,26 @@ graph TB
 
 ### 4.1 Thêm Lambda Target vào EventBridge Rule
 
-1. Quay lại **EventBridge** console
-2. Chọn rule **AccessCertificationSchedule**
-3. Click tab **Targets**
-4. Click **Add target**
+#### Bước 3: Select target(s)
+1. Trong **Target types**, chọn **AWS service**
+2. Trong **Select a target**, chọn **Lambda function**
+3. Trong **Function**, chọn **AccessCertificationTrigger**
 
-![Thêm Lambda Target](/images/4/add-lambda-target.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb4.png?featherlight=false&width=90pc)
 
-5. Cấu hình target:
-   - **Target type**: AWS service
-   - **Service**: Lambda function
-   - **Function**: AccessCertificationTrigger
+4. Click **Next**
 
-![Cấu hình Lambda Target](/images/4/configure-lambda-target.png?featherlight=false&width=90pc)
+#### Bước 4: Configure tags (Optional)
+5. Bỏ qua phần tags, click **Next**
 
-6. Click **Add** rồi **Update rule**
+#### Bước 5: Review and create
+6. Xem lại cấu hình:
+   - Rule name: AccessCertificationSchedule
+   - Schedule: Rate(90 days)
+   - Target: Lambda function
+7. Click **Create rule**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/eb5.png?featherlight=false&width=90pc)
 
 ## Bước 5: Kiểm tra Tự động hóa
 
