@@ -6,142 +6,274 @@ weight: 5
 
 ## Objective
 
-Analyze and monitor privilege usage to detect security risks, excessive permissions, and anomalous patterns.
+Analyze and monitor privilege usage to detect security risks, excessive permissions, and abnormal patterns through CloudTrail logs.
 
-## Analytics Architecture
+## Step 1: Verify CloudTrail Data
 
-```mermaid
-graph TB
-    A[CloudTrail Logs] --> B[S3 Data Lake]
-    C[IAM Data] --> B
-    B --> D[Lambda Analytics]
-    D --> E[DynamoDB Results]
-    E --> F[QuickSight Dashboard]
-    D --> G[CloudWatch Metrics]
-    G --> H[SNS Alerts]
-```
+### 1.1 Check CloudTrail Logs
 
-## Step 1: CloudTrail Setup for Data Collection
+1. Open **Amazon CloudTrail** in the console
+2. Verify that trail **IdentityGovernanceTrail** was created in chapter 2
+3. Check S3 bucket containing CloudTrail logs
 
-### 1.1 Create CloudTrail
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ct1.png?featherlight=false&width=90pc)
 
-1. Open **AWS CloudTrail** in the console
-2. Click **Create trail**
+### 1.2 Verify S3 Bucket has CloudTrail Data
 
-![Create CloudTrail](/images/5/create-cloudtrail.png?featherlight=false&width=90pc)
+1. Go to **Amazon S3** console
+2. Find CloudTrail bucket (name like `aws-cloudtrail-logs-xxx`)
+3. Verify that log files are being created
 
-3. Configure trail settings:
-   - **Trail name**: PrivilegeAnalyticsTrail
-   - **Apply trail to all regions**: Yes
-   - **Management events**: Read and Write
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ct2.png?featherlight=false&width=90pc)
 
-![CloudTrail Configuration](/images/5/cloudtrail-config.png?featherlight=false&width=90pc)
+## Step 2: Create Lambda Function for Privilege Analytics
 
-4. Configure S3 bucket:
-   - **Create new S3 bucket**: Yes
-   - **S3 bucket name**: privilege-analytics-logs-[account-id]
-   - **Log file prefix**: cloudtrail-logs/
-
-![S3 Bucket Configuration](/images/5/s3-bucket-config.png?featherlight=false&width=90pc)
-
-5. Enable **Log file validation**
-6. Click **Create trail**
-
-## Step 2: Lambda Analytics Engine Setup
-
-### 2.1 Create Lambda Function for Analytics
+### 2.1 Create Lambda Function
 
 1. Open **AWS Lambda** in the console
-2. Create new function: **PrivilegeAnalyticsEngine**
-3. Choose runtime **Python 3.9**
+2. Click **Create function**
+3. Choose **Author from scratch**
+4. Enter function details:
+   - **Function name**: `PrivilegeAnalyticsEngine`
+   - **Runtime**: Python 3.9
+   - **Architecture**: x86_64
 
-![Create Analytics Lambda](/images/5/create-analytics-lambda.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda1.png?featherlight=false&width=90pc)
 
-### 2.2 Configure Lambda to Read S3 Data
+5. Click **Create function**
 
-1. Add IAM permissions for S3 and DynamoDB
-2. Configure S3 trigger from bucket
-3. Upload analytics code
+### 2.2 Configure Lambda Function Code
 
-![Lambda S3 Integration](/images/5/lambda-s3-integration.png?featherlight=false&width=90pc)
+1. In the **Code** tab, replace the default code with the following:
 
-### 2.3 Process Analytics Data
+```python
+import json
+import boto3
+import gzip
+from datetime import datetime, timedelta
+from urllib.parse import unquote_plus
 
-1. Lambda function processes CloudTrail logs
-2. Calculates risk scores and usage patterns
-3. Stores results in DynamoDB
+def lambda_handler(event, context):
+    print("Privilege Analytics Engine Started")
+    
+    # Initialize AWS clients
+    s3 = boto3.client('s3')
+    dynamodb = boto3.resource('dynamodb')
+    
+    # Get the object from the event
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = unquote_plus(event['Records'][0]['s3']['object']['key'])
+    
+    try:
+        # Download and decompress CloudTrail log
+        response = s3.get_object(Bucket=bucket, Key=key)
+        
+        if key.endswith('.gz'):
+            content = gzip.decompress(response['Body'].read())
+        else:
+            content = response['Body'].read()
+        
+        # Parse CloudTrail log
+        log_data = json.loads(content.decode('utf-8'))
+        
+        # Analyze privilege usage
+        privilege_events = analyze_privilege_events(log_data['Records'])
+        
+        # Store analysis results
+        store_analysis_results(privilege_events, dynamodb)
+        
+        return {
+            'statusCode': 200,
+            'body': json.dumps(f'Processed {len(privilege_events)} privilege events')
+        }
+        
+    except Exception as e:
+        print(f'Error processing {key}: {str(e)}')
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error: {str(e)}')
+        }
 
-![Analytics Processing](/images/5/analytics-processing.png?featherlight=false&width=90pc)
+def analyze_privilege_events(records):
+    """Analyze CloudTrail records for privilege usage patterns"""
+    privilege_events = []
+    
+    high_privilege_actions = [
+        'CreateUser', 'DeleteUser', 'AttachUserPolicy', 'DetachUserPolicy',
+        'CreateRole', 'DeleteRole', 'AttachRolePolicy', 'DetachRolePolicy',
+        'PutUserPolicy', 'DeleteUserPolicy', 'PutRolePolicy', 'DeleteRolePolicy'
+    ]
+    
+    for record in records:
+        event_name = record.get('eventName', '')
+        
+        if event_name in high_privilege_actions:
+            privilege_event = {
+                'eventTime': record.get('eventTime'),
+                'eventName': event_name,
+                'userIdentity': record.get('userIdentity', {}),
+                'sourceIPAddress': record.get('sourceIPAddress'),
+                'userAgent': record.get('userAgent'),
+                'awsRegion': record.get('awsRegion'),
+                'riskScore': calculate_risk_score(record)
+            }
+            privilege_events.append(privilege_event)
+    
+    return privilege_events
 
-## Step 3: QuickSight Dashboard Setup
+def calculate_risk_score(record):
+    """Calculate risk score for privilege event (1-10 scale)"""
+    base_score = 5
+    
+    # High-risk actions
+    high_risk_actions = ['DeleteUser', 'DeleteRole', 'DetachUserPolicy']
+    if record.get('eventName') in high_risk_actions:
+        base_score += 3
+    
+    # External IP access
+    source_ip = record.get('sourceIPAddress', '')
+    if not source_ip.startswith('10.') and not source_ip.startswith('172.') and not source_ip.startswith('192.168.'):
+        base_score += 2
+    
+    # Console vs API access
+    user_agent = record.get('userAgent', '')
+    if 'console' not in user_agent.lower():
+        base_score += 1
+    
+    return min(base_score, 10)
 
-### 3.1 Create QuickSight Account
+def store_analysis_results(privilege_events, dynamodb):
+    """Store analysis results in DynamoDB"""
+    table = dynamodb.Table('RiskAssessments')
+    
+    for event in privilege_events:
+        table.put_item(
+            Item={
+                'AssessmentId': f"privilege-{datetime.now().isoformat()}",
+                'EventTime': event['eventTime'],
+                'EventName': event['eventName'],
+                'UserIdentity': json.dumps(event['userIdentity']),
+                'SourceIP': event['sourceIPAddress'],
+                'RiskScore': event['riskScore'],
+                'AssessmentType': 'Privilege Analysis'
+            }
+        )
+```
 
-1. Open **Amazon QuickSight** in the console
-2. Sign up for QuickSight if not already done
-3. Choose **Standard** edition
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda2.png?featherlight=false&width=90pc)
 
-![QuickSight Signup](/images/5/quicksight-signup.png?featherlight=false&width=90pc)
+2. Click **Deploy** to save changes
 
-### 3.2 Create Data Source
+### 2.3 Configure IAM Role for Lambda
 
-1. Click **Datasets** in QuickSight
-2. Click **New dataset**
-3. Choose **Athena** as data source
+1. Go to **Configuration** tab
+2. Click **Permissions**
 
-![Create Dataset](/images/5/create-dataset.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda3.png?featherlight=false&width=90pc)
 
-4. Configure Athena connection:
-   - **Data source name**: PrivilegeAnalytics
-   - **Database**: privilege_analytics_db
-   - **Table**: cloudtrail_logs
+3. Click on the role name to open IAM console
+4. Click **Add permissions** → **Attach policies**
+5. Search and attach the following policies:
+   - **AmazonS3ReadOnlyAccess**
+   - **AmazonDynamoDBFullAccess**
+6. Click **Add permissions**
 
-![Athena Data Source](/images/5/athena-data-source.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda4.png?featherlight=false&width=90pc)
 
-### 3.3 Create Analysis Dashboard
+## Step 3: Setup S3 Event Trigger
 
-1. Click **Create analysis**
-2. Add visualizations for:
-   - Top users by activity
-   - High-risk events timeline
-   - Geographic access patterns
+### 3.1 Configure S3 Trigger for Lambda
 
-![QuickSight Dashboard](/images/5/quicksight-dashboard.png?featherlight=false&width=90pc)
+1. In Lambda function **PrivilegeAnalyticsEngine**
+2. Click **Add trigger**
+3. Select **S3** from dropdown
 
-3. Configure filters and parameters
-4. Publish the dashboard
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/trigger1.png?featherlight=false&width=90pc)
 
-![Publish Dashboard](/images/5/publish-dashboard.png?featherlight=false&width=90pc)
+4. Configure trigger:
+   - **Bucket**: Select CloudTrail S3 bucket
+   - **Event type**: All object create events
+   - **Prefix**: `AWSLogs/` (optional)
+   - **Suffix**: `.json.gz`
 
-## Step 4: Set Up Automated Analysis
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/trigger2.png?featherlight=false&width=90pc)
 
-### 4.1 Create Lambda for Risk Scoring
+5. Click **Add**
 
-1. Open **AWS Lambda** console
-2. Create function **PrivilegeRiskScoring**
-3. Configure to run daily via EventBridge
+## Step 4: Create CloudWatch Dashboard
 
-![Risk Scoring Lambda](/images/5/risk-scoring-lambda.png?featherlight=false&width=90pc)
+### 4.1 Create Dashboard for Privilege Analytics
 
-### 4.2 Configure CloudWatch Alarms
+1. Open **Amazon CloudWatch** console
+2. Click **Dashboards** in the sidebar
+3. Click **Create dashboard**
 
-1. Open **CloudWatch** console
-2. Create alarms for high-risk activities
-3. Set SNS notifications
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/cw1.png?featherlight=false&width=90pc)
 
-![CloudWatch Alarms](/images/5/cloudwatch-alarms.png?featherlight=false&width=90pc)
+4. Enter dashboard name: `PrivilegeAnalyticsDashboard`
+5. Click **Create dashboard**
+
+### 4.2 Add Widgets to Dashboard
+
+1. Click **Add widget**
+2. Select **Line** chart
+3. Configure metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric**: Invocations
+   - **Function**: PrivilegeAnalyticsEngine
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc)
+
+4. Click **Create widget**
+5. Add additional widgets for:
+   - Lambda Errors
+   - Lambda Duration
+   - DynamoDB Item Count
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/cw3.png?featherlight=false&width=90pc)
+
+## Step 5: Test Privilege Analytics
+
+### 5.1 Create Test Activity
+
+1. Go to **IAM** console
+2. Perform some actions to generate CloudTrail logs:
+   - Create test user
+   - Attach/detach policies
+   - Create test role
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/test1.png?featherlight=false&width=90pc)
+
+### 5.2 Check Lambda Execution
+
+1. Go to **AWS Lambda** console
+2. Select function **PrivilegeAnalyticsEngine**
+3. Click **Monitor** tab
+4. View CloudWatch logs to verify function execution
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/test2.png?featherlight=false&width=90pc)
+
+### 5.3 Verify DynamoDB Records
+
+1. Go to **Amazon DynamoDB** console
+2. Select table **RiskAssessments**
+3. Click **Explore table items**
+4. Verify new records with AssessmentType = 'Privilege Analysis'
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/test3.png?featherlight=false&width=90pc)
 
 ## Expected Results
 
 After completion:
 
-- ✅ CloudTrail collecting privilege data
-- ✅ Athena tables for analytics queries
-- ✅ QuickSight dashboard for visualization
-- ✅ Automated risk scoring
-- ✅ CloudWatch monitoring and alerts
+- ✅ CloudTrail logs analyzed automatically
+- ✅ Lambda function processing privilege events
+- ✅ Risk scoring for privilege actions
+- ✅ DynamoDB storing analysis results
+- ✅ CloudWatch dashboard monitoring
+- ✅ Real-time privilege monitoring
 
-![Privilege Analytics Complete](/images/5/privilege-analytics-complete.png?featherlight=false&width=90pc)
+![Privilege Analytics Complete](https://trtrantnt.github.io/workshop/images/5/complete.png?featherlight=false&width=90pc)
 
 ## Next Steps
 

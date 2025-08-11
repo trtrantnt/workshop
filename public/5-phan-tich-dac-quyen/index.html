@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>5. Privilege Analytics :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754951328" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754951328" rel="stylesheet">
-    <link href="/css/hybrid.css?1754951328" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754951328" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754951328" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754951328" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754951328" rel="stylesheet">
-    <link href="/css/theme.css?1754951328" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754951328" rel="stylesheet">
+    <link href="/css/nucleus.css?1754951690" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754951690" rel="stylesheet">
+    <link href="/css/hybrid.css?1754951690" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754951690" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754951690" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754951690" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754951690" rel="stylesheet">
+    <link href="/css/theme.css?1754951690" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754951690" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754951328" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754951690" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754951328"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754951690"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754951328"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754951328"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754951690"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754951690"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/";
+        var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754951328"></script>
+<script type="text/javascript" src="/js/search.js?1754951690"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/5-phan-tich-dac-quyen/" selected>English</option>
+                      <option id="en" value="//localhost:1313/5-phan-tich-dac-quyen/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/5-phan-tich-dac-quyen/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/5-phan-tich-dac-quyen/">Tiếng Việt</option>
                     
                   
               
@@ -513,30 +513,35 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#objective">Objective</a></li>
-    <li><a href="#analytics-architecture">Analytics Architecture</a></li>
-    <li><a href="#step-1-cloudtrail-setup-for-data-collection">Step 1: CloudTrail Setup for Data Collection</a>
+    <li><a href="#step-1-verify-cloudtrail-data">Step 1: Verify CloudTrail Data</a>
       <ul>
-        <li><a href="#11-create-cloudtrail">1.1 Create CloudTrail</a></li>
+        <li><a href="#11-check-cloudtrail-logs">1.1 Check CloudTrail Logs</a></li>
+        <li><a href="#12-verify-s3-bucket-has-cloudtrail-data">1.2 Verify S3 Bucket has CloudTrail Data</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-lambda-analytics-engine-setup">Step 2: Lambda Analytics Engine Setup</a>
+    <li><a href="#step-2-create-lambda-function-for-privilege-analytics">Step 2: Create Lambda Function for Privilege Analytics</a>
       <ul>
-        <li><a href="#21-create-lambda-function-for-analytics">2.1 Create Lambda Function for Analytics</a></li>
-        <li><a href="#22-configure-lambda-to-read-s3-data">2.2 Configure Lambda to Read S3 Data</a></li>
-        <li><a href="#23-process-analytics-data">2.3 Process Analytics Data</a></li>
+        <li><a href="#21-create-lambda-function">2.1 Create Lambda Function</a></li>
+        <li><a href="#22-configure-lambda-function-code">2.2 Configure Lambda Function Code</a></li>
+        <li><a href="#23-configure-iam-role-for-lambda">2.3 Configure IAM Role for Lambda</a></li>
       </ul>
     </li>
-    <li><a href="#step-3-quicksight-dashboard-setup">Step 3: QuickSight Dashboard Setup</a>
+    <li><a href="#step-3-setup-s3-event-trigger">Step 3: Setup S3 Event Trigger</a>
       <ul>
-        <li><a href="#31-create-quicksight-account">3.1 Create QuickSight Account</a></li>
-        <li><a href="#32-create-data-source">3.2 Create Data Source</a></li>
-        <li><a href="#33-create-analysis-dashboard">3.3 Create Analysis Dashboard</a></li>
+        <li><a href="#31-configure-s3-trigger-for-lambda">3.1 Configure S3 Trigger for Lambda</a></li>
       </ul>
     </li>
-    <li><a href="#step-4-set-up-automated-analysis">Step 4: Set Up Automated Analysis</a>
+    <li><a href="#step-4-create-cloudwatch-dashboard">Step 4: Create CloudWatch Dashboard</a>
       <ul>
-        <li><a href="#41-create-lambda-for-risk-scoring">4.1 Create Lambda for Risk Scoring</a></li>
-        <li><a href="#42-configure-cloudwatch-alarms">4.2 Configure CloudWatch Alarms</a></li>
+        <li><a href="#41-create-dashboard-for-privilege-analytics">4.1 Create Dashboard for Privilege Analytics</a></li>
+        <li><a href="#42-add-widgets-to-dashboard">4.2 Add Widgets to Dashboard</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-5-test-privilege-analytics">Step 5: Test Privilege Analytics</a>
+      <ul>
+        <li><a href="#51-create-test-activity">5.1 Create Test Activity</a></li>
+        <li><a href="#52-check-lambda-execution">5.2 Check Lambda Execution</a></li>
+        <li><a href="#53-verify-dynamodb-records">5.3 Verify DynamoDB Records</a></li>
       </ul>
     </li>
     <li><a href="#expected-results">Expected Results</a></li>
@@ -567,136 +572,275 @@
 
 
 	<h2 id="objective">Objective</h2>
-<p>Analyze and monitor privilege usage to detect security risks, excessive permissions, and anomalous patterns.</p>
-<h2 id="analytics-architecture">Analytics Architecture</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[CloudTrail Logs] --&gt; B[S3 Data Lake]
-    C[IAM Data] --&gt; B
-    B --&gt; D[Lambda Analytics]
-    D --&gt; E[DynamoDB Results]
-    E --&gt; F[QuickSight Dashboard]
-    D --&gt; G[CloudWatch Metrics]
-    G --&gt; H[SNS Alerts]
-</code></pre><h2 id="step-1-cloudtrail-setup-for-data-collection">Step 1: CloudTrail Setup for Data Collection</h2>
-<h3 id="11-create-cloudtrail">1.1 Create CloudTrail</h3>
+<p>Analyze and monitor privilege usage to detect security risks, excessive permissions, and abnormal patterns through CloudTrail logs.</p>
+<h2 id="step-1-verify-cloudtrail-data">Step 1: Verify CloudTrail Data</h2>
+<h3 id="11-check-cloudtrail-logs">1.1 Check CloudTrail Logs</h3>
 <ol>
-<li>Open <strong>AWS CloudTrail</strong> in the console</li>
-<li>Click <strong>Create trail</strong></li>
+<li>Open <strong>Amazon CloudTrail</strong> in the console</li>
+<li>Verify that trail <strong>IdentityGovernanceTrail</strong> was created in chapter 2</li>
+<li>Check S3 bucket containing CloudTrail logs</li>
 </ol>
-<p><img alt="Create CloudTrail" src="/images/5/create-cloudtrail.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Configure trail settings:
-<ul>
-<li><strong>Trail name</strong>: PrivilegeAnalyticsTrail</li>
-<li><strong>Apply trail to all regions</strong>: Yes</li>
-<li><strong>Management events</strong>: Read and Write</li>
-</ul>
-</li>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ct1.png?featherlight=false&width=90pc"></p>
+<h3 id="12-verify-s3-bucket-has-cloudtrail-data">1.2 Verify S3 Bucket has CloudTrail Data</h3>
+<ol>
+<li>Go to <strong>Amazon S3</strong> console</li>
+<li>Find CloudTrail bucket (name like <code>aws-cloudtrail-logs-xxx</code>)</li>
+<li>Verify that log files are being created</li>
 </ol>
-<p><img alt="CloudTrail Configuration" src="/images/5/cloudtrail-config.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Configure S3 bucket:
-<ul>
-<li><strong>Create new S3 bucket</strong>: Yes</li>
-<li><strong>S3 bucket name</strong>: privilege-analytics-logs-[account-id]</li>
-<li><strong>Log file prefix</strong>: cloudtrail-logs/</li>
-</ul>
-</li>
-</ol>
-<p><img alt="S3 Bucket Configuration" src="/images/5/s3-bucket-config.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Enable <strong>Log file validation</strong></li>
-<li>Click <strong>Create trail</strong></li>
-</ol>
-<h2 id="step-2-lambda-analytics-engine-setup">Step 2: Lambda Analytics Engine Setup</h2>
-<h3 id="21-create-lambda-function-for-analytics">2.1 Create Lambda Function for Analytics</h3>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ct2.png?featherlight=false&width=90pc"></p>
+<h2 id="step-2-create-lambda-function-for-privilege-analytics">Step 2: Create Lambda Function for Privilege Analytics</h2>
+<h3 id="21-create-lambda-function">2.1 Create Lambda Function</h3>
 <ol>
 <li>Open <strong>AWS Lambda</strong> in the console</li>
-<li>Create new function: <strong>PrivilegeAnalyticsEngine</strong></li>
-<li>Choose runtime <strong>Python 3.9</strong></li>
-</ol>
-<p><img alt="Create Analytics Lambda" src="/images/5/create-analytics-lambda.png?featherlight=false&width=90pc"></p>
-<h3 id="22-configure-lambda-to-read-s3-data">2.2 Configure Lambda to Read S3 Data</h3>
-<ol>
-<li>Add IAM permissions for S3 and DynamoDB</li>
-<li>Configure S3 trigger from bucket</li>
-<li>Upload analytics code</li>
-</ol>
-<p><img alt="Lambda S3 Integration" src="/images/5/lambda-s3-integration.png?featherlight=false&width=90pc"></p>
-<h3 id="23-process-analytics-data">2.3 Process Analytics Data</h3>
-<ol>
-<li>Lambda function processes CloudTrail logs</li>
-<li>Calculates risk scores and usage patterns</li>
-<li>Stores results in DynamoDB</li>
-</ol>
-<p><img alt="Analytics Processing" src="/images/5/analytics-processing.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-quicksight-dashboard-setup">Step 3: QuickSight Dashboard Setup</h2>
-<h3 id="31-create-quicksight-account">3.1 Create QuickSight Account</h3>
-<ol>
-<li>Open <strong>Amazon QuickSight</strong> in the console</li>
-<li>Sign up for QuickSight if not already done</li>
-<li>Choose <strong>Standard</strong> edition</li>
-</ol>
-<p><img alt="QuickSight Signup" src="/images/5/quicksight-signup.png?featherlight=false&width=90pc"></p>
-<h3 id="32-create-data-source">3.2 Create Data Source</h3>
-<ol>
-<li>Click <strong>Datasets</strong> in QuickSight</li>
-<li>Click <strong>New dataset</strong></li>
-<li>Choose <strong>Athena</strong> as data source</li>
-</ol>
-<p><img alt="Create Dataset" src="/images/5/create-dataset.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Configure Athena connection:
+<li>Click <strong>Create function</strong></li>
+<li>Choose <strong>Author from scratch</strong></li>
+<li>Enter function details:
 <ul>
-<li><strong>Data source name</strong>: PrivilegeAnalytics</li>
-<li><strong>Database</strong>: privilege_analytics_db</li>
-<li><strong>Table</strong>: cloudtrail_logs</li>
+<li><strong>Function name</strong>: <code>PrivilegeAnalyticsEngine</code></li>
+<li><strong>Runtime</strong>: Python 3.9</li>
+<li><strong>Architecture</strong>: x86_64</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Athena Data Source" src="/images/5/athena-data-source.png?featherlight=false&width=90pc"></p>
-<h3 id="33-create-analysis-dashboard">3.3 Create Analysis Dashboard</h3>
-<ol>
-<li>Click <strong>Create analysis</strong></li>
-<li>Add visualizations for:
-<ul>
-<li>Top users by activity</li>
-<li>High-risk events timeline</li>
-<li>Geographic access patterns</li>
-</ul>
-</li>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda1.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Click <strong>Create function</strong></li>
 </ol>
-<p><img alt="QuickSight Dashboard" src="/images/5/quicksight-dashboard.png?featherlight=false&width=90pc"></p>
+<h3 id="22-configure-lambda-function-code">2.2 Configure Lambda Function Code</h3>
+<ol>
+<li>In the <strong>Code</strong> tab, replace the default code with the following:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gzip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> urllib.parse <span style="color:#f92672">import</span> unquote_plus
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Privilege Analytics Engine Started&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize AWS clients</span>
+</span></span><span style="display:flex;"><span>    s3 <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>    dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get the object from the event</span>
+</span></span><span style="display:flex;"><span>    bucket <span style="color:#f92672">=</span> event[<span style="color:#e6db74">&#39;Records&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;s3&#39;</span>][<span style="color:#e6db74">&#39;bucket&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>]
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> unquote_plus(event[<span style="color:#e6db74">&#39;Records&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;s3&#39;</span>][<span style="color:#e6db74">&#39;object&#39;</span>][<span style="color:#e6db74">&#39;key&#39;</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Download and decompress CloudTrail log</span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> s3<span style="color:#f92672">.</span>get_object(Bucket<span style="color:#f92672">=</span>bucket, Key<span style="color:#f92672">=</span>key)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> key<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#39;.gz&#39;</span>):
+</span></span><span style="display:flex;"><span>            content <span style="color:#f92672">=</span> gzip<span style="color:#f92672">.</span>decompress(response[<span style="color:#e6db74">&#39;Body&#39;</span>]<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            content <span style="color:#f92672">=</span> response[<span style="color:#e6db74">&#39;Body&#39;</span>]<span style="color:#f92672">.</span>read()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Parse CloudTrail log</span>
+</span></span><span style="display:flex;"><span>        log_data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(content<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Analyze privilege usage</span>
+</span></span><span style="display:flex;"><span>        privilege_events <span style="color:#f92672">=</span> analyze_privilege_events(log_data[<span style="color:#e6db74">&#39;Records&#39;</span>])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store analysis results</span>
+</span></span><span style="display:flex;"><span>        store_analysis_results(privilege_events, dynamodb)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Processed </span><span style="color:#e6db74">{</span>len(privilege_events)<span style="color:#e6db74">}</span><span style="color:#e6db74"> privilege events&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error processing </span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">analyze_privilege_events</span>(records):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Analyze CloudTrail records for privilege usage patterns&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    privilege_events <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    high_privilege_actions <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;CreateUser&#39;</span>, <span style="color:#e6db74">&#39;DeleteUser&#39;</span>, <span style="color:#e6db74">&#39;AttachUserPolicy&#39;</span>, <span style="color:#e6db74">&#39;DetachUserPolicy&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;CreateRole&#39;</span>, <span style="color:#e6db74">&#39;DeleteRole&#39;</span>, <span style="color:#e6db74">&#39;AttachRolePolicy&#39;</span>, <span style="color:#e6db74">&#39;DetachRolePolicy&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;PutUserPolicy&#39;</span>, <span style="color:#e6db74">&#39;DeleteUserPolicy&#39;</span>, <span style="color:#e6db74">&#39;PutRolePolicy&#39;</span>, <span style="color:#e6db74">&#39;DeleteRolePolicy&#39;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> record <span style="color:#f92672">in</span> records:
+</span></span><span style="display:flex;"><span>        event_name <span style="color:#f92672">=</span> record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;eventName&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> event_name <span style="color:#f92672">in</span> high_privilege_actions:
+</span></span><span style="display:flex;"><span>            privilege_event <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;eventTime&#39;</span>: record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;eventTime&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;eventName&#39;</span>: event_name,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;userIdentity&#39;</span>: record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;userIdentity&#39;</span>, {}),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;sourceIPAddress&#39;</span>: record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;sourceIPAddress&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;userAgent&#39;</span>: record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;userAgent&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;awsRegion&#39;</span>: record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;awsRegion&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;riskScore&#39;</span>: calculate_risk_score(record)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            privilege_events<span style="color:#f92672">.</span>append(privilege_event)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> privilege_events
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_risk_score</span>(record):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate risk score for privilege event (1-10 scale)&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    base_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># High-risk actions</span>
+</span></span><span style="display:flex;"><span>    high_risk_actions <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;DeleteUser&#39;</span>, <span style="color:#e6db74">&#39;DeleteRole&#39;</span>, <span style="color:#e6db74">&#39;DetachUserPolicy&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;eventName&#39;</span>) <span style="color:#f92672">in</span> high_risk_actions:
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># External IP access</span>
+</span></span><span style="display:flex;"><span>    source_ip <span style="color:#f92672">=</span> record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;sourceIPAddress&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> source_ip<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;10.&#39;</span>) <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> source_ip<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;172.&#39;</span>) <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> source_ip<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;192.168.&#39;</span>):
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Console vs API access</span>
+</span></span><span style="display:flex;"><span>    user_agent <span style="color:#f92672">=</span> record<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;userAgent&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;console&#39;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> user_agent<span style="color:#f92672">.</span>lower():
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(base_score, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">store_analysis_results</span>(privilege_events, dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Store analysis results in DynamoDB&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> privilege_events:
+</span></span><span style="display:flex;"><span>        table<span style="color:#f92672">.</span>put_item(
+</span></span><span style="display:flex;"><span>            Item<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentId&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;privilege-</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;EventTime&#39;</span>: event[<span style="color:#e6db74">&#39;eventTime&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;EventName&#39;</span>: event[<span style="color:#e6db74">&#39;eventName&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;UserIdentity&#39;</span>: json<span style="color:#f92672">.</span>dumps(event[<span style="color:#e6db74">&#39;userIdentity&#39;</span>]),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;SourceIP&#39;</span>: event[<span style="color:#e6db74">&#39;sourceIPAddress&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;RiskScore&#39;</span>: event[<span style="color:#e6db74">&#39;riskScore&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentType&#39;</span>: <span style="color:#e6db74">&#39;Privilege Analysis&#39;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        )
+</span></span></code></pre></div><p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda2.png?featherlight=false&width=90pc"></p>
+<ol start="2">
+<li>Click <strong>Deploy</strong> to save changes</li>
+</ol>
+<h3 id="23-configure-iam-role-for-lambda">2.3 Configure IAM Role for Lambda</h3>
+<ol>
+<li>Go to <strong>Configuration</strong> tab</li>
+<li>Click <strong>Permissions</strong></li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda3.png?featherlight=false&width=90pc"></p>
 <ol start="3">
-<li>Configure filters and parameters</li>
-<li>Publish the dashboard</li>
+<li>Click on the role name to open IAM console</li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
+<li>Search and attach the following policies:
+<ul>
+<li><strong>AmazonS3ReadOnlyAccess</strong></li>
+<li><strong>AmazonDynamoDBFullAccess</strong></li>
+</ul>
+</li>
+<li>Click <strong>Add permissions</strong></li>
 </ol>
-<p><img alt="Publish Dashboard" src="/images/5/publish-dashboard.png?featherlight=false&width=90pc"></p>
-<h2 id="step-4-set-up-automated-analysis">Step 4: Set Up Automated Analysis</h2>
-<h3 id="41-create-lambda-for-risk-scoring">4.1 Create Lambda for Risk Scoring</h3>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda4.png?featherlight=false&width=90pc"></p>
+<h2 id="step-3-setup-s3-event-trigger">Step 3: Setup S3 Event Trigger</h2>
+<h3 id="31-configure-s3-trigger-for-lambda">3.1 Configure S3 Trigger for Lambda</h3>
 <ol>
-<li>Open <strong>AWS Lambda</strong> console</li>
-<li>Create function <strong>PrivilegeRiskScoring</strong></li>
-<li>Configure to run daily via EventBridge</li>
+<li>In Lambda function <strong>PrivilegeAnalyticsEngine</strong></li>
+<li>Click <strong>Add trigger</strong></li>
+<li>Select <strong>S3</strong> from dropdown</li>
 </ol>
-<p><img alt="Risk Scoring Lambda" src="/images/5/risk-scoring-lambda.png?featherlight=false&width=90pc"></p>
-<h3 id="42-configure-cloudwatch-alarms">4.2 Configure CloudWatch Alarms</h3>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/trigger1.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Configure trigger:
+<ul>
+<li><strong>Bucket</strong>: Select CloudTrail S3 bucket</li>
+<li><strong>Event type</strong>: All object create events</li>
+<li><strong>Prefix</strong>: <code>AWSLogs/</code> (optional)</li>
+<li><strong>Suffix</strong>: <code>.json.gz</code></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/trigger2.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Click <strong>Add</strong></li>
+</ol>
+<h2 id="step-4-create-cloudwatch-dashboard">Step 4: Create CloudWatch Dashboard</h2>
+<h3 id="41-create-dashboard-for-privilege-analytics">4.1 Create Dashboard for Privilege Analytics</h3>
 <ol>
-<li>Open <strong>CloudWatch</strong> console</li>
-<li>Create alarms for high-risk activities</li>
-<li>Set SNS notifications</li>
+<li>Open <strong>Amazon CloudWatch</strong> console</li>
+<li>Click <strong>Dashboards</strong> in the sidebar</li>
+<li>Click <strong>Create dashboard</strong></li>
 </ol>
-<p><img alt="CloudWatch Alarms" src="/images/5/cloudwatch-alarms.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/cw1.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Enter dashboard name: <code>PrivilegeAnalyticsDashboard</code></li>
+<li>Click <strong>Create dashboard</strong></li>
+</ol>
+<h3 id="42-add-widgets-to-dashboard">4.2 Add Widgets to Dashboard</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Select <strong>Line</strong> chart</li>
+<li>Configure metric:
+<ul>
+<li><strong>Namespace</strong>: AWS/Lambda</li>
+<li><strong>Metric</strong>: Invocations</li>
+<li><strong>Function</strong>: PrivilegeAnalyticsEngine</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Click <strong>Create widget</strong></li>
+<li>Add additional widgets for:
+<ul>
+<li>Lambda Errors</li>
+<li>Lambda Duration</li>
+<li>DynamoDB Item Count</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/cw3.png?featherlight=false&width=90pc"></p>
+<h2 id="step-5-test-privilege-analytics">Step 5: Test Privilege Analytics</h2>
+<h3 id="51-create-test-activity">5.1 Create Test Activity</h3>
+<ol>
+<li>Go to <strong>IAM</strong> console</li>
+<li>Perform some actions to generate CloudTrail logs:
+<ul>
+<li>Create test user</li>
+<li>Attach/detach policies</li>
+<li>Create test role</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/test1.png?featherlight=false&width=90pc"></p>
+<h3 id="52-check-lambda-execution">5.2 Check Lambda Execution</h3>
+<ol>
+<li>Go to <strong>AWS Lambda</strong> console</li>
+<li>Select function <strong>PrivilegeAnalyticsEngine</strong></li>
+<li>Click <strong>Monitor</strong> tab</li>
+<li>View CloudWatch logs to verify function execution</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/test2.png?featherlight=false&width=90pc"></p>
+<h3 id="53-verify-dynamodb-records">5.3 Verify DynamoDB Records</h3>
+<ol>
+<li>Go to <strong>Amazon DynamoDB</strong> console</li>
+<li>Select table <strong>RiskAssessments</strong></li>
+<li>Click <strong>Explore table items</strong></li>
+<li>Verify new records with AssessmentType = &lsquo;Privilege Analysis&rsquo;</li>
+</ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="expected-results">Expected Results</h2>
 <p>After completion:</p>
 <ul>
-<li>✅ CloudTrail collecting privilege data</li>
-<li>✅ Athena tables for analytics queries</li>
-<li>✅ QuickSight dashboard for visualization</li>
-<li>✅ Automated risk scoring</li>
-<li>✅ CloudWatch monitoring and alerts</li>
+<li>✅ CloudTrail logs analyzed automatically</li>
+<li>✅ Lambda function processing privilege events</li>
+<li>✅ Risk scoring for privilege actions</li>
+<li>✅ DynamoDB storing analysis results</li>
+<li>✅ CloudWatch dashboard monitoring</li>
+<li>✅ Real-time privilege monitoring</li>
 </ul>
-<p><img alt="Privilege Analytics Complete" src="/images/5/privilege-analytics-complete.png?featherlight=false&width=90pc"></p>
+<p><img alt="Privilege Analytics Complete" src="https://trtrantnt.github.io/workshop/images/5/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="next-steps">Next Steps</h2>
 <p>Continue to <a href="/6-danh-gia-rui-ro/">6. Risk Assessment</a> to set up comprehensive risk assessment.</p>
 
@@ -939,19 +1083,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754951328"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754951328"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754951328"></script>
-    <script src="/js/jquery.sticky.js?1754951328"></script>
-    <script src="/js/featherlight.min.js?1754951328"></script>
-    <script src="/js/highlight.pack.js?1754951328"></script>
+    <script src="/js/clipboard.min.js?1754951690"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754951690"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754951690"></script>
+    <script src="/js/jquery.sticky.js?1754951690"></script>
+    <script src="/js/featherlight.min.js?1754951690"></script>
+    <script src="/js/highlight.pack.js?1754951690"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754951328"></script>
-    <script src="/js/learn.js?1754951328"></script>
-    <script src="/js/hugo-learn.js?1754951328"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754951690"></script>
+    <script src="/js/learn.js?1754951690"></script>
+    <script src="/js/hugo-learn.js?1754951690"></script>
 
-    <link href="/mermaid/mermaid.css?1754951328" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754951328"></script>
+    <link href="/mermaid/mermaid.css?1754951690" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754951690"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
