@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62640&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>6. Đánh giá Rủi ro :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754982139" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754982139" rel="stylesheet">
-    <link href="/css/hybrid.css?1754982139" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754982139" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754982139" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754982139" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754982139" rel="stylesheet">
-    <link href="/css/theme.css?1754982139" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754982139" rel="stylesheet">
+    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
+    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
+    <link href="/css/theme.css?1754984698" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754982139" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754982139"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754982139"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754982139"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/\/vi";
+        var baseurl = "\/\/localhost:62640\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754982139"></script>
+<script type="text/javascript" src="/js/search.js?1754984698"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/6-danh-gia-rui-ro/">English</option>
+                      <option id="en" value="//localhost:62640/6-danh-gia-rui-ro/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/6-danh-gia-rui-ro/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62640/vi/6-danh-gia-rui-ro/" selected>Tiếng Việt</option>
                     
                   
               
@@ -584,31 +584,36 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/dynamo1.png?featherlight=false&width=90pc"></p>
 <h3 id="12-kiểm-tra-security-hub-findings">1.2 Kiểm tra Security Hub Findings</h3>
 <ol>
 <li>Vào <strong>AWS Security Hub</strong> console</li>
 <li>Xác minh có findings được thu thập</li>
 <li>Kiểm tra compliance standards đang active</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/securityhub1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/61.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-2-tạo-lambda-function-cho-risk-assessment">Bước 2: Tạo Lambda Function cho Risk Assessment</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
-<li>Mở <strong>AWS Lambda</strong> trong console</li>
-<li>Click <strong>Create function</strong></li>
-<li>Chọn <strong>Author from scratch</strong></li>
-<li>Nhập thông tin function:
+<li>
+<p>Mở <strong>AWS Lambda</strong> trong console</p>
+</li>
+<li>
+<p>Click <strong>Create function</strong></p>
+</li>
+<li>
+<p>Chọn <strong>Author from scratch</strong></p>
+</li>
+<li>
+<p>Nhập thông tin function:</p>
 <ul>
 <li><strong>Function name</strong>: <code>RiskAssessmentEngine</code></li>
 <li><strong>Runtime</strong>: Python 3.9</li>
 <li><strong>Architecture</strong>: x86_64</li>
 </ul>
 </li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda1.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Click <strong>Create function</strong></li>
+<li>
+<p>Click <strong>Create function</strong></p>
+</li>
 </ol>
 <h3 id="22-cấu-hình-code-cho-lambda-function">2.2 Cấu hình Code cho Lambda Function</h3>
 <ol>
@@ -869,17 +874,13 @@
 </span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentDate&#39;</span>: user_risk[<span style="color:#e6db74">&#39;assessmentDate&#39;</span>]
 </span></span><span style="display:flex;"><span>            }
 </span></span><span style="display:flex;"><span>        )
-</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda2.png?featherlight=false&width=90pc"></p>
-<ol start="2">
+</span></span></code></pre></div><ol start="2">
 <li>Click <strong>Deploy</strong> để lưu thay đổi</li>
 </ol>
 <h3 id="23-cấu-hình-iam-role-cho-lambda">2.3 Cấu hình IAM Role cho Lambda</h3>
 <ol>
 <li>Chuyển đến tab <strong>Configuration</strong></li>
 <li>Click <strong>Permissions</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda3.png?featherlight=false&width=90pc"></p>
-<ol start="3">
 <li>Click vào role name để mở IAM console</li>
 <li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
 <li>Tìm và attach các policies sau:
@@ -891,16 +892,13 @@
 </li>
 <li>Click <strong>Add permissions</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda4.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/ld3.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-3-thiết-lập-eventbridge-schedule-cho-risk-assessment">Bước 3: Thiết lập EventBridge Schedule cho Risk Assessment</h2>
 <h3 id="31-tạo-scheduled-rule">3.1 Tạo Scheduled Rule</h3>
 <ol>
 <li>Mở <strong>Amazon EventBridge</strong> trong AWS Console</li>
 <li>Click <strong>Schedules</strong> ở sidebar</li>
 <li>Click <strong>Create schedule</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/eb1.png?featherlight=false&width=90pc"></p>
-<ol start="4">
 <li>Cấu hình schedule:
 <ul>
 <li><strong>Name</strong>: <code>RiskAssessmentSchedule</code></li>
@@ -911,7 +909,7 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/eb2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/eb1.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Click <strong>Create schedule</strong></li>
 </ol>
@@ -921,9 +919,6 @@
 <li>Mở <strong>Amazon SNS</strong> console</li>
 <li>Click <strong>Topics</strong> ở sidebar</li>
 <li>Click <strong>Create topic</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/sns1.png?featherlight=false&width=90pc"></p>
-<ol start="4">
 <li>Cấu hình topic:
 <ul>
 <li><strong>Type</strong>: Standard</li>
@@ -931,26 +926,29 @@
 <li><strong>Display name</strong>: <code>Risk Assessment Alerts</code></li>
 </ul>
 </li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/sns2.png?featherlight=false&width=90pc"></p>
-<ol start="5">
 <li>Click <strong>Create topic</strong></li>
 </ol>
 <h3 id="42-tạo-subscription">4.2 Tạo Subscription</h3>
 <ol>
-<li>Trong topic <strong>RiskAssessmentAlerts</strong></li>
-<li>Click <strong>Create subscription</strong></li>
-<li>Cấu hình subscription:
+<li>
+<p>Trong topic <strong>RiskAssessmentAlerts</strong></p>
+</li>
+<li>
+<p>Click <strong>Create subscription</strong></p>
+</li>
+<li>
+<p>Cấu hình subscription:</p>
 <ul>
 <li><strong>Protocol</strong>: Email</li>
 <li><strong>Endpoint</strong>: <a href="mailto:your-email@example.com">your-email@example.com</a></li>
 </ul>
 </li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/sns3.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Click <strong>Create subscription</strong></li>
-<li>Xác nhận subscription qua email</li>
+<li>
+<p>Click <strong>Create subscription</strong></p>
+</li>
+<li>
+<p>Xác nhận subscription qua email</p>
+</li>
 </ol>
 <h2 id="bước-5-kiểm-tra-risk-assessment">Bước 5: Kiểm tra Risk Assessment</h2>
 <h3 id="51-test-lambda-function">5.1 Test Lambda Function</h3>
@@ -960,7 +958,6 @@
 <li>Click <strong>Test</strong> để tạo test event</li>
 <li>Sử dụng default test event và click <strong>Test</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/test1.png?featherlight=false&width=90pc"></p>
 <h3 id="52-xác-minh-dynamodb-results">5.2 Xác minh DynamoDB Results</h3>
 <ol>
 <li>Vào <strong>Amazon DynamoDB</strong> console</li>
@@ -968,7 +965,6 @@
 <li>Click <strong>Explore table items</strong></li>
 <li>Xác minh có records mới với AssessmentType = &lsquo;Comprehensive Risk Assessment&rsquo;</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/test2.png?featherlight=false&width=90pc"></p>
 <h3 id="53-kiểm-tra-cloudwatch-logs">5.3 Kiểm tra CloudWatch Logs</h3>
 <ol>
 <li>Vào <strong>Amazon CloudWatch</strong> console</li>
@@ -976,7 +972,6 @@
 <li>Tìm log group cho Lambda function</li>
 <li>Xem logs để xác minh risk assessment đã chạy thành công</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
@@ -987,7 +982,6 @@
 <li>✅ SNS alerts for high-risk findings</li>
 <li>✅ Historical risk tracking in DynamoDB</li>
 </ul>
-<p><img alt="Hoàn thành Risk Assessment" src="https://trtrantnt.github.io/workshop/images/6/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/7-thiet-lap-giam-sat/">7. Thiết lập Giám sát</a> để thiết lập hệ thống giám sát và alerting.</p>
 
@@ -1230,19 +1224,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754982139"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754982139"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754982139"></script>
-    <script src="/js/jquery.sticky.js?1754982139"></script>
-    <script src="/js/featherlight.min.js?1754982139"></script>
-    <script src="/js/highlight.pack.js?1754982139"></script>
+    <script src="/js/clipboard.min.js?1754984698"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
+    <script src="/js/jquery.sticky.js?1754984698"></script>
+    <script src="/js/featherlight.min.js?1754984698"></script>
+    <script src="/js/highlight.pack.js?1754984698"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754982139"></script>
-    <script src="/js/learn.js?1754982139"></script>
-    <script src="/js/hugo-learn.js?1754982139"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
+    <script src="/js/learn.js?1754984698"></script>
+    <script src="/js/hugo-learn.js?1754984698"></script>
 
-    <link href="/mermaid/mermaid.css?1754982139" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754982139"></script>
+    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754984698"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

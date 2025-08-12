@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62640&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>5. Privilege Analytics :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754982139" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754982139" rel="stylesheet">
-    <link href="/css/hybrid.css?1754982139" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754982139" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754982139" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754982139" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754982139" rel="stylesheet">
-    <link href="/css/theme.css?1754982139" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754982139" rel="stylesheet">
+    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
+    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
+    <link href="/css/theme.css?1754984698" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754982139" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754982139"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754982139"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754982139"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/";
+        var baseurl = "\/\/localhost:62640\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754982139"></script>
+<script type="text/javascript" src="/js/search.js?1754984698"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/5-phan-tich-dac-quyen/" selected>English</option>
+                      <option id="en" value="//localhost:62640/5-phan-tich-dac-quyen/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/5-phan-tich-dac-quyen/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62640/vi/5-phan-tich-dac-quyen/">Tiếng Việt</option>
                     
                   
               
@@ -543,9 +543,14 @@
     </li>
     <li><a href="#step-5-test-privilege-analytics">Step 5: Test Privilege Analytics</a>
       <ul>
-        <li><a href="#51-create-test-activity">5.1 Create Test Activity</a></li>
-        <li><a href="#52-check-lambda-execution">5.2 Check Lambda Execution</a></li>
-        <li><a href="#53-verify-dynamodb-records">5.3 Verify DynamoDB Records</a></li>
+        <li><a href="#51-create-test-user-to-generate-cloudtrail-events">5.1 Create Test User to Generate CloudTrail Events</a></li>
+        <li><a href="#52-perform-high-privilege-actions">5.2 Perform High-Privilege Actions</a></li>
+        <li><a href="#53-wait-for-cloudtrail-processing">5.3 Wait for CloudTrail Processing</a></li>
+        <li><a href="#54-verify-lambda-function-execution">5.4 Verify Lambda Function Execution</a></li>
+        <li><a href="#55-verify-dynamodb-records">5.5 Verify DynamoDB Records</a></li>
+        <li><a href="#56-check-cloudwatch-dashboard">5.6 Check CloudWatch Dashboard</a></li>
+        <li><a href="#57-test-real-time-monitoring">5.7 Test Real-time Monitoring</a></li>
+        <li><a href="#58-troubleshooting-if-no-data">5.8 Troubleshooting (if no data)</a></li>
       </ul>
     </li>
     <li><a href="#expected-results">Expected Results</a></li>
@@ -590,7 +595,7 @@
 <li>Find CloudTrail bucket (name like <code>aws-cloudtrail-logs-xxx</code>)</li>
 <li>Verify that log files are being created</li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/5.1.png?featherlight=false&width=90pc"></p>
 <h2 id="step-2-create-lambda-function-for-privilege-analytics">Step 2: Create Lambda Function for Privilege Analytics</h2>
 <h3 id="21-create-lambda-function">2.1 Create Lambda Function</h3>
 <ol>
@@ -794,7 +799,6 @@
 <li>Set widget name: &ldquo;Lambda Invocations&rdquo;</li>
 <li>Click <strong>Create widget</strong></li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc"></p>
 <h3 id="43-add-widget-2-lambda-errors">4.3 Add Widget 2: Lambda Errors</h3>
 <ol>
 <li>Click <strong>Add widget</strong> (in dashboard)</li>
@@ -855,47 +859,132 @@
 </ol>
 <p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/cw3.png?featherlight=false&width=90pc"></p>
 <h2 id="step-5-test-privilege-analytics">Step 5: Test Privilege Analytics</h2>
-<h3 id="51-create-test-activity">5.1 Create Test Activity</h3>
+<h3 id="51-create-test-user-to-generate-cloudtrail-events">5.1 Create Test User to Generate CloudTrail Events</h3>
 <ol>
 <li>Go to <strong>IAM</strong> console</li>
-<li>Perform some actions to generate CloudTrail logs:
+<li>Click <strong>Users</strong> in the left sidebar</li>
+<li>Click <strong>Create user</strong></li>
+<li>Enter User name: <code>test-privilege-user</code></li>
+<li>Click <strong>Next</strong></li>
+<li>Select <strong>Attach policies directly</strong></li>
+<li>Search and select <strong>ReadOnlyAccess</strong></li>
+<li>Click <strong>Next</strong> → <strong>Create user</strong></li>
+</ol>
+<h3 id="52-perform-high-privilege-actions">5.2 Perform High-Privilege Actions</h3>
+<ol>
+<li>In IAM console, select the <strong>test-privilege-user</strong> you just created</li>
+<li>Click <strong>Permissions</strong> tab</li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies directly</strong></li>
+<li>Search and attach <strong>PowerUserAccess</strong> policy</li>
+<li>Click <strong>Add permissions</strong></li>
+<li>Then <strong>Remove</strong> the <strong>PowerUserAccess</strong> policy to create more events</li>
+<li>Create test role:
 <ul>
-<li>Create test user</li>
-<li>Attach/detach policies</li>
-<li>Create test role</li>
+<li>Click <strong>Roles</strong> in sidebar</li>
+<li>Click <strong>Create role</strong></li>
+<li>Select <strong>AWS service</strong> → <strong>Lambda</strong></li>
+<li>Click <strong>Next</strong> → <strong>Next</strong></li>
+<li>Role name: <code>test-privilege-role</code></li>
+<li>Click <strong>Create role</strong></li>
 </ul>
 </li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/test1.png?featherlight=false&width=90pc"></p>
-<h3 id="52-check-lambda-execution">5.2 Check Lambda Execution</h3>
+<h3 id="53-wait-for-cloudtrail-processing">5.3 Wait for CloudTrail Processing</h3>
+<ol>
+<li>CloudTrail needs time to write logs to S3</li>
+<li>Check CloudTrail S3 bucket:
+<ul>
+<li>Go to <strong>S3</strong> console</li>
+<li>Find CloudTrail bucket (name like <code>aws-cloudtrail-logs-xxx</code>)</li>
+<li>Verify new log files are being created</li>
+</ul>
+</li>
+</ol>
+<h3 id="54-verify-lambda-function-execution">5.4 Verify Lambda Function Execution</h3>
 <ol>
 <li>Go to <strong>AWS Lambda</strong> console</li>
 <li>Select function <strong>PrivilegeAnalyticsEngine</strong></li>
 <li>Click <strong>Monitor</strong> tab</li>
-<li>View CloudWatch logs to verify function execution</li>
+<li>Check <strong>Invocations</strong> graph - should show activity</li>
+<li>Click <strong>View CloudWatch logs</strong></li>
+<li>Select the latest log stream</li>
+<li>Verify logs like:
+<pre tabindex="0"><code>Privilege Analytics Engine Started
+Processed X privilege events
+</code></pre></li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/test2.png?featherlight=false&width=90pc"></p>
-<h3 id="53-verify-dynamodb-records">5.3 Verify DynamoDB Records</h3>
+<h3 id="55-verify-dynamodb-records">5.5 Verify DynamoDB Records</h3>
 <ol>
 <li>Go to <strong>Amazon DynamoDB</strong> console</li>
+<li>Click <strong>Tables</strong> in sidebar</li>
 <li>Select table <strong>RiskAssessments</strong></li>
 <li>Click <strong>Explore table items</strong></li>
-<li>Verify new records with AssessmentType = &lsquo;Privilege Analysis&rsquo;</li>
+<li>Verify new records with:
+<ul>
+<li><strong>AssessmentType</strong>: &lsquo;Privilege Analysis&rsquo;</li>
+<li><strong>EventName</strong>: &lsquo;AttachUserPolicy&rsquo;, &lsquo;DetachUserPolicy&rsquo;, &lsquo;CreateRole&rsquo;</li>
+<li><strong>RiskScore</strong>: Value from 1-10</li>
+<li><strong>EventTime</strong>: Recent timestamp</li>
+</ul>
+</li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/test3.png?featherlight=false&width=90pc"></p>
+<h3 id="56-check-cloudwatch-dashboard">5.6 Check CloudWatch Dashboard</h3>
+<ol>
+<li>Go to <strong>CloudWatch</strong> console</li>
+<li>Click <strong>Dashboards</strong></li>
+<li>Select <strong>PrivilegeAnalyticsDashboard</strong></li>
+<li>Verify widgets display data:
+<ul>
+<li><strong>Lambda Invocations</strong>: Should show spike when function runs</li>
+<li><strong>Lambda Errors</strong>: Should be 0</li>
+<li><strong>Lambda Duration</strong>: Execution time</li>
+<li><strong>DynamoDB Write Activity</strong>: Should show activity when writing data</li>
+</ul>
+</li>
+</ol>
+<h3 id="57-test-real-time-monitoring">5.7 Test Real-time Monitoring</h3>
+<ol>
+<li>Perform additional privilege action:
+<ul>
+<li>Create new user: <code>test-user-2</code></li>
+<li>Attach policy <strong>IAMReadOnlyAccess</strong></li>
+</ul>
+</li>
+<li>Wait 5-10 minutes</li>
+<li>Refresh DynamoDB table to see new record</li>
+<li>Check if dashboard updates metrics</li>
+</ol>
+<h3 id="58-troubleshooting-if-no-data">5.8 Troubleshooting (if no data)</h3>
+<p><strong>If Lambda doesn&rsquo;t run:</strong></p>
+<ol>
+<li>Check S3 trigger is configured correctly</li>
+<li>Verify CloudTrail is creating log files in S3</li>
+<li>Check IAM permissions of Lambda role</li>
+</ol>
+<p><strong>If no data in DynamoDB:</strong></p>
+<ol>
+<li>Check CloudWatch logs of Lambda function</li>
+<li>Verify table name in code: &lsquo;RiskAssessments&rsquo;</li>
+<li>Confirm Lambda has write permissions to DynamoDB</li>
+</ol>
+<p><strong>If Dashboard doesn&rsquo;t show data:</strong></p>
+<ol>
+<li>Wait 5-15 minutes for metrics to appear</li>
+<li>Check metric names and dimensions are correct</li>
+<li>Refresh dashboard page</li>
+</ol>
 <h2 id="expected-results">Expected Results</h2>
 <p>After completion:</p>
 <ul>
-<li>✅ CloudTrail logs analyzed automatically</li>
-<li>✅ Lambda function processing privilege events</li>
+<li>✅ CloudTrail logs are automatically analyzed</li>
+<li>✅ Lambda function processes privilege events</li>
 <li>✅ Risk scoring for privilege actions</li>
-<li>✅ DynamoDB storing analysis results</li>
+<li>✅ DynamoDB stores analysis results</li>
 <li>✅ CloudWatch dashboard monitoring</li>
 <li>✅ Real-time privilege monitoring</li>
 </ul>
-<p><img alt="Privilege Analytics Complete" src="https://trtrantnt.github.io/workshop/images/5/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="next-steps">Next Steps</h2>
-<p>Continue to <a href="/6-danh-gia-rui-ro/">6. Risk Assessment</a> to set up comprehensive risk assessment.</p>
+<p>Proceed to <a href="/6-danh-gia-rui-ro/">6. Risk Assessment</a> to set up comprehensive risk assessment.</p>
 
 
 
@@ -1136,19 +1225,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754982139"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754982139"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754982139"></script>
-    <script src="/js/jquery.sticky.js?1754982139"></script>
-    <script src="/js/featherlight.min.js?1754982139"></script>
-    <script src="/js/highlight.pack.js?1754982139"></script>
+    <script src="/js/clipboard.min.js?1754984698"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
+    <script src="/js/jquery.sticky.js?1754984698"></script>
+    <script src="/js/featherlight.min.js?1754984698"></script>
+    <script src="/js/highlight.pack.js?1754984698"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754982139"></script>
-    <script src="/js/learn.js?1754982139"></script>
-    <script src="/js/hugo-learn.js?1754982139"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
+    <script src="/js/learn.js?1754984698"></script>
+    <script src="/js/hugo-learn.js?1754984698"></script>
 
-    <link href="/mermaid/mermaid.css?1754982139" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754982139"></script>
+    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754984698"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>5. Phân tích Đặc quyền :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754982139" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754982139" rel="stylesheet">
-    <link href="/css/hybrid.css?1754982139" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754982139" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754982139" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754982139" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754982139" rel="stylesheet">
-    <link href="/css/theme.css?1754982139" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754982139" rel="stylesheet">
+    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
+    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
+    <link href="/css/theme.css?1754984698" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754982139" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754982139"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754982139"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754982139"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/\/vi";
+        var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754982139"></script>
+<script type="text/javascript" src="/js/search.js?1754984698"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/5-phan-tich-dac-quyen/">English</option>
+                      <option id="en" value="//localhost:1313/5-phan-tich-dac-quyen/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/5-phan-tich-dac-quyen/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/5-phan-tich-dac-quyen/" selected>Tiếng Việt</option>
                     
                   
               
@@ -545,6 +545,8 @@
       <ul>
         <li><a href="#51-tạo-test-user-để-generate-cloudtrail-events">5.1 Tạo Test User để Generate CloudTrail Events</a></li>
         <li><a href="#52-thực-hiện-high-privilege-actions">5.2 Thực hiện High-Privilege Actions</a></li>
+        <li><a href="#53-chờ-cloudtrail-processing">5.3 Chờ CloudTrail Processing</a></li>
+        <li><a href="#54-xác-minh-lambda-function-execution">5.4 Xác minh Lambda Function Execution</a></li>
         <li><a href="#55-xác-minh-dynamodb-records">5.5 Xác minh DynamoDB Records</a></li>
         <li><a href="#56-kiểm-tra-cloudwatch-dashboard">5.6 Kiểm tra CloudWatch Dashboard</a></li>
         <li><a href="#57-test-real-time-monitoring">5.7 Test Real-time Monitoring</a></li>
@@ -593,7 +595,7 @@
 <li>Tìm bucket CloudTrail (tên dạng <code>aws-cloudtrail-logs-xxx</code>)</li>
 <li>Xác minh có log files được tạo</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/5.1.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-2-tạo-lambda-function-cho-privilege-analytics">Bước 2: Tạo Lambda Function cho Privilege Analytics</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
@@ -870,26 +872,13 @@
 </ol>
 <h3 id="52-thực-hiện-high-privilege-actions">5.2 Thực hiện High-Privilege Actions</h3>
 <ol>
-<li>
-<p>Trong IAM console, chọn user <strong>test-privilege-user</strong> vừa tạo</p>
-</li>
-<li>
-<p>Click tab <strong>Permissions</strong></p>
-</li>
-<li>
-<p>Click <strong>Add permissions</strong> → <strong>Attach policies directly</strong></p>
-</li>
-<li>
-<p>Tìm và attach <strong>PowerUserAccess</strong> policy</p>
-</li>
-<li>
-<p>Click <strong>Add permissions</strong></p>
-</li>
-<li>
-<p>Sau đó <strong>Remove</strong> policy <strong>PowerUserAccess</strong> để tạo thêm events</p>
-</li>
-<li>
-<p>Tạo test role:</p>
+<li>Trong IAM console, chọn user <strong>test-privilege-user</strong> vừa tạo</li>
+<li>Click tab <strong>Permissions</strong></li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies directly</strong></li>
+<li>Tìm và attach <strong>PowerUserAccess</strong> policy</li>
+<li>Click <strong>Add permissions</strong></li>
+<li>Sau đó <strong>Remove</strong> policy <strong>PowerUserAccess</strong> để tạo thêm events</li>
+<li>Tạo test role:
 <ul>
 <li>Click <strong>Roles</strong> ở sidebar</li>
 <li>Click <strong>Create role</strong></li>
@@ -899,37 +888,27 @@
 <li>Click <strong>Create role</strong></li>
 </ul>
 </li>
-<li>
-<p>CloudTrail cần thời gian để ghi logs vào S3</p>
-</li>
-<li>
-<p>Kiểm tra S3 bucket CloudTrail:</p>
+</ol>
+<h3 id="53-chờ-cloudtrail-processing">5.3 Chờ CloudTrail Processing</h3>
+<ol>
+<li>CloudTrail cần thời gian để ghi logs vào S3</li>
+<li>Kiểm tra S3 bucket CloudTrail:
 <ul>
 <li>Vào <strong>S3</strong> console</li>
 <li>Tìm bucket CloudTrail (tên dạng <code>aws-cloudtrail-logs-xxx</code>)</li>
 <li>Xem có log files mới được tạo không</li>
 </ul>
 </li>
-<li>
-<p>Vào <strong>AWS Lambda</strong> console</p>
-</li>
-<li>
-<p>Chọn function <strong>PrivilegeAnalyticsEngine</strong></p>
-</li>
-<li>
-<p>Click tab <strong>Monitor</strong></p>
-</li>
-<li>
-<p>Kiểm tra <strong>Invocations</strong> graph - should show activity</p>
-</li>
-<li>
-<p>Click <strong>View CloudWatch logs</strong></p>
-</li>
-<li>
-<p>Chọn log stream mới nhất</p>
-</li>
-<li>
-<p>Xác minh có logs như:</p>
+</ol>
+<h3 id="54-xác-minh-lambda-function-execution">5.4 Xác minh Lambda Function Execution</h3>
+<ol>
+<li>Vào <strong>AWS Lambda</strong> console</li>
+<li>Chọn function <strong>PrivilegeAnalyticsEngine</strong></li>
+<li>Click tab <strong>Monitor</strong></li>
+<li>Kiểm tra <strong>Invocations</strong> graph - should show activity</li>
+<li>Click <strong>View CloudWatch logs</strong></li>
+<li>Chọn log stream mới nhất</li>
+<li>Xác minh có logs như:
 <pre tabindex="0"><code>Privilege Analytics Engine Started
 Processed X privilege events
 </code></pre></li>
@@ -1246,19 +1225,19 @@ Processed X privilege events
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754982139"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754982139"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754982139"></script>
-    <script src="/js/jquery.sticky.js?1754982139"></script>
-    <script src="/js/featherlight.min.js?1754982139"></script>
-    <script src="/js/highlight.pack.js?1754982139"></script>
+    <script src="/js/clipboard.min.js?1754984698"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
+    <script src="/js/jquery.sticky.js?1754984698"></script>
+    <script src="/js/featherlight.min.js?1754984698"></script>
+    <script src="/js/highlight.pack.js?1754984698"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754982139"></script>
-    <script src="/js/learn.js?1754982139"></script>
-    <script src="/js/hugo-learn.js?1754982139"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
+    <script src="/js/learn.js?1754984698"></script>
+    <script src="/js/hugo-learn.js?1754984698"></script>
 
-    <link href="/mermaid/mermaid.css?1754982139" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754982139"></script>
+    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754984698"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

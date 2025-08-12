@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>7. Thiết lập Giám sát on Quản trị Danh tính với Chứng nhận Truy cập</title>
-    <link>//localhost:62814/vi/7-thiet-lap-giam-sat/</link>
+    <link>//localhost:62640/vi/7-thiet-lap-giam-sat/</link>
     <description>Recent content in 7. Thiết lập Giám sát on Quản trị Danh tính với Chứng nhận Truy cập</description>
     <generator>Hugo</generator>
     <language>vi</language>
-    <atom:link href="//localhost:62814/vi/7-thiet-lap-giam-sat/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:62640/vi/7-thiet-lap-giam-sat/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -21,7 +21,7 @@ Phân tích và giám sát việc sử dụng đặc quyền để phát hiện 
 2. Tìm bucket CloudTrail (tên dạng `aws-cloudtrail-logs-xxx`)
 3. Xác minh có log files được tạo
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/5.1.png?featherlight=false&width=90pc)
 
 ## Bước 2: Tạo Lambda Function cho Privilege Analytics
 
@@ -300,11 +300,15 @@ def store_analysis_results(privilege_events, dynamodb):
    - Role name: `test-privilege-role`
    - Click **Create role**
 
+### 5.3 Chờ CloudTrail Processing
+
 1. CloudTrail cần thời gian để ghi logs vào S3
 2. Kiểm tra S3 bucket CloudTrail:
    - Vào **S3** console
    - Tìm bucket CloudTrail (tên dạng `aws-cloudtrail-logs-xxx`)
    - Xem có log files mới được tạo không
+
+### 5.4 Xác minh Lambda Function Execution
 
 1. Vào **AWS Lambda** console
 2. Chọn function **PrivilegeAnalyticsEngine**
@@ -317,7 +321,6 @@ def store_analysis_results(privilege_events, dynamodb):
    Privilege Analytics Engine Started
    Processed X privilege events
    ```
-
 
 ### 5.5 Xác minh DynamoDB Records
 

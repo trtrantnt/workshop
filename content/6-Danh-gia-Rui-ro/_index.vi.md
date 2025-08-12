@@ -17,15 +17,13 @@ Thiết lập hệ thống đánh giá rủi ro toàn diện để phân tích v
    - **AccessCertifications** (từ chương 4)
    - **RiskAssessments** (từ chương 5)
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/dynamo1.png?featherlight=false&width=90pc)
-
 ### 1.2 Kiểm tra Security Hub Findings
 
 1. Vào **AWS Security Hub** console
 2. Xác minh có findings được thu thập
 3. Kiểm tra compliance standards đang active
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/securityhub1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/61.png?featherlight=false&width=90pc)
 
 ## Bước 2: Tạo Lambda Function cho Risk Assessment
 
@@ -39,7 +37,6 @@ Thiết lập hệ thống đánh giá rủi ro toàn diện để phân tích v
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/lambda1.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
@@ -305,7 +302,6 @@ def store_risk_assessment(assessment, dynamodb):
         )
 ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/lambda2.png?featherlight=false&width=90pc)
 
 2. Click **Deploy** để lưu thay đổi
 
@@ -313,9 +309,6 @@ def store_risk_assessment(assessment, dynamodb):
 
 1. Chuyển đến tab **Configuration**
 2. Click **Permissions**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/lambda3.png?featherlight=false&width=90pc)
-
 3. Click vào role name để mở IAM console
 4. Click **Add permissions** → **Attach policies**
 5. Tìm và attach các policies sau:
@@ -324,7 +317,7 @@ def store_risk_assessment(assessment, dynamodb):
    - **IAMReadOnlyAccess**
 6. Click **Add permissions**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/lambda4.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/ld3.png?featherlight=false&width=90pc)
 
 ## Bước 3: Thiết lập EventBridge Schedule cho Risk Assessment
 
@@ -333,9 +326,6 @@ def store_risk_assessment(assessment, dynamodb):
 1. Mở **Amazon EventBridge** trong AWS Console
 2. Click **Schedules** ở sidebar
 3. Click **Create schedule**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/eb1.png?featherlight=false&width=90pc)
-
 4. Cấu hình schedule:
    - **Name**: `RiskAssessmentSchedule`
    - **Description**: `Daily risk assessment execution`
@@ -343,7 +333,7 @@ def store_risk_assessment(assessment, dynamodb):
    - **Rate**: 1 Day
    - **Target**: Lambda function `RiskAssessmentEngine`
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/eb2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/eb1.png?featherlight=false&width=90pc)
 
 5. Click **Create schedule**
 
@@ -354,16 +344,10 @@ def store_risk_assessment(assessment, dynamodb):
 1. Mở **Amazon SNS** console
 2. Click **Topics** ở sidebar
 3. Click **Create topic**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/sns1.png?featherlight=false&width=90pc)
-
 4. Cấu hình topic:
    - **Type**: Standard
    - **Name**: `RiskAssessmentAlerts`
    - **Display name**: `Risk Assessment Alerts`
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/sns2.png?featherlight=false&width=90pc)
-
 5. Click **Create topic**
 
 ### 4.2 Tạo Subscription
@@ -374,7 +358,6 @@ def store_risk_assessment(assessment, dynamodb):
    - **Protocol**: Email
    - **Endpoint**: your-email@example.com
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/sns3.png?featherlight=false&width=90pc)
 
 4. Click **Create subscription**
 5. Xác nhận subscription qua email
@@ -388,7 +371,6 @@ def store_risk_assessment(assessment, dynamodb):
 3. Click **Test** để tạo test event
 4. Sử dụng default test event và click **Test**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/test1.png?featherlight=false&width=90pc)
 
 ### 5.2 Xác minh DynamoDB Results
 
@@ -397,7 +379,6 @@ def store_risk_assessment(assessment, dynamodb):
 3. Click **Explore table items**
 4. Xác minh có records mới với AssessmentType = 'Comprehensive Risk Assessment'
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/test2.png?featherlight=false&width=90pc)
 
 ### 5.3 Kiểm tra CloudWatch Logs
 
@@ -406,7 +387,6 @@ def store_risk_assessment(assessment, dynamodb):
 3. Tìm log group cho Lambda function
 4. Xem logs để xác minh risk assessment đã chạy thành công
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/6/test3.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 
@@ -419,7 +399,6 @@ Sau khi hoàn thành:
 - ✅ SNS alerts for high-risk findings
 - ✅ Historical risk tracking in DynamoDB
 
-![Hoàn thành Risk Assessment](https://trtrantnt.github.io/workshop/images/6/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 

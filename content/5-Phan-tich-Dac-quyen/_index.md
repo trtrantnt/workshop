@@ -21,7 +21,7 @@ Analyze and monitor privilege usage to detect security risks, excessive permissi
 2. Find CloudTrail bucket (name like `aws-cloudtrail-logs-xxx`)
 3. Verify that log files are being created
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/5.1.png?featherlight=false&width=90pc)
 
 ## Step 2: Create Lambda Function for Privilege Analytics
 
@@ -222,8 +222,6 @@ def store_analysis_results(privilege_events, dynamodb):
 6. Set widget name: "Lambda Invocations"
 7. Click **Create widget**
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc)
-
 ### 4.3 Add Widget 2: Lambda Errors
 
 1. Click **Add widget** (in dashboard)
@@ -275,47 +273,115 @@ def store_analysis_results(privilege_events, dynamodb):
 
 ## Step 5: Test Privilege Analytics
 
-### 5.1 Create Test Activity
+### 5.1 Create Test User to Generate CloudTrail Events
 
 1. Go to **IAM** console
-2. Perform some actions to generate CloudTrail logs:
-   - Create test user
-   - Attach/detach policies
-   - Create test role
+2. Click **Users** in the left sidebar
+3. Click **Create user**
+4. Enter User name: `test-privilege-user`
+5. Click **Next**
+6. Select **Attach policies directly**
+7. Search and select **ReadOnlyAccess**
+8. Click **Next** → **Create user**
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/test1.png?featherlight=false&width=90pc)
+### 5.2 Perform High-Privilege Actions
 
-### 5.2 Check Lambda Execution
+1. In IAM console, select the **test-privilege-user** you just created
+2. Click **Permissions** tab
+3. Click **Add permissions** → **Attach policies directly**
+4. Search and attach **PowerUserAccess** policy
+5. Click **Add permissions**
+6. Then **Remove** the **PowerUserAccess** policy to create more events
+7. Create test role:
+   - Click **Roles** in sidebar
+   - Click **Create role**
+   - Select **AWS service** → **Lambda**
+   - Click **Next** → **Next**
+   - Role name: `test-privilege-role`
+   - Click **Create role**
+
+### 5.3 Wait for CloudTrail Processing
+
+1. CloudTrail needs time to write logs to S3
+2. Check CloudTrail S3 bucket:
+   - Go to **S3** console
+   - Find CloudTrail bucket (name like `aws-cloudtrail-logs-xxx`)
+   - Verify new log files are being created
+
+### 5.4 Verify Lambda Function Execution
 
 1. Go to **AWS Lambda** console
 2. Select function **PrivilegeAnalyticsEngine**
 3. Click **Monitor** tab
-4. View CloudWatch logs to verify function execution
+4. Check **Invocations** graph - should show activity
+5. Click **View CloudWatch logs**
+6. Select the latest log stream
+7. Verify logs like:
+   ```
+   Privilege Analytics Engine Started
+   Processed X privilege events
+   ```
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/test2.png?featherlight=false&width=90pc)
-
-### 5.3 Verify DynamoDB Records
+### 5.5 Verify DynamoDB Records
 
 1. Go to **Amazon DynamoDB** console
-2. Select table **RiskAssessments**
-3. Click **Explore table items**
-4. Verify new records with AssessmentType = 'Privilege Analysis'
+2. Click **Tables** in sidebar
+3. Select table **RiskAssessments**
+4. Click **Explore table items**
+5. Verify new records with:
+   - **AssessmentType**: 'Privilege Analysis'
+   - **EventName**: 'AttachUserPolicy', 'DetachUserPolicy', 'CreateRole'
+   - **RiskScore**: Value from 1-10
+   - **EventTime**: Recent timestamp
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/test3.png?featherlight=false&width=90pc)
+### 5.6 Check CloudWatch Dashboard
+
+1. Go to **CloudWatch** console
+2. Click **Dashboards**
+3. Select **PrivilegeAnalyticsDashboard**
+4. Verify widgets display data:
+   - **Lambda Invocations**: Should show spike when function runs
+   - **Lambda Errors**: Should be 0
+   - **Lambda Duration**: Execution time
+   - **DynamoDB Write Activity**: Should show activity when writing data
+
+### 5.7 Test Real-time Monitoring
+
+1. Perform additional privilege action:
+   - Create new user: `test-user-2`
+   - Attach policy **IAMReadOnlyAccess**
+2. Wait 5-10 minutes
+3. Refresh DynamoDB table to see new record
+4. Check if dashboard updates metrics
+
+### 5.8 Troubleshooting (if no data)
+
+**If Lambda doesn't run:**
+1. Check S3 trigger is configured correctly
+2. Verify CloudTrail is creating log files in S3
+3. Check IAM permissions of Lambda role
+
+**If no data in DynamoDB:**
+1. Check CloudWatch logs of Lambda function
+2. Verify table name in code: 'RiskAssessments'
+3. Confirm Lambda has write permissions to DynamoDB
+
+**If Dashboard doesn't show data:**
+1. Wait 5-15 minutes for metrics to appear
+2. Check metric names and dimensions are correct
+3. Refresh dashboard page
 
 ## Expected Results
 
 After completion:
 
-- ✅ CloudTrail logs analyzed automatically
-- ✅ Lambda function processing privilege events
+- ✅ CloudTrail logs are automatically analyzed
+- ✅ Lambda function processes privilege events
 - ✅ Risk scoring for privilege actions
-- ✅ DynamoDB storing analysis results
+- ✅ DynamoDB stores analysis results
 - ✅ CloudWatch dashboard monitoring
 - ✅ Real-time privilege monitoring
 
-![Privilege Analytics Complete](https://trtrantnt.github.io/workshop/images/5/complete.png?featherlight=false&width=90pc)
-
 ## Next Steps
 
-Continue to [6. Risk Assessment](../6-danh-gia-rui-ro) to set up comprehensive risk assessment.
+Proceed to [6. Risk Assessment](../6-danh-gia-rui-ro) to set up comprehensive risk assessment.
