@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>11. Clean Resources :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
-    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
-    <link href="/css/theme.css?1754991223" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991851" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991851" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991851" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991851" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991851" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991851" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991851" rel="stylesheet">
+    <link href="/css/theme.css?1754991851" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991851" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991851" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991851"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991851"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991851"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754991223"></script>
+<script type="text/javascript" src="/js/search.js?1754991851"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:1313/11-clean-resources/" selected>English</option>
+                      <option id="en" value="//localhost:62814/11-clean-resources/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:1313/vi/11-clean-resources/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:62814/vi/11-clean-resources/">Tiếng Việt</option>
                     
                   
               
@@ -526,7 +526,6 @@
       <ul>
         <li><a href="#empty-s3-buckets">Empty S3 Buckets</a></li>
         <li><a href="#delete-s3-buckets">Delete S3 Buckets</a></li>
-        <li><a href="#delete-s3-buckets-1">Delete S3 Buckets</a></li>
       </ul>
     </li>
     <li><a href="#step-4-cloudwatch-resources">Step 4: CloudWatch Resources</a>
@@ -552,19 +551,9 @@
       </ul>
     </li>
     <li><a href="#step-8-clean-up-cloudtrail">Step 8: Clean up CloudTrail</a></li>
-    <li><a href="#step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</a>
-      <ul>
-        <li><a href="#remove-permission-set-assignments">Remove Permission Set Assignments</a></li>
-        <li><a href="#delete-permission-sets-1">Delete Permission Sets</a></li>
-        <li><a href="#delete-users-and-groups-1">Delete Users and Groups</a></li>
-      </ul>
-    </li>
-    <li><a href="#step-9-aws-config-cleanup">Step 9: AWS Config Cleanup</a></li>
-    <li><a href="#step-8-clean-up-cloudtrail-1">Step 8: Clean up CloudTrail</a></li>
     <li><a href="#console-based-cleanup-checklist">Console-Based Cleanup Checklist</a>
       <ul>
         <li><a href="#-cleanup-checklist">✅ Cleanup Checklist</a></li>
-        <li><a href="#final-service-checks">Final Service Checks</a></li>
       </ul>
     </li>
     <li><a href="#step-9-cleanup-verification">Step 9: Cleanup Verification</a>
@@ -692,22 +681,6 @@
 <li>Type bucket name to confirm</li>
 </ol>
 <p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del5.png?featherlight=false&width=90pc"></p>
-<ul>
-<li><strong>compliance-reports-</strong>*</li>
-</ul>
-<p><img alt="S3 Buckets List" src="/images/11/s3-buckets-list.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Select bucket and click <strong>Empty</strong></li>
-<li>Type <strong>permanently delete</strong> to confirm</li>
-</ol>
-<p><img alt="Empty S3 Bucket" src="/images/11/empty-s3-bucket.png?featherlight=false&width=90pc"></p>
-<h3 id="delete-s3-buckets-1">Delete S3 Buckets</h3>
-<ol>
-<li>After emptying, select bucket</li>
-<li>Click <strong>Delete</strong></li>
-<li>Type bucket name to confirm</li>
-</ol>
-<p><img alt="Delete S3 Bucket" src="/images/11/delete-s3-bucket.png?featherlight=false&width=90pc"></p>
 <h2 id="step-4-cloudwatch-resources">Step 4: CloudWatch Resources</h2>
 <h3 id="delete-cloudwatch-dashboards">Delete CloudWatch Dashboards</h3>
 <ol>
@@ -862,47 +835,7 @@
 <li>Select <strong>IdentityGovernanceTrail</strong></li>
 <li>Click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc"></p>
-<h2 id="step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</h2>
-<h3 id="remove-permission-set-assignments">Remove Permission Set Assignments</h3>
-<ol>
-<li>Navigate to <strong>IAM Identity Center</strong></li>
-<li>Click <strong>AWS accounts</strong> in the sidebar</li>
-<li>Select your account and click <strong>Remove access</strong></li>
-</ol>
-<p><img alt="Remove SSO Access" src="/images/11/remove-sso-access.png"></p>
-<h3 id="delete-permission-sets-1">Delete Permission Sets</h3>
-<ol>
-<li>Click <strong>Permission sets</strong> in the sidebar</li>
-<li>Select workshop permission sets:
-<ul>
-<li><strong>SecurityAuditor</strong></li>
-<li><strong>ComplianceReviewer</strong></li>
-</ul>
-</li>
-<li>Click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Delete Permission Sets" src="/images/11/delete-permission-sets.png"></p>
-<h3 id="delete-users-and-groups-1">Delete Users and Groups</h3>
-<ol>
-<li>Click <strong>Users</strong> in the sidebar</li>
-<li>Select workshop users and click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Delete SSO Users" src="/images/11/delete-sso-users.png"></p>
-<ol start="3">
-<li>Click <strong>Groups</strong> in the sidebar</li>
-<li>Select workshop groups and click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Delete SSO Groups" src="/images/11/delete-sso-groups.png"></p>
-<h2 id="step-9-aws-config-cleanup">Step 9: AWS Config Cleanup</h2>
-<h2 id="step-8-clean-up-cloudtrail-1">Step 8: Clean up CloudTrail</h2>
-<ol>
-<li>Navigate to <strong>CloudTrail</strong> service</li>
-<li>Click <strong>Trails</strong> in the sidebar</li>
-<li>Select <strong>IdentityGovernanceTrail</strong></li>
-<li>Click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc"></p>
+<p><img alt="CloudTrail" src="https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc"></p>
 <h2 id="console-based-cleanup-checklist">Console-Based Cleanup Checklist</h2>
 <p>For systematic cleanup through AWS Console, follow this checklist:</p>
 <h3 id="-cleanup-checklist">✅ Cleanup Checklist</h3>
@@ -958,20 +891,13 @@
 <p><strong>IAM Resources:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> Workshop IAM roles</li>
-<li><input disabled="" type="checkbox"> Workshop custom policies (nếu có)</li>
+<li><input disabled="" type="checkbox"> Workshop custom policies (if any)</li>
 </ul>
 <p><strong>Optional Resources:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> AWS Security Hub (nếu không cần)</li>
-<li><input disabled="" type="checkbox"> AWS CloudTrail (nếu không cần)</li>
+<li><input disabled="" type="checkbox"> AWS Security Hub (if not needed)</li>
+<li><input disabled="" type="checkbox"> AWS CloudTrail (if not needed)</li>
 </ul>
-<h3 id="final-service-checks">Final Service Checks</h3>
-<ol>
-<li><strong>AWS Config</strong>: Disable configuration recorder if not needed</li>
-<li><strong>AWS Security Hub</strong>: Disable if not used elsewhere</li>
-<li><strong>Amazon GuardDuty</strong>: Disable if not needed</li>
-<li><strong>AWS Audit Manager</strong>: Disable data collection</li>
-</ol>
 <h2 id="step-9-cleanup-verification">Step 9: Cleanup Verification</h2>
 <h3 id="check-remaining-resources">Check Remaining Resources</h3>
 <ol>
@@ -1225,19 +1151,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754991223"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754991223"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754991223"></script>
-    <script src="/js/jquery.sticky.js?1754991223"></script>
-    <script src="/js/featherlight.min.js?1754991223"></script>
-    <script src="/js/highlight.pack.js?1754991223"></script>
+    <script src="/js/clipboard.min.js?1754991851"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991851"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991851"></script>
+    <script src="/js/jquery.sticky.js?1754991851"></script>
+    <script src="/js/featherlight.min.js?1754991851"></script>
+    <script src="/js/highlight.pack.js?1754991851"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754991223"></script>
-    <script src="/js/learn.js?1754991223"></script>
-    <script src="/js/hugo-learn.js?1754991223"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991851"></script>
+    <script src="/js/learn.js?1754991851"></script>
+    <script src="/js/hugo-learn.js?1754991851"></script>
 
-    <link href="/mermaid/mermaid.css?1754991223" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754991223"></script>
+    <link href="/mermaid/mermaid.css?1754991851" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991851"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

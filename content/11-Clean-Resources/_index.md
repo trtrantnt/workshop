@@ -95,22 +95,6 @@ Resources should be cleaned up in the following order to avoid dependency confli
 3. Type bucket name to confirm
 
 ![Empty S3 Bucket](https://trtrantnt.github.io/workshop/images/11/del5.png?featherlight=false&width=90pc)
-   - **compliance-reports-***
-
-![S3 Buckets List](/images/11/s3-buckets-list.png?featherlight=false&width=90pc)
-
-3. Select bucket and click **Empty**
-4. Type **permanently delete** to confirm
-
-![Empty S3 Bucket](/images/11/empty-s3-bucket.png?featherlight=false&width=90pc)
-
-### Delete S3 Buckets
-
-1. After emptying, select bucket
-2. Click **Delete**
-3. Type bucket name to confirm
-
-![Delete S3 Bucket](/images/11/delete-s3-bucket.png?featherlight=false&width=90pc)
 
 ## Step 4: CloudWatch Resources
 
@@ -227,50 +211,7 @@ Resources should be cleaned up in the following order to avoid dependency confli
 3. Select **IdentityGovernanceTrail**
 4. Click **Delete**
 
-![Empty S3 Bucket](https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc)
-
-## Step 8: IAM Identity Center Cleanup
-
-### Remove Permission Set Assignments
-
-1. Navigate to **IAM Identity Center**
-2. Click **AWS accounts** in the sidebar
-3. Select your account and click **Remove access**
-
-![Remove SSO Access](/images/11/remove-sso-access.png)
-
-### Delete Permission Sets
-
-1. Click **Permission sets** in the sidebar
-2. Select workshop permission sets:
-   - **SecurityAuditor**
-   - **ComplianceReviewer**
-3. Click **Delete**
-
-![Delete Permission Sets](/images/11/delete-permission-sets.png)
-
-### Delete Users and Groups
-
-1. Click **Users** in the sidebar
-2. Select workshop users and click **Delete**
-
-![Delete SSO Users](/images/11/delete-sso-users.png)
-
-3. Click **Groups** in the sidebar
-4. Select workshop groups and click **Delete**
-
-![Delete SSO Groups](/images/11/delete-sso-groups.png)
-
-## Step 9: AWS Config Cleanup
-
-## Step 8: Clean up CloudTrail
-
-1. Navigate to **CloudTrail** service
-2. Click **Trails** in the sidebar
-3. Select **IdentityGovernanceTrail**
-4. Click **Delete**
-
-![Empty S3 Bucket](https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc)
+![CloudTrail](https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc)
 
 ## Console-Based Cleanup Checklist
 
@@ -330,20 +271,13 @@ For systematic cleanup through AWS Console, follow this checklist:
 **IAM Resources:**
 
 - [ ] Workshop IAM roles
-- [ ] Workshop custom policies (nếu có)
+- [ ] Workshop custom policies (if any)
 
 **Optional Resources:**
 
-- [ ] AWS Security Hub (nếu không cần)
-- [ ] AWS CloudTrail (nếu không cần)
+- [ ] AWS Security Hub (if not needed)
+- [ ] AWS CloudTrail (if not needed)
 
-
-### Final Service Checks
-
-1. **AWS Config**: Disable configuration recorder if not needed
-2. **AWS Security Hub**: Disable if not used elsewhere
-3. **Amazon GuardDuty**: Disable if not needed
-4. **AWS Audit Manager**: Disable data collection
 
 ## Step 9: Cleanup Verification
 
