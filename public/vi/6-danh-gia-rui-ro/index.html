@@ -12,21 +12,21 @@
     <title>6. Đánh giá Rủi ro :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754951690" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754951690" rel="stylesheet">
-    <link href="/css/hybrid.css?1754951690" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754951690" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754951690" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754951690" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754951690" rel="stylesheet">
-    <link href="/css/theme.css?1754951690" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754951690" rel="stylesheet">
+    <link href="/css/nucleus.css?1754952988" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754952988" rel="stylesheet">
+    <link href="/css/hybrid.css?1754952988" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754952988" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754952988" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754952988" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754952988" rel="stylesheet">
+    <link href="/css/theme.css?1754952988" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754952988" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754951690" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754952988" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754951690"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754952988"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754951690"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754951690"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754952988"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754952988"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754951690"></script>
+<script type="text/javascript" src="/js/search.js?1754952988"></script>
 
     
   </div>
@@ -513,26 +513,35 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#mục-tiêu">Mục tiêu</a></li>
-    <li><a href="#kiến-trúc-risk-assessment">Kiến trúc Risk Assessment</a></li>
-    <li><a href="#bước-1-risk-assessment-framework">Bước 1: Risk Assessment Framework</a>
+    <li><a href="#bước-1-xác-minh-dữ-liệu-từ-các-chương-trước">Bước 1: Xác minh Dữ liệu từ Các Chương Trước</a>
       <ul>
-        <li><a href="#11-risk-categories-definition">1.1 Risk Categories Definition</a></li>
+        <li><a href="#11-kiểm-tra-dynamodb-tables">1.1 Kiểm tra DynamoDB Tables</a></li>
+        <li><a href="#12-kiểm-tra-security-hub-findings">1.2 Kiểm tra Security Hub Findings</a></li>
       </ul>
     </li>
-    <li><a href="#bước-2-threat-intelligence-integration">Bước 2: Threat Intelligence Integration</a>
+    <li><a href="#bước-2-tạo-lambda-function-cho-risk-assessment">Bước 2: Tạo Lambda Function cho Risk Assessment</a>
       <ul>
-        <li><a href="#21-threat-intelligence-collector">2.1 Threat Intelligence Collector</a></li>
+        <li><a href="#21-tạo-lambda-function">2.1 Tạo Lambda Function</a></li>
+        <li><a href="#22-cấu-hình-code-cho-lambda-function">2.2 Cấu hình Code cho Lambda Function</a></li>
+        <li><a href="#23-cấu-hình-iam-role-cho-lambda">2.3 Cấu hình IAM Role cho Lambda</a></li>
       </ul>
     </li>
-    <li><a href="#bước-3-risk-monitoring-và-alerting">Bước 3: Risk Monitoring và Alerting</a>
+    <li><a href="#bước-3-thiết-lập-eventbridge-schedule-cho-risk-assessment">Bước 3: Thiết lập EventBridge Schedule cho Risk Assessment</a>
       <ul>
-        <li><a href="#31-real-time-risk-monitor">3.1 Real-time Risk Monitor</a></li>
+        <li><a href="#31-tạo-scheduled-rule">3.1 Tạo Scheduled Rule</a></li>
       </ul>
     </li>
-    <li><a href="#bước-4-tích-hợp-security-hub">Bước 4: Tích hợp Security Hub</a>
+    <li><a href="#bước-4-tạo-sns-topic-cho-risk-alerts">Bước 4: Tạo SNS Topic cho Risk Alerts</a>
       <ul>
-        <li><a href="#41-thiết-lập-security-hub">4.1 Thiết lập Security Hub</a></li>
-        <li><a href="#42-cấu-hình-lambda-gửi-findings">4.2 Cấu hình Lambda gửi Findings</a></li>
+        <li><a href="#41-tạo-sns-topic">4.1 Tạo SNS Topic</a></li>
+        <li><a href="#42-tạo-subscription">4.2 Tạo Subscription</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-5-kiểm-tra-risk-assessment">Bước 5: Kiểm tra Risk Assessment</a>
+      <ul>
+        <li><a href="#51-test-lambda-function">5.1 Test Lambda Function</a></li>
+        <li><a href="#52-xác-minh-dynamodb-results">5.2 Xác minh DynamoDB Results</a></li>
+        <li><a href="#53-kiểm-tra-cloudwatch-logs">5.3 Kiểm tra CloudWatch Logs</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -563,140 +572,424 @@
 
 
 	<h2 id="mục-tiêu">Mục tiêu</h2>
-<p>Thiết lập hệ thống đánh giá rủi ro toàn diện để phát hiện, phân tích và ưu tiên các rủi ro bảo mật liên quan đến identity và access management.</p>
-<h2 id="kiến-trúc-risk-assessment">Kiến trúc Risk Assessment</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[CloudTrail Events] --&gt; B[Lambda Risk Engine]
-    C[IAM Data] --&gt; B
-    B --&gt; D[DynamoDB Risk Data]
-    D --&gt; E[Security Hub Findings]
-    E --&gt; F[CloudWatch Metrics]
-    F --&gt; G[SNS Alerts]
-    D --&gt; H[QuickSight Dashboard]
-</code></pre><h2 id="bước-1-risk-assessment-framework">Bước 1: Risk Assessment Framework</h2>
-<h3 id="11-risk-categories-definition">1.1 Risk Categories Definition</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> enum <span style="color:#f92672">import</span> Enum
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RiskCategory</span>(Enum):
-</span></span><span style="display:flex;"><span>    PRIVILEGE_ESCALATION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;privilege_escalation&#34;</span>
-</span></span><span style="display:flex;"><span>    UNAUTHORIZED_ACCESS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;unauthorized_access&#34;</span>
-</span></span><span style="display:flex;"><span>    DATA_EXPOSURE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data_exposure&#34;</span>
-</span></span><span style="display:flex;"><span>    COMPLIANCE_VIOLATION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;compliance_violation&#34;</span>
-</span></span><span style="display:flex;"><span>    OPERATIONAL_RISK <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;operational_risk&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RiskSeverity</span>(Enum):
-</span></span><span style="display:flex;"><span>    CRITICAL <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>    HIGH <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>
-</span></span><span style="display:flex;"><span>    MEDIUM <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>    LOW <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>    MINIMAL <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RiskAssessmentFramework</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>risk_rules <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_risk_rules()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>threat_intelligence <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_threat_intelligence()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>compliance_requirements <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_compliance_requirements()
-</span></span></code></pre></div><h2 id="bước-2-threat-intelligence-integration">Bước 2: Threat Intelligence Integration</h2>
-<h3 id="21-threat-intelligence-collector">2.1 Threat Intelligence Collector</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThreatIntelligenceCollector</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>threat_feeds <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>            {
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;AWS Security Bulletins&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://aws.amazon.com/security/security-bulletins/&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;aws_security&#34;</span>
-</span></span><span style="display:flex;"><span>            },
-</span></span><span style="display:flex;"><span>            {
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;MITRE ATT&amp;CK&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://attack.mitre.org/&#34;</span>,
-</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;attack_patterns&#34;</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        ]
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">collect_threat_intelligence</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Collect threat intelligence from various sources&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        intelligence_data <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;collection_timestamp&#34;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;threat_indicators&#34;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;attack_patterns&#34;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;vulnerabilities&#34;</span>: []
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> intelligence_data
-</span></span></code></pre></div><h2 id="bước-3-risk-monitoring-và-alerting">Bước 3: Risk Monitoring và Alerting</h2>
-<h3 id="31-real-time-risk-monitor">3.1 Real-time Risk Monitor</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RealTimeRiskMonitor</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sns <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sns&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>risk_table <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span><span style="color:#960050;background-color:#1e0010">d</span>ynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskMonitoring&#39;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_security_event</span>(self, event):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Process incoming security events for risk assessment&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        event_type <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;eventName&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
-</span></span><span style="display:flex;"><span>        source_ip <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;sourceIPAddress&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
-</span></span><span style="display:flex;"><span>        user_identity <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;userIdentity&#39;</span>, {})
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Analyze event for risk indicators</span>
-</span></span><span style="display:flex;"><span>        risk_score <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>calculate_event_risk_score(event)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> risk_score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">7</span>:  <span style="color:#75715e"># High risk threshold</span>
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>handle_high_risk_event(event, risk_score)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;event_processed&#39;</span>: <span style="color:#66d9ef">True</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;risk_score&#39;</span>: risk_score,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;action_taken&#39;</span>: risk_score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">7</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span></code></pre></div><h2 id="bước-4-tích-hợp-security-hub">Bước 4: Tích hợp Security Hub</h2>
-<h3 id="41-thiết-lập-security-hub">4.1 Thiết lập Security Hub</h3>
+<p>Thiết lập hệ thống đánh giá rủi ro toàn diện để phân tích và scoring rủi ro bảo mật dựa trên dữ liệu từ các chương trước.</p>
+<h2 id="bước-1-xác-minh-dữ-liệu-từ-các-chương-trước">Bước 1: Xác minh Dữ liệu từ Các Chương Trước</h2>
+<h3 id="11-kiểm-tra-dynamodb-tables">1.1 Kiểm tra DynamoDB Tables</h3>
 <ol>
-<li>Mở <strong>AWS Security Hub</strong> trong console</li>
-<li>Click <strong>Enable Security Hub</strong></li>
-</ol>
-<p><img alt="Kích hoạt Security Hub" src="/images/6/enable-security-hub.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Chọn security standards:
+<li>Mở <strong>Amazon DynamoDB</strong> trong console</li>
+<li>Xác minh các tables đã có dữ liệu:
 <ul>
-<li>AWS Foundational Security Standard</li>
-<li>CIS AWS Foundations Benchmark</li>
+<li><strong>AccessCertifications</strong> (từ chương 4)</li>
+<li><strong>RiskAssessments</strong> (từ chương 5)</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Chọn Security Standards" src="/images/6/security-standards.png?featherlight=false&width=90pc"></p>
-<h3 id="42-cấu-hình-lambda-gửi-findings">4.2 Cấu hình Lambda gửi Findings</h3>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/dynamo1.png?featherlight=false&width=90pc"></p>
+<h3 id="12-kiểm-tra-security-hub-findings">1.2 Kiểm tra Security Hub Findings</h3>
 <ol>
-<li>Cập nhật Lambda risk engine</li>
-<li>Thêm code gửi findings đến Security Hub</li>
-<li>Cấu hình IAM permissions</li>
+<li>Vào <strong>AWS Security Hub</strong> console</li>
+<li>Xác minh có findings được thu thập</li>
+<li>Kiểm tra compliance standards đang active</li>
 </ol>
-<p><img alt="Lambda Security Hub Integration" src="/images/6/lambda-securityhub-integration.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/securityhub1.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-2-tạo-lambda-function-cho-risk-assessment">Bước 2: Tạo Lambda Function cho Risk Assessment</h2>
+<h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
+<ol>
+<li>Mở <strong>AWS Lambda</strong> trong console</li>
+<li>Click <strong>Create function</strong></li>
+<li>Chọn <strong>Author from scratch</strong></li>
+<li>Nhập thông tin function:
+<ul>
+<li><strong>Function name</strong>: <code>RiskAssessmentEngine</code></li>
+<li><strong>Runtime</strong>: Python 3.9</li>
+<li><strong>Architecture</strong>: x86_64</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda1.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Click <strong>Create function</strong></li>
+</ol>
+<h3 id="22-cấu-hình-code-cho-lambda-function">2.2 Cấu hình Code cho Lambda Function</h3>
+<ol>
+<li>Trong tab <strong>Code</strong>, thay thế code mặc định bằng code sau:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> decimal <span style="color:#f92672">import</span> Decimal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Risk Assessment Engine Started&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize AWS clients</span>
+</span></span><span style="display:flex;"><span>    dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>    securityhub <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;securityhub&#39;</span>)
+</span></span><span style="display:flex;"><span>    iam <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;iam&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Collect data from various sources</span>
+</span></span><span style="display:flex;"><span>        certification_data <span style="color:#f92672">=</span> get_certification_data(dynamodb)
+</span></span><span style="display:flex;"><span>        privilege_data <span style="color:#f92672">=</span> get_privilege_analysis_data(dynamodb)
+</span></span><span style="display:flex;"><span>        security_findings <span style="color:#f92672">=</span> get_security_hub_findings(securityhub)
+</span></span><span style="display:flex;"><span>        iam_data <span style="color:#f92672">=</span> get_iam_data(iam)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Perform comprehensive risk assessment</span>
+</span></span><span style="display:flex;"><span>        risk_assessment <span style="color:#f92672">=</span> perform_risk_assessment(
+</span></span><span style="display:flex;"><span>            certification_data, privilege_data, security_findings, iam_data
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store assessment results</span>
+</span></span><span style="display:flex;"><span>        store_risk_assessment(risk_assessment, dynamodb)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;Risk assessment completed&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;totalUsers&#39;</span>: len(risk_assessment[<span style="color:#e6db74">&#39;user_risks&#39;</span>]),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;highRiskUsers&#39;</span>: len([u <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> risk_assessment[<span style="color:#e6db74">&#39;user_risks&#39;</span>] <span style="color:#66d9ef">if</span> u[<span style="color:#e6db74">&#39;riskLevel&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;HIGH&#39;</span>]),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;overallRiskScore&#39;</span>: risk_assessment[<span style="color:#e6db74">&#39;overall_risk_score&#39;</span>]
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error in risk assessment: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_certification_data</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get certification data from DynamoDB&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_privilege_analysis_data</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get privilege analysis data from DynamoDB&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;Privilege Analysis&#39;</span>}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_security_hub_findings</span>(securityhub):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get Security Hub findings&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> securityhub<span style="color:#f92672">.</span>get_findings(
+</span></span><span style="display:flex;"><span>            Filters<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;RecordState&#39;</span>: [{<span style="color:#e6db74">&#39;Value&#39;</span>: <span style="color:#e6db74">&#39;ACTIVE&#39;</span>, <span style="color:#e6db74">&#39;Comparison&#39;</span>: <span style="color:#e6db74">&#39;EQUALS&#39;</span>}],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;WorkflowStatus&#39;</span>: [{<span style="color:#e6db74">&#39;Value&#39;</span>: <span style="color:#e6db74">&#39;NEW&#39;</span>, <span style="color:#e6db74">&#39;Comparison&#39;</span>: <span style="color:#e6db74">&#39;EQUALS&#39;</span>}]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            MaxResults<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> response[<span style="color:#e6db74">&#39;Findings&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error getting Security Hub findings: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_iam_data</span>(iam):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get IAM users and roles data&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    users <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    roles <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get users</span>
+</span></span><span style="display:flex;"><span>        paginator <span style="color:#f92672">=</span> iam<span style="color:#f92672">.</span>get_paginator(<span style="color:#e6db74">&#39;list_users&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> page <span style="color:#f92672">in</span> paginator<span style="color:#f92672">.</span>paginate():
+</span></span><span style="display:flex;"><span>            users<span style="color:#f92672">.</span>extend(page[<span style="color:#e6db74">&#39;Users&#39;</span>])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get roles</span>
+</span></span><span style="display:flex;"><span>        paginator <span style="color:#f92672">=</span> iam<span style="color:#f92672">.</span>get_paginator(<span style="color:#e6db74">&#39;list_roles&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> page <span style="color:#f92672">in</span> paginator<span style="color:#f92672">.</span>paginate():
+</span></span><span style="display:flex;"><span>            roles<span style="color:#f92672">.</span>extend(page[<span style="color:#e6db74">&#39;Roles&#39;</span>])
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error getting IAM data: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#39;users&#39;</span>: users, <span style="color:#e6db74">&#39;roles&#39;</span>: roles}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">perform_risk_assessment</span>(cert_data, priv_data, sec_findings, iam_data):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Perform comprehensive risk assessment&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    user_risks <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Assess each user</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> iam_data[<span style="color:#e6db74">&#39;users&#39;</span>]:
+</span></span><span style="display:flex;"><span>        user_name <span style="color:#f92672">=</span> user[<span style="color:#e6db74">&#39;UserName&#39;</span>]
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate risk factors</span>
+</span></span><span style="display:flex;"><span>        cert_risk <span style="color:#f92672">=</span> calculate_certification_risk(user_name, cert_data)
+</span></span><span style="display:flex;"><span>        priv_risk <span style="color:#f92672">=</span> calculate_privilege_risk(user_name, priv_data)
+</span></span><span style="display:flex;"><span>        security_risk <span style="color:#f92672">=</span> calculate_security_findings_risk(user_name, sec_findings)
+</span></span><span style="display:flex;"><span>        access_risk <span style="color:#f92672">=</span> calculate_access_pattern_risk(user)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate overall user risk score</span>
+</span></span><span style="display:flex;"><span>        overall_score <span style="color:#f92672">=</span> (cert_risk <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.25</span> <span style="color:#f92672">+</span> priv_risk <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.35</span> <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>                        security_risk <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.25</span> <span style="color:#f92672">+</span> access_risk <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.15</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        risk_level <span style="color:#f92672">=</span> get_risk_level(overall_score)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        user_risk <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;userName&#39;</span>: user_name,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;riskScore&#39;</span>: round(overall_score, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;riskLevel&#39;</span>: risk_level,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;factors&#39;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;certification&#39;</span>: cert_risk,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;privilege&#39;</span>: priv_risk,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;security&#39;</span>: security_risk,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;access&#39;</span>: access_risk
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;assessmentDate&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        user_risks<span style="color:#f92672">.</span>append(user_risk)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate overall organizational risk</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> user_risks:
+</span></span><span style="display:flex;"><span>        overall_risk_score <span style="color:#f92672">=</span> sum(u[<span style="color:#e6db74">&#39;riskScore&#39;</span>] <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> user_risks) <span style="color:#f92672">/</span> len(user_risks)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        overall_risk_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;user_risks&#39;</span>: user_risks,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;overall_risk_score&#39;</span>: round(overall_risk_score, <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;assessment_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;total_findings&#39;</span>: len(sec_findings)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_certification_risk</span>(user_name, cert_data):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate certification-related risk&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    base_risk <span style="color:#f92672">=</span> <span style="color:#ae81ff">5.0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if user has recent certifications</span>
+</span></span><span style="display:flex;"><span>    user_certs <span style="color:#f92672">=</span> [c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> cert_data <span style="color:#66d9ef">if</span> c<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserId&#39;</span>) <span style="color:#f92672">==</span> user_name]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> user_certs:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">8.0</span>  <span style="color:#75715e"># High risk if no certifications</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check certification recency</span>
+</span></span><span style="display:flex;"><span>    recent_cert <span style="color:#f92672">=</span> max(user_certs, key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CertificationDate&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>))
+</span></span><span style="display:flex;"><span>    cert_date <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromisoformat(recent_cert[<span style="color:#e6db74">&#39;CertificationDate&#39;</span>]<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;Z&#39;</span>, <span style="color:#e6db74">&#39;+00:00&#39;</span>))
+</span></span><span style="display:flex;"><span>    days_since_cert <span style="color:#f92672">=</span> (datetime<span style="color:#f92672">.</span>now(cert_date<span style="color:#f92672">.</span>tzinfo) <span style="color:#f92672">-</span> cert_date)<span style="color:#f92672">.</span>days
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> days_since_cert <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">90</span>:
+</span></span><span style="display:flex;"><span>        base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> days_since_cert <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">30</span>:
+</span></span><span style="display:flex;"><span>        base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(base_risk, <span style="color:#ae81ff">10.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_privilege_risk</span>(user_name, priv_data):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate privilege-related risk&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    user_priv_events <span style="color:#f92672">=</span> [p <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> priv_data <span style="color:#66d9ef">if</span> user_name <span style="color:#f92672">in</span> str(p<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserIdentity&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>))]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> user_priv_events:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3.0</span>  <span style="color:#75715e"># Low risk if no privilege events</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate average risk score from privilege events</span>
+</span></span><span style="display:flex;"><span>    avg_risk <span style="color:#f92672">=</span> sum(float(p<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskScore&#39;</span>, <span style="color:#ae81ff">5</span>)) <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> user_priv_events) <span style="color:#f92672">/</span> len(user_priv_events)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(avg_risk, <span style="color:#ae81ff">10.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_security_findings_risk</span>(user_name, findings):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate risk based on Security Hub findings&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    base_risk <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Count findings related to IAM/access</span>
+</span></span><span style="display:flex;"><span>    iam_findings <span style="color:#f92672">=</span> [f <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> findings <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;iam&#39;</span> <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Type&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>lower() <span style="color:#f92672">or</span> 
+</span></span><span style="display:flex;"><span>                   <span style="color:#e6db74">&#39;access&#39;</span> <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Title&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>lower()]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(iam_findings) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>:
+</span></span><span style="display:flex;"><span>        base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> len(iam_findings) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>        base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> len(iam_findings) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(base_risk, <span style="color:#ae81ff">10.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_access_pattern_risk</span>(user):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate risk based on access patterns&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    base_risk <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check password age</span>
+</span></span><span style="display:flex;"><span>    password_last_used <span style="color:#f92672">=</span> user<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;PasswordLastUsed&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> password_last_used:
+</span></span><span style="display:flex;"><span>        days_since_login <span style="color:#f92672">=</span> (datetime<span style="color:#f92672">.</span>now(password_last_used<span style="color:#f92672">.</span>tzinfo) <span style="color:#f92672">-</span> password_last_used)<span style="color:#f92672">.</span>days
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> days_since_login <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">90</span>:
+</span></span><span style="display:flex;"><span>            base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> days_since_login <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">30</span>:
+</span></span><span style="display:flex;"><span>            base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        base_risk <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span>  <span style="color:#75715e"># Never logged in</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(base_risk, <span style="color:#ae81ff">10.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_risk_level</span>(score):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Convert risk score to risk level&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;CRITICAL&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">6</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;HIGH&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">4</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;MEDIUM&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;LOW&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">store_risk_assessment</span>(assessment, dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Store risk assessment results in DynamoDB&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Store overall assessment</span>
+</span></span><span style="display:flex;"><span>    table<span style="color:#f92672">.</span>put_item(
+</span></span><span style="display:flex;"><span>        Item<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AssessmentId&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;risk-assessment-</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AssessmentType&#39;</span>: <span style="color:#e6db74">&#39;Comprehensive Risk Assessment&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;OverallRiskScore&#39;</span>: Decimal(str(assessment[<span style="color:#e6db74">&#39;overall_risk_score&#39;</span>])),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;TotalUsers&#39;</span>: len(assessment[<span style="color:#e6db74">&#39;user_risks&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;HighRiskUsers&#39;</span>: len([u <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> assessment[<span style="color:#e6db74">&#39;user_risks&#39;</span>] <span style="color:#66d9ef">if</span> u[<span style="color:#e6db74">&#39;riskLevel&#39;</span>] <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;HIGH&#39;</span>, <span style="color:#e6db74">&#39;CRITICAL&#39;</span>]]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AssessmentDate&#39;</span>: assessment[<span style="color:#e6db74">&#39;assessment_date&#39;</span>]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Store individual user risks</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> user_risk <span style="color:#f92672">in</span> assessment[<span style="color:#e6db74">&#39;user_risks&#39;</span>]:
+</span></span><span style="display:flex;"><span>        table<span style="color:#f92672">.</span>put_item(
+</span></span><span style="display:flex;"><span>            Item<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentId&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;user-risk-</span><span style="color:#e6db74">{</span>user_risk[<span style="color:#e6db74">&#39;userName&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">{</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentType&#39;</span>: <span style="color:#e6db74">&#39;User Risk Assessment&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;UserName&#39;</span>: user_risk[<span style="color:#e6db74">&#39;userName&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;RiskScore&#39;</span>: Decimal(str(user_risk[<span style="color:#e6db74">&#39;riskScore&#39;</span>])),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;RiskLevel&#39;</span>: user_risk[<span style="color:#e6db74">&#39;riskLevel&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;CertificationRisk&#39;</span>: Decimal(str(user_risk[<span style="color:#e6db74">&#39;factors&#39;</span>][<span style="color:#e6db74">&#39;certification&#39;</span>])),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;PrivilegeRisk&#39;</span>: Decimal(str(user_risk[<span style="color:#e6db74">&#39;factors&#39;</span>][<span style="color:#e6db74">&#39;privilege&#39;</span>])),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;SecurityRisk&#39;</span>: Decimal(str(user_risk[<span style="color:#e6db74">&#39;factors&#39;</span>][<span style="color:#e6db74">&#39;security&#39;</span>])),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AccessRisk&#39;</span>: Decimal(str(user_risk[<span style="color:#e6db74">&#39;factors&#39;</span>][<span style="color:#e6db74">&#39;access&#39;</span>])),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentDate&#39;</span>: user_risk[<span style="color:#e6db74">&#39;assessmentDate&#39;</span>]
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        )
+</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda2.png?featherlight=false&width=90pc"></p>
+<ol start="2">
+<li>Click <strong>Deploy</strong> để lưu thay đổi</li>
+</ol>
+<h3 id="23-cấu-hình-iam-role-cho-lambda">2.3 Cấu hình IAM Role cho Lambda</h3>
+<ol>
+<li>Chuyển đến tab <strong>Configuration</strong></li>
+<li>Click <strong>Permissions</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda3.png?featherlight=false&width=90pc"></p>
+<ol start="3">
+<li>Click vào role name để mở IAM console</li>
+<li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
+<li>Tìm và attach các policies sau:
+<ul>
+<li><strong>AmazonDynamoDBFullAccess</strong></li>
+<li><strong>SecurityHubReadOnlyAccess</strong></li>
+<li><strong>IAMReadOnlyAccess</strong></li>
+</ul>
+</li>
+<li>Click <strong>Add permissions</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/lambda4.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-3-thiết-lập-eventbridge-schedule-cho-risk-assessment">Bước 3: Thiết lập EventBridge Schedule cho Risk Assessment</h2>
+<h3 id="31-tạo-scheduled-rule">3.1 Tạo Scheduled Rule</h3>
+<ol>
+<li>Mở <strong>Amazon EventBridge</strong> trong AWS Console</li>
+<li>Click <strong>Schedules</strong> ở sidebar</li>
+<li>Click <strong>Create schedule</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/eb1.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Cấu hình schedule:
+<ul>
+<li><strong>Name</strong>: <code>RiskAssessmentSchedule</code></li>
+<li><strong>Description</strong>: <code>Daily risk assessment execution</code></li>
+<li><strong>Schedule pattern</strong>: Rate-based schedule</li>
+<li><strong>Rate</strong>: 1 Day</li>
+<li><strong>Target</strong>: Lambda function <code>RiskAssessmentEngine</code></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/eb2.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Click <strong>Create schedule</strong></li>
+</ol>
+<h2 id="bước-4-tạo-sns-topic-cho-risk-alerts">Bước 4: Tạo SNS Topic cho Risk Alerts</h2>
+<h3 id="41-tạo-sns-topic">4.1 Tạo SNS Topic</h3>
+<ol>
+<li>Mở <strong>Amazon SNS</strong> console</li>
+<li>Click <strong>Topics</strong> ở sidebar</li>
+<li>Click <strong>Create topic</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/sns1.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Cấu hình topic:
+<ul>
+<li><strong>Type</strong>: Standard</li>
+<li><strong>Name</strong>: <code>RiskAssessmentAlerts</code></li>
+<li><strong>Display name</strong>: <code>Risk Assessment Alerts</code></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/sns2.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Click <strong>Create topic</strong></li>
+</ol>
+<h3 id="42-tạo-subscription">4.2 Tạo Subscription</h3>
+<ol>
+<li>Trong topic <strong>RiskAssessmentAlerts</strong></li>
+<li>Click <strong>Create subscription</strong></li>
+<li>Cấu hình subscription:
+<ul>
+<li><strong>Protocol</strong>: Email</li>
+<li><strong>Endpoint</strong>: <a href="mailto:your-email@example.com">your-email@example.com</a></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/sns3.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Click <strong>Create subscription</strong></li>
+<li>Xác nhận subscription qua email</li>
+</ol>
+<h2 id="bước-5-kiểm-tra-risk-assessment">Bước 5: Kiểm tra Risk Assessment</h2>
+<h3 id="51-test-lambda-function">5.1 Test Lambda Function</h3>
+<ol>
+<li>Vào <strong>AWS Lambda</strong> console</li>
+<li>Chọn function <strong>RiskAssessmentEngine</strong></li>
+<li>Click <strong>Test</strong> để tạo test event</li>
+<li>Sử dụng default test event và click <strong>Test</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/test1.png?featherlight=false&width=90pc"></p>
+<h3 id="52-xác-minh-dynamodb-results">5.2 Xác minh DynamoDB Results</h3>
+<ol>
+<li>Vào <strong>Amazon DynamoDB</strong> console</li>
+<li>Chọn table <strong>RiskAssessments</strong></li>
+<li>Click <strong>Explore table items</strong></li>
+<li>Xác minh có records mới với AssessmentType = &lsquo;Comprehensive Risk Assessment&rsquo;</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/test2.png?featherlight=false&width=90pc"></p>
+<h3 id="53-kiểm-tra-cloudwatch-logs">5.3 Kiểm tra CloudWatch Logs</h3>
+<ol>
+<li>Vào <strong>Amazon CloudWatch</strong> console</li>
+<li>Click <strong>Log groups</strong></li>
+<li>Tìm log group cho Lambda function</li>
+<li>Xem logs để xác minh risk assessment đã chạy thành công</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/6/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
-<li>✅ Comprehensive risk assessment framework</li>
-<li>✅ Real-time risk monitoring</li>
-<li>✅ Threat intelligence integration</li>
-<li>✅ Automated alerting system</li>
-<li>✅ Risk dashboard and metrics</li>
-<li>✅ Prioritized remediation plans</li>
+<li>✅ Comprehensive risk assessment engine</li>
+<li>✅ Multi-factor risk scoring (certification, privilege, security, access)</li>
+<li>✅ Automated daily risk assessments</li>
+<li>✅ Risk level categorization (LOW, MEDIUM, HIGH, CRITICAL)</li>
+<li>✅ SNS alerts for high-risk findings</li>
+<li>✅ Historical risk tracking in DynamoDB</li>
 </ul>
+<p><img alt="Hoàn thành Risk Assessment" src="https://trtrantnt.github.io/workshop/images/6/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
-<p>Chuyển sang <a href="/vi/7-thiet-lap-giam-sat/">7. Thiết lập Giám sát</a> để thiết lập giám sát toàn diện.</p>
+<p>Chuyển sang <a href="/vi/7-thiet-lap-giam-sat/">7. Thiết lập Giám sát</a> để thiết lập hệ thống giám sát và alerting.</p>
 
 
 
@@ -937,19 +1230,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754951690"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754951690"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754951690"></script>
-    <script src="/js/jquery.sticky.js?1754951690"></script>
-    <script src="/js/featherlight.min.js?1754951690"></script>
-    <script src="/js/highlight.pack.js?1754951690"></script>
+    <script src="/js/clipboard.min.js?1754952988"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754952988"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754952988"></script>
+    <script src="/js/jquery.sticky.js?1754952988"></script>
+    <script src="/js/featherlight.min.js?1754952988"></script>
+    <script src="/js/highlight.pack.js?1754952988"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754951690"></script>
-    <script src="/js/learn.js?1754951690"></script>
-    <script src="/js/hugo-learn.js?1754951690"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754952988"></script>
+    <script src="/js/learn.js?1754952988"></script>
+    <script src="/js/hugo-learn.js?1754952988"></script>
 
-    <link href="/mermaid/mermaid.css?1754951690" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754951690"></script>
+    <link href="/mermaid/mermaid.css?1754952988" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754952988"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

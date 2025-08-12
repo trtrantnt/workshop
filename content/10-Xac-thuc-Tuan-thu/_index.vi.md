@@ -6,352 +6,420 @@ weight: 10
 
 ## Mục tiêu
 
-Xác thực và duy trì tuân thủ các framework bảo mật và quy định pháp lý thông qua identity governance, đảm bảo tổ chức đáp ứng các yêu cầu SOX, SOC2, ISO27001, PCI-DSS và các tiêu chuẩn khác.
+Thực hiện validation cuối cùng cho toàn bộ hệ thống Identity Governance, xác minh tuân thủ các tiêu chuẩn và chuẩn bị cho production deployment.
 
-## Compliance Framework Mapping
+## Bước 1: Comprehensive System Validation
 
-![Compliance Framework Mapping](/images/10/compliance-framework-mapping.png)
+### 1.1 Kiểm tra Tất cả Components
 
-## Bước 1: Thiết lập AWS Artifact cho Compliance Documentation
+1. Mở **AWS Lambda** console
+2. Xác minh tất cả Lambda functions đang hoạt động:
+   - AccessCertificationTrigger
+   - PrivilegeAnalyticsEngine
+   - RiskAssessmentEngine
+   - CustomMetricsPublisher
+   - DailyOperationsEngine
+   - AuditReportGenerator
 
-### 1.1 Truy cập AWS Artifact
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/lambda-check.png?featherlight=false&width=90pc)
 
-1. Mở **AWS Artifact** trong console
-2. Click **Reports** để xem các báo cáo compliance
-3. Download các báo cáo cần thiết:
-   - **SOC 2 Type II**
-   - **ISO 27001**
-   - **PCI DSS AOC**
+### 1.2 Xác minh Data Flow
 
-![AWS Artifact](/images/10/aws-artifact.png)
+1. Kiểm tra **DynamoDB** tables có dữ liệu:
+   - AccessCertifications
+   - RiskAssessments
 
-4. Xem lại AWS responsibility matrix
-5. Lưu trữ documents trong S3 bucket compliance
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/dynamodb-check.png?featherlight=false&width=90pc)
 
-![Compliance Documents](/images/10/compliance-documents.png)
+2. Xác minh **S3** buckets có audit reports:
+   - identity-governance-analytics
+   - identity-governance-reports
+   - CloudTrail logs bucket
 
-## Bước 2: Thiết lập AWS Security Hub
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/s3-check.png?featherlight=false&width=90pc)
 
-### 2.1 Kích hoạt Security Standards
+## Bước 2: End-to-End Testing
 
-1. Mở **AWS Security Hub**
-2. Click **Security standards**
-3. Kích hoạt các standards:
-   - **AWS Foundational Security Standard**
-   - **CIS AWS Foundations Benchmark**
-   - **PCI DSS**
+### 2.1 Tạo Lambda Function cho E2E Testing
 
-![Security Hub Standards](/images/10/security-hub-standards.png)
-
-4. Cấu hình compliance scoring
-5. Thiết lập automated remediation
-
-![Compliance Scoring](/images/10/compliance-scoring.png)
-
-## Bước 3: Tạo Compliance Dashboard
-
-### 3.1 CloudWatch Dashboard
-
-1. Mở **CloudWatch**
-2. Click **Dashboards** → **Create dashboard**
-3. Tên dashboard: **ComplianceMonitoring**
-4. Thêm widgets:
-   - **Compliance Score Metrics**
-   - **Failed Controls Count**
-   - **Remediation Status**
-
-![Compliance Dashboard](/images/10/compliance-dashboard.png)
-
-### 3.2 Thiết lập Compliance Alarms
-
-1. Trong CloudWatch, click **Alarms**
-2. Tạo alarm cho:
-   - **Low Compliance Score**
-   - **Critical Finding Detected**
-   - **Failed Remediation**
-
-![Compliance Alarms](/images/10/compliance-alarms.png)
-
-## Bước 4: Automated Compliance Validation
-
-### 4.1 Tạo Lambda Function
-
-1. Mở **AWS Lambda**
+1. Mở **AWS Lambda** console
 2. Click **Create function**
-3. Cấu hình:
-   - **Function name**: ComplianceValidator
+3. Nhập thông tin function:
+   - **Function name**: `E2EValidationTest`
    - **Runtime**: Python 3.9
-   - **Role**: ComplianceValidationRole
 
-![Lambda Compliance Function](/images/10/lambda-compliance-function.png)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/e2e-lambda1.png?featherlight=false&width=90pc)
 
-4. Thêm Lambda function code:
+### 2.2 Cấu hình E2E Test Code
+
+1. Thay thế code mặc định:
 
 ```python
-import boto3
 import json
+import boto3
 from datetime import datetime, timedelta
-from enum import Enum
-
-class ComplianceFramework(Enum):
-    SOX = "sox"
-    SOC2 = "soc2"
-    ISO27001 = "iso27001"
-    PCI_DSS = "pci_dss"
-    NIST = "nist"
-
-class ComplianceValidator:
-    def __init__(self):
-        self.s3_client = boto3.client('s3')
-        self.dynamodb = boto3.resource('dynamodb')
-        self.config_client = boto3.client('config')
-        self.security_hub = boto3.client('securityhub')
-        
-        # Compliance requirements mapping
-        self.compliance_requirements = {
-            ComplianceFramework.SOX: {
-                "name": "Sarbanes-Oxley Act",
-                "controls": [
-                    "access_segregation",
-                    "approval_workflows", 
-                    "audit_trails",
-                    "financial_access_controls"
-                ]
-            },
-            ComplianceFramework.SOC2: {
-                "name": "SOC 2 Type II",
-                "controls": [
-                    "logical_access_controls",
-                    "system_monitoring",
-                    "change_management",
-                    "data_protection"
-                ]
-            },
-            ComplianceFramework.ISO27001: {
-                "name": "ISO 27001",
-                "controls": [
-                    "information_security_policy",
-                    "access_control_management",
-                    "incident_management",
-                    "business_continuity"
-                ]
-            }
-        }
-    
-    def validate_compliance(self, framework):
-        """Validate compliance for specific framework"""
-        
-        validation_results = {
-            'framework': framework.value,
-            'timestamp': datetime.now().isoformat(),
-            'overall_score': 0,
-            'control_results': {},
-            'findings': [],
-            'recommendations': []
-        }
-        
-        if framework in self.compliance_requirements:
-            controls = self.compliance_requirements[framework]['controls']
-            
-            for control in controls:
-                control_score = self.validate_control(control)
-                validation_results['control_results'][control] = control_score
-                
-                if control_score < 80:  # Threshold for compliance
-                    validation_results['findings'].append({
-                        'control': control,
-                        'score': control_score,
-                        'severity': 'HIGH' if control_score < 50 else 'MEDIUM'
-                    })
-            
-            # Calculate overall score
-            if validation_results['control_results']:
-                validation_results['overall_score'] = sum(
-                    validation_results['control_results'].values()
-                ) / len(validation_results['control_results'])
-        
-        return validation_results
-    
-    def validate_control(self, control_name):
-        """Validate specific control implementation"""
-        
-        # Control validation logic based on AWS Config rules
-        control_mappings = {
-            'access_segregation': self.check_iam_separation(),
-            'audit_trails': self.check_cloudtrail_enabled(),
-            'logical_access_controls': self.check_mfa_enabled(),
-            'system_monitoring': self.check_cloudwatch_monitoring(),
-            'data_protection': self.check_encryption_enabled()
-        }
-        
-        return control_mappings.get(control_name, 0)
-    
-    def check_iam_separation(self):
-        """Check IAM role separation"""
-        try:
-            # Check for proper role separation
-            # This would implement actual IAM policy analysis
-            return 85  # Demo score
-        except Exception:
-            return 0
-    
-    def check_cloudtrail_enabled(self):
-        """Check CloudTrail configuration"""
-        try:
-            cloudtrail = boto3.client('cloudtrail')
-            trails = cloudtrail.describe_trails()
-            
-            if trails['trailList']:
-                # Check if trails are properly configured
-                return 90
-            return 0
-        except Exception:
-            return 0
-    
-    def check_mfa_enabled(self):
-        """Check MFA enforcement"""
-        try:
-            # Check MFA policies and enforcement
-            return 75  # Demo score
-        except Exception:
-            return 0
-    
-    def check_cloudwatch_monitoring(self):
-        """Check CloudWatch monitoring setup"""
-        try:
-            cloudwatch = boto3.client('cloudwatch')
-            alarms = cloudwatch.describe_alarms()
-            
-            if alarms['MetricAlarms']:
-                return 80
-            return 0
-        except Exception:
-            return 0
-    
-    def check_encryption_enabled(self):
-        """Check encryption configuration"""
-        try:
-            # Check S3 bucket encryption, EBS encryption, etc.
-            return 85  # Demo score
-        except Exception:
-            return 0
-    
-    def generate_compliance_report(self, validation_results):
-        """Generate compliance report"""
-        
-        report = {
-            'report_id': f"compliance-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
-            'generated_at': datetime.now().isoformat(),
-            'framework': validation_results['framework'],
-            'overall_compliance': validation_results['overall_score'],
-            'status': 'COMPLIANT' if validation_results['overall_score'] >= 80 else 'NON_COMPLIANT',
-            'summary': {
-                'total_controls': len(validation_results['control_results']),
-                'passed_controls': len([s for s in validation_results['control_results'].values() if s >= 80]),
-                'failed_controls': len([s for s in validation_results['control_results'].values() if s < 80]),
-                'critical_findings': len([f for f in validation_results['findings'] if f['severity'] == 'HIGH'])
-            },
-            'detailed_results': validation_results
-        }
-        
-        return report
 
 def lambda_handler(event, context):
-    validator = ComplianceValidator()
+    print("E2E Validation Test Started")
     
-    # Validate all frameworks
-    all_results = {}
+    # Initialize AWS clients
+    dynamodb = boto3.resource('dynamodb')
+    lambda_client = boto3.client('lambda')
+    s3 = boto3.client('s3')
+    cloudwatch = boto3.client('cloudwatch')
     
-    for framework in ComplianceFramework:
-        results = validator.validate_compliance(framework)
-        report = validator.generate_compliance_report(results)
-        all_results[framework.value] = report
-    
-    return {
-        'statusCode': 200,
-        'body': json.dumps(all_results, default=str)
+    test_results = {
+        'test_date': datetime.now().isoformat(),
+        'tests': []
     }
+    
+    try:
+        # Test 1: Data Integrity
+        test_results['tests'].append(test_data_integrity(dynamodb))
+        
+        # Test 2: Lambda Functions
+        test_results['tests'].append(test_lambda_functions(lambda_client))
+        
+        # Test 3: Audit Reports
+        test_results['tests'].append(test_audit_reports(s3))
+        
+        # Test 4: Monitoring
+        test_results['tests'].append(test_monitoring_system(cloudwatch))
+        
+        # Test 5: Compliance
+        test_results['tests'].append(test_compliance_validation(dynamodb))
+        
+        # Calculate overall test result
+        passed_tests = sum(1 for test in test_results['tests'] if test['status'] == 'PASS')
+        total_tests = len(test_results['tests'])
+        
+        test_results['summary'] = {
+            'total_tests': total_tests,
+            'passed_tests': passed_tests,
+            'failed_tests': total_tests - passed_tests,
+            'success_rate': (passed_tests / total_tests) * 100,
+            'overall_status': 'PASS' if passed_tests == total_tests else 'FAIL'
+        }
+        
+        return {
+            'statusCode': 200,
+            'body': json.dumps(test_results, default=str)
+        }
+        
+    except Exception as e:
+        print(f'Error in E2E validation: {str(e)}')
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error: {str(e)}')
+        }
+
+def test_data_integrity(dynamodb):
+    """Test data integrity across DynamoDB tables"""
+    test_result = {
+        'test_name': 'Data Integrity Test',
+        'status': 'PASS',
+        'details': [],
+        'errors': []
+    }
+    
+    try:
+        # Test AccessCertifications table
+        cert_table = dynamodb.Table('AccessCertifications')
+        cert_response = cert_table.scan(Limit=10)
+        
+        if cert_response['Items']:
+            test_result['details'].append(f"AccessCertifications table: {len(cert_response['Items'])} records found")
+        else:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append("AccessCertifications table is empty")
+        
+        # Test RiskAssessments table
+        risk_table = dynamodb.Table('RiskAssessments')
+        risk_response = risk_table.scan(Limit=10)
+        
+        if risk_response['Items']:
+            test_result['details'].append(f"RiskAssessments table: {len(risk_response['Items'])} records found")
+        else:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append("RiskAssessments table is empty")
+            
+    except Exception as e:
+        test_result['status'] = 'FAIL'
+        test_result['errors'].append(f"Data integrity test failed: {str(e)}")
+    
+    return test_result
+
+def test_lambda_functions(lambda_client):
+    """Test all Lambda functions are working"""
+    test_result = {
+        'test_name': 'Lambda Functions Test',
+        'status': 'PASS',
+        'details': [],
+        'errors': []
+    }
+    
+    functions_to_test = [
+        'AccessCertificationTrigger',
+        'PrivilegeAnalyticsEngine',
+        'RiskAssessmentEngine',
+        'CustomMetricsPublisher',
+        'DailyOperationsEngine',
+        'AuditReportGenerator'
+    ]
+    
+    for function_name in functions_to_test:
+        try:
+            # Get function configuration
+            response = lambda_client.get_function(FunctionName=function_name)
+            
+            if response['Configuration']['State'] == 'Active':
+                test_result['details'].append(f"{function_name}: Active")
+            else:
+                test_result['status'] = 'FAIL'
+                test_result['errors'].append(f"{function_name}: Not active")
+                
+        except lambda_client.exceptions.ResourceNotFoundException:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append(f"{function_name}: Function not found")
+        except Exception as e:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append(f"{function_name}: Error - {str(e)}")
+    
+    return test_result
+
+def test_audit_reports(s3):
+    """Test audit reports are being generated"""
+    test_result = {
+        'test_name': 'Audit Reports Test',
+        'status': 'PASS',
+        'details': [],
+        'errors': []
+    }
+    
+    try:
+        bucket_name = 'identity-governance-reports'
+        
+        # List objects in audit-reports prefix
+        response = s3.list_objects_v2(
+            Bucket=bucket_name,
+            Prefix='audit-reports/',
+            MaxKeys=10
+        )
+        
+        if 'Contents' in response and response['Contents']:
+            test_result['details'].append(f"Found {len(response['Contents'])} audit reports")
+            
+            # Check if reports are recent (within last 7 days)
+            recent_reports = 0
+            seven_days_ago = datetime.now() - timedelta(days=7)
+            
+            for obj in response['Contents']:
+                if obj['LastModified'].replace(tzinfo=None) > seven_days_ago:
+                    recent_reports += 1
+            
+            test_result['details'].append(f"Recent reports (last 7 days): {recent_reports}")
+            
+        else:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append("No audit reports found")
+            
+    except Exception as e:
+        test_result['status'] = 'FAIL'
+        test_result['errors'].append(f"Audit reports test failed: {str(e)}")
+    
+    return test_result
+
+def test_monitoring_system(cloudwatch):
+    """Test monitoring system is working"""
+    test_result = {
+        'test_name': 'Monitoring System Test',
+        'status': 'PASS',
+        'details': [],
+        'errors': []
+    }
+    
+    try:
+        # Check for custom metrics
+        response = cloudwatch.list_metrics(
+            Namespace='IdentityGovernance'
+        )
+        
+        if response['Metrics']:
+            test_result['details'].append(f"Found {len(response['Metrics'])} custom metrics")
+        else:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append("No custom metrics found")
+        
+        # Check for alarms
+        alarms_response = cloudwatch.describe_alarms()
+        
+        if alarms_response['MetricAlarms']:
+            active_alarms = len([a for a in alarms_response['MetricAlarms'] if a['StateValue'] == 'OK'])
+            test_result['details'].append(f"Found {len(alarms_response['MetricAlarms'])} alarms, {active_alarms} in OK state")
+        else:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append("No CloudWatch alarms found")
+            
+    except Exception as e:
+        test_result['status'] = 'FAIL'
+        test_result['errors'].append(f"Monitoring system test failed: {str(e)}")
+    
+    return test_result
+
+def test_compliance_validation(dynamodb):
+    """Test compliance validation"""
+    test_result = {
+        'test_name': 'Compliance Validation Test',
+        'status': 'PASS',
+        'details': [],
+        'errors': []
+    }
+    
+    try:
+        # Check for recent compliance assessments
+        table = dynamodb.Table('RiskAssessments')
+        
+        response = table.scan(
+            FilterExpression='AssessmentType = :type',
+            ExpressionAttributeValues={':type': 'Daily Operations Report'}
+        )
+        
+        if response['Items']:
+            latest_assessment = max(response['Items'], key=lambda x: x.get('Date', ''))
+            compliance_score = float(latest_assessment.get('ComplianceScore', 0))
+            
+            test_result['details'].append(f"Latest compliance score: {compliance_score}")
+            
+            if compliance_score >= 70:
+                test_result['details'].append("Compliance score meets minimum threshold")
+            else:
+                test_result['status'] = 'FAIL'
+                test_result['errors'].append(f"Compliance score ({compliance_score}) below threshold (70)")
+        else:
+            test_result['status'] = 'FAIL'
+            test_result['errors'].append("No compliance assessments found")
+            
+    except Exception as e:
+        test_result['status'] = 'FAIL'
+        test_result['errors'].append(f"Compliance validation test failed: {str(e)}")
+    
+    return test_result
 ```
 
-### 4.2 Thiết lập EventBridge Schedule
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/e2e-lambda2.png?featherlight=false&width=90pc)
 
-1. Mở **EventBridge**
-2. Tạo rule cho daily compliance check
-3. Target: Lambda ComplianceValidator function
+2. Click **Deploy**
 
-![EventBridge Compliance Rule](/images/10/eventbridge-compliance-rule.png)
+### 2.3 Chạy E2E Validation Test
 
-## Bước 5: Compliance Evidence Collection
+1. Click **Test** trong Lambda function
+2. Xem kết quả validation
+3. Xác minh tất cả tests PASS
 
-### 5.1 Sử dụng Security Hub Findings
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/e2e-test-result.png?featherlight=false&width=90pc)
 
-1. Sử dụng **AWS Security Hub** để validate:
-   - **IAM password policies**
-   - **S3 bucket encryption**
-   - **CloudTrail logging**
-   - **VPC security groups**
+## Bước 3: Compliance Verification
 
-![Security Hub Compliance Rules](/images/10/security-hub-compliance-rules.png)
+### 3.1 Generate Final Compliance Report
 
-### 5.2 Automated Evidence Storage
+1. Chạy **AuditReportGenerator** với report_type = 'compliance'
+2. Xem compliance report trong S3
+3. Xác minh compliance scores
 
-1. Cấu hình Security Hub để lưu compliance evidence vào S3
-2. Sử dụng DynamoDB để lưu trữ compliance records
-3. Tạo compliance reports tự động với Lambda
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/compliance-report.png?featherlight=false&width=90pc)
 
-![Evidence Collection](/images/10/evidence-collection.png)
+### 3.2 Verify Security Controls
 
-## Kết quả Mong đợi
+1. Kiểm tra **AWS Security Hub** findings
+2. Xác minh không có critical findings
+3. Review security standards compliance
 
-Sau khi hoàn thành workshop này, bạn sẽ có:
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/security-hub-final.png?featherlight=false&width=90pc)
 
-### ✅ Comprehensive Identity Governance System
-- Centralized access management với AWS IAM Identity Center
-- Automated access certification workflows
-- Real-time privilege analytics và risk assessment
-- Continuous monitoring và alerting
+## Bước 4: Performance Validation
 
-### ✅ Compliance Framework Implementation
-- SOX, SOC2, ISO27001, PCI-DSS compliance validation
-- Automated evidence collection
-- Regulatory reporting capabilities
-- Audit trail maintenance
+### 4.1 Kiểm tra System Performance
 
-### ✅ Operational Excellence
-- Standardized operational procedures
-- Incident response capabilities
-- Change management processes
-- Performance monitoring
+1. Vào **CloudWatch** dashboard
+2. Xem performance metrics:
+   - Lambda execution times
+   - DynamoDB response times
+   - Error rates
 
-### ✅ Audit và Governance
-- Comprehensive audit framework
-- Automated control testing
-- Finding tracking và remediation
-- Management reporting
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/performance-metrics.png?featherlight=false&width=90pc)
 
-## Best Practices Summary
+### 4.2 Validate Scalability
 
-1. **Implement Least Privilege**: Chỉ cấp quyền tối thiểu cần thiết
-2. **Automate Where Possible**: Tự động hóa các quy trình lặp lại
-3. **Monitor Continuously**: Giám sát liên tục các hoạt động
-4. **Document Everything**: Ghi chép đầy đủ cho audit trail
-5. **Regular Reviews**: Thực hiện review định kỳ
-6. **Stay Updated**: Cập nhật theo các thay đổi compliance
+1. Kiểm tra auto-scaling configurations
+2. Xem resource utilization
+3. Validate cost optimization
 
-## Tài liệu Tham khảo
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/scalability-check.png?featherlight=false&width=90pc)
 
-- [AWS IAM Identity Center Documentation](https://docs.aws.amazon.com/singlesignon/)
-- [AWS Organizations Best Practices](https://docs.aws.amazon.com/organizations/)
-- [SOX Compliance Guidelines](https://www.sec.gov/about/laws/soa2002.pdf)
-- [SOC 2 Framework](https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report.html)
-- [ISO 27001 Standard](https://www.iso.org/isoiec-27001-information-security.html)
+## Bước 5: Final System Health Check
 
-## Hỗ trợ
+### 5.1 Comprehensive Health Dashboard
 
-Nếu bạn gặp vấn đề trong quá trình triển khai, vui lòng:
-1. Kiểm tra CloudWatch Logs để debug
-2. Xem lại IAM permissions
-3. Tham khảo AWS documentation
-4. Liên hệ team support nếu cần thiết
+1. Tạo final health check dashboard
+2. Bao gồm tất cả key metrics
+3. Xác minh system status = HEALTHY
 
-**Workshop hoàn thành thành công! 🎉**
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/health-dashboard.png?featherlight=false&width=90pc)
+
+### 5.2 Generate System Documentation
+
+1. Tạo Lambda function để generate system documentation
+2. Export configuration details
+3. Create operational runbooks
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/documentation.png?featherlight=false&width=90pc)
+
+## Bước 6: Production Readiness Checklist
+
+### 6.1 Security Checklist
+
+- ✅ All IAM roles follow least privilege principle
+- ✅ Encryption at rest enabled for all data stores
+- ✅ Encryption in transit for all communications
+- ✅ CloudTrail logging enabled and validated
+- ✅ Security Hub findings reviewed and addressed
+- ✅ No hardcoded credentials in code
+
+### 6.2 Operational Checklist
+
+- ✅ All Lambda functions have proper error handling
+- ✅ CloudWatch alarms configured for critical metrics
+- ✅ SNS notifications working for alerts
+- ✅ Backup and recovery procedures documented
+- ✅ Monitoring dashboards created and tested
+- ✅ Operational runbooks completed
+
+### 6.3 Compliance Checklist
+
+- ✅ SOX compliance requirements met
+- ✅ SOC2 controls implemented and tested
+- ✅ ISO27001 requirements satisfied
+- ✅ Audit trails complete and tamper-proof
+- ✅ Access certification processes automated
+- ✅ Risk assessment procedures operational
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/checklist-complete.png?featherlight=false&width=90pc)
+
+## Kết quả Cuối cùng
+
+Sau khi hoàn thành toàn bộ workshop:
+
+- ✅ **Complete Identity Governance System** - Hệ thống quản lý danh tính toàn diện
+- ✅ **Automated Access Certification** - Tự động hóa chứng nhận truy cập
+- ✅ **Real-time Privilege Analytics** - Phân tích đặc quyền thời gian thực
+- ✅ **Comprehensive Risk Assessment** - Đánh giá rủi ro toàn diện
+- ✅ **Continuous Monitoring** - Giám sát liên tục
+- ✅ **Automated Compliance Reporting** - Báo cáo tuân thủ tự động
+- ✅ **Audit Trail System** - Hệ thống audit trail
+- ✅ **Production-Ready Architecture** - Kiến trúc sẵn sàng production
+
+![Workshop Complete](https://trtrantnt.github.io/workshop/images/10/workshop-complete.png?featherlight=false&width=90pc)
+
+## Tiếp theo
+
+Chuyển sang [11. Clean Resources](../11-clean-resources) để dọn dẹp tài nguyên AWS sau khi hoàn thành workshop.

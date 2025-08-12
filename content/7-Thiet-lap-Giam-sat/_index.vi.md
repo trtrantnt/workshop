@@ -6,255 +6,319 @@ weight: 7
 
 ## Mục tiêu
 
-Thiết lập hệ thống giám sát toàn diện để theo dõi liên tục các hoạt động identity governance, phát hiện anomalies, và đảm bảo compliance.
+Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dashboard và SNS notifications để theo dõi Identity Governance metrics.
 
-## Kiến trúc Monitoring
+## Bước 1: Xác minh CloudWatch Metrics
 
-![Kiến trúc Monitoring](/images/7/monitoring-architecture.png)
+### 1.1 Kiểm tra Lambda Metrics
 
-## Bước 1: Thiết lập CloudWatch Monitoring
+1. Mở **Amazon CloudWatch** console
+2. Click **Metrics** ở sidebar
+3. Xác minh metrics từ các Lambda functions:
+   - AccessCertificationTrigger
+   - PrivilegeAnalyticsEngine
+   - RiskAssessmentEngine
 
-### 1.1 Tạo SNS Topic cho Alerts
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/metrics1.png?featherlight=false&width=90pc)
 
-1. Mở **Amazon SNS** trong console
-2. Click **Topics** → **Create topic**
-3. Cấu hình:
-   - **Type**: Standard
-   - **Name**: IdentityGovernanceAlerts
-   - **Display name**: Identity Governance Monitoring Alerts
+### 1.2 Kiểm tra DynamoDB Metrics
 
-![SNS Topic Creation](/images/7/sns-topic-creation.png)
+1. Trong CloudWatch Metrics
+2. Click **AWS/DynamoDB**
+3. Xác minh metrics cho tables:
+   - AccessCertifications
+   - RiskAssessments
 
-4. Click **Create subscription**
-5. Thêm email subscription cho security team
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/metrics2.png?featherlight=false&width=90pc)
 
-![SNS Subscription](/images/7/sns-subscription.png)
+## Bước 2: Tạo CloudWatch Alarms
 
-### 1.2 Tạo CloudWatch Log Group
+### 2.1 Tạo Alarm cho Lambda Errors
 
-1. Mở **CloudWatch** console
-2. Click **Log groups** → **Create log group**
-3. Cấu hình:
-   - **Log group name**: /aws/identity-governance/events
-   - **Retention setting**: 1 year
+1. Trong **CloudWatch** console
+2. Click **Alarms** ở sidebar
+3. Click **Create alarm**
 
-![Log Group Creation](/images/7/log-group-creation.png)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm1.png?featherlight=false&width=90pc)
 
-### 1.3 Thiết lập CloudWatch Alarms
+4. Chọn metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric**: Errors
+   - **Function**: AccessCertificationTrigger
 
-1. Trong CloudWatch, click **Alarms** → **Create alarm**
-2. Tạo các alarms:
-   - **Failed Login Attempts**: Nhiều lần đăng nhập thất bại
-   - **Privilege Escalation**: Phát hiện leo thang quyền
-   - **Off-hours Access**: Truy cập ngoài giờ làm việc
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm2.png?featherlight=false&width=90pc)
 
-![CloudWatch Alarms](/images/7/cloudwatch-alarms.png)
+5. Cấu hình conditions:
+   - **Threshold type**: Static
+   - **Condition**: Greater than
+   - **Threshold value**: 0
+   - **Period**: 5 minutes
 
-## Bước 2: Thiết lập Log Analytics
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm3.png?featherlight=false&width=90pc)
 
-### 2.1 CloudWatch Insights Queries
+6. Cấu hình actions:
+   - **SNS topic**: RiskAssessmentAlerts (từ chương 6)
+   - **Alarm name**: `Lambda-AccessCertification-Errors`
 
-1. Mở **CloudWatch Logs Insights**
-2. Chọn log group: **/aws/cloudtrail**
-3. Tạo saved queries:
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm4.png?featherlight=false&width=90pc)
 
-**Query 1: Failed Login Attempts**
-```
-fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
-| filter eventName = "ConsoleLogin" and errorCode != "Success"
-| stats count() by userIdentity.userName
-| sort count desc
-```
+7. Click **Create alarm**
 
-![Insights Query 1](/images/7/insights-query-1.png)
+### 2.2 Tạo Alarm cho High Risk Users
 
-**Query 2: Privilege Escalation Events**
-```
-fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
-| filter eventName in ["AttachUserPolicy", "CreateRole", "PutUserPolicy"]
-| sort @timestamp desc
-```
+1. Click **Create alarm**
+2. Chọn **Custom metric**
+3. Tạo custom metric cho high risk users:
+   - **Namespace**: IdentityGovernance
+   - **Metric**: HighRiskUserCount
 
-![Insights Query 2](/images/7/insights-query-2.png)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm5.png?featherlight=false&width=90pc)
 
-### 2.2 Tạo Custom Dashboard
+4. Cấu hình threshold:
+   - **Condition**: Greater than 5
+   - **Period**: 1 hour
 
-1. Trong CloudWatch, click **Dashboards** → **Create dashboard**
-2. Tên: **IdentityGovernanceMonitoring**
-3. Thêm widgets:
-   - **Failed Login Attempts (Line chart)**
-   - **Active Users (Number)**
-   - **Policy Changes (Log table)**
-   - **Geographic Access Map**
+5. Click **Create alarm**
 
-![Custom Dashboard](/images/7/custom-dashboard.png)
+## Bước 3: Tạo Comprehensive Dashboard
 
-## Bước 3: Thiết lập Lambda Monitoring Function
+### 3.1 Tạo Main Dashboard
 
-### 3.1 Tạo Lambda Function
+1. Trong **CloudWatch** console
+2. Click **Dashboards**
+3. Click **Create dashboard**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard1.png?featherlight=false&width=90pc)
+
+4. Nhập dashboard name: `IdentityGovernanceDashboard`
+5. Click **Create dashboard**
+
+### 3.2 Thêm Lambda Metrics Widget
+
+1. Click **Add widget**
+2. Chọn **Line** chart
+3. Cấu hình metrics:
+   - Lambda Invocations
+   - Lambda Errors
+   - Lambda Duration
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard2.png?featherlight=false&width=90pc)
+
+4. Click **Create widget**
+
+### 3.3 Thêm DynamoDB Metrics Widget
+
+1. Click **Add widget**
+2. Chọn **Number** widget
+3. Cấu hình metrics:
+   - DynamoDB Item Count
+   - DynamoDB Read/Write Capacity
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard3.png?featherlight=false&width=90pc)
+
+4. Click **Create widget**
+
+### 3.4 Thêm Risk Assessment Widget
+
+1. Click **Add widget**
+2. Chọn **Pie** chart
+3. Tạo custom metrics cho risk levels:
+   - High Risk Users
+   - Medium Risk Users
+   - Low Risk Users
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard4.png?featherlight=false&width=90pc)
+
+4. Click **Create widget**
+
+## Bước 4: Thiết lập Custom Metrics Lambda
+
+### 4.1 Tạo Lambda Function cho Custom Metrics
 
 1. Mở **AWS Lambda** console
 2. Click **Create function**
-3. Cấu hình:
-   - **Function name**: IdentityGovernanceMonitor
+3. Nhập thông tin function:
+   - **Function name**: `CustomMetricsPublisher`
    - **Runtime**: Python 3.9
-   - **Role**: IdentityGovernanceMonitoringRole
 
-![Lambda Function Creation](/images/7/lambda-function-creation.png)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda1.png?featherlight=false&width=90pc)
 
-4. Cấu hình environment variables:
-   - **LOG_GROUP_NAME**: /aws/identity-governance/events
-   - **SNS_TOPIC_ARN**: ARN của SNS topic
+### 4.2 Cấu hình Code cho Custom Metrics
 
-![Lambda Environment Variables](/images/7/lambda-env-variables.png)
-
-5. Thêm Lambda function code:
+1. Thay thế code mặc định:
 
 ```python
-import boto3
 import json
-import os
-from datetime import datetime, timedelta
-
-class IdentityGovernanceMonitor:
-    def __init__(self):
-        self.cloudwatch = boto3.client('cloudwatch')
-        self.logs_client = boto3.client('logs')
-        self.iam_client = boto3.client('iam')
-        self.sso_client = boto3.client('sso-admin')
-        self.sns_client = boto3.client('sns')
-        
-        self.log_group = os.environ.get('LOG_GROUP_NAME', '/aws/identity-governance/events')
-        self.sns_topic = os.environ.get('SNS_TOPIC_ARN')
-    
-    def monitor_identity_events(self):
-        """Monitor and analyze identity-related events"""
-        
-        monitoring_results = {
-            'timestamp': datetime.now().isoformat(),
-            'metrics_collected': [],
-            'anomalies_detected': [],
-            'alerts_sent': []
-        }
-        
-        # Check for failed login attempts
-        failed_logins = self.check_failed_logins()
-        if failed_logins > 5:
-            self.send_alert(f"High failed login attempts detected: {failed_logins}")
-            monitoring_results['anomalies_detected'].append('high_failed_logins')
-        
-        # Check for privilege escalation
-        privilege_changes = self.check_privilege_escalation()
-        if privilege_changes:
-            self.send_alert(f"Privilege escalation detected: {privilege_changes}")
-            monitoring_results['anomalies_detected'].append('privilege_escalation')
-        
-        return monitoring_results
-    
-    def check_failed_logins(self):
-        """Check for failed login attempts in the last hour"""
-        end_time = datetime.now()
-        start_time = end_time - timedelta(hours=1)
-        
-        query = """
-        fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
-        | filter eventName = "ConsoleLogin" and errorCode != "Success"
-        | stats count() as failed_attempts
-        """
-        
-        try:
-            response = self.logs_client.start_query(
-                logGroupName='/aws/cloudtrail',
-                startTime=int(start_time.timestamp()),
-                endTime=int(end_time.timestamp()),
-                queryString=query
-            )
-            
-            # Get query results (simplified for demo)
-            return 0  # Would return actual count
-        except Exception as e:
-            print(f"Error checking failed logins: {e}")
-            return 0
-    
-    def check_privilege_escalation(self):
-        """Check for privilege escalation events"""
-        escalation_events = [
-            'AttachUserPolicy',
-            'CreateRole', 
-            'PutUserPolicy',
-            'AttachRolePolicy'
-        ]
-        
-        # Check recent IAM events
-        try:
-            # This would query CloudTrail logs for privilege changes
-            return []  # Would return actual events
-        except Exception as e:
-            print(f"Error checking privilege escalation: {e}")
-            return []
-    
-    def send_alert(self, message):
-        """Send alert via SNS"""
-        try:
-            self.sns_client.publish(
-                TopicArn=self.sns_topic,
-                Message=message,
-                Subject='Identity Governance Alert'
-            )
-        except Exception as e:
-            print(f"Error sending alert: {e}")
+import boto3
+from datetime import datetime
+from boto3.dynamodb.conditions import Key
 
 def lambda_handler(event, context):
-    monitor = IdentityGovernanceMonitor()
-    results = monitor.monitor_identity_events()
+    print("Custom Metrics Publisher Started")
+    
+    # Initialize AWS clients
+    dynamodb = boto3.resource('dynamodb')
+    cloudwatch = boto3.client('cloudwatch')
+    
+    try:
+        # Get risk assessment data
+        risk_metrics = get_risk_metrics(dynamodb)
+        
+        # Get certification metrics
+        cert_metrics = get_certification_metrics(dynamodb)
+        
+        # Publish custom metrics
+        publish_metrics(cloudwatch, risk_metrics, cert_metrics)
+        
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Custom metrics published successfully')
+        }
+        
+    except Exception as e:
+        print(f'Error publishing metrics: {str(e)}')
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error: {str(e)}')
+        }
+
+def get_risk_metrics(dynamodb):
+    """Get risk assessment metrics from DynamoDB"""
+    table = dynamodb.Table('RiskAssessments')
+    
+    # Get latest user risk assessments
+    response = table.scan(
+        FilterExpression='AssessmentType = :type',
+        ExpressionAttributeValues={':type': 'User Risk Assessment'}
+    )
+    
+    risk_levels = {'LOW': 0, 'MEDIUM': 0, 'HIGH': 0, 'CRITICAL': 0}
+    
+    for item in response['Items']:
+        risk_level = item.get('RiskLevel', 'LOW')
+        if risk_level in risk_levels:
+            risk_levels[risk_level] += 1
+    
+    return risk_levels
+
+def get_certification_metrics(dynamodb):
+    """Get certification metrics from DynamoDB"""
+    table = dynamodb.Table('AccessCertifications')
+    
+    response = table.scan()
+    
+    total_certifications = len(response['Items'])
+    recent_certifications = 0
+    
+    # Count recent certifications (last 30 days)
+    thirty_days_ago = (datetime.now() - timedelta(days=30)).isoformat()
+    
+    for item in response['Items']:
+        cert_date = item.get('CertificationDate', '')
+        if cert_date > thirty_days_ago:
+            recent_certifications += 1
     
     return {
-        'statusCode': 200,
-        'body': json.dumps(results)
+        'total': total_certifications,
+        'recent': recent_certifications
     }
+
+def publish_metrics(cloudwatch, risk_metrics, cert_metrics):
+    """Publish custom metrics to CloudWatch"""
+    
+    # Publish risk metrics
+    for risk_level, count in risk_metrics.items():
+        cloudwatch.put_metric_data(
+            Namespace='IdentityGovernance',
+            MetricData=[
+                {
+                    'MetricName': f'{risk_level}RiskUserCount',
+                    'Value': count,
+                    'Unit': 'Count',
+                    'Timestamp': datetime.now()
+                }
+            ]
+        )
+    
+    # Publish certification metrics
+    cloudwatch.put_metric_data(
+        Namespace='IdentityGovernance',
+        MetricData=[
+            {
+                'MetricName': 'TotalCertifications',
+                'Value': cert_metrics['total'],
+                'Unit': 'Count',
+                'Timestamp': datetime.now()
+            },
+            {
+                'MetricName': 'RecentCertifications',
+                'Value': cert_metrics['recent'],
+                'Unit': 'Count',
+                'Timestamp': datetime.now()
+            }
+        ]
+    )
+    
+    print(f"Published metrics: Risk={risk_metrics}, Cert={cert_metrics}")
 ```
 
-### 3.2 Thiết lập EventBridge Schedule
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda2.png?featherlight=false&width=90pc)
 
-1. Mở **EventBridge** console
-2. Click **Rules** → **Create rule**
-3. Cấu hình:
-   - **Name**: IdentityMonitoringSchedule
-   - **Schedule**: Rate(5 minutes)
-   - **Target**: Lambda IdentityGovernanceMonitor
+2. Click **Deploy**
 
-![EventBridge Schedule](/images/7/eventbridge-schedule.png)
+### 4.3 Cấu hình IAM Permissions
 
-## Bước 4: Anomaly Detection Setup
+1. Thêm permissions cho Lambda:
+   - **AmazonDynamoDBReadOnlyAccess**
+   - **CloudWatchFullAccess**
 
-### 4.1 CloudWatch Anomaly Detection
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda3.png?featherlight=false&width=90pc)
 
-1. Trong CloudWatch Metrics, chọn metric cần monitor
-2. Click **Actions** → **Create anomaly detector**
-3. Cấu hình threshold và notification
+### 4.4 Tạo EventBridge Schedule
 
-![Anomaly Detection](/images/7/anomaly-detection.png)
+1. Tạo schedule để chạy CustomMetricsPublisher mỗi 15 phút
+2. Cấu hình tương tự như các chương trước
 
-### 4.2 Security Hub Integration
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda4.png?featherlight=false&width=90pc)
 
-1. Mở **Security Hub** console
-2. Cấu hình findings export đến S3
-3. Thiết lập EventBridge rule cho Security Hub findings
-4. Tích hợp với Lambda monitoring function
+## Bước 5: Kiểm tra Monitoring System
 
-![Security Hub Integration](/images/7/security-hub-integration.png)
+### 5.1 Test Custom Metrics
+
+1. Chạy Lambda function **CustomMetricsPublisher**
+2. Kiểm tra CloudWatch Metrics có custom metrics mới
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/test1.png?featherlight=false&width=90pc)
+
+### 5.2 Test Alarms
+
+1. Tạo test error trong Lambda function
+2. Xác minh alarm được trigger
+3. Kiểm tra SNS notification
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/test2.png?featherlight=false&width=90pc)
+
+### 5.3 Xác minh Dashboard
+
+1. Vào **IdentityGovernanceDashboard**
+2. Xác minh tất cả widgets hiển thị data
+3. Kiểm tra real-time updates
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/test3.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 
 Sau khi hoàn thành:
 
-- ✅ Real-time monitoring của identity events
-- ✅ Custom CloudWatch metrics và alarms
-- ✅ Automated log analysis
-- ✅ Anomaly detection và alerting
-- ✅ Comprehensive monitoring dashboard
-- ✅ Scheduled monitoring tasks
+- ✅ Comprehensive CloudWatch Dashboard
+- ✅ Automated alarms for critical metrics
+- ✅ Custom metrics for Identity Governance KPIs
+- ✅ SNS notifications for alerts
+- ✅ Real-time monitoring of all components
+- ✅ Historical trend analysis
+
+![Hoàn thành Monitoring Setup](https://trtrantnt.github.io/workshop/images/7/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 
-Chuyển sang [8. Quy trình Vận hành](../8-quy-trinh-van-hanh) để thiết lập quy trình vận hành.
+Chuyển sang [8. Quy trình Vận hành](../8-quy-trinh-van-hanh) để thiết lập các quy trình vận hành hàng ngày.

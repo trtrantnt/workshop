@@ -12,21 +12,21 @@
     <title>8. Quy trình Vận hành :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754951690" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754951690" rel="stylesheet">
-    <link href="/css/hybrid.css?1754951690" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754951690" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754951690" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754951690" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754951690" rel="stylesheet">
-    <link href="/css/theme.css?1754951690" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754951690" rel="stylesheet">
+    <link href="/css/nucleus.css?1754952988" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754952988" rel="stylesheet">
+    <link href="/css/hybrid.css?1754952988" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754952988" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754952988" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754952988" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754952988" rel="stylesheet">
+    <link href="/css/theme.css?1754952988" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754952988" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754951690" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754952988" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754951690"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754952988"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754951690"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754951690"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754952988"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754952988"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754951690"></script>
+<script type="text/javascript" src="/js/search.js?1754952988"></script>
 
     
   </div>
@@ -513,21 +513,35 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#mục-tiêu">Mục tiêu</a></li>
-    <li><a href="#quy-trình-tổng-quan">Quy trình Tổng quan</a></li>
-    <li><a href="#bước-1-daily-operations-procedures">Bước 1: Daily Operations Procedures</a>
+    <li><a href="#bước-1-tạo-operational-dashboard">Bước 1: Tạo Operational Dashboard</a>
       <ul>
-        <li><a href="#11-daily-monitoring-checklist">1.1 Daily Monitoring Checklist</a></li>
-        <li><a href="#12-standard-operating-procedures-sops">1.2 Standard Operating Procedures (SOPs)</a></li>
+        <li><a href="#11-tạo-operations-dashboard">1.1 Tạo Operations Dashboard</a></li>
       </ul>
     </li>
-    <li><a href="#bước-2-weekly-review-procedures">Bước 2: Weekly Review Procedures</a>
+    <li><a href="#bước-2-tạo-daily-operations-lambda">Bước 2: Tạo Daily Operations Lambda</a>
       <ul>
-        <li><a href="#21-weekly-assessment-script">2.1 Weekly Assessment Script</a></li>
+        <li><a href="#21-tạo-lambda-function">2.1 Tạo Lambda Function</a></li>
+        <li><a href="#22-cấu-hình-code-cho-daily-operations">2.2 Cấu hình Code cho Daily Operations</a></li>
+        <li><a href="#23-cấu-hình-iam-permissions">2.3 Cấu hình IAM Permissions</a></li>
       </ul>
     </li>
-    <li><a href="#bước-3-runbook-templates">Bước 3: Runbook Templates</a>
+    <li><a href="#bước-3-thiết-lập-automated-workflows">Bước 3: Thiết lập Automated Workflows</a>
       <ul>
-        <li><a href="#31-incident-response-runbook">3.1 Incident Response Runbook</a></li>
+        <li><a href="#31-tạo-eventbridge-schedule-cho-daily-operations">3.1 Tạo EventBridge Schedule cho Daily Operations</a></li>
+        <li><a href="#32-tạo-weekly-summary-schedule">3.2 Tạo Weekly Summary Schedule</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-4-tạo-operational-runbooks">Bước 4: Tạo Operational Runbooks</a>
+      <ul>
+        <li><a href="#41-tạo-s3-bucket-cho-documentation">4.1 Tạo S3 Bucket cho Documentation</a></li>
+        <li><a href="#42-tạo-systems-manager-documents">4.2 Tạo Systems Manager Documents</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-5-kiểm-tra-operational-workflows">Bước 5: Kiểm tra Operational Workflows</a>
+      <ul>
+        <li><a href="#51-test-daily-operations">5.1 Test Daily Operations</a></li>
+        <li><a href="#52-xác-minh-operations-dashboard">5.2 Xác minh Operations Dashboard</a></li>
+        <li><a href="#53-test-automation-workflows">5.3 Test Automation Workflows</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -558,171 +572,426 @@
 
 
 	<h2 id="mục-tiêu">Mục tiêu</h2>
-<p>Thiết lập các quy trình vận hành chuẩn hóa để quản lý identity governance một cách hiệu quả, đảm bảo tính nhất quán và tuân thủ.</p>
-<h2 id="quy-trình-tổng-quan">Quy trình Tổng quan</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[Daily Operations] --&gt; B[Weekly Reviews]
-    B --&gt; C[Monthly Assessments]
-    C --&gt; D[Quarterly Certifications]
-    
-    E[Incident Response] --&gt; F[Investigation]
-    F --&gt; G[Remediation]
-    G --&gt; H[Documentation]
-    
-    I[Change Management] --&gt; J[Approval Process]
-    J --&gt; K[Implementation]
-    K --&gt; L[Validation]
-</code></pre><h2 id="bước-1-daily-operations-procedures">Bước 1: Daily Operations Procedures</h2>
-<h3 id="11-daily-monitoring-checklist">1.1 Daily Monitoring Checklist</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+<p>Thiết lập các quy trình vận hành hàng ngày để duy trì và tối ưu hóa hệ thống Identity Governance, bao gồm automation workflows và operational procedures.</p>
+<h2 id="bước-1-tạo-operational-dashboard">Bước 1: Tạo Operational Dashboard</h2>
+<h3 id="11-tạo-operations-dashboard">1.1 Tạo Operations Dashboard</h3>
+<ol>
+<li>Mở <strong>Amazon CloudWatch</strong> console</li>
+<li>Click <strong>Dashboards</strong></li>
+<li>Click <strong>Create dashboard</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/dashboard1.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Nhập dashboard name: <code>IdentityGovernanceOperations</code></li>
+<li>Thêm các widgets cho:
+<ul>
+<li>Daily certification status</li>
+<li>Risk assessment trends</li>
+<li>System health metrics</li>
+<li>Operational KPIs</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/dashboard2.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-2-tạo-daily-operations-lambda">Bước 2: Tạo Daily Operations Lambda</h2>
+<h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
+<ol>
+<li>Mở <strong>AWS Lambda</strong> console</li>
+<li>Click <strong>Create function</strong></li>
+<li>Nhập thông tin function:
+<ul>
+<li><strong>Function name</strong>: <code>DailyOperationsEngine</code></li>
+<li><strong>Runtime</strong>: Python 3.9</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/lambda1.png?featherlight=false&width=90pc"></p>
+<h3 id="22-cấu-hình-code-cho-daily-operations">2.2 Cấu hình Code cho Daily Operations</h3>
+<ol>
+<li>Thay thế code mặc định:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> decimal <span style="color:#f92672">import</span> Decimal
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DailyOperations</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sns <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sns&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>operations_table <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Daily Operations Engine Started&#34;</span>)
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">execute_daily_checklist</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Execute daily operational checklist&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize AWS clients</span>
+</span></span><span style="display:flex;"><span>    dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>    sns <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sns&#39;</span>)
+</span></span><span style="display:flex;"><span>    ses <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;ses&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Perform daily operations</span>
+</span></span><span style="display:flex;"><span>        operations_report <span style="color:#f92672">=</span> perform_daily_operations(dynamodb)
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        checklist_results <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span>),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;checks_performed&#39;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;issues_found&#39;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;actions_taken&#39;</span>: []
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate daily report</span>
+</span></span><span style="display:flex;"><span>        daily_report <span style="color:#f92672">=</span> generate_daily_report(operations_report)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Send notifications</span>
+</span></span><span style="display:flex;"><span>        send_daily_notifications(sns, ses, daily_report)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store operations log</span>
+</span></span><span style="display:flex;"><span>        store_operations_log(dynamodb, operations_report)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;Daily operations completed&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;report&#39;</span>: daily_report
+</span></span><span style="display:flex;"><span>            })
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Daily checks</span>
-</span></span><span style="display:flex;"><span>        checks <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>            (<span style="color:#e6db74">&#39;Monitor Failed Logins&#39;</span>, self<span style="color:#f92672">.</span>check_failed_logins),
-</span></span><span style="display:flex;"><span>            (<span style="color:#e6db74">&#39;Review High-Risk Alerts&#39;</span>, self<span style="color:#f92672">.</span>review_high_risk_alerts),
-</span></span><span style="display:flex;"><span>            (<span style="color:#e6db74">&#39;Check System Health&#39;</span>, self<span style="color:#f92672">.</span>check_system_health),
-</span></span><span style="display:flex;"><span>            (<span style="color:#e6db74">&#39;Validate Backup Status&#39;</span>, self<span style="color:#f92672">.</span>validate_backup_status),
-</span></span><span style="display:flex;"><span>            (<span style="color:#e6db74">&#39;Review Pending Certifications&#39;</span>, self<span style="color:#f92672">.</span>review_pending_certifications)
-</span></span><span style="display:flex;"><span>        ]
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> checklist_results
-</span></span></code></pre></div><h3 id="12-standard-operating-procedures-sops">1.2 Standard Operating Procedures (SOPs)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># Identity Governance Standard Operating Procedures
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">## SOP-001: Daily Monitoring Procedures
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Purpose
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Ensure daily monitoring of identity governance systems and prompt response to issues.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Scope
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>All identity governance monitoring activities performed daily.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Procedure
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">1.</span> <span style="font-weight:bold">**Morning Health Check (9:00 AM)**</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Review CloudWatch dashboard
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Check for active alarms
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Verify system availability
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">2.</span> <span style="font-weight:bold">**Failed Login Review (10:00 AM)**</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Analyze failed login patterns
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Investigate suspicious activities
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Document findings
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">3.</span> <span style="font-weight:bold">**Risk Alert Review (2:00 PM)**</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Review high-risk alerts
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Prioritize investigations
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Assign remediation tasks
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">4.</span> <span style="font-weight:bold">**End-of-Day Summary (5:00 PM)**</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Generate daily report
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Update incident tracking
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">-</span> Plan next day activities
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">### Escalation Criteria
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">-</span> Critical alarms: Immediate escalation
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> High-risk events: 2-hour response time
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">-</span> System outages: Immediate escalation
-</span></span></code></pre></div><h2 id="bước-2-weekly-review-procedures">Bước 2: Weekly Review Procedures</h2>
-<h3 id="21-weekly-assessment-script">2.1 Weekly Assessment Script</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeeklyReview</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>athena_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;athena&#39;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">execute_weekly_review</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Execute weekly identity governance review&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        review_results <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;week_ending&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span>),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;metrics_summary&#39;</span>: {},
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;trend_analysis&#39;</span>: {},
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;recommendations&#39;</span>: []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error in daily operations: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Collect weekly metrics</span>
-</span></span><span style="display:flex;"><span>        review_results[<span style="color:#e6db74">&#39;metrics_summary&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>collect_weekly_metrics()
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Perform trend analysis</span>
-</span></span><span style="display:flex;"><span>        review_results[<span style="color:#e6db74">&#39;trend_analysis&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>analyze_trends()
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate recommendations</span>
-</span></span><span style="display:flex;"><span>        review_results[<span style="color:#e6db74">&#39;recommendations&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>generate_weekly_recommendations()
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> review_results
-</span></span></code></pre></div><h2 id="bước-3-runbook-templates">Bước 3: Runbook Templates</h2>
-<h3 id="31-incident-response-runbook">3.1 Incident Response Runbook</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Incident Response Runbook Template</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">incident_response</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">incident_id</span>: <span style="color:#e6db74">&#34;INC-{YYYY-MM-DD}-{###}&#34;</span>
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">classification</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">severity</span>: <span style="color:#e6db74">&#34;[P1|P2|P3|P4]&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">category</span>: <span style="color:#e6db74">&#34;[Security|Availability|Performance|Compliance]&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">impact</span>: <span style="color:#e6db74">&#34;[Critical|High|Medium|Low]&#34;</span>
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">initial_response</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">step</span>: <span style="color:#e6db74">&#34;Acknowledge incident&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">owner</span>: <span style="color:#e6db74">&#34;On-call engineer&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">sla</span>: <span style="color:#e6db74">&#34;15 minutes&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">perform_daily_operations</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Perform daily operational tasks&#34;&#34;&#34;</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">step</span>: <span style="color:#e6db74">&#34;Assess severity and impact&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">owner</span>: <span style="color:#e6db74">&#34;Incident commander&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">sla</span>: <span style="color:#e6db74">&#34;30 minutes&#34;</span>
+</span></span><span style="display:flex;"><span>    operations_report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;certification_status&#39;</span>: check_certification_status(dynamodb),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;risk_summary&#39;</span>: get_risk_summary(dynamodb),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;system_health&#39;</span>: check_system_health(dynamodb),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;compliance_status&#39;</span>: check_compliance_status(dynamodb)
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">step</span>: <span style="color:#e6db74">&#34;Activate response team&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">owner</span>: <span style="color:#e6db74">&#34;Incident commander&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">sla</span>: <span style="color:#e6db74">&#34;30 minutes&#34;</span>
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">investigation</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">step</span>: <span style="color:#e6db74">&#34;Collect initial evidence&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">actions</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#e6db74">&#34;Export relevant CloudTrail logs&#34;</span>
-</span></span><span style="display:flex;"><span>        - <span style="color:#e6db74">&#34;Capture system state&#34;</span>
-</span></span><span style="display:flex;"><span>        - <span style="color:#e6db74">&#34;Document timeline&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> operations_report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_certification_status</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check certification status for the day&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">step</span>: <span style="color:#e6db74">&#34;Analyze root cause&#34;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">actions</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#e6db74">&#34;Review logs and metrics&#34;</span>
-</span></span><span style="display:flex;"><span>        - <span style="color:#e6db74">&#34;Interview stakeholders&#34;</span>
-</span></span><span style="display:flex;"><span>        - <span style="color:#e6db74">&#34;Test hypotheses&#34;</span>
-</span></span></code></pre></div><h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get certifications from last 24 hours</span>
+</span></span><span style="display:flex;"><span>    yesterday <span style="color:#f92672">=</span> (datetime<span style="color:#f92672">.</span>now() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CertificationDate &gt; :date&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:date&#39;</span>: yesterday}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    total_certifications <span style="color:#f92672">=</span> len(response[<span style="color:#e6db74">&#39;Items&#39;</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Count by status</span>
+</span></span><span style="display:flex;"><span>    status_counts <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>        status <span style="color:#f92672">=</span> item<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Status&#39;</span>, <span style="color:#e6db74">&#39;Unknown&#39;</span>)
+</span></span><span style="display:flex;"><span>        status_counts[status] <span style="color:#f92672">=</span> status_counts<span style="color:#f92672">.</span>get(status, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;total_certifications&#39;</span>: total_certifications,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status_breakdown&#39;</span>: status_counts,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;completion_rate&#39;</span>: calculate_completion_rate(status_counts)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_risk_summary</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get current risk summary&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get latest risk assessments</span>
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;User Risk Assessment&#39;</span>}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    risk_summary <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;LOW&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;MEDIUM&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;HIGH&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;CRITICAL&#39;</span>: <span style="color:#ae81ff">0</span>}
+</span></span><span style="display:flex;"><span>    total_users <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>        risk_level <span style="color:#f92672">=</span> item<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskLevel&#39;</span>, <span style="color:#e6db74">&#39;LOW&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> risk_level <span style="color:#f92672">in</span> risk_summary:
+</span></span><span style="display:flex;"><span>            risk_summary[risk_level] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            total_users <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;total_users&#39;</span>: total_users,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;risk_distribution&#39;</span>: risk_summary,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;high_risk_percentage&#39;</span>: ((risk_summary[<span style="color:#e6db74">&#39;HIGH&#39;</span>] <span style="color:#f92672">+</span> risk_summary[<span style="color:#e6db74">&#39;CRITICAL&#39;</span>]) <span style="color:#f92672">/</span> max(total_users, <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_system_health</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check overall system health&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if all components are functioning</span>
+</span></span><span style="display:flex;"><span>    health_status <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;certification_engine&#39;</span>: check_lambda_health(<span style="color:#e6db74">&#39;AccessCertificationTrigger&#39;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;privilege_analytics&#39;</span>: check_lambda_health(<span style="color:#e6db74">&#39;PrivilegeAnalyticsEngine&#39;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;risk_assessment&#39;</span>: check_lambda_health(<span style="color:#e6db74">&#39;RiskAssessmentEngine&#39;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;custom_metrics&#39;</span>: check_lambda_health(<span style="color:#e6db74">&#39;CustomMetricsPublisher&#39;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;database_health&#39;</span>: check_dynamodb_health(dynamodb)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    overall_health <span style="color:#f92672">=</span> all(health_status<span style="color:#f92672">.</span>values())
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;overall_status&#39;</span>: <span style="color:#e6db74">&#39;HEALTHY&#39;</span> <span style="color:#66d9ef">if</span> overall_health <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;DEGRADED&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;component_status&#39;</span>: health_status
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_compliance_status</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check compliance status&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate compliance metrics</span>
+</span></span><span style="display:flex;"><span>    cert_table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
+</span></span><span style="display:flex;"><span>    risk_table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get recent certifications</span>
+</span></span><span style="display:flex;"><span>    thirty_days_ago <span style="color:#f92672">=</span> (datetime<span style="color:#f92672">.</span>now() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>))<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    cert_response <span style="color:#f92672">=</span> cert_table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CertificationDate &gt; :date&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:date&#39;</span>: thirty_days_ago}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    recent_certifications <span style="color:#f92672">=</span> len(cert_response[<span style="color:#e6db74">&#39;Items&#39;</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get high-risk users</span>
+</span></span><span style="display:flex;"><span>    risk_response <span style="color:#f92672">=</span> risk_table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type AND RiskLevel IN (:high, :critical)&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;User Risk Assessment&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;:high&#39;</span>: <span style="color:#e6db74">&#39;HIGH&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;:critical&#39;</span>: <span style="color:#e6db74">&#39;CRITICAL&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    high_risk_users <span style="color:#f92672">=</span> len(risk_response[<span style="color:#e6db74">&#39;Items&#39;</span>])
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate compliance score</span>
+</span></span><span style="display:flex;"><span>    compliance_score <span style="color:#f92672">=</span> calculate_compliance_score(recent_certifications, high_risk_users)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;compliance_score&#39;</span>: compliance_score,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;recent_certifications&#39;</span>: recent_certifications,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;high_risk_users&#39;</span>: high_risk_users,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;COMPLIANT&#39;</span> <span style="color:#66d9ef">if</span> compliance_score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">80</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;NON_COMPLIANT&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_completion_rate</span>(status_counts):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate certification completion rate&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    total <span style="color:#f92672">=</span> sum(status_counts<span style="color:#f92672">.</span>values())
+</span></span><span style="display:flex;"><span>    completed <span style="color:#f92672">=</span> status_counts<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Completed&#39;</span>, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> status_counts<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Approved&#39;</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (completed <span style="color:#f92672">/</span> max(total, <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_lambda_health</span>(function_name):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check Lambda function health (simplified)&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># In real implementation, check CloudWatch metrics</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_dynamodb_health</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check DynamoDB health&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Simple health check by listing tables</span>
+</span></span><span style="display:flex;"><span>        tables <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>, <span style="color:#e6db74">&#39;RiskAssessments&#39;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> table_name <span style="color:#f92672">in</span> tables:
+</span></span><span style="display:flex;"><span>            table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(table_name)
+</span></span><span style="display:flex;"><span>            table<span style="color:#f92672">.</span>table_status  <span style="color:#75715e"># This will raise exception if table doesn&#39;t exist</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_compliance_score</span>(recent_certs, high_risk_users):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate overall compliance score&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    base_score <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Deduct points for lack of recent certifications</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> recent_certs <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>:
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">-=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> recent_certs <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">20</span>:
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">-=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Deduct points for high-risk users</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> high_risk_users <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>:
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">-=</span> <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> high_risk_users <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>:
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">-=</span> <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> high_risk_users <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        base_score <span style="color:#f92672">-=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max(base_score, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_daily_report</span>(operations_report):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate daily operations report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;date&#39;</span>: operations_report[<span style="color:#e6db74">&#39;date&#39;</span>],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;summary&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;total_certifications&#39;</span>: operations_report[<span style="color:#e6db74">&#39;certification_status&#39;</span>][<span style="color:#e6db74">&#39;total_certifications&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;completion_rate&#39;</span>: round(operations_report[<span style="color:#e6db74">&#39;certification_status&#39;</span>][<span style="color:#e6db74">&#39;completion_rate&#39;</span>], <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;high_risk_users&#39;</span>: operations_report[<span style="color:#e6db74">&#39;risk_summary&#39;</span>][<span style="color:#e6db74">&#39;risk_distribution&#39;</span>][<span style="color:#e6db74">&#39;HIGH&#39;</span>] <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>                             operations_report[<span style="color:#e6db74">&#39;risk_summary&#39;</span>][<span style="color:#e6db74">&#39;risk_distribution&#39;</span>][<span style="color:#e6db74">&#39;CRITICAL&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;system_status&#39;</span>: operations_report[<span style="color:#e6db74">&#39;system_health&#39;</span>][<span style="color:#e6db74">&#39;overall_status&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;compliance_score&#39;</span>: operations_report[<span style="color:#e6db74">&#39;compliance_status&#39;</span>][<span style="color:#e6db74">&#39;compliance_score&#39;</span>]
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;recommendations&#39;</span>: generate_recommendations(operations_report)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_recommendations</span>(operations_report):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate operational recommendations&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    recommendations <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check completion rate</span>
+</span></span><span style="display:flex;"><span>    completion_rate <span style="color:#f92672">=</span> operations_report[<span style="color:#e6db74">&#39;certification_status&#39;</span>][<span style="color:#e6db74">&#39;completion_rate&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> completion_rate <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">80</span>:
+</span></span><span style="display:flex;"><span>        recommendations<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;Low certification completion rate. Consider sending reminder notifications.&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check high-risk users</span>
+</span></span><span style="display:flex;"><span>    high_risk_count <span style="color:#f92672">=</span> (operations_report[<span style="color:#e6db74">&#39;risk_summary&#39;</span>][<span style="color:#e6db74">&#39;risk_distribution&#39;</span>][<span style="color:#e6db74">&#39;HIGH&#39;</span>] <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>                      operations_report[<span style="color:#e6db74">&#39;risk_summary&#39;</span>][<span style="color:#e6db74">&#39;risk_distribution&#39;</span>][<span style="color:#e6db74">&#39;CRITICAL&#39;</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> high_risk_count <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>:
+</span></span><span style="display:flex;"><span>        recommendations<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;High number of high-risk users (</span><span style="color:#e6db74">{</span>high_risk_count<span style="color:#e6db74">}</span><span style="color:#e6db74">). Review and remediate immediately.&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check system health</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> operations_report[<span style="color:#e6db74">&#39;system_health&#39;</span>][<span style="color:#e6db74">&#39;overall_status&#39;</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;HEALTHY&#39;</span>:
+</span></span><span style="display:flex;"><span>        recommendations<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;System health degraded. Check component status and resolve issues.&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check compliance</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> operations_report[<span style="color:#e6db74">&#39;compliance_status&#39;</span>][<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;COMPLIANT&#39;</span>:
+</span></span><span style="display:flex;"><span>        recommendations<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;Compliance status is non-compliant. Review certification and risk management processes.&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> recommendations
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_daily_notifications</span>(sns, ses, daily_report):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Send daily notifications&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Prepare notification message</span>
+</span></span><span style="display:flex;"><span>    message <span style="color:#f92672">=</span> format_daily_report_message(daily_report)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Send SNS notification</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        sns<span style="color:#f92672">.</span>publish(
+</span></span><span style="display:flex;"><span>            TopicArn<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;arn:aws:sns:region:account:RiskAssessmentAlerts&#39;</span>,  <span style="color:#75715e"># Update with actual ARN</span>
+</span></span><span style="display:flex;"><span>            Subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Daily Identity Governance Report&#39;</span>,
+</span></span><span style="display:flex;"><span>            Message<span style="color:#f92672">=</span>message
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error sending SNS notification: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">format_daily_report_message</span>(report):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Format daily report message&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    message <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Daily Identity Governance Report - </span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SUMMARY:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Total Certifications: </span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;total_certifications&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Completion Rate: </span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;completion_rate&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- High Risk Users: </span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;high_risk_users&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- System Status: </span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;system_status&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Compliance Score: </span><span style="color:#e6db74">{</span>report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;compliance_score&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">RECOMMENDATIONS:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> rec <span style="color:#f92672">in</span> report[<span style="color:#e6db74">&#39;recommendations&#39;</span>]:
+</span></span><span style="display:flex;"><span>        message <span style="color:#f92672">+=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;- </span><span style="color:#e6db74">{</span>rec<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> message
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">store_operations_log</span>(dynamodb, operations_report):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Store daily operations log&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    table<span style="color:#f92672">.</span>put_item(
+</span></span><span style="display:flex;"><span>        Item<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AssessmentId&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;daily-ops-</span><span style="color:#e6db74">{</span>operations_report[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AssessmentType&#39;</span>: <span style="color:#e6db74">&#39;Daily Operations Report&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Date&#39;</span>: operations_report[<span style="color:#e6db74">&#39;date&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;CertificationCount&#39;</span>: operations_report[<span style="color:#e6db74">&#39;certification_status&#39;</span>][<span style="color:#e6db74">&#39;total_certifications&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;CompletionRate&#39;</span>: Decimal(str(operations_report[<span style="color:#e6db74">&#39;certification_status&#39;</span>][<span style="color:#e6db74">&#39;completion_rate&#39;</span>])),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;HighRiskUsers&#39;</span>: operations_report[<span style="color:#e6db74">&#39;risk_summary&#39;</span>][<span style="color:#e6db74">&#39;risk_distribution&#39;</span>][<span style="color:#e6db74">&#39;HIGH&#39;</span>] <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>                           operations_report[<span style="color:#e6db74">&#39;risk_summary&#39;</span>][<span style="color:#e6db74">&#39;risk_distribution&#39;</span>][<span style="color:#e6db74">&#39;CRITICAL&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;SystemStatus&#39;</span>: operations_report[<span style="color:#e6db74">&#39;system_health&#39;</span>][<span style="color:#e6db74">&#39;overall_status&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;ComplianceScore&#39;</span>: operations_report[<span style="color:#e6db74">&#39;compliance_status&#39;</span>][<span style="color:#e6db74">&#39;compliance_score&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;ComplianceStatus&#39;</span>: operations_report[<span style="color:#e6db74">&#39;compliance_status&#39;</span>][<span style="color:#e6db74">&#39;status&#39;</span>]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    )
+</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/lambda2.png?featherlight=false&width=90pc"></p>
+<ol start="2">
+<li>Click <strong>Deploy</strong></li>
+</ol>
+<h3 id="23-cấu-hình-iam-permissions">2.3 Cấu hình IAM Permissions</h3>
+<ol>
+<li>Thêm permissions cho Lambda:
+<ul>
+<li><strong>AmazonDynamoDBFullAccess</strong></li>
+<li><strong>AmazonSNSFullAccess</strong></li>
+<li><strong>AmazonSESFullAccess</strong></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/lambda3.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-3-thiết-lập-automated-workflows">Bước 3: Thiết lập Automated Workflows</h2>
+<h3 id="31-tạo-eventbridge-schedule-cho-daily-operations">3.1 Tạo EventBridge Schedule cho Daily Operations</h3>
+<ol>
+<li>Tạo schedule chạy DailyOperationsEngine mỗi ngày lúc 8:00 AM</li>
+<li>Cấu hình tương tự các chương trước</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/schedule1.png?featherlight=false&width=90pc"></p>
+<h3 id="32-tạo-weekly-summary-schedule">3.2 Tạo Weekly Summary Schedule</h3>
+<ol>
+<li>Tạo thêm schedule chạy weekly summary mỗi thứ 2</li>
+<li>Cấu hình để tạo báo cáo tuần</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/schedule2.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-4-tạo-operational-runbooks">Bước 4: Tạo Operational Runbooks</h2>
+<h3 id="41-tạo-s3-bucket-cho-documentation">4.1 Tạo S3 Bucket cho Documentation</h3>
+<ol>
+<li>Mở <strong>Amazon S3</strong> console</li>
+<li>Tạo bucket: <code>identity-governance-runbooks</code></li>
+<li>Upload operational procedures</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/s3-1.png?featherlight=false&width=90pc"></p>
+<h3 id="42-tạo-systems-manager-documents">4.2 Tạo Systems Manager Documents</h3>
+<ol>
+<li>Mở <strong>AWS Systems Manager</strong> console</li>
+<li>Click <strong>Documents</strong></li>
+<li>Tạo automation documents cho common tasks</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/ssm1.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-5-kiểm-tra-operational-workflows">Bước 5: Kiểm tra Operational Workflows</h2>
+<h3 id="51-test-daily-operations">5.1 Test Daily Operations</h3>
+<ol>
+<li>Chạy Lambda function <strong>DailyOperationsEngine</strong></li>
+<li>Xác minh daily report được tạo</li>
+<li>Kiểm tra SNS notifications</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/test1.png?featherlight=false&width=90pc"></p>
+<h3 id="52-xác-minh-operations-dashboard">5.2 Xác minh Operations Dashboard</h3>
+<ol>
+<li>Kiểm tra <strong>IdentityGovernanceOperations</strong> dashboard</li>
+<li>Xác minh tất cả metrics hiển thị đúng</li>
+<li>Test real-time updates</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/test2.png?featherlight=false&width=90pc"></p>
+<h3 id="53-test-automation-workflows">5.3 Test Automation Workflows</h3>
+<ol>
+<li>Xác minh scheduled executions</li>
+<li>Kiểm tra error handling</li>
+<li>Test notification delivery</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/test3.png?featherlight=false&width=90pc"></p>
+<h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
-<li>✅ Standardized daily operations procedures</li>
-<li>✅ Weekly review and trend analysis</li>
-<li>✅ Incident response runbooks</li>
-<li>✅ Change management processes</li>
-<li>✅ Operational documentation</li>
-<li>✅ Automated operational tasks</li>
+<li>✅ Automated daily operations workflows</li>
+<li>✅ Comprehensive operational dashboard</li>
+<li>✅ Daily and weekly reporting automation</li>
+<li>✅ Operational runbooks and procedures</li>
+<li>✅ Health monitoring and alerting</li>
+<li>✅ Compliance tracking and reporting</li>
 </ul>
+<p><img alt="Hoàn thành Operations Setup" src="https://trtrantnt.github.io/workshop/images/8/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
-<p>Chuyển sang <a href="/vi/9-quy-trinh-kiem-toan/">9. Quy trình Kiểm toán</a> để thiết lập quy trình kiểm toán.</p>
+<p>Chuyển sang <a href="/vi/9-quy-trinh-kiem-toan/">9. Quy trình Kiểm toán</a> để thiết lập các quy trình kiểm toán và compliance.</p>
 
 
 
@@ -963,19 +1232,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754951690"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754951690"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754951690"></script>
-    <script src="/js/jquery.sticky.js?1754951690"></script>
-    <script src="/js/featherlight.min.js?1754951690"></script>
-    <script src="/js/highlight.pack.js?1754951690"></script>
+    <script src="/js/clipboard.min.js?1754952988"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754952988"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754952988"></script>
+    <script src="/js/jquery.sticky.js?1754952988"></script>
+    <script src="/js/featherlight.min.js?1754952988"></script>
+    <script src="/js/highlight.pack.js?1754952988"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754951690"></script>
-    <script src="/js/learn.js?1754951690"></script>
-    <script src="/js/hugo-learn.js?1754951690"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754952988"></script>
+    <script src="/js/learn.js?1754952988"></script>
+    <script src="/js/hugo-learn.js?1754952988"></script>
 
-    <link href="/mermaid/mermaid.css?1754951690" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754951690"></script>
+    <link href="/mermaid/mermaid.css?1754952988" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754952988"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

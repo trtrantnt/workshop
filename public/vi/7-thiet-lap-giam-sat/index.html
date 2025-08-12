@@ -12,21 +12,21 @@
     <title>7. Thiết lập Giám sát :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754951690" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754951690" rel="stylesheet">
-    <link href="/css/hybrid.css?1754951690" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754951690" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754951690" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754951690" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754951690" rel="stylesheet">
-    <link href="/css/theme.css?1754951690" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754951690" rel="stylesheet">
+    <link href="/css/nucleus.css?1754952988" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754952988" rel="stylesheet">
+    <link href="/css/hybrid.css?1754952988" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754952988" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754952988" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754952988" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754952988" rel="stylesheet">
+    <link href="/css/theme.css?1754952988" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754952988" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754951690" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754952988" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754951690"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754952988"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754951690"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754951690"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754952988"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754952988"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754951690"></script>
+<script type="text/javascript" src="/js/search.js?1754952988"></script>
 
     
   </div>
@@ -513,30 +513,39 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#mục-tiêu">Mục tiêu</a></li>
-    <li><a href="#kiến-trúc-monitoring">Kiến trúc Monitoring</a></li>
-    <li><a href="#bước-1-thiết-lập-cloudwatch-monitoring">Bước 1: Thiết lập CloudWatch Monitoring</a>
+    <li><a href="#bước-1-xác-minh-cloudwatch-metrics">Bước 1: Xác minh CloudWatch Metrics</a>
       <ul>
-        <li><a href="#11-tạo-sns-topic-cho-alerts">1.1 Tạo SNS Topic cho Alerts</a></li>
-        <li><a href="#12-tạo-cloudwatch-log-group">1.2 Tạo CloudWatch Log Group</a></li>
-        <li><a href="#13-thiết-lập-cloudwatch-alarms">1.3 Thiết lập CloudWatch Alarms</a></li>
+        <li><a href="#11-kiểm-tra-lambda-metrics">1.1 Kiểm tra Lambda Metrics</a></li>
+        <li><a href="#12-kiểm-tra-dynamodb-metrics">1.2 Kiểm tra DynamoDB Metrics</a></li>
       </ul>
     </li>
-    <li><a href="#bước-2-thiết-lập-log-analytics">Bước 2: Thiết lập Log Analytics</a>
+    <li><a href="#bước-2-tạo-cloudwatch-alarms">Bước 2: Tạo CloudWatch Alarms</a>
       <ul>
-        <li><a href="#21-cloudwatch-insights-queries">2.1 CloudWatch Insights Queries</a></li>
-        <li><a href="#22-tạo-custom-dashboard">2.2 Tạo Custom Dashboard</a></li>
+        <li><a href="#21-tạo-alarm-cho-lambda-errors">2.1 Tạo Alarm cho Lambda Errors</a></li>
+        <li><a href="#22-tạo-alarm-cho-high-risk-users">2.2 Tạo Alarm cho High Risk Users</a></li>
       </ul>
     </li>
-    <li><a href="#bước-3-thiết-lập-lambda-monitoring-function">Bước 3: Thiết lập Lambda Monitoring Function</a>
+    <li><a href="#bước-3-tạo-comprehensive-dashboard">Bước 3: Tạo Comprehensive Dashboard</a>
       <ul>
-        <li><a href="#31-tạo-lambda-function">3.1 Tạo Lambda Function</a></li>
-        <li><a href="#32-thiết-lập-eventbridge-schedule">3.2 Thiết lập EventBridge Schedule</a></li>
+        <li><a href="#31-tạo-main-dashboard">3.1 Tạo Main Dashboard</a></li>
+        <li><a href="#32-thêm-lambda-metrics-widget">3.2 Thêm Lambda Metrics Widget</a></li>
+        <li><a href="#33-thêm-dynamodb-metrics-widget">3.3 Thêm DynamoDB Metrics Widget</a></li>
+        <li><a href="#34-thêm-risk-assessment-widget">3.4 Thêm Risk Assessment Widget</a></li>
       </ul>
     </li>
-    <li><a href="#bước-4-anomaly-detection-setup">Bước 4: Anomaly Detection Setup</a>
+    <li><a href="#bước-4-thiết-lập-custom-metrics-lambda">Bước 4: Thiết lập Custom Metrics Lambda</a>
       <ul>
-        <li><a href="#41-cloudwatch-anomaly-detection">4.1 CloudWatch Anomaly Detection</a></li>
-        <li><a href="#42-security-hub-integration">4.2 Security Hub Integration</a></li>
+        <li><a href="#41-tạo-lambda-function-cho-custom-metrics">4.1 Tạo Lambda Function cho Custom Metrics</a></li>
+        <li><a href="#42-cấu-hình-code-cho-custom-metrics">4.2 Cấu hình Code cho Custom Metrics</a></li>
+        <li><a href="#43-cấu-hình-iam-permissions">4.3 Cấu hình IAM Permissions</a></li>
+        <li><a href="#44-tạo-eventbridge-schedule">4.4 Tạo EventBridge Schedule</a></li>
+      </ul>
+    </li>
+    <li><a href="#bước-5-kiểm-tra-monitoring-system">Bước 5: Kiểm tra Monitoring System</a>
+      <ul>
+        <li><a href="#51-test-custom-metrics">5.1 Test Custom Metrics</a></li>
+        <li><a href="#52-test-alarms">5.2 Test Alarms</a></li>
+        <li><a href="#53-xác-minh-dashboard">5.3 Xác minh Dashboard</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -567,252 +576,340 @@
 
 
 	<h2 id="mục-tiêu">Mục tiêu</h2>
-<p>Thiết lập hệ thống giám sát toàn diện để theo dõi liên tục các hoạt động identity governance, phát hiện anomalies, và đảm bảo compliance.</p>
-<h2 id="kiến-trúc-monitoring">Kiến trúc Monitoring</h2>
-<p><img alt="Kiến trúc Monitoring" src="/images/7/monitoring-architecture.png"></p>
-<h2 id="bước-1-thiết-lập-cloudwatch-monitoring">Bước 1: Thiết lập CloudWatch Monitoring</h2>
-<h3 id="11-tạo-sns-topic-cho-alerts">1.1 Tạo SNS Topic cho Alerts</h3>
+<p>Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dashboard và SNS notifications để theo dõi Identity Governance metrics.</p>
+<h2 id="bước-1-xác-minh-cloudwatch-metrics">Bước 1: Xác minh CloudWatch Metrics</h2>
+<h3 id="11-kiểm-tra-lambda-metrics">1.1 Kiểm tra Lambda Metrics</h3>
 <ol>
-<li>Mở <strong>Amazon SNS</strong> trong console</li>
-<li>Click <strong>Topics</strong> → <strong>Create topic</strong></li>
-<li>Cấu hình:
+<li>Mở <strong>Amazon CloudWatch</strong> console</li>
+<li>Click <strong>Metrics</strong> ở sidebar</li>
+<li>Xác minh metrics từ các Lambda functions:
 <ul>
-<li><strong>Type</strong>: Standard</li>
-<li><strong>Name</strong>: IdentityGovernanceAlerts</li>
-<li><strong>Display name</strong>: Identity Governance Monitoring Alerts</li>
+<li>AccessCertificationTrigger</li>
+<li>PrivilegeAnalyticsEngine</li>
+<li>RiskAssessmentEngine</li>
 </ul>
 </li>
 </ol>
-<p><img alt="SNS Topic Creation" src="/images/7/sns-topic-creation.png"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/metrics1.png?featherlight=false&width=90pc"></p>
+<h3 id="12-kiểm-tra-dynamodb-metrics">1.2 Kiểm tra DynamoDB Metrics</h3>
+<ol>
+<li>Trong CloudWatch Metrics</li>
+<li>Click <strong>AWS/DynamoDB</strong></li>
+<li>Xác minh metrics cho tables:
+<ul>
+<li>AccessCertifications</li>
+<li>RiskAssessments</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/metrics2.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-2-tạo-cloudwatch-alarms">Bước 2: Tạo CloudWatch Alarms</h2>
+<h3 id="21-tạo-alarm-cho-lambda-errors">2.1 Tạo Alarm cho Lambda Errors</h3>
+<ol>
+<li>Trong <strong>CloudWatch</strong> console</li>
+<li>Click <strong>Alarms</strong> ở sidebar</li>
+<li>Click <strong>Create alarm</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/alarm1.png?featherlight=false&width=90pc"></p>
 <ol start="4">
-<li>Click <strong>Create subscription</strong></li>
-<li>Thêm email subscription cho security team</li>
-</ol>
-<p><img alt="SNS Subscription" src="/images/7/sns-subscription.png"></p>
-<h3 id="12-tạo-cloudwatch-log-group">1.2 Tạo CloudWatch Log Group</h3>
-<ol>
-<li>Mở <strong>CloudWatch</strong> console</li>
-<li>Click <strong>Log groups</strong> → <strong>Create log group</strong></li>
-<li>Cấu hình:
+<li>Chọn metric:
 <ul>
-<li><strong>Log group name</strong>: /aws/identity-governance/events</li>
-<li><strong>Retention setting</strong>: 1 year</li>
+<li><strong>Namespace</strong>: AWS/Lambda</li>
+<li><strong>Metric</strong>: Errors</li>
+<li><strong>Function</strong>: AccessCertificationTrigger</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Log Group Creation" src="/images/7/log-group-creation.png"></p>
-<h3 id="13-thiết-lập-cloudwatch-alarms">1.3 Thiết lập CloudWatch Alarms</h3>
-<ol>
-<li>Trong CloudWatch, click <strong>Alarms</strong> → <strong>Create alarm</strong></li>
-<li>Tạo các alarms:
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/alarm2.png?featherlight=false&width=90pc"></p>
+<ol start="5">
+<li>Cấu hình conditions:
 <ul>
-<li><strong>Failed Login Attempts</strong>: Nhiều lần đăng nhập thất bại</li>
-<li><strong>Privilege Escalation</strong>: Phát hiện leo thang quyền</li>
-<li><strong>Off-hours Access</strong>: Truy cập ngoài giờ làm việc</li>
+<li><strong>Threshold type</strong>: Static</li>
+<li><strong>Condition</strong>: Greater than</li>
+<li><strong>Threshold value</strong>: 0</li>
+<li><strong>Period</strong>: 5 minutes</li>
 </ul>
 </li>
 </ol>
-<p><img alt="CloudWatch Alarms" src="/images/7/cloudwatch-alarms.png"></p>
-<h2 id="bước-2-thiết-lập-log-analytics">Bước 2: Thiết lập Log Analytics</h2>
-<h3 id="21-cloudwatch-insights-queries">2.1 CloudWatch Insights Queries</h3>
-<ol>
-<li>Mở <strong>CloudWatch Logs Insights</strong></li>
-<li>Chọn log group: <strong>/aws/cloudtrail</strong></li>
-<li>Tạo saved queries:</li>
-</ol>
-<p><strong>Query 1: Failed Login Attempts</strong></p>
-<pre tabindex="0"><code>fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
-| filter eventName = &#34;ConsoleLogin&#34; and errorCode != &#34;Success&#34;
-| stats count() by userIdentity.userName
-| sort count desc
-</code></pre><p><img alt="Insights Query 1" src="/images/7/insights-query-1.png"></p>
-<p><strong>Query 2: Privilege Escalation Events</strong></p>
-<pre tabindex="0"><code>fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
-| filter eventName in [&#34;AttachUserPolicy&#34;, &#34;CreateRole&#34;, &#34;PutUserPolicy&#34;]
-| sort @timestamp desc
-</code></pre><p><img alt="Insights Query 2" src="/images/7/insights-query-2.png"></p>
-<h3 id="22-tạo-custom-dashboard">2.2 Tạo Custom Dashboard</h3>
-<ol>
-<li>Trong CloudWatch, click <strong>Dashboards</strong> → <strong>Create dashboard</strong></li>
-<li>Tên: <strong>IdentityGovernanceMonitoring</strong></li>
-<li>Thêm widgets:
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/alarm3.png?featherlight=false&width=90pc"></p>
+<ol start="6">
+<li>Cấu hình actions:
 <ul>
-<li><strong>Failed Login Attempts (Line chart)</strong></li>
-<li><strong>Active Users (Number)</strong></li>
-<li><strong>Policy Changes (Log table)</strong></li>
-<li><strong>Geographic Access Map</strong></li>
+<li><strong>SNS topic</strong>: RiskAssessmentAlerts (từ chương 6)</li>
+<li><strong>Alarm name</strong>: <code>Lambda-AccessCertification-Errors</code></li>
 </ul>
 </li>
 </ol>
-<p><img alt="Custom Dashboard" src="/images/7/custom-dashboard.png"></p>
-<h2 id="bước-3-thiết-lập-lambda-monitoring-function">Bước 3: Thiết lập Lambda Monitoring Function</h2>
-<h3 id="31-tạo-lambda-function">3.1 Tạo Lambda Function</h3>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/alarm4.png?featherlight=false&width=90pc"></p>
+<ol start="7">
+<li>Click <strong>Create alarm</strong></li>
+</ol>
+<h3 id="22-tạo-alarm-cho-high-risk-users">2.2 Tạo Alarm cho High Risk Users</h3>
+<ol>
+<li>Click <strong>Create alarm</strong></li>
+<li>Chọn <strong>Custom metric</strong></li>
+<li>Tạo custom metric cho high risk users:
+<ul>
+<li><strong>Namespace</strong>: IdentityGovernance</li>
+<li><strong>Metric</strong>: HighRiskUserCount</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/alarm5.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>
+<p>Cấu hình threshold:</p>
+<ul>
+<li><strong>Condition</strong>: Greater than 5</li>
+<li><strong>Period</strong>: 1 hour</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Create alarm</strong></p>
+</li>
+</ol>
+<h2 id="bước-3-tạo-comprehensive-dashboard">Bước 3: Tạo Comprehensive Dashboard</h2>
+<h3 id="31-tạo-main-dashboard">3.1 Tạo Main Dashboard</h3>
+<ol>
+<li>Trong <strong>CloudWatch</strong> console</li>
+<li>Click <strong>Dashboards</strong></li>
+<li>Click <strong>Create dashboard</strong></li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/dashboard1.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Nhập dashboard name: <code>IdentityGovernanceDashboard</code></li>
+<li>Click <strong>Create dashboard</strong></li>
+</ol>
+<h3 id="32-thêm-lambda-metrics-widget">3.2 Thêm Lambda Metrics Widget</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Chọn <strong>Line</strong> chart</li>
+<li>Cấu hình metrics:
+<ul>
+<li>Lambda Invocations</li>
+<li>Lambda Errors</li>
+<li>Lambda Duration</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/dashboard2.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h3 id="33-thêm-dynamodb-metrics-widget">3.3 Thêm DynamoDB Metrics Widget</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Chọn <strong>Number</strong> widget</li>
+<li>Cấu hình metrics:
+<ul>
+<li>DynamoDB Item Count</li>
+<li>DynamoDB Read/Write Capacity</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/dashboard3.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h3 id="34-thêm-risk-assessment-widget">3.4 Thêm Risk Assessment Widget</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Chọn <strong>Pie</strong> chart</li>
+<li>Tạo custom metrics cho risk levels:
+<ul>
+<li>High Risk Users</li>
+<li>Medium Risk Users</li>
+<li>Low Risk Users</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/dashboard4.png?featherlight=false&width=90pc"></p>
+<ol start="4">
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h2 id="bước-4-thiết-lập-custom-metrics-lambda">Bước 4: Thiết lập Custom Metrics Lambda</h2>
+<h3 id="41-tạo-lambda-function-cho-custom-metrics">4.1 Tạo Lambda Function cho Custom Metrics</h3>
 <ol>
 <li>Mở <strong>AWS Lambda</strong> console</li>
 <li>Click <strong>Create function</strong></li>
-<li>Cấu hình:
+<li>Nhập thông tin function:
 <ul>
-<li><strong>Function name</strong>: IdentityGovernanceMonitor</li>
+<li><strong>Function name</strong>: <code>CustomMetricsPublisher</code></li>
 <li><strong>Runtime</strong>: Python 3.9</li>
-<li><strong>Role</strong>: IdentityGovernanceMonitoringRole</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Lambda Function Creation" src="/images/7/lambda-function-creation.png"></p>
-<ol start="4">
-<li>Cấu hình environment variables:
-<ul>
-<li><strong>LOG_GROUP_NAME</strong>: /aws/identity-governance/events</li>
-<li><strong>SNS_TOPIC_ARN</strong>: ARN của SNS topic</li>
-</ul>
-</li>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/lambda1.png?featherlight=false&width=90pc"></p>
+<h3 id="42-cấu-hình-code-cho-custom-metrics">4.2 Cấu hình Code cho Custom Metrics</h3>
+<ol>
+<li>Thay thế code mặc định:</li>
 </ol>
-<p><img alt="Lambda Environment Variables" src="/images/7/lambda-env-variables.png"></p>
-<ol start="5">
-<li>Thêm Lambda function code:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">IdentityGovernanceMonitor</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>logs_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;logs&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>iam_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;iam&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sso_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sso-admin&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sns_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sns&#39;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>log_group <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;LOG_GROUP_NAME&#39;</span>, <span style="color:#e6db74">&#39;/aws/identity-governance/events&#39;</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sns_topic <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;SNS_TOPIC_ARN&#39;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">monitor_identity_events</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Monitor and analyze identity-related events&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        monitoring_results <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;metrics_collected&#39;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;anomalies_detected&#39;</span>: [],
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;alerts_sent&#39;</span>: []
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for failed login attempts</span>
-</span></span><span style="display:flex;"><span>        failed_logins <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>check_failed_logins()
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> failed_logins <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>:
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>send_alert(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;High failed login attempts detected: </span><span style="color:#e6db74">{</span>failed_logins<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>            monitoring_results[<span style="color:#e6db74">&#39;anomalies_detected&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;high_failed_logins&#39;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for privilege escalation</span>
-</span></span><span style="display:flex;"><span>        privilege_changes <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>check_privilege_escalation()
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> privilege_changes:
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>send_alert(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Privilege escalation detected: </span><span style="color:#e6db74">{</span>privilege_changes<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>            monitoring_results[<span style="color:#e6db74">&#39;anomalies_detected&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;privilege_escalation&#39;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> monitoring_results
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_failed_logins</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check for failed login attempts in the last hour&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        end_time <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>now()
-</span></span><span style="display:flex;"><span>        start_time <span style="color:#f92672">=</span> end_time <span style="color:#f92672">-</span> timedelta(hours<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        query <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        | filter eventName = &#34;ConsoleLogin&#34; and errorCode != &#34;Success&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        | stats count() as failed_attempts
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>logs_client<span style="color:#f92672">.</span>start_query(
-</span></span><span style="display:flex;"><span>                logGroupName<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/aws/cloudtrail&#39;</span>,
-</span></span><span style="display:flex;"><span>                startTime<span style="color:#f92672">=</span>int(start_time<span style="color:#f92672">.</span>timestamp()),
-</span></span><span style="display:flex;"><span>                endTime<span style="color:#f92672">=</span>int(end_time<span style="color:#f92672">.</span>timestamp()),
-</span></span><span style="display:flex;"><span>                queryString<span style="color:#f92672">=</span>query
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Get query results (simplified for demo)</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># Would return actual count</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
-</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error checking failed logins: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_privilege_escalation</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Check for privilege escalation events&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        escalation_events <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttachUserPolicy&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;CreateRole&#39;</span>, 
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;PutUserPolicy&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;AttachRolePolicy&#39;</span>
-</span></span><span style="display:flex;"><span>        ]
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check recent IAM events</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># This would query CloudTrail logs for privilege changes</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> []  <span style="color:#75715e"># Would return actual events</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
-</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error checking privilege escalation: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> []
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_alert</span>(self, message):
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Send alert via SNS&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>sns_client<span style="color:#f92672">.</span>publish(
-</span></span><span style="display:flex;"><span>                TopicArn<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>sns_topic,
-</span></span><span style="display:flex;"><span>                Message<span style="color:#f92672">=</span>message,
-</span></span><span style="display:flex;"><span>                Subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Identity Governance Alert&#39;</span>
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
-</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Error sending alert: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> boto3.dynamodb.conditions <span style="color:#f92672">import</span> Key
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
-</span></span><span style="display:flex;"><span>    monitor <span style="color:#f92672">=</span> IdentityGovernanceMonitor()
-</span></span><span style="display:flex;"><span>    results <span style="color:#f92672">=</span> monitor<span style="color:#f92672">.</span>monitor_identity_events()
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Custom Metrics Publisher Started&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize AWS clients</span>
+</span></span><span style="display:flex;"><span>    dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>    cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get risk assessment data</span>
+</span></span><span style="display:flex;"><span>        risk_metrics <span style="color:#f92672">=</span> get_risk_metrics(dynamodb)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get certification metrics</span>
+</span></span><span style="display:flex;"><span>        cert_metrics <span style="color:#f92672">=</span> get_certification_metrics(dynamodb)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Publish custom metrics</span>
+</span></span><span style="display:flex;"><span>        publish_metrics(cloudwatch, risk_metrics, cert_metrics)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">&#39;Custom metrics published successfully&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error publishing metrics: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_risk_metrics</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get risk assessment metrics from DynamoDB&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get latest user risk assessments</span>
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;User Risk Assessment&#39;</span>}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    risk_levels <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;LOW&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;MEDIUM&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;HIGH&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;CRITICAL&#39;</span>: <span style="color:#ae81ff">0</span>}
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>        risk_level <span style="color:#f92672">=</span> item<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskLevel&#39;</span>, <span style="color:#e6db74">&#39;LOW&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> risk_level <span style="color:#f92672">in</span> risk_levels:
+</span></span><span style="display:flex;"><span>            risk_levels[risk_level] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> risk_levels
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_certification_metrics</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Get certification metrics from DynamoDB&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    total_certifications <span style="color:#f92672">=</span> len(response[<span style="color:#e6db74">&#39;Items&#39;</span>])
+</span></span><span style="display:flex;"><span>    recent_certifications <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Count recent certifications (last 30 days)</span>
+</span></span><span style="display:flex;"><span>    thirty_days_ago <span style="color:#f92672">=</span> (datetime<span style="color:#f92672">.</span>now() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>))<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>        cert_date <span style="color:#f92672">=</span> item<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CertificationDate&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> cert_date <span style="color:#f92672">&gt;</span> thirty_days_ago:
+</span></span><span style="display:flex;"><span>            recent_certifications <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(results)
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;total&#39;</span>: total_certifications,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;recent&#39;</span>: recent_certifications
 </span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><h3 id="32-thiết-lập-eventbridge-schedule">3.2 Thiết lập EventBridge Schedule</h3>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">publish_metrics</span>(cloudwatch, risk_metrics, cert_metrics):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Publish custom metrics to CloudWatch&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Publish risk metrics</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> risk_level, count <span style="color:#f92672">in</span> risk_metrics<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>        cloudwatch<span style="color:#f92672">.</span>put_metric_data(
+</span></span><span style="display:flex;"><span>            Namespace<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;IdentityGovernance&#39;</span>,
+</span></span><span style="display:flex;"><span>            MetricData<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;MetricName&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>risk_level<span style="color:#e6db74">}</span><span style="color:#e6db74">RiskUserCount&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;Value&#39;</span>: count,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;Unit&#39;</span>: <span style="color:#e6db74">&#39;Count&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;Timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            ]
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Publish certification metrics</span>
+</span></span><span style="display:flex;"><span>    cloudwatch<span style="color:#f92672">.</span>put_metric_data(
+</span></span><span style="display:flex;"><span>        Namespace<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;IdentityGovernance&#39;</span>,
+</span></span><span style="display:flex;"><span>        MetricData<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;MetricName&#39;</span>: <span style="color:#e6db74">&#39;TotalCertifications&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Value&#39;</span>: cert_metrics[<span style="color:#e6db74">&#39;total&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Unit&#39;</span>: <span style="color:#e6db74">&#39;Count&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;MetricName&#39;</span>: <span style="color:#e6db74">&#39;RecentCertifications&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Value&#39;</span>: cert_metrics[<span style="color:#e6db74">&#39;recent&#39;</span>],
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Unit&#39;</span>: <span style="color:#e6db74">&#39;Count&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Timestamp&#39;</span>: datetime<span style="color:#f92672">.</span>now()
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Published metrics: Risk=</span><span style="color:#e6db74">{</span>risk_metrics<span style="color:#e6db74">}</span><span style="color:#e6db74">, Cert=</span><span style="color:#e6db74">{</span>cert_metrics<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/lambda2.png?featherlight=false&width=90pc"></p>
+<ol start="2">
+<li>Click <strong>Deploy</strong></li>
+</ol>
+<h3 id="43-cấu-hình-iam-permissions">4.3 Cấu hình IAM Permissions</h3>
 <ol>
-<li>Mở <strong>EventBridge</strong> console</li>
-<li>Click <strong>Rules</strong> → <strong>Create rule</strong></li>
-<li>Cấu hình:
+<li>Thêm permissions cho Lambda:
 <ul>
-<li><strong>Name</strong>: IdentityMonitoringSchedule</li>
-<li><strong>Schedule</strong>: Rate(5 minutes)</li>
-<li><strong>Target</strong>: Lambda IdentityGovernanceMonitor</li>
+<li><strong>AmazonDynamoDBReadOnlyAccess</strong></li>
+<li><strong>CloudWatchFullAccess</strong></li>
 </ul>
 </li>
 </ol>
-<p><img alt="EventBridge Schedule" src="/images/7/eventbridge-schedule.png"></p>
-<h2 id="bước-4-anomaly-detection-setup">Bước 4: Anomaly Detection Setup</h2>
-<h3 id="41-cloudwatch-anomaly-detection">4.1 CloudWatch Anomaly Detection</h3>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/lambda3.png?featherlight=false&width=90pc"></p>
+<h3 id="44-tạo-eventbridge-schedule">4.4 Tạo EventBridge Schedule</h3>
 <ol>
-<li>Trong CloudWatch Metrics, chọn metric cần monitor</li>
-<li>Click <strong>Actions</strong> → <strong>Create anomaly detector</strong></li>
-<li>Cấu hình threshold và notification</li>
+<li>Tạo schedule để chạy CustomMetricsPublisher mỗi 15 phút</li>
+<li>Cấu hình tương tự như các chương trước</li>
 </ol>
-<p><img alt="Anomaly Detection" src="/images/7/anomaly-detection.png"></p>
-<h3 id="42-security-hub-integration">4.2 Security Hub Integration</h3>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/lambda4.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-5-kiểm-tra-monitoring-system">Bước 5: Kiểm tra Monitoring System</h2>
+<h3 id="51-test-custom-metrics">5.1 Test Custom Metrics</h3>
 <ol>
-<li>Mở <strong>Security Hub</strong> console</li>
-<li>Cấu hình findings export đến S3</li>
-<li>Thiết lập EventBridge rule cho Security Hub findings</li>
-<li>Tích hợp với Lambda monitoring function</li>
+<li>Chạy Lambda function <strong>CustomMetricsPublisher</strong></li>
+<li>Kiểm tra CloudWatch Metrics có custom metrics mới</li>
 </ol>
-<p><img alt="Security Hub Integration" src="/images/7/security-hub-integration.png"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/test1.png?featherlight=false&width=90pc"></p>
+<h3 id="52-test-alarms">5.2 Test Alarms</h3>
+<ol>
+<li>Tạo test error trong Lambda function</li>
+<li>Xác minh alarm được trigger</li>
+<li>Kiểm tra SNS notification</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/test2.png?featherlight=false&width=90pc"></p>
+<h3 id="53-xác-minh-dashboard">5.3 Xác minh Dashboard</h3>
+<ol>
+<li>Vào <strong>IdentityGovernanceDashboard</strong></li>
+<li>Xác minh tất cả widgets hiển thị data</li>
+<li>Kiểm tra real-time updates</li>
+</ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/7/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
-<li>✅ Real-time monitoring của identity events</li>
-<li>✅ Custom CloudWatch metrics và alarms</li>
-<li>✅ Automated log analysis</li>
-<li>✅ Anomaly detection và alerting</li>
-<li>✅ Comprehensive monitoring dashboard</li>
-<li>✅ Scheduled monitoring tasks</li>
+<li>✅ Comprehensive CloudWatch Dashboard</li>
+<li>✅ Automated alarms for critical metrics</li>
+<li>✅ Custom metrics for Identity Governance KPIs</li>
+<li>✅ SNS notifications for alerts</li>
+<li>✅ Real-time monitoring of all components</li>
+<li>✅ Historical trend analysis</li>
 </ul>
+<p><img alt="Hoàn thành Monitoring Setup" src="https://trtrantnt.github.io/workshop/images/7/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
-<p>Chuyển sang <a href="/vi/8-quy-trinh-van-hanh/">8. Quy trình Vận hành</a> để thiết lập quy trình vận hành.</p>
+<p>Chuyển sang <a href="/vi/8-quy-trinh-van-hanh/">8. Quy trình Vận hành</a> để thiết lập các quy trình vận hành hàng ngày.</p>
 
 
 
@@ -1053,19 +1150,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754951690"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754951690"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754951690"></script>
-    <script src="/js/jquery.sticky.js?1754951690"></script>
-    <script src="/js/featherlight.min.js?1754951690"></script>
-    <script src="/js/highlight.pack.js?1754951690"></script>
+    <script src="/js/clipboard.min.js?1754952988"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754952988"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754952988"></script>
+    <script src="/js/jquery.sticky.js?1754952988"></script>
+    <script src="/js/featherlight.min.js?1754952988"></script>
+    <script src="/js/highlight.pack.js?1754952988"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754951690"></script>
-    <script src="/js/learn.js?1754951690"></script>
-    <script src="/js/hugo-learn.js?1754951690"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754952988"></script>
+    <script src="/js/learn.js?1754952988"></script>
+    <script src="/js/hugo-learn.js?1754952988"></script>
 
-    <link href="/mermaid/mermaid.css?1754951690" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754951690"></script>
+    <link href="/mermaid/mermaid.css?1754952988" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754952988"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
