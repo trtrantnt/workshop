@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>11. Dọn dẹp Tài nguyên :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/\/vi";
+        var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/11-clean-resources/">English</option>
+                      <option id="en" value="//localhost:1313/11-clean-resources/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/11-clean-resources/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/11-clean-resources/" selected>Tiếng Việt</option>
                     
                   
               
@@ -514,29 +514,28 @@
   <ul>
     <li><a href="#tổng-quan">Tổng quan</a></li>
     <li><a href="#lưu-ý-quan-trọng">Lưu ý quan trọng</a></li>
-    <li><a href="#thứ-tự-dọn-dẹp">Thứ tự Dọn dẹp</a></li>
+    <li><a href="#thứ-tự-dọn-dẹp">Thứ tự dọn dẹp</a></li>
     <li><a href="#bước-1-lambda-functions-và-eventbridge">Bước 1: Lambda Functions và EventBridge</a>
       <ul>
         <li><a href="#xóa-lambda-functions">Xóa Lambda Functions</a></li>
         <li><a href="#xóa-eventbridge-rules">Xóa EventBridge Rules</a></li>
       </ul>
     </li>
-    <li><a href="#bước-2-step-functions">Bước 2: Step Functions</a></li>
-    <li><a href="#bước-3-dynamodb-tables">Bước 3: DynamoDB Tables</a></li>
-    <li><a href="#bước-4-s3-buckets">Bước 4: S3 Buckets</a>
+    <li><a href="#bước-2-dynamodb-tables">Bước 2: DynamoDB Tables</a></li>
+    <li><a href="#bước-3-s3-buckets">Bước 3: S3 Buckets</a>
       <ul>
         <li><a href="#làm-trống-s3-buckets">Làm trống S3 Buckets</a></li>
         <li><a href="#xóa-s3-buckets">Xóa S3 Buckets</a></li>
       </ul>
     </li>
-    <li><a href="#bước-5-cloudwatch-resources">Bước 5: CloudWatch Resources</a>
+    <li><a href="#bước-4-cloudwatch-resources">Bước 4: CloudWatch Resources</a>
       <ul>
         <li><a href="#xóa-cloudwatch-dashboards">Xóa CloudWatch Dashboards</a></li>
         <li><a href="#xóa-cloudwatch-alarms">Xóa CloudWatch Alarms</a></li>
         <li><a href="#xóa-log-groups">Xóa Log Groups</a></li>
       </ul>
     </li>
-    <li><a href="#bước-6-sns-topics">Bước 6: SNS Topics</a></li>
+    <li><a href="#bước-5-sns-topics">Bước 5: SNS Topics</a></li>
     <li><a href="#bước-6-iam-resources">Bước 6: IAM Resources</a>
       <ul>
         <li><a href="#xóa-iam-roles">Xóa IAM Roles</a></li>
@@ -551,28 +550,19 @@
         <li><a href="#xóa-users-và-groups">Xóa Users và Groups</a></li>
       </ul>
     </li>
-    <li><a href="#bước-8-dọn-dẹp-aws-config">Bước 8: Dọn dẹp AWS Config</a></li>
-    <li><a href="#bước-9-dọn-dẹp-cloudtrail">Bước 9: Dọn dẹp CloudTrail</a></li>
-    <li><a href="#checklist-dọn-dẹp-qua-console">Checklist Dọn dẹp qua Console</a>
+    <li><a href="#bước-8-dọn-dẹp-cloudtrail">Bước 8: Dọn dẹp CloudTrail</a></li>
+    <li><a href="#checklist-dọn-dẹp-qua-console">Checklist dọn dẹp qua Console</a>
       <ul>
-        <li><a href="#-checklist-dọn-dẹp">✅ Checklist Dọn dẹp</a></li>
+        <li><a href="#-checklist-dọn-dẹp">✅ Checklist dọn dẹp</a></li>
       </ul>
     </li>
-    <li><a href="#bước-10-xác-minh-dọn-dẹp">Bước 10: Xác minh Dọn dẹp</a>
+    <li><a href="#bước-9-xác-minh-dọn-dẹp">Bước 9: Xác minh dọn dẹp</a>
       <ul>
-        <li><a href="#kiểm-tra-tài-nguyên-còn-lại">Kiểm tra Tài nguyên Còn lại</a></li>
-        <li><a href="#kiểm-tra-dịch-vụ-cuối-cùng">Kiểm tra Dịch vụ Cuối cùng</a></li>
-        <li><a href="#báo-cáo-xác-minh-dọn-dẹp">Báo cáo Xác minh Dọn dẹp</a></li>
+        <li><a href="#kiểm-tra-tài-nguyên-còn-lại">Kiểm tra tài nguyên còn lại</a></li>
+        <li><a href="#kiểm-tra-dịch-vụ-cuối-cùng">Kiểm tra dịch vụ cuối cùng</a></li>
       </ul>
     </li>
-    <li><a href="#xác-minh-chi-phí">Xác minh Chi phí</a></li>
-    <li><a href="#khắc-phục-sự-cố">Khắc phục Sự cố</a>
-      <ul>
-        <li><a href="#vấn-đề-thường-gặp">Vấn đề Thường gặp</a></li>
-        <li><a href="#dọn-dẹp-thủ-công">Dọn dẹp Thủ công</a></li>
-      </ul>
-    </li>
-    <li><a href="#ghi-chú-cuối">Ghi chú Cuối</a></li>
+    <li><a href="#hoàn-thành-dọn-dẹp">Hoàn thành dọn dẹp</a></li>
   </ul>
 </nav>
     </div>
@@ -602,7 +592,7 @@
 <p>Phần này cung cấp hướng dẫn toàn diện để dọn dẹp tất cả tài nguyên AWS được tạo trong workshop Identity Governance nhằm tránh phát sinh chi phí không cần thiết.</p>
 <h2 id="lưu-ý-quan-trọng">Lưu ý quan trọng</h2>
 <p>⚠️ <strong>Cảnh báo</strong>: Thực hiện các bước dọn dẹp này sẽ xóa vĩnh viễn tất cả tài nguyên và dữ liệu được tạo trong workshop. Hãy đảm bảo bạn đã sao lưu các cấu hình hoặc dữ liệu quan trọng trước khi tiến hành.</p>
-<h2 id="thứ-tự-dọn-dẹp">Thứ tự Dọn dẹp</h2>
+<h2 id="thứ-tự-dọn-dẹp">Thứ tự dọn dẹp</h2>
 <p>Tài nguyên nên được dọn dẹp theo thứ tự sau để tránh xung đột phụ thuộc:</p>
 <ol>
 <li>Lambda Functions và EventBridge Rules</li>
@@ -621,97 +611,77 @@
 <li>Mở <strong>AWS Lambda</strong> console</li>
 <li>Lọc functions theo tên workshop:
 <ul>
-<li><strong>IdentityGovernance</strong></li>
-<li><strong>AccessCertification</strong></li>
-<li><strong>ComplianceValidation</strong></li>
+<li><strong>AccessCertificationTrigger</strong></li>
+<li><strong>PrivilegeAnalyticsEngine</strong></li>
+<li><strong>RiskAssessmentEngine</strong></li>
+<li><strong>CustomMetricsPublisher</strong></li>
+<li><strong>DailyOperationsEngine</strong></li>
+<li><strong>AuditReportGenerator</strong></li>
+<li><strong>E2EValidationTest</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="Danh sách Lambda Functions" src="/images/11/lambda-functions-list.png"></p>
-<ol start="3">
-<li>Chọn workshop functions</li>
+<li>Chọn từng function</li>
 <li>Click <strong>Actions</strong> → <strong>Delete</strong></li>
+<li>Xác nhận xóa bằng cách gõ <strong>confirm</strong></li>
 </ol>
-<p><img alt="Xóa Lambda Functions" src="/images/11/delete-lambda-functions.png"></p>
-<ol start="5">
-<li>Xác nhận xóa bằng cách gõ <strong>delete</strong></li>
-</ol>
-<p><img alt="Xác nhận Xóa Lambda" src="/images/11/confirm-lambda-deletion.png"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/11/del1.png?featherlight=false&width=90pc"></p>
 <h3 id="xóa-eventbridge-rules">Xóa EventBridge Rules</h3>
 <ol>
 <li>Mở <strong>Amazon EventBridge</strong> console</li>
-<li>Vào <strong>Rules</strong></li>
+<li>Vào <strong>Schedules</strong></li>
 <li>Chọn workshop rules:
 <ul>
 <li><strong>AccessCertificationSchedule</strong></li>
 <li><strong>ComplianceValidationSchedule</strong></li>
+<li><strong>RiskAssessmentSchedule</strong></li>
+<li><strong>DailyOperationsSchedule</strong></li>
+<li><strong>WeeklyOperationsReview</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="EventBridge Rules" src="/images/11/eventbridge-rules.png"></p>
-<ol start="4">
 <li>Click <strong>Delete</strong> cho từng rule</li>
 </ol>
-<p><img alt="Xóa EventBridge Rules" src="/images/11/delete-eventbridge-rules.png"></p>
-<h2 id="bước-2-step-functions">Bước 2: Step Functions</h2>
-<ol>
-<li>Mở <strong>AWS Step Functions</strong> console</li>
-<li>Chọn workshop state machines:
-<ul>
-<li><strong>AccessCertificationWorkflow</strong></li>
-<li><strong>ComplianceValidationWorkflow</strong></li>
-</ul>
-</li>
-</ol>
-<p><img alt="Danh sách Step Functions" src="/images/11/step-functions-list.png"></p>
-<ol start="3">
-<li>Click <strong>Delete</strong></li>
-<li>Xác nhận xóa</li>
-</ol>
-<p><img alt="Xóa Step Functions" src="/images/11/delete-step-functions.png"></p>
-<h2 id="bước-3-dynamodb-tables">Bước 3: DynamoDB Tables</h2>
+<p><img alt="EventBridge Rules" src="https://trtrantnt.github.io/workshop/images/11/del2.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-2-dynamodb-tables">Bước 2: DynamoDB Tables</h2>
 <ol>
 <li>Mở <strong>Amazon DynamoDB</strong> console</li>
 <li>Vào <strong>Tables</strong></li>
 <li>Chọn workshop tables:
 <ul>
-<li><strong>OperationalProcedures</strong></li>
+<li><strong>AccessCertifications</strong></li>
+<li><strong>RiskAssessments</strong></li>
+<li><strong>CertificationTasks</strong></li>
+<li><strong>OperationsLog</strong></li>
 <li><strong>ComplianceEvidence</strong></li>
+<li><strong>RiskMonitoring</strong></li>
 <li><strong>AuditFindings</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="DynamoDB Tables" src="/images/11/dynamodb-tables.png"></p>
-<ol start="4">
 <li>Click <strong>Delete</strong> cho từng table</li>
 <li>Gõ <strong>delete</strong> để xác nhận</li>
 </ol>
-<p><img alt="Xóa DynamoDB Tables" src="/images/11/delete-dynamodb-tables.png"></p>
-<h2 id="bước-4-s3-buckets">Bước 4: S3 Buckets</h2>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/11/del3.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-3-s3-buckets">Bước 3: S3 Buckets</h2>
 <h3 id="làm-trống-s3-buckets">Làm trống S3 Buckets</h3>
 <ol>
 <li>Mở <strong>Amazon S3</strong> console</li>
 <li>Xác định workshop buckets:
 <ul>
-<li><strong>privilege-analytics-</strong>*</li>
-<li><strong>compliance-reports-</strong>*</li>
+<li><strong>identity-governance-analytics</strong></li>
+<li><strong>identity-governance-reports</strong></li>
+<li><strong>aws-cloudtrail-logs-</strong>* (CloudTrail bucket)</li>
 </ul>
 </li>
+<li>Chọn từng bucket và click <strong>Empty</strong></li>
+<li>Gõ <code>permanently delete</code> để xác nhận</li>
 </ol>
-<p><img alt="Danh sách S3 Buckets" src="/images/11/s3-buckets-list.png"></p>
-<ol start="3">
-<li>Chọn bucket và click <strong>Empty</strong></li>
-<li>Gõ <strong>permanently delete</strong> để xác nhận</li>
-</ol>
-<p><img alt="Làm trống S3 Bucket" src="/images/11/empty-s3-bucket.png"></p>
 <h3 id="xóa-s3-buckets">Xóa S3 Buckets</h3>
 <ol>
-<li>Sau khi làm trống, chọn bucket</li>
+<li>Sau khi làm trống, chọn từng bucket</li>
 <li>Click <strong>Delete</strong></li>
 <li>Gõ tên bucket để xác nhận</li>
 </ol>
-<p><img alt="Xóa S3 Bucket" src="/images/11/delete-s3-bucket.png"></p>
-<h2 id="bước-5-cloudwatch-resources">Bước 5: CloudWatch Resources</h2>
+<p><img alt="Làm trống S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del5.png?featherlight=false&width=90pc"></p>
+<h2 id="bước-4-cloudwatch-resources">Bước 4: CloudWatch Resources</h2>
 <h3 id="xóa-cloudwatch-dashboards">Xóa CloudWatch Dashboards</h3>
 <ol>
 <li>Mở <strong>Amazon CloudWatch</strong> console</li>
@@ -719,46 +689,65 @@
 <li>Chọn workshop dashboards:
 <ul>
 <li><strong>IdentityGovernanceRiskDashboard</strong></li>
+<li><strong>IdentityGovernanceOperations</strong></li>
 <li><strong>DailyOperationsDashboard</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="CloudWatch Dashboards" src="/images/11/cloudwatch-dashboards.png"></p>
-<ol start="4">
 <li>Click <strong>Delete</strong> cho từng dashboard</li>
 </ol>
-<p><img alt="Xóa Dashboard" src="/images/11/delete-dashboard.png"></p>
 <h3 id="xóa-cloudwatch-alarms">Xóa CloudWatch Alarms</h3>
 <ol>
 <li>Vào <strong>Alarms</strong></li>
-<li>Chọn workshop alarms</li>
+<li>Chọn workshop alarms:
+<ul>
+<li><strong>Lambda-AccessCertification-Errors</strong></li>
+<li><strong>HighRiskUserCount-Alarm</strong></li>
+<li><strong>DynamoDB-ReadErrors</strong></li>
+<li><strong>S3-AccessErrors</strong></li>
+</ul>
+</li>
 <li>Click <strong>Actions</strong> → <strong>Delete</strong></li>
 </ol>
-<p><img alt="Xóa CloudWatch Alarms" src="/images/11/delete-cloudwatch-alarms.png"></p>
 <h3 id="xóa-log-groups">Xóa Log Groups</h3>
 <ol>
 <li>Vào <strong>Log groups</strong></li>
-<li>Chọn workshop log groups</li>
+<li>Chọn workshop log groups:
+<ul>
+<li><code>/aws/lambda/AccessCertificationTrigger</code></li>
+<li><code>/aws/lambda/PrivilegeAnalyticsEngine</code></li>
+<li><code>/aws/lambda/RiskAssessmentEngine</code></li>
+<li><code>/aws/lambda/CustomMetricsPublisher</code></li>
+<li><code>/aws/lambda/DailyOperationsEngine</code></li>
+<li><code>/aws/lambda/AuditReportGenerator</code></li>
+<li><code>/aws/lambda/E2EValidationTest</code></li>
+</ul>
+</li>
 <li>Click <strong>Actions</strong> → <strong>Delete log group</strong></li>
 </ol>
-<p><img alt="Xóa Log Groups" src="/images/11/delete-log-groups.png"></p>
-<h2 id="bước-6-sns-topics">Bước 6: SNS Topics</h2>
+<h2 id="bước-5-sns-topics">Bước 5: SNS Topics</h2>
 <ol>
-<li>Mở <strong>Amazon SNS</strong> console</li>
-<li>Vào <strong>Topics</strong></li>
-<li>Chọn workshop topics:
+<li>
+<p>Mở <strong>Amazon SNS</strong> console</p>
+</li>
+<li>
+<p>Vào <strong>Topics</strong></p>
+</li>
+<li>
+<p>Chọn workshop topics:</p>
 <ul>
 <li><strong>IdentityGovernanceAlerts</strong></li>
 <li><strong>ComplianceAlerts</strong></li>
+<li><strong>RiskAssessmentAlerts</strong></li>
+<li><strong>DailyOperationsAlerts</strong></li>
 </ul>
 </li>
+<li>
+<p>Click <strong>Delete</strong> cho từng topic</p>
+</li>
+<li>
+<p>Xác nhận xóa</p>
+</li>
 </ol>
-<p><img alt="SNS Topics" src="/images/11/sns-topics.png"></p>
-<ol start="4">
-<li>Click <strong>Delete</strong> cho từng topic</li>
-<li>Xác nhận xóa</li>
-</ol>
-<p><img alt="Xóa SNS Topics" src="/images/11/delete-sns-topics.png"></p>
 <h2 id="bước-6-iam-resources">Bước 6: IAM Resources</h2>
 <h3 id="xóa-iam-roles">Xóa IAM Roles</h3>
 <ol>
@@ -771,42 +760,39 @@
 <li><strong>CertificationWorkflowRole</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="Danh sách IAM Roles" src="/images/11/iam-roles-list.png"></p>
-<ol start="4">
 <li>Chọn từng role và click <strong>Delete</strong></li>
 <li>Gõ tên role để xác nhận xóa</li>
 </ol>
-<p><img alt="Xóa IAM Role" src="/images/11/delete-iam-role.png"></p>
+<p><img alt="Làm trống S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del6.png?featherlight=false&width=90pc"></p>
 <h3 id="xóa-custom-iam-policies">Xóa Custom IAM Policies</h3>
 <ol>
-<li>Click <strong>Policies</strong> trong sidebar</li>
-<li>Lọc theo <strong>Customer managed</strong></li>
-<li>Tìm kiếm các workshop policies:
+<li>
+<p>Click <strong>Policies</strong> trong sidebar</p>
+</li>
+<li>
+<p>Lọc theo <strong>Customer managed</strong></p>
+</li>
+<li>
+<p>Tìm kiếm các workshop policies:</p>
 <ul>
 <li><strong>SecurityAuditPolicy</strong></li>
 <li><strong>IdentityGovernancePolicy</strong></li>
 <li><strong>ComplianceValidationPolicy</strong></li>
 </ul>
 </li>
+<li>
+<p>Chọn từng policy và click <strong>Actions</strong> → <strong>Delete</strong></p>
+</li>
+<li>
+<p>Xác nhận xóa</p>
+</li>
 </ol>
-<p><img alt="Danh sách IAM Policies" src="/images/11/iam-policies-list.png"></p>
-<ol start="4">
-<li>Chọn từng policy và click <strong>Actions</strong> → <strong>Delete</strong></li>
-<li>Xác nhận xóa</li>
-</ol>
-<p><img alt="Xóa IAM Policy" src="/images/11/delete-iam-policy.png"></p>
 <h3 id="xóa-iam-users-và-groups">Xóa IAM Users và Groups</h3>
 <ol>
 <li>Click <strong>Users</strong> trong sidebar</li>
 <li>Chọn workshop users và click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Xóa IAM Users" src="/images/11/delete-iam-users.png"></p>
-<ol start="3">
 <li>Click <strong>User groups</strong> trong sidebar</li>
-<li>Chọn workshop groups và click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Xóa IAM Groups" src="/images/11/delete-iam-groups.png"></p>
 <h2 id="bước-7-dọn-dẹp-iam-identity-center">Bước 7: Dọn dẹp IAM Identity Center</h2>
 <h3 id="xóa-permission-set-assignments">Xóa Permission Set Assignments</h3>
 <ol>
@@ -814,7 +800,6 @@
 <li>Click <strong>AWS accounts</strong> trong sidebar</li>
 <li>Chọn account của bạn và click <strong>Remove access</strong></li>
 </ol>
-<p><img alt="Xóa SSO Access" src="/images/11/remove-sso-access.png"></p>
 <h3 id="xóa-permission-sets">Xóa Permission Sets</h3>
 <ol>
 <li>Click <strong>Permission sets</strong> trong sidebar</li>
@@ -826,63 +811,55 @@
 </li>
 <li>Click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Xóa Permission Sets" src="/images/11/delete-permission-sets.png"></p>
+<p><img alt="Làm trống S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del7.png?featherlight=false&width=90pc"></p>
 <h3 id="xóa-users-và-groups">Xóa Users và Groups</h3>
 <ol>
-<li>Click <strong>Users</strong> trong sidebar</li>
-<li>Chọn workshop users và click <strong>Delete</strong></li>
+<li>
+<p>Click <strong>Users</strong> trong sidebar</p>
+</li>
+<li>
+<p>Chọn workshop users và click <strong>Delete</strong></p>
+</li>
+<li>
+<p>Click <strong>Groups</strong> trong sidebar</p>
+</li>
+<li>
+<p>Chọn workshop groups và click <strong>Delete</strong></p>
+</li>
 </ol>
-<p><img alt="Xóa SSO Users" src="/images/11/delete-sso-users.png"></p>
-<ol start="3">
-<li>Click <strong>Groups</strong> trong sidebar</li>
-<li>Chọn workshop groups và click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Xóa SSO Groups" src="/images/11/delete-sso-groups.png"></p>
-<h2 id="bước-8-dọn-dẹp-aws-config">Bước 8: Dọn dẹp AWS Config</h2>
-<ol>
-<li>Điều hướng đến dịch vụ <strong>AWS Config</strong></li>
-<li>Click <strong>Settings</strong> trong sidebar</li>
-<li>Click <strong>Edit</strong> và sau đó <strong>Delete configuration recorder</strong></li>
-</ol>
-<p><img alt="Xóa Config Recorder" src="/images/11/delete-config-recorder.png"></p>
-<ol start="4">
-<li>Xác nhận xóa bằng cách gõ <strong>delete</strong></li>
-</ol>
-<h2 id="bước-9-dọn-dẹp-cloudtrail">Bước 9: Dọn dẹp CloudTrail</h2>
+<h2 id="bước-8-dọn-dẹp-cloudtrail">Bước 8: Dọn dẹp CloudTrail</h2>
 <ol>
 <li>Điều hướng đến dịch vụ <strong>CloudTrail</strong></li>
 <li>Click <strong>Trails</strong> trong sidebar</li>
 <li>Chọn <strong>IdentityGovernanceTrail</strong></li>
 <li>Click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Xóa CloudTrail" src="/images/11/delete-cloudtrail.png"></p>
-<ol start="5">
-<li>Gõ tên trail để xác nhận xóa</li>
-</ol>
-<h2 id="checklist-dọn-dẹp-qua-console">Checklist Dọn dẹp qua Console</h2>
+<p><img alt="Làm trống S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc"></p>
+<h2 id="checklist-dọn-dẹp-qua-console">Checklist dọn dẹp qua Console</h2>
 <p>Để dọn dẹp có hệ thống qua AWS Console, hãy làm theo checklist này:</p>
-<h3 id="-checklist-dọn-dẹp">✅ Checklist Dọn dẹp</h3>
+<h3 id="-checklist-dọn-dẹp">✅ Checklist dọn dẹp</h3>
 <p><strong>Lambda Functions:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> IdentityGovernanceMonitor</li>
-<li><input disabled="" type="checkbox"> AccessReviewGenerator</li>
-<li><input disabled="" type="checkbox"> ComplianceValidationEngine</li>
+<li><input disabled="" type="checkbox"> AccessCertificationTrigger</li>
+<li><input disabled="" type="checkbox"> PrivilegeAnalyticsEngine</li>
 <li><input disabled="" type="checkbox"> RiskAssessmentEngine</li>
-<li><input disabled="" type="checkbox"> CertificationNotifier</li>
+<li><input disabled="" type="checkbox"> CustomMetricsPublisher</li>
+<li><input disabled="" type="checkbox"> DailyOperationsEngine</li>
+<li><input disabled="" type="checkbox"> AuditReportGenerator</li>
+<li><input disabled="" type="checkbox"> E2EValidationTest</li>
 </ul>
 <p><strong>EventBridge Rules:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> AccessCertificationSchedule</li>
 <li><input disabled="" type="checkbox"> ComplianceValidationSchedule</li>
 <li><input disabled="" type="checkbox"> RiskAssessmentSchedule</li>
-</ul>
-<p><strong>Step Functions:</strong></p>
-<ul>
-<li><input disabled="" type="checkbox"> AccessCertificationWorkflow</li>
-<li><input disabled="" type="checkbox"> ComplianceValidationWorkflow</li>
+<li><input disabled="" type="checkbox"> DailyOperationsSchedule</li>
+<li><input disabled="" type="checkbox"> WeeklyOperationsReview</li>
 </ul>
 <p><strong>DynamoDB Tables:</strong></p>
 <ul>
+<li><input disabled="" type="checkbox"> AccessCertifications</li>
+<li><input disabled="" type="checkbox"> RiskAssessments</li>
 <li><input disabled="" type="checkbox"> CertificationTasks</li>
 <li><input disabled="" type="checkbox"> OperationsLog</li>
 <li><input disabled="" type="checkbox"> ComplianceEvidence</li>
@@ -891,12 +868,14 @@
 </ul>
 <p><strong>S3 Buckets:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> privilege-analytics-[ACCOUNT-ID]</li>
-<li><input disabled="" type="checkbox"> compliance-reports-[ACCOUNT-ID]</li>
+<li><input disabled="" type="checkbox"> identity-governance-analytics</li>
+<li><input disabled="" type="checkbox"> identity-governance-reports</li>
+<li><input disabled="" type="checkbox"> aws-cloudtrail-logs-[ACCOUNT-ID]-[HASH]</li>
 </ul>
 <p><strong>CloudWatch Resources:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> IdentityGovernanceRiskDashboard</li>
+<li><input disabled="" type="checkbox"> IdentityGovernanceOperations</li>
 <li><input disabled="" type="checkbox"> DailyOperationsDashboard</li>
 <li><input disabled="" type="checkbox"> Tất cả workshop alarms</li>
 <li><input disabled="" type="checkbox"> Tất cả workshop log groups</li>
@@ -905,77 +884,35 @@
 <ul>
 <li><input disabled="" type="checkbox"> IdentityGovernanceAlerts</li>
 <li><input disabled="" type="checkbox"> ComplianceAlerts</li>
+<li><input disabled="" type="checkbox"> RiskAssessmentAlerts</li>
+<li><input disabled="" type="checkbox"> DailyOperationsAlerts</li>
 </ul>
 <p><strong>IAM Resources:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> Workshop IAM roles</li>
-<li><input disabled="" type="checkbox"> Workshop IAM policies</li>
-<li><input disabled="" type="checkbox"> Workshop IAM users</li>
-<li><input disabled="" type="checkbox"> Workshop IAM groups</li>
+<li><input disabled="" type="checkbox"> Workshop custom policies (nếu có)</li>
 </ul>
-<p><strong>IAM Identity Center:</strong></p>
+<p><strong>Optional Resources:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> Permission set assignments</li>
-<li><input disabled="" type="checkbox"> Permission sets</li>
-<li><input disabled="" type="checkbox"> SSO users và groups</li>
+<li><input disabled="" type="checkbox"> AWS Security Hub (nếu không cần)</li>
+<li><input disabled="" type="checkbox"> AWS CloudTrail (nếu không cần)</li>
 </ul>
-<p><strong>Các Dịch vụ Khác:</strong></p>
-<ul>
-<li><input disabled="" type="checkbox"> AWS Config recorder</li>
-<li><input disabled="" type="checkbox"> CloudTrail trail</li>
-<li><input disabled="" type="checkbox"> GuardDuty detector (nếu không cần)</li>
-</ul>
-<p><img alt="Checklist Dọn dẹp" src="/images/11/cleanup-checklist.png"></p>
-<h2 id="bước-10-xác-minh-dọn-dẹp">Bước 10: Xác minh Dọn dẹp</h2>
-<h3 id="kiểm-tra-tài-nguyên-còn-lại">Kiểm tra Tài nguyên Còn lại</h3>
+<h2 id="bước-9-xác-minh-dọn-dẹp">Bước 9: Xác minh dọn dẹp</h2>
+<h3 id="kiểm-tra-tài-nguyên-còn-lại">Kiểm tra tài nguyên còn lại</h3>
 <ol>
 <li>Kiểm tra <strong>AWS Cost Explorer</strong> để xác nhận không còn phí phát sinh</li>
-</ol>
-<p><img alt="Xác minh Cost Explorer" src="/images/11/cost-explorer-verification.png"></p>
-<ol start="2">
 <li>Sử dụng <strong>AWS Resource Groups</strong> để tìm tagged resources</li>
 <li>Tìm kiếm tag: <strong>Project=IdentityGovernance</strong></li>
 </ol>
-<p><img alt="Kiểm tra Resource Groups" src="/images/11/resource-groups-check.png"></p>
-<h3 id="kiểm-tra-dịch-vụ-cuối-cùng">Kiểm tra Dịch vụ Cuối cùng</h3>
+<h3 id="kiểm-tra-dịch-vụ-cuối-cùng">Kiểm tra dịch vụ cuối cùng</h3>
 <ol>
 <li><strong>AWS Config</strong>: Tắt configuration recorder nếu không cần</li>
 <li><strong>AWS Security Hub</strong>: Tắt nếu không sử dụng ở nơi khác</li>
 <li><strong>Amazon GuardDuty</strong>: Tắt nếu không cần</li>
 <li><strong>AWS Audit Manager</strong>: Tắt data collection</li>
 </ol>
-<p><img alt="Kiểm tra Dịch vụ Cuối" src="/images/11/final-service-checks.png"></p>
-<h3 id="báo-cáo-xác-minh-dọn-dẹp">Báo cáo Xác minh Dọn dẹp</h3>
-<ol>
-<li>Tạo báo cáo tóm tắt dọn dẹp</li>
-<li>Ghi chép các tài nguyên không thể xóa</li>
-<li>Lưu ý các phí đang phát sinh</li>
-</ol>
-<p><img alt="Báo cáo Xác minh Dọn dẹp" src="/images/11/cleanup-verification-report.png"></p>
-<h2 id="xác-minh-chi-phí">Xác minh Chi phí</h2>
-<p>Sau khi dọn dẹp, hãy theo dõi dashboard billing AWS để đảm bảo không có phí phát sinh từ tài nguyên còn lại.</p>
-<h2 id="khắc-phục-sự-cố">Khắc phục Sự cố</h2>
-<h3 id="vấn-đề-thường-gặp">Vấn đề Thường gặp</h3>
-<ol>
-<li><strong>Lỗi Phụ thuộc</strong>: Một số tài nguyên có thể có phụ thuộc. Hãy xóa tài nguyên phụ thuộc trước.</li>
-<li><strong>Lỗi Quyền</strong>: Đảm bảo bạn có đủ quyền để xóa tất cả tài nguyên.</li>
-<li><strong>Vấn đề Region</strong>: Đảm bảo bạn đang xóa tài nguyên ở đúng region.</li>
-</ol>
-<h3 id="dọn-dẹp-thủ-công">Dọn dẹp Thủ công</h3>
-<p>Nếu dọn dẹp tự động thất bại, hãy xóa tài nguyên thủ công qua AWS Console:</p>
-<ol>
-<li>Truy cập console của từng service</li>
-<li>Tìm kiếm tài nguyên có tên chứa &ldquo;IdentityGovernance&rdquo;, &ldquo;Compliance&rdquo;, hoặc &ldquo;Certification&rdquo;</li>
-<li>Xóa từng tài nguyên một cách riêng lẻ</li>
-</ol>
-<h2 id="ghi-chú-cuối">Ghi chú Cuối</h2>
-<ul>
-<li>Việc dọn dẹp này sẽ xóa TẤT CẢ tài nguyên workshop</li>
-<li>Kiểm tra kỹ trước khi chạy lệnh dọn dẹp</li>
-<li>Một số tài nguyên có thể có độ trễ ngắn trước khi bị xóa</li>
-<li>Theo dõi hóa đơn AWS để đảm bảo không có phí tiếp tục phát sinh</li>
-</ul>
-<p><strong>Dọn dẹp workshop hoàn tất! 🎉</strong></p>
+<h2 id="hoàn-thành-dọn-dẹp">Hoàn thành dọn dẹp</h2>
+<p>Dọn dẹp workshop hoàn tất! 🎉</p>
 
 
 
@@ -1213,19 +1150,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991224"></script>
+    <script src="/js/jquery.sticky.js?1754991224"></script>
+    <script src="/js/featherlight.min.js?1754991224"></script>
+    <script src="/js/highlight.pack.js?1754991224"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991224"></script>
+    <script src="/js/learn.js?1754991224"></script>
+    <script src="/js/hugo-learn.js?1754991224"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991224" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991224"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

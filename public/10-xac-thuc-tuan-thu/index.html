@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>10. Compliance Validation :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/";
+        var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/10-xac-thuc-tuan-thu/" selected>English</option>
+                      <option id="en" value="//localhost:1313/10-xac-thuc-tuan-thu/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/10-xac-thuc-tuan-thu/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/10-xac-thuc-tuan-thu/">Tiếng Việt</option>
                     
                   
               
@@ -513,44 +513,38 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#objective">Objective</a></li>
-    <li><a href="#compliance-framework-mapping">Compliance Framework Mapping</a></li>
-    <li><a href="#step-1-aws-artifact-for-compliance-documentation">Step 1: AWS Artifact for Compliance Documentation</a>
+    <li><a href="#step-1-comprehensive-system-validation">Step 1: Comprehensive System Validation</a>
       <ul>
-        <li><a href="#11-access-aws-artifact">1.1 Access AWS Artifact</a></li>
-        <li><a href="#12-map-controls-to-frameworks">1.2 Map Controls to Frameworks</a></li>
+        <li><a href="#11-check-all-components">1.1 Check All Components</a></li>
+        <li><a href="#12-verify-data-flow">1.2 Verify Data Flow</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-compliance-dashboard-with-security-hub">Step 2: Compliance Dashboard with Security Hub</a>
+    <li><a href="#step-2-end-to-end-testing">Step 2: End-to-End Testing</a>
       <ul>
-        <li><a href="#21-configure-compliance-standards">2.1 Configure Compliance Standards</a></li>
-        <li><a href="#22-create-compliance-dashboard">2.2 Create Compliance Dashboard</a></li>
+        <li><a href="#21-create-lambda-function-for-e2e-testing">2.1 Create Lambda Function for E2E Testing</a></li>
+        <li><a href="#22-configure-e2e-test-code">2.2 Configure E2E Test Code</a></li>
+        <li><a href="#23-run-e2e-validation-test">2.3 Run E2E Validation Test</a></li>
       </ul>
     </li>
-    <li><a href="#step-3-automated-compliance-reporting">Step 3: Automated Compliance Reporting</a>
+    <li><a href="#step-3-compliance-verification">Step 3: Compliance Verification</a>
       <ul>
-        <li><a href="#31-set-up-report-generation">3.1 Set Up Report Generation</a></li>
-        <li><a href="#32-create-report-generation-lambda">3.2 Create Report Generation Lambda</a></li>
-        <li><a href="#33-schedule-quarterly-reports">3.3 Schedule Quarterly Reports</a></li>
+        <li><a href="#31-generate-final-compliance-report">3.1 Generate Final Compliance Report</a></li>
+        <li><a href="#32-verify-security-controls">3.2 Verify Security Controls</a></li>
       </ul>
     </li>
-    <li><a href="#step-4-compliance-validation-testing">Step 4: Compliance Validation Testing</a>
+    <li><a href="#step-4-performance-validation">Step 4: Performance Validation</a>
       <ul>
-        <li><a href="#41-test-compliance-controls">4.1 Test Compliance Controls</a></li>
-        <li><a href="#42-generate-compliance-evidence">4.2 Generate Compliance Evidence</a></li>
-        <li><a href="#43-validate-report-generation">4.3 Validate Report Generation</a></li>
+        <li><a href="#41-check-system-performance">4.1 Check System Performance</a></li>
+        <li><a href="#42-validate-scalability">4.2 Validate Scalability</a></li>
       </ul>
     </li>
-    <li><a href="#expected-results">Expected Results</a>
+    <li><a href="#step-5-final-system-health-check">Step 5: Final System Health Check</a>
       <ul>
-        <li><a href="#-comprehensive-identity-governance-system">✅ Comprehensive Identity Governance System</a></li>
-        <li><a href="#-compliance-framework-implementation">✅ Compliance Framework Implementation</a></li>
-        <li><a href="#-operational-excellence">✅ Operational Excellence</a></li>
-        <li><a href="#-audit-and-governance">✅ Audit and Governance</a></li>
+        <li><a href="#51-comprehensive-health-dashboard">5.1 Comprehensive Health Dashboard</a></li>
+        <li><a href="#52-production-readiness-checklist">5.2 Production Readiness Checklist</a></li>
       </ul>
     </li>
-    <li><a href="#best-practices-summary">Best Practices Summary</a></li>
-    <li><a href="#reference-documentation">Reference Documentation</a></li>
-    <li><a href="#support">Support</a></li>
+    <li><a href="#final-results">Final Results</a></li>
     <li><a href="#next-steps">Next Steps</a></li>
   </ul>
 </nav>
@@ -578,239 +572,389 @@
 
 
 	<h2 id="objective">Objective</h2>
-<p>Validate and maintain compliance with security frameworks and legal regulations through identity governance, ensuring the organization meets SOX, SOC2, ISO27001, PCI-DSS, and other standards.</p>
-<h2 id="compliance-framework-mapping">Compliance Framework Mapping</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[Identity Governance Controls] --&gt; B[SOX Compliance]
-    A --&gt; C[SOC2 Type II]
-    A --&gt; D[ISO 27001]
-    A --&gt; E[PCI-DSS]
-    A --&gt; F[NIST Framework]
-    
-    B --&gt; G[Audit Evidence]
-    C --&gt; G
-    D --&gt; G
-    E --&gt; G
-    F --&gt; G
-    
-    G --&gt; H[Compliance Dashboard]
-    G --&gt; I[Regulatory Reports]
-</code></pre><h2 id="step-1-aws-artifact-for-compliance-documentation">Step 1: AWS Artifact for Compliance Documentation</h2>
-<h3 id="11-access-aws-artifact">1.1 Access AWS Artifact</h3>
+<p>Perform final validation for the entire Identity Governance system, verify compliance with standards, and prepare for production deployment.</p>
+<h2 id="step-1-comprehensive-system-validation">Step 1: Comprehensive System Validation</h2>
+<h3 id="11-check-all-components">1.1 Check All Components</h3>
 <ol>
-<li>Open <strong>AWS Artifact</strong> in the console</li>
-<li>Review available compliance reports:
+<li>Open <strong>AWS Lambda</strong> console</li>
+<li>Verify all Lambda functions are operational:
 <ul>
-<li><strong>SOC reports</strong></li>
-<li><strong>PCI DSS documentation</strong></li>
-<li><strong>ISO 27001 certification</strong></li>
+<li>AccessCertificationTrigger</li>
+<li>PrivilegeAnalyticsEngine</li>
+<li>RiskAssessmentEngine</li>
+<li>CustomMetricsPublisher</li>
+<li>DailyOperationsEngine</li>
+<li>AuditReportGenerator</li>
 </ul>
 </li>
 </ol>
-<p><img alt="AWS Artifact" src="/images/10/aws-artifact.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Download relevant compliance documents</li>
-<li>Review AWS responsibility matrix</li>
-</ol>
-<p><img alt="Compliance Documents" src="/images/10/compliance-documents.png?featherlight=false&width=90pc"></p>
-<h3 id="12-map-controls-to-frameworks">1.2 Map Controls to Frameworks</h3>
+<h3 id="12-verify-data-flow">1.2 Verify Data Flow</h3>
 <ol>
-<li>Create <strong>compliance mapping spreadsheet</strong></li>
-<li>Map identity governance controls to:
+<li>
+<p>Check <strong>DynamoDB</strong> tables contain data:</p>
 <ul>
-<li><strong>SOX Section 302/404</strong></li>
-<li><strong>SOC 2 Type II</strong></li>
-<li><strong>ISO 27001 Annex A</strong></li>
-<li><strong>PCI DSS Requirements</strong></li>
+<li>AccessCertifications</li>
+<li>RiskAssessments</li>
+</ul>
+</li>
+<li>
+<p>Verify <strong>S3</strong> buckets contain audit reports:</p>
+<ul>
+<li>identity-governance-analytics</li>
+<li>identity-governance-reports</li>
+<li>CloudTrail logs bucket</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Control Mapping" src="/images/10/control-mapping.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Document <strong>shared responsibility</strong> model</li>
-</ol>
-<p><img alt="Shared Responsibility" src="/images/10/shared-responsibility.png?featherlight=false&width=90pc"></p>
-<h2 id="step-2-compliance-dashboard-with-security-hub">Step 2: Compliance Dashboard with Security Hub</h2>
-<h3 id="21-configure-compliance-standards">2.1 Configure Compliance Standards</h3>
+<h2 id="step-2-end-to-end-testing">Step 2: End-to-End Testing</h2>
+<h3 id="21-create-lambda-function-for-e2e-testing">2.1 Create Lambda Function for E2E Testing</h3>
 <ol>
-<li>Open <strong>AWS Security Hub</strong></li>
-<li>Go to <strong>Security standards</strong></li>
-<li>Enable compliance standards:
+<li>Open <strong>AWS Lambda</strong> console</li>
+<li>Click <strong>Create function</strong></li>
+<li>Enter function details:
 <ul>
-<li><strong>AWS Foundational Security Standard</strong></li>
-<li><strong>CIS AWS Foundations Benchmark</strong></li>
-<li><strong>PCI DSS</strong></li>
+<li><strong>Function name</strong>: <code>E2EValidationTest</code></li>
+<li><strong>Runtime</strong>: Python 3.9</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Security Standards" src="/images/10/security-standards.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Review <strong>compliance scores</strong> for each standard</li>
-</ol>
-<p><img alt="Compliance Scores" src="/images/10/compliance-scores.png?featherlight=false&width=90pc"></p>
-<h3 id="22-create-compliance-dashboard">2.2 Create Compliance Dashboard</h3>
+<h3 id="22-configure-e2e-test-code">2.2 Configure E2E Test Code</h3>
 <ol>
-<li>Open <strong>Amazon QuickSight</strong></li>
-<li>Create <strong>Compliance Dashboard</strong></li>
-<li>Connect to Security Hub data</li>
+<li>Replace default code:</li>
 </ol>
-<p><img alt="Compliance Dashboard" src="/images/10/compliance-dashboard.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Add visualizations for:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;E2E Validation Test Started&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize AWS clients</span>
+</span></span><span style="display:flex;"><span>    dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>    lambda_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;lambda&#39;</span>)
+</span></span><span style="display:flex;"><span>    s3 <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>    cloudwatch <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudwatch&#39;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    test_results <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;test_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;tests&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test 1: Data Integrity</span>
+</span></span><span style="display:flex;"><span>        test_results[<span style="color:#e6db74">&#39;tests&#39;</span>]<span style="color:#f92672">.</span>append(test_data_integrity(dynamodb))
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test 2: Lambda Functions</span>
+</span></span><span style="display:flex;"><span>        test_results[<span style="color:#e6db74">&#39;tests&#39;</span>]<span style="color:#f92672">.</span>append(test_lambda_functions(lambda_client))
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test 3: Audit Reports</span>
+</span></span><span style="display:flex;"><span>        test_results[<span style="color:#e6db74">&#39;tests&#39;</span>]<span style="color:#f92672">.</span>append(test_audit_reports(s3))
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test 4: Monitoring</span>
+</span></span><span style="display:flex;"><span>        test_results[<span style="color:#e6db74">&#39;tests&#39;</span>]<span style="color:#f92672">.</span>append(test_monitoring_system(cloudwatch))
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test 5: Compliance</span>
+</span></span><span style="display:flex;"><span>        test_results[<span style="color:#e6db74">&#39;tests&#39;</span>]<span style="color:#f92672">.</span>append(test_compliance_validation(dynamodb))
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate overall test result</span>
+</span></span><span style="display:flex;"><span>        passed_tests <span style="color:#f92672">=</span> sum(<span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> test <span style="color:#f92672">in</span> test_results[<span style="color:#e6db74">&#39;tests&#39;</span>] <span style="color:#66d9ef">if</span> test[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;PASS&#39;</span>)
+</span></span><span style="display:flex;"><span>        total_tests <span style="color:#f92672">=</span> len(test_results[<span style="color:#e6db74">&#39;tests&#39;</span>])
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        test_results[<span style="color:#e6db74">&#39;summary&#39;</span>] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;total_tests&#39;</span>: total_tests,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;passed_tests&#39;</span>: passed_tests,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;failed_tests&#39;</span>: total_tests <span style="color:#f92672">-</span> passed_tests,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;success_rate&#39;</span>: (passed_tests <span style="color:#f92672">/</span> total_tests) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overall_status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span> <span style="color:#66d9ef">if</span> passed_tests <span style="color:#f92672">==</span> total_tests <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(test_results, default<span style="color:#f92672">=</span>str)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error in E2E validation: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_data_integrity</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test data integrity across DynamoDB tables&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    test_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;test_name&#39;</span>: <span style="color:#e6db74">&#39;Data Integrity Test&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;details&#39;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;errors&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test AccessCertifications table</span>
+</span></span><span style="display:flex;"><span>        cert_table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
+</span></span><span style="display:flex;"><span>        cert_response <span style="color:#f92672">=</span> cert_table<span style="color:#f92672">.</span>scan(Limit<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> cert_response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;AccessCertifications table: </span><span style="color:#e6db74">{</span>len(cert_response[<span style="color:#e6db74">&#39;Items&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> records found&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;AccessCertifications table is empty&#34;</span>)
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Test RiskAssessments table</span>
+</span></span><span style="display:flex;"><span>        risk_table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>        risk_response <span style="color:#f92672">=</span> risk_table<span style="color:#f92672">.</span>scan(Limit<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> risk_response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;RiskAssessments table: </span><span style="color:#e6db74">{</span>len(risk_response[<span style="color:#e6db74">&#39;Items&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> records found&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;RiskAssessments table is empty&#34;</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Data integrity test failed: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> test_result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_lambda_functions</span>(lambda_client):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test all Lambda functions are working&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    test_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;test_name&#39;</span>: <span style="color:#e6db74">&#39;Lambda Functions Test&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;details&#39;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;errors&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    functions_to_test <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;AccessCertificationTrigger&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;PrivilegeAnalyticsEngine&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;RiskAssessmentEngine&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;CustomMetricsPublisher&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;DailyOperationsEngine&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;AuditReportGenerator&#39;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> function_name <span style="color:#f92672">in</span> functions_to_test:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> lambda_client<span style="color:#f92672">.</span>get_function(FunctionName<span style="color:#f92672">=</span>function_name)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> response[<span style="color:#e6db74">&#39;Configuration&#39;</span>][<span style="color:#e6db74">&#39;State&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;Active&#39;</span>:
+</span></span><span style="display:flex;"><span>                test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>function_name<span style="color:#e6db74">}</span><span style="color:#e6db74">: Active&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>                test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>function_name<span style="color:#e6db74">}</span><span style="color:#e6db74">: Not active&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> lambda_client<span style="color:#f92672">.</span>exceptions<span style="color:#f92672">.</span>ResourceNotFoundException:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>function_name<span style="color:#e6db74">}</span><span style="color:#e6db74">: Function not found&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>function_name<span style="color:#e6db74">}</span><span style="color:#e6db74">: Error - </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> test_result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_audit_reports</span>(s3):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test audit reports are being generated&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    test_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;test_name&#39;</span>: <span style="color:#e6db74">&#39;Audit Reports Test&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;details&#39;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;errors&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for audit reports in S3</span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> s3<span style="color:#f92672">.</span>list_objects_v2(
+</span></span><span style="display:flex;"><span>            Bucket<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;identity-governance-reports&#39;</span>,
+</span></span><span style="display:flex;"><span>            Prefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;audit-reports/&#39;</span>,
+</span></span><span style="display:flex;"><span>            MaxKeys<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;Contents&#39;</span> <span style="color:#f92672">in</span> response <span style="color:#f92672">and</span> response[<span style="color:#e6db74">&#39;Contents&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>len(response[<span style="color:#e6db74">&#39;Contents&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> audit reports&#34;</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Check if reports are recent (within last 7 days)</span>
+</span></span><span style="display:flex;"><span>            recent_reports <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            seven_days_ago <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>now() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> obj <span style="color:#f92672">in</span> response[<span style="color:#e6db74">&#39;Contents&#39;</span>]:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> obj[<span style="color:#e6db74">&#39;LastModified&#39;</span>]<span style="color:#f92672">.</span>replace(tzinfo<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>) <span style="color:#f92672">&gt;</span> seven_days_ago:
+</span></span><span style="display:flex;"><span>                    recent_reports <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Recent reports (last 7 days): </span><span style="color:#e6db74">{</span>recent_reports<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;No audit reports found&#34;</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Audit reports test failed: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> test_result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_monitoring_system</span>(cloudwatch):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test monitoring system is working&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    test_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;test_name&#39;</span>: <span style="color:#e6db74">&#39;Monitoring System Test&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;details&#39;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;errors&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for custom metrics</span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> cloudwatch<span style="color:#f92672">.</span>list_metrics(
+</span></span><span style="display:flex;"><span>            Namespace<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;IdentityGovernance&#39;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> response[<span style="color:#e6db74">&#39;Metrics&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>len(response[<span style="color:#e6db74">&#39;Metrics&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> custom metrics&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;No custom metrics found&#34;</span>)
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for alarms</span>
+</span></span><span style="display:flex;"><span>        alarms_response <span style="color:#f92672">=</span> cloudwatch<span style="color:#f92672">.</span>describe_alarms()
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> alarms_response[<span style="color:#e6db74">&#39;MetricAlarms&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>len(alarms_response[<span style="color:#e6db74">&#39;MetricAlarms&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> CloudWatch alarms&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;No CloudWatch alarms configured&#34;</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Monitoring system test failed: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> test_result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_compliance_validation</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Test compliance validation&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    test_result <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;test_name&#39;</span>: <span style="color:#e6db74">&#39;Compliance Validation Test&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;details&#39;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;errors&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for recent compliance assessments</span>
+</span></span><span style="display:flex;"><span>        table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>            FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>            ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;Compliance Assessment&#39;</span>},
+</span></span><span style="display:flex;"><span>            Limit<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>len(response[<span style="color:#e6db74">&#39;Items&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> compliance assessments&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;No compliance assessments found - this is normal for new deployments&#34;</span>)
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check for user risk assessments</span>
+</span></span><span style="display:flex;"><span>        risk_response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>            FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>            ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;User Risk Assessment&#39;</span>},
+</span></span><span style="display:flex;"><span>            Limit<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> risk_response[<span style="color:#e6db74">&#39;Items&#39;</span>]:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>len(risk_response[<span style="color:#e6db74">&#39;Items&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74"> user risk assessments&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            test_result[<span style="color:#e6db74">&#39;details&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;No user risk assessments found - ensure risk assessment engine is running&#34;</span>)
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;FAIL&#39;</span>
+</span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Compliance validation test failed: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> test_result
+</span></span></code></pre></div><ol>
+<li>Click <strong>Deploy</strong></li>
+</ol>
+<h3 id="23-run-e2e-validation-test">2.3 Run E2E Validation Test</h3>
+<ol>
+<li>Click <strong>Test</strong> in Lambda function</li>
+<li>Review validation results</li>
+<li>Verify all tests PASS</li>
+</ol>
+<h2 id="step-3-compliance-verification">Step 3: Compliance Verification</h2>
+<h3 id="31-generate-final-compliance-report">3.1 Generate Final Compliance Report</h3>
+<ol>
+<li>Run <strong>AuditReportGenerator</strong> with report_type = &lsquo;compliance&rsquo;</li>
+<li>Review compliance report in S3</li>
+<li>Verify compliance scores</li>
+</ol>
+<h3 id="32-verify-security-controls">3.2 Verify Security Controls</h3>
+<ol>
+<li>Check <strong>AWS Security Hub</strong> findings</li>
+<li>Verify no critical findings exist</li>
+<li>Review security standards compliance</li>
+</ol>
+<h2 id="step-4-performance-validation">Step 4: Performance Validation</h2>
+<h3 id="41-check-system-performance">4.1 Check System Performance</h3>
+<ol>
+<li>Go to <strong>CloudWatch</strong> dashboard</li>
+<li>Review performance metrics:
 <ul>
-<li><strong>Overall compliance score</strong></li>
-<li><strong>Framework-specific scores</strong></li>
-<li><strong>Trending compliance metrics</strong></li>
-<li><strong>Critical findings</strong></li>
+<li>Lambda execution times</li>
+<li>DynamoDB response times</li>
+<li>Error rates</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Dashboard Visualizations" src="/images/10/dashboard-visualizations.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Set up <strong>automated refresh</strong> schedule</li>
-</ol>
-<p><img alt="Dashboard Refresh" src="/images/10/dashboard-refresh.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-automated-compliance-reporting">Step 3: Automated Compliance Reporting</h2>
-<h3 id="31-set-up-report-generation">3.1 Set Up Report Generation</h3>
+<h3 id="42-validate-scalability">4.2 Validate Scalability</h3>
 <ol>
-<li>Create <strong>S3 bucket</strong> for compliance reports:
-<ul>
-<li><strong>Bucket name</strong>: compliance-reports-[account-id]</li>
-<li><strong>Versioning</strong>: Enabled</li>
-<li><strong>Retention</strong>: 7 years</li>
-</ul>
-</li>
+<li>Check auto-scaling configurations</li>
+<li>Review resource utilization</li>
+<li>Validate cost optimization</li>
 </ol>
-<p><img alt="Compliance Reports Bucket" src="/images/10/compliance-reports-bucket.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Configure <strong>lifecycle policies</strong> for long-term retention</li>
-</ol>
-<p><img alt="Lifecycle Policies" src="/images/10/lifecycle-policies.png?featherlight=false&width=90pc"></p>
-<h3 id="32-create-report-generation-lambda">3.2 Create Report Generation Lambda</h3>
+<h2 id="step-5-final-system-health-check">Step 5: Final System Health Check</h2>
+<h3 id="51-comprehensive-health-dashboard">5.1 Comprehensive Health Dashboard</h3>
 <ol>
-<li>Open <strong>AWS Lambda</strong></li>
-<li>Create function: <strong>ComplianceReportGenerator</strong></li>
-<li>Configure to generate reports from:
+<li>Create final health check dashboard</li>
+<li>Review all system components</li>
+<li>Document system readiness</li>
+</ol>
+<h3 id="52-production-readiness-checklist">5.2 Production Readiness Checklist</h3>
+<h4 id="51-infrastructure-checklist">5.1 Infrastructure Checklist</h4>
 <ul>
-<li><strong>Security Hub findings</strong></li>
-<li><strong>Config compliance data</strong></li>
-<li><strong>Audit Manager evidence</strong></li>
+<li>✅ All DynamoDB tables created and populated</li>
+<li>✅ Lambda functions deployed and tested</li>
+<li>✅ S3 buckets configured with proper permissions</li>
+<li>✅ CloudTrail logging enabled and validated</li>
+<li>✅ IAM roles and policies configured correctly</li>
+<li>✅ EventBridge rules configured for automation</li>
 </ul>
-</li>
-</ol>
-<p><img alt="Report Generator Lambda" src="/images/10/report-generator-lambda.png?featherlight=false&width=90pc"></p>
-<h3 id="33-schedule-quarterly-reports">3.3 Schedule Quarterly Reports</h3>
-<ol>
-<li>Open <strong>Amazon EventBridge</strong></li>
-<li>Create rule: <strong>QuarterlyComplianceReporting</strong></li>
-<li>Set schedule: <strong>First day of quarter at 9 AM</strong></li>
-</ol>
-<p><img alt="Quarterly Report Schedule" src="/images/10/quarterly-report-schedule.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Configure <strong>email delivery</strong> via SES</li>
-</ol>
-<p><img alt="Email Delivery" src="/images/10/email-delivery.png?featherlight=false&width=90pc"></p>
-<h2 id="step-4-compliance-validation-testing">Step 4: Compliance Validation Testing</h2>
-<h3 id="41-test-compliance-controls">4.1 Test Compliance Controls</h3>
-<ol>
-<li>Use <strong>Security Hub</strong> findings to validate:
+<h4 id="52-monitoring-and-alerting-checklist">5.2 Monitoring and Alerting Checklist</h4>
 <ul>
-<li><strong>IAM password policies</strong></li>
-<li><strong>MFA requirements</strong></li>
-<li><strong>Access key rotation</strong></li>
+<li>✅ CloudWatch dashboards created and functional</li>
+<li>✅ CloudWatch alarms configured for critical metrics</li>
+<li>✅ SNS notifications working for alerts</li>
+<li>✅ Backup and recovery procedures documented</li>
+<li>✅ Monitoring dashboards created and tested</li>
+<li>✅ Operational runbooks completed</li>
 </ul>
-</li>
-</ol>
-<p><img alt="Security Hub Compliance Testing" src="/images/10/security-hub-compliance-testing.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Review <strong>Lambda audit results</strong> in DynamoDB</li>
-<li>Document <strong>control effectiveness</strong></li>
-</ol>
-<p><img alt="Control Effectiveness" src="/images/10/control-effectiveness.png?featherlight=false&width=90pc"></p>
-<h3 id="42-generate-compliance-evidence">4.2 Generate Compliance Evidence</h3>
-<ol>
-<li>Collect evidence from:
+<h4 id="53-compliance-checklist">5.3 Compliance Checklist</h4>
 <ul>
-<li><strong>CloudTrail logs</strong></li>
-<li><strong>Security Hub findings</strong></li>
-<li><strong>DynamoDB audit records</strong></li>
-<li><strong>Lambda execution logs</strong></li>
+<li>✅ SOX compliance requirements met</li>
+<li>✅ SOC2 controls implemented and tested</li>
+<li>✅ ISO27001 requirements satisfied</li>
+<li>✅ Audit trails complete and tamper-proof</li>
+<li>✅ Access certification processes automated</li>
+<li>✅ Risk assessment procedures operational</li>
 </ul>
-</li>
-</ol>
-<p><img alt="Compliance Evidence" src="/images/10/compliance-evidence.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Store evidence in <strong>S3 with encryption</strong></li>
-<li>Create <strong>evidence inventory</strong> in DynamoDB</li>
-</ol>
-<p><img alt="Evidence Inventory" src="/images/10/evidence-inventory.png?featherlight=false&width=90pc"></p>
-<h3 id="43-validate-report-generation">4.3 Validate Report Generation</h3>
-<ol>
-<li>Test <strong>quarterly report generation</strong></li>
-<li>Review report content and format</li>
-<li>Validate <strong>stakeholder distribution</strong></li>
-</ol>
-<p><img alt="Report Validation" src="/images/10/report-validation.png?featherlight=false&width=90pc"></p>
-<h2 id="expected-results">Expected Results</h2>
-<p>After completing this workshop, you will have:</p>
-<h3 id="-comprehensive-identity-governance-system">✅ Comprehensive Identity Governance System</h3>
+<h2 id="final-results">Final Results</h2>
+<p>After completing the entire workshop:</p>
 <ul>
-<li>Centralized access management with AWS IAM Identity Center</li>
-<li>Automated access certification workflows</li>
-<li>Real-time privilege analytics and risk assessment</li>
-<li>Continuous monitoring and alerting</li>
+<li>✅ <strong>Complete Identity Governance System</strong> - Comprehensive identity management system</li>
+<li>✅ <strong>Automated Access Certification</strong> - Automated access certification workflows</li>
+<li>✅ <strong>Real-time Privilege Analytics</strong> - Real-time privilege analysis</li>
+<li>✅ <strong>Comprehensive Risk Assessment</strong> - Comprehensive risk assessment</li>
+<li>✅ <strong>Continuous Monitoring</strong> - Continuous monitoring</li>
+<li>✅ <strong>Automated Compliance Reporting</strong> - Automated compliance reporting</li>
+<li>✅ <strong>Audit Trail System</strong> - Complete audit trail system</li>
+<li>✅ <strong>Production-Ready Architecture</strong> - Production-ready architecture</li>
 </ul>
-<h3 id="-compliance-framework-implementation">✅ Compliance Framework Implementation</h3>
-<ul>
-<li>SOX, SOC2, ISO27001, PCI-DSS compliance validation</li>
-<li>Automated evidence collection via AWS services</li>
-<li>Regulatory reporting capabilities</li>
-<li>Audit trail maintenance in S3</li>
-</ul>
-<h3 id="-operational-excellence">✅ Operational Excellence</h3>
-<ul>
-<li>CloudWatch dashboards for operations</li>
-<li>Automated incident response procedures</li>
-<li>Systems Manager runbooks</li>
-<li>Performance monitoring and alerting</li>
-</ul>
-<h3 id="-audit-and-governance">✅ Audit and Governance</h3>
-<ul>
-<li>AWS Audit Manager framework</li>
-<li>Automated control testing via Config</li>
-<li>Security Hub findings tracking</li>
-<li>QuickSight management reporting</li>
-</ul>
-<p><img alt="Compliance Validation Complete" src="/images/10/compliance-validation-complete.png?featherlight=false&width=90pc"></p>
-<h2 id="best-practices-summary">Best Practices Summary</h2>
-<ol>
-<li><strong>Implement Least Privilege</strong>: Use IAM Identity Center permission sets</li>
-<li><strong>Automate Where Possible</strong>: Leverage AWS native automation services</li>
-<li><strong>Monitor Continuously</strong>: Use CloudWatch and Security Hub</li>
-<li><strong>Document Everything</strong>: Store evidence in S3 with proper retention</li>
-<li><strong>Regular Reviews</strong>: Schedule automated assessments</li>
-<li><strong>Stay Updated</strong>: Monitor AWS compliance documentation updates</li>
-</ol>
-<p><img alt="Best Practices" src="/images/10/best-practices.png?featherlight=false&width=90pc"></p>
-<h2 id="reference-documentation">Reference Documentation</h2>
-<ul>
-<li><a href="https://docs.aws.amazon.com/singlesignon/">AWS IAM Identity Center Documentation</a></li>
-<li><a href="https://docs.aws.amazon.com/organizations/">AWS Organizations Best Practices</a></li>
-<li><a href="https://www.sec.gov/about/laws/soa2002.pdf">SOX Compliance Guidelines</a></li>
-<li><a href="https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report.html">SOC 2 Framework</a></li>
-<li><a href="https://www.iso.org/isoiec-27001-information-security.html">ISO 27001 Standard</a></li>
-</ul>
-<h2 id="support">Support</h2>
-<p>If you encounter issues during deployment, please:</p>
-<ol>
-<li>Check CloudWatch Logs for debugging</li>
-<li>Review IAM permissions</li>
-<li>Refer to AWS documentation</li>
-<li>Contact support team if needed</li>
-</ol>
-<p><strong>Workshop completed successfully! 🎉</strong></p>
 <h2 id="next-steps">Next Steps</h2>
-<p>Continue to <a href="/11-clean-resources/">11. Clean Resources</a> to clean up workshop resources.</p>
+<p>Proceed to <a href="/11-clean-resources/">11. Clean Resources</a> to clean up AWS resources after completing the workshop.</p>
 
 
 
@@ -1051,19 +1195,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991223"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991223"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991223"></script>
+    <script src="/js/jquery.sticky.js?1754991223"></script>
+    <script src="/js/featherlight.min.js?1754991223"></script>
+    <script src="/js/highlight.pack.js?1754991223"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991223"></script>
+    <script src="/js/learn.js?1754991223"></script>
+    <script src="/js/hugo-learn.js?1754991223"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991223" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991223"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

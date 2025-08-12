@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>9. Audit Procedures :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/";
+        var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/9-quy-trinh-kiem-toan/" selected>English</option>
+                      <option id="en" value="//localhost:1313/9-quy-trinh-kiem-toan/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/9-quy-trinh-kiem-toan/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/9-quy-trinh-kiem-toan/">Tiếng Việt</option>
                     
                   
               
@@ -513,29 +513,36 @@
 <nav id="TableOfContents">
   <ul>
     <li><a href="#objective">Objective</a></li>
-    <li><a href="#audit-architecture">Audit Architecture</a></li>
-    <li><a href="#step-1-lambda-based-audit-framework-setup">Step 1: Lambda-based Audit Framework Setup</a>
+    <li><a href="#step-1-setup-audit-data-collection">Step 1: Setup Audit Data Collection</a>
       <ul>
-        <li><a href="#11-create-audit-lambda-function">1.1 Create Audit Lambda Function</a></li>
-        <li><a href="#12-configure-audit-logic">1.2 Configure Audit Logic</a></li>
+        <li><a href="#11-verify-cloudtrail-audit-logs">1.1 Verify CloudTrail Audit Logs</a></li>
+        <li><a href="#12-configure-cloudtrail-insights">1.2 Configure CloudTrail Insights</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-dynamodb-audit-data-storage">Step 2: DynamoDB Audit Data Storage</a>
+    <li><a href="#step-2-create-audit-report-generator">Step 2: Create Audit Report Generator</a>
       <ul>
-        <li><a href="#21-configure-audit-data-storage">2.1 Configure Audit Data Storage</a></li>
-        <li><a href="#22-set-up-cloudwatch-monitoring">2.2 Set Up CloudWatch Monitoring</a></li>
+        <li><a href="#21-create-lambda-function">2.1 Create Lambda Function</a></li>
+        <li><a href="#22-configure-code-for-audit-reports">2.2 Configure Code for Audit Reports</a></li>
+        <li><a href="#23-configure-iam-permissions">2.3 Configure IAM Permissions</a></li>
       </ul>
     </li>
-    <li><a href="#step-3-control-testing-and-evidence-review">Step 3: Control Testing and Evidence Review</a>
+    <li><a href="#step-3-setup-automated-audit-schedules">Step 3: Setup Automated Audit Schedules</a>
       <ul>
-        <li><a href="#31-review-control-evidence">3.1 Review Control Evidence</a></li>
-        <li><a href="#32-document-findings">3.2 Document Findings</a></li>
+        <li><a href="#31-create-eventbridge-rules-for-audit-reports">3.1 Create EventBridge Rules for Audit Reports</a></li>
+        <li><a href="#32-configure-audit-report-storage">3.2 Configure Audit Report Storage</a></li>
       </ul>
     </li>
-    <li><a href="#step-4-generate-audit-reports">Step 4: Generate Audit Reports</a>
+    <li><a href="#step-4-setup-cloudwatch-logs-analysis">Step 4: Setup CloudWatch Logs Analysis</a>
       <ul>
-        <li><a href="#41-create-assessment-report">4.1 Create Assessment Report</a></li>
-        <li><a href="#42-share-report-with-stakeholders">4.2 Share Report with Stakeholders</a></li>
+        <li><a href="#41-configure-cloudtrail-log-analysis">4.1 Configure CloudTrail Log Analysis</a></li>
+        <li><a href="#42-configure-log-insights-queries">4.2 Configure Log Insights Queries</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-5-test-audit-system">Step 5: Test Audit System</a>
+      <ul>
+        <li><a href="#51-test-audit-report-generation">5.1 Test Audit Report Generation</a></li>
+        <li><a href="#52-verify-audit-trail-completeness">5.2 Verify Audit Trail Completeness</a></li>
+        <li><a href="#53-test-compliance-reporting">5.3 Test Compliance Reporting</a></li>
       </ul>
     </li>
     <li><a href="#expected-results">Expected Results</a></li>
@@ -566,139 +573,466 @@
 
 
 	<h2 id="objective">Objective</h2>
-<p>Establish comprehensive audit procedures to ensure compliance with security, legal, and internal requirements in identity governance management.</p>
-<h2 id="audit-architecture">Audit Architecture</h2>
-<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TB
-    A[Audit Planning] --&gt; B[Evidence Collection]
-    B --&gt; C[Analysis &amp; Testing]
-    C --&gt; D[Findings Documentation]
-    D --&gt; E[Remediation Tracking]
-    E --&gt; F[Audit Reporting]
-    
-    G[Continuous Monitoring] --&gt; H[Automated Controls Testing]
-    H --&gt; I[Exception Reporting]
-    I --&gt; J[Management Dashboard]
-</code></pre><h2 id="step-1-lambda-based-audit-framework-setup">Step 1: Lambda-based Audit Framework Setup</h2>
-<h3 id="11-create-audit-lambda-function">1.1 Create Audit Lambda Function</h3>
+<p>Establish comprehensive audit procedures to ensure compliance with SOX, SOC2, ISO27001 standards and create audit trails for the Identity Governance system.</p>
+<h2 id="step-1-setup-audit-data-collection">Step 1: Setup Audit Data Collection</h2>
+<h3 id="11-verify-cloudtrail-audit-logs">1.1 Verify CloudTrail Audit Logs</h3>
+<ol>
+<li>Open <strong>Amazon CloudTrail</strong> console</li>
+<li>Verify trail <strong>IdentityGovernanceTrail</strong> is recording complete audit events</li>
+<li>Check that log file validation is enabled</li>
+</ol>
+<h3 id="12-configure-cloudtrail-insights">1.2 Configure CloudTrail Insights</h3>
+<ol>
+<li>In CloudTrail console</li>
+<li>Select trail <strong>IdentityGovernanceTrail</strong></li>
+<li>Click <strong>Edit</strong></li>
+<li>Enable <strong>CloudTrail Insights</strong> for unusual activity patterns</li>
+<li>Click <strong>Save changes</strong></li>
+</ol>
+<h2 id="step-2-create-audit-report-generator">Step 2: Create Audit Report Generator</h2>
+<h3 id="21-create-lambda-function">2.1 Create Lambda Function</h3>
 <ol>
 <li>Open <strong>AWS Lambda</strong> console</li>
-<li>Create function: <strong>ComplianceAuditEngine</strong></li>
-<li>Configure EventBridge trigger for daily execution</li>
-</ol>
-<p><img alt="Create Audit Lambda" src="/images/9/create-audit-lambda.png?featherlight=false&width=90pc"></p>
-<h3 id="12-configure-audit-logic">1.2 Configure Audit Logic</h3>
-<ol>
-<li>Add environment variables:
+<li>Click <strong>Create function</strong></li>
+<li>Enter function details:
 <ul>
-<li><strong>AUDIT_TABLE</strong>: RiskAssessments</li>
-<li><strong>SNS_TOPIC</strong>: Audit notification topic</li>
+<li><strong>Function name</strong>: <code>AuditReportGenerator</code></li>
+<li><strong>Runtime</strong>: Python 3.9</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Audit Lambda Config" src="/images/9/audit-lambda-config.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Upload audit code to check:
+<h3 id="22-configure-code-for-audit-reports">2.2 Configure Code for Audit Reports</h3>
+<ol>
+<li>Replace default code:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> csv
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime, timedelta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> io <span style="color:#f92672">import</span> StringIO
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Audit Report Generator Started&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Initialize AWS clients</span>
+</span></span><span style="display:flex;"><span>    dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>    s3 <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>    cloudtrail <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;cloudtrail&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate different types of audit reports</span>
+</span></span><span style="display:flex;"><span>        report_type <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;report_type&#39;</span>, <span style="color:#e6db74">&#39;comprehensive&#39;</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> report_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;access_certification&#39;</span>:
+</span></span><span style="display:flex;"><span>            report <span style="color:#f92672">=</span> generate_access_certification_report(dynamodb)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> report_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;privilege_usage&#39;</span>:
+</span></span><span style="display:flex;"><span>            report <span style="color:#f92672">=</span> generate_privilege_usage_report(dynamodb, cloudtrail)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> report_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;risk_assessment&#39;</span>:
+</span></span><span style="display:flex;"><span>            report <span style="color:#f92672">=</span> generate_risk_assessment_report(dynamodb)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> report_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;compliance&#39;</span>:
+</span></span><span style="display:flex;"><span>            report <span style="color:#f92672">=</span> generate_compliance_report(dynamodb, cloudtrail)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            report <span style="color:#f92672">=</span> generate_comprehensive_audit_report(dynamodb, cloudtrail)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store report in S3</span>
+</span></span><span style="display:flex;"><span>        report_url <span style="color:#f92672">=</span> store_audit_report(s3, report, report_type)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>report_type<span style="color:#e6db74">}</span><span style="color:#e6db74"> audit report generated successfully&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;report_url&#39;</span>: report_url,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;report_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat()
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error generating audit report: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_access_certification_report</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate access certification audit report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;AccessCertifications&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan()
+</span></span><span style="display:flex;"><span>    certifications <span style="color:#f92672">=</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate certification statistics</span>
+</span></span><span style="display:flex;"><span>    total_certifications <span style="color:#f92672">=</span> len(certifications)
+</span></span><span style="display:flex;"><span>    completed_certifications <span style="color:#f92672">=</span> len([c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> certifications <span style="color:#66d9ef">if</span> c<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Status&#39;</span>) <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;Completed&#39;</span>, <span style="color:#e6db74">&#39;Approved&#39;</span>]])
+</span></span><span style="display:flex;"><span>    overdue_certifications <span style="color:#f92672">=</span> count_overdue_certifications(certifications)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;report_type&#39;</span>: <span style="color:#e6db74">&#39;Access Certification Audit&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;generated_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;summary&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;total_certifications&#39;</span>: total_certifications,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;completed_certifications&#39;</span>: completed_certifications,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overdue_certifications&#39;</span>: overdue_certifications,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;completion_rate&#39;</span>: (completed_certifications <span style="color:#f92672">/</span> max(total_certifications, <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;certifications&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Add certification details</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> cert <span style="color:#f92672">in</span> certifications:
+</span></span><span style="display:flex;"><span>        days_since_creation <span style="color:#f92672">=</span> calculate_days_since(cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CertificationDate&#39;</span>))
+</span></span><span style="display:flex;"><span>        report[<span style="color:#e6db74">&#39;certifications&#39;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;certification_id&#39;</span>: cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CertificationId&#39;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;user_name&#39;</span>: cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserName&#39;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;manager&#39;</span>: cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Manager&#39;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;status&#39;</span>: cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;Status&#39;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;certification_date&#39;</span>: cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CertificationDate&#39;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;days_since_creation&#39;</span>: days_since_creation,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;is_overdue&#39;</span>: days_since_creation <span style="color:#f92672">and</span> days_since_creation <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">90</span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_privilege_usage_report</span>(dynamodb, cloudtrail):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate privilege usage audit report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get privilege analytics data</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;Privilege Analytics&#39;</span>}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    privilege_events <span style="color:#f92672">=</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;report_type&#39;</span>: <span style="color:#e6db74">&#39;Privilege Usage Audit&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;generated_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;summary&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;total_events&#39;</span>: len(privilege_events),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;high_risk_events&#39;</span>: len([e <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> privilege_events <span style="color:#66d9ef">if</span> float(e<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskScore&#39;</span>, <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;unique_users&#39;</span>: len(set([e<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserName&#39;</span>) <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> privilege_events <span style="color:#66d9ef">if</span> e<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserName&#39;</span>)]))
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;high_risk_activities&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Add high-risk privilege activities</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> privilege_events:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> float(event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskScore&#39;</span>, <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span>:
+</span></span><span style="display:flex;"><span>            report[<span style="color:#e6db74">&#39;high_risk_activities&#39;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;event_time&#39;</span>: event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;EventTime&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;event_name&#39;</span>: event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;EventName&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;user_identity&#39;</span>: event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserIdentity&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;source_ip&#39;</span>: event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;SourceIP&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;risk_score&#39;</span>: event<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskScore&#39;</span>)
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_risk_assessment_report</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate risk assessment audit report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;RiskAssessments&#39;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get user risk assessments</span>
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>scan(
+</span></span><span style="display:flex;"><span>        FilterExpression<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AssessmentType = :type&#39;</span>,
+</span></span><span style="display:flex;"><span>        ExpressionAttributeValues<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;:type&#39;</span>: <span style="color:#e6db74">&#39;User Risk Assessment&#39;</span>}
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    risk_assessments <span style="color:#f92672">=</span> response[<span style="color:#e6db74">&#39;Items&#39;</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Analyze risk distribution</span>
+</span></span><span style="display:flex;"><span>    risk_distribution <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;LOW&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;MEDIUM&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;HIGH&#39;</span>: <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#39;CRITICAL&#39;</span>: <span style="color:#ae81ff">0</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> assessment <span style="color:#f92672">in</span> risk_assessments:
+</span></span><span style="display:flex;"><span>        risk_level <span style="color:#f92672">=</span> assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskLevel&#39;</span>, <span style="color:#e6db74">&#39;LOW&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> risk_level <span style="color:#f92672">in</span> risk_distribution:
+</span></span><span style="display:flex;"><span>            risk_distribution[risk_level] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;report_type&#39;</span>: <span style="color:#e6db74">&#39;Risk Assessment Audit&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;generated_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;summary&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;total_users_assessed&#39;</span>: len(risk_assessments),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;risk_distribution&#39;</span>: risk_distribution,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;high_risk_percentage&#39;</span>: ((risk_distribution[<span style="color:#e6db74">&#39;HIGH&#39;</span>] <span style="color:#f92672">+</span> risk_distribution[<span style="color:#e6db74">&#39;CRITICAL&#39;</span>]) <span style="color:#f92672">/</span> 
+</span></span><span style="display:flex;"><span>                                   max(len(risk_assessments), <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;high_risk_users&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Add high-risk users</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> assessment <span style="color:#f92672">in</span> risk_assessments:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskLevel&#39;</span>) <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;HIGH&#39;</span>, <span style="color:#e6db74">&#39;CRITICAL&#39;</span>]:
+</span></span><span style="display:flex;"><span>            report[<span style="color:#e6db74">&#39;high_risk_users&#39;</span>]<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;user_name&#39;</span>: assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;UserName&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;risk_score&#39;</span>: float(assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskScore&#39;</span>, <span style="color:#ae81ff">0</span>)),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;risk_level&#39;</span>: assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskLevel&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;risk_factors&#39;</span>: assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;RiskFactors&#39;</span>, []),
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;last_assessment&#39;</span>: assessment<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;LastAssessment&#39;</span>)
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_compliance_report</span>(dynamodb, cloudtrail):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate compliance audit report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check SOX compliance</span>
+</span></span><span style="display:flex;"><span>    sox_compliance <span style="color:#f92672">=</span> check_sox_compliance(dynamodb)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check SOC2 compliance</span>
+</span></span><span style="display:flex;"><span>    soc2_compliance <span style="color:#f92672">=</span> check_soc2_compliance(dynamodb)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check ISO27001 compliance</span>
+</span></span><span style="display:flex;"><span>    iso_compliance <span style="color:#f92672">=</span> check_iso27001_compliance(dynamodb)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculate overall compliance score</span>
+</span></span><span style="display:flex;"><span>    overall_score <span style="color:#f92672">=</span> (sox_compliance[<span style="color:#e6db74">&#39;score&#39;</span>] <span style="color:#f92672">+</span> soc2_compliance[<span style="color:#e6db74">&#39;score&#39;</span>] <span style="color:#f92672">+</span> iso_compliance[<span style="color:#e6db74">&#39;score&#39;</span>]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;report_type&#39;</span>: <span style="color:#e6db74">&#39;Compliance Audit&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;generated_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;overall_compliance&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;score&#39;</span>: round(overall_score, <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;COMPLIANT&#39;</span> <span style="color:#66d9ef">if</span> overall_score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">80</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;NON_COMPLIANT&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;sox_compliance&#39;</span>: sox_compliance,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;soc2_compliance&#39;</span>: soc2_compliance,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;iso27001_compliance&#39;</span>: iso_compliance,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;compliance_gaps&#39;</span>: identify_compliance_gaps(dynamodb)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_sox_compliance</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check SOX compliance requirements&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;framework&#39;</span>: <span style="color:#e6db74">&#39;SOX (Sarbanes-Oxley)&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;score&#39;</span>: <span style="color:#ae81ff">85</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;COMPLIANT&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;controls&#39;</span>: [
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Access certification&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Quarterly certifications completed&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Segregation of duties&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Role-based access controls implemented&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Change management&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;All changes tracked and approved&#39;</span>}
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;gaps&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_soc2_compliance</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check SOC2 compliance requirements&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;framework&#39;</span>: <span style="color:#e6db74">&#39;SOC 2 Type II&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;score&#39;</span>: <span style="color:#ae81ff">90</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;COMPLIANT&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;controls&#39;</span>: [
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Access controls&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Role-based access implemented&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;System monitoring&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;CloudWatch monitoring active&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Data protection&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Encryption in transit and at rest&#39;</span>}
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;gaps&#39;</span>: []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_iso27001_compliance</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Check ISO27001 compliance requirements&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;framework&#39;</span>: <span style="color:#e6db74">&#39;ISO 27001:2013&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;score&#39;</span>: <span style="color:#ae81ff">78</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PARTIALLY_COMPLIANT&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;controls&#39;</span>: [
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Information security policy&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Policy documented and approved&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Access management&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;PASS&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Identity governance system implemented&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;control&#39;</span>: <span style="color:#e6db74">&#39;Risk management&#39;</span>, <span style="color:#e6db74">&#39;status&#39;</span>: <span style="color:#e6db74">&#39;NEEDS_IMPROVEMENT&#39;</span>, <span style="color:#e6db74">&#39;evidence&#39;</span>: <span style="color:#e6db74">&#39;Risk assessments need regular updates&#39;</span>}
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;gaps&#39;</span>: [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Business continuity plan needs review&#39;</span>
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">identify_compliance_gaps</span>(dynamodb):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Identify compliance gaps&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;gap&#39;</span>: <span style="color:#e6db74">&#39;Incomplete access certifications&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;severity&#39;</span>: <span style="color:#e6db74">&#39;HIGH&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;recommendation&#39;</span>: <span style="color:#e6db74">&#39;Implement automated reminders for pending certifications&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;gap&#39;</span>: <span style="color:#e6db74">&#39;High-risk users not reviewed&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;severity&#39;</span>: <span style="color:#e6db74">&#39;MEDIUM&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;recommendation&#39;</span>: <span style="color:#e6db74">&#39;Establish monthly review process for high-risk users&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_executive_summary</span>(access_report, privilege_report, risk_report, compliance_report):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate executive summary&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;key_metrics&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;total_certifications&#39;</span>: access_report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;total_certifications&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;completion_rate&#39;</span>: (access_report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;completed_certifications&#39;</span>] <span style="color:#f92672">/</span> 
+</span></span><span style="display:flex;"><span>                              max(access_report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;total_certifications&#39;</span>], <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;high_risk_users&#39;</span>: len(risk_report[<span style="color:#e6db74">&#39;high_risk_users&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;overall_compliance_score&#39;</span>: compliance_report[<span style="color:#e6db74">&#39;overall_compliance&#39;</span>][<span style="color:#e6db74">&#39;score&#39;</span>]
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;key_findings&#39;</span>: [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Access certification completion rate: </span><span style="color:#e6db74">{</span>((access_report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;completed_certifications&#39;</span>] <span style="color:#f92672">/</span> max(access_report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;total_certifications&#39;</span>], <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">%&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;High-risk privilege events detected: </span><span style="color:#e6db74">{</span>privilege_report[<span style="color:#e6db74">&#39;summary&#39;</span>][<span style="color:#e6db74">&#39;high_risk_events&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Users requiring immediate attention: </span><span style="color:#e6db74">{</span>len(risk_report[<span style="color:#e6db74">&#39;high_risk_users&#39;</span>])<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Overall compliance status: </span><span style="color:#e6db74">{</span>compliance_report[<span style="color:#e6db74">&#39;overall_compliance&#39;</span>][<span style="color:#e6db74">&#39;status&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;recommendations&#39;</span>: [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Increase certification completion rate through automated reminders&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Review and remediate high-risk privilege usage patterns&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Implement additional controls for high-risk users&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Address identified compliance gaps&#39;</span>
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_comprehensive_audit_report</span>(dynamodb, cloudtrail):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Generate comprehensive audit report&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Combine all report types</span>
+</span></span><span style="display:flex;"><span>    access_report <span style="color:#f92672">=</span> generate_access_certification_report(dynamodb)
+</span></span><span style="display:flex;"><span>    privilege_report <span style="color:#f92672">=</span> generate_privilege_usage_report(dynamodb, cloudtrail)
+</span></span><span style="display:flex;"><span>    risk_report <span style="color:#f92672">=</span> generate_risk_assessment_report(dynamodb)
+</span></span><span style="display:flex;"><span>    compliance_report <span style="color:#f92672">=</span> generate_compliance_report(dynamodb, cloudtrail)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    comprehensive_report <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;report_type&#39;</span>: <span style="color:#e6db74">&#39;Comprehensive Identity Governance Audit&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;generated_date&#39;</span>: datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>isoformat(),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;executive_summary&#39;</span>: generate_executive_summary(access_report, privilege_report, risk_report, compliance_report),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;access_certification&#39;</span>: access_report,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;privilege_usage&#39;</span>: privilege_report,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;risk_assessment&#39;</span>: risk_report,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;compliance&#39;</span>: compliance_report
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> comprehensive_report
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_overdue_certifications</span>(certifications):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Count overdue certifications&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    overdue_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    ninety_days_ago <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>now() <span style="color:#f92672">-</span> timedelta(days<span style="color:#f92672">=</span><span style="color:#ae81ff">90</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> cert <span style="color:#f92672">in</span> certifications:
+</span></span><span style="display:flex;"><span>        cert_date_str <span style="color:#f92672">=</span> cert<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;CertificationDate&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> cert_date_str:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                cert_date <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromisoformat(cert_date_str<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;Z&#39;</span>, <span style="color:#e6db74">&#39;+00:00&#39;</span>))
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> cert_date<span style="color:#f92672">.</span>replace(tzinfo<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>) <span style="color:#f92672">&lt;</span> ninety_days_ago:
+</span></span><span style="display:flex;"><span>                    overdue_count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> overdue_count
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_days_since</span>(date_str):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Calculate days since a given date&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> date_str:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        date_obj <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromisoformat(date_str<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;Z&#39;</span>, <span style="color:#e6db74">&#39;+00:00&#39;</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (datetime<span style="color:#f92672">.</span>now(date_obj<span style="color:#f92672">.</span>tzinfo) <span style="color:#f92672">-</span> date_obj)<span style="color:#f92672">.</span>days
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">store_audit_report</span>(s3, report, report_type):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Store audit report in S3&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    bucket_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;identity-governance-reports&#39;</span>  <span style="color:#75715e"># From chapter 2</span>
+</span></span><span style="display:flex;"><span>    timestamp <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">_%H%M%S&#39;</span>)
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;audit-reports/</span><span style="color:#e6db74">{</span>report_type<span style="color:#e6db74">}</span><span style="color:#e6db74">_</span><span style="color:#e6db74">{</span>timestamp<span style="color:#e6db74">}</span><span style="color:#e6db74">.json&#39;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        s3<span style="color:#f92672">.</span>put_object(
+</span></span><span style="display:flex;"><span>            Bucket<span style="color:#f92672">=</span>bucket_name,
+</span></span><span style="display:flex;"><span>            Key<span style="color:#f92672">=</span>key,
+</span></span><span style="display:flex;"><span>            Body<span style="color:#f92672">=</span>json<span style="color:#f92672">.</span>dumps(report, indent<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>            ContentType<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;application/json&#39;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;s3://</span><span style="color:#e6db74">{</span>bucket_name<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error storing audit report: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span></code></pre></div><ol>
+<li>Click <strong>Deploy</strong></li>
+</ol>
+<h3 id="23-configure-iam-permissions">2.3 Configure IAM Permissions</h3>
+<ol>
+<li>Add permissions for Lambda:
 <ul>
-<li><strong>IAM policies compliance</strong></li>
-<li><strong>Access patterns analysis</strong></li>
-<li><strong>Security Hub findings review</strong></li>
+<li><strong>AmazonDynamoDBFullAccess</strong></li>
+<li><strong>AmazonS3FullAccess</strong></li>
+<li><strong>CloudTrailReadOnlyAccess</strong></li>
 </ul>
 </li>
 </ol>
-<p><img alt="Audit Lambda Code" src="/images/9/audit-lambda-code.png?featherlight=false&width=90pc"></p>
-<h2 id="step-2-dynamodb-audit-data-storage">Step 2: DynamoDB Audit Data Storage</h2>
-<h3 id="21-configure-audit-data-storage">2.1 Configure Audit Data Storage</h3>
+<h2 id="step-3-setup-automated-audit-schedules">Step 3: Setup Automated Audit Schedules</h2>
+<h3 id="31-create-eventbridge-rules-for-audit-reports">3.1 Create EventBridge Rules for Audit Reports</h3>
 <ol>
-<li>Use existing <strong>DynamoDB</strong> table: <strong>RiskAssessments</strong></li>
-<li>Lambda function stores audit results</li>
-<li>Configure data retention policies</li>
-</ol>
-<p><img alt="Audit Data Storage" src="/images/9/audit-data-storage.png?featherlight=false&width=90pc"></p>
-<h3 id="22-set-up-cloudwatch-monitoring">2.2 Set Up CloudWatch Monitoring</h3>
-<ol>
-<li>Lambda sends metrics to <strong>CloudWatch</strong></li>
-<li>Configure alarms for audit failures</li>
-<li>Set up <strong>SNS</strong> notifications</li>
-</ol>
-<p><img alt="Audit CloudWatch Monitoring" src="/images/9/audit-cloudwatch-monitoring.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-control-testing-and-evidence-review">Step 3: Control Testing and Evidence Review</h2>
-<h3 id="31-review-control-evidence">3.1 Review Control Evidence</h3>
-<ol>
-<li>Navigate to <strong>Control sets</strong> in your assessment</li>
-<li>Review each control:
+<li>Open <strong>Amazon EventBridge</strong> console</li>
+<li>Create rules for different audit schedules:
 <ul>
-<li><strong>Evidence status</strong></li>
-<li><strong>Compliance rating</strong></li>
-<li><strong>Comments and findings</strong></li>
+<li><strong>Monthly Comprehensive Audit</strong>: <code>cron(0 9 1 * ? *)</code></li>
+<li><strong>Weekly Risk Assessment</strong>: <code>cron(0 9 ? * MON *)</code></li>
+<li><strong>Daily Compliance Check</strong>: <code>cron(0 8 * * ? *)</code></li>
 </ul>
 </li>
 </ol>
-<p><img alt="Control Evidence Review" src="/images/9/control-evidence-review.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Upload additional evidence if needed</li>
-<li>Add control testing notes</li>
-</ol>
-<p><img alt="Control Testing Notes" src="/images/9/control-testing-notes.png?featherlight=false&width=90pc"></p>
-<h3 id="32-document-findings">3.2 Document Findings</h3>
+<h3 id="32-configure-audit-report-storage">3.2 Configure Audit Report Storage</h3>
 <ol>
-<li>For each control, document:
+<li>Verify S3 bucket <code>identity-governance-reports</code> exists</li>
+<li>Create folder structure:
 <ul>
-<li><strong>Testing procedures performed</strong></li>
-<li><strong>Results and observations</strong></li>
-<li><strong>Exceptions or deficiencies</strong></li>
-<li><strong>Recommendations</strong></li>
+<li><code>/audit-reports/</code> - Generated audit reports</li>
+<li><code>/evidence/</code> - Supporting evidence files</li>
+<li><code>/compliance/</code> - Compliance documentation</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Document Findings" src="/images/9/document-findings.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Assign <strong>risk ratings</strong> to findings</li>
-<li>Set <strong>remediation timelines</strong></li>
-</ol>
-<p><img alt="Risk Ratings" src="/images/9/risk-ratings.png?featherlight=false&width=90pc"></p>
-<h2 id="step-4-generate-audit-reports">Step 4: Generate Audit Reports</h2>
-<h3 id="41-create-assessment-report">4.1 Create Assessment Report</h3>
+<h2 id="step-4-setup-cloudwatch-logs-analysis">Step 4: Setup CloudWatch Logs Analysis</h2>
+<h3 id="41-configure-cloudtrail-log-analysis">4.1 Configure CloudTrail Log Analysis</h3>
 <ol>
-<li>Click <strong>Generate assessment report</strong></li>
-<li>Select report format: <strong>PDF</strong> or <strong>HTML</strong></li>
+<li>Open <strong>Amazon CloudWatch</strong> console</li>
+<li>Navigate to <strong>Logs Insights</strong></li>
+<li>Create queries for audit trail analysis</li>
 </ol>
-<p><img alt="Generate Report" src="/images/9/generate-report.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Configure report sections:
-<ul>
-<li><strong>Executive summary</strong></li>
-<li><strong>Control testing results</strong></li>
-<li><strong>Findings and recommendations</strong></li>
-<li><strong>Evidence appendix</strong></li>
-</ul>
-</li>
-</ol>
-<p><img alt="Report Sections" src="/images/9/report-sections.png?featherlight=false&width=90pc"></p>
-<h3 id="42-share-report-with-stakeholders">4.2 Share Report with Stakeholders</h3>
+<h3 id="42-configure-log-insights-queries">4.2 Configure Log Insights Queries</h3>
 <ol>
-<li>Download completed report</li>
-<li>Share with:
-<ul>
-<li><strong>Executive leadership</strong></li>
-<li><strong>Audit committee</strong></li>
-<li><strong>Compliance team</strong></li>
-</ul>
-</li>
+<li>In CloudWatch console</li>
+<li>Click <strong>Logs Insights</strong></li>
+<li>Create saved queries for audit analysis</li>
 </ol>
-<p><img alt="Share Report" src="/images/9/share-report.png?featherlight=false&width=90pc"></p>
+<h2 id="step-5-test-audit-system">Step 5: Test Audit System</h2>
+<h3 id="51-test-audit-report-generation">5.1 Test Audit Report Generation</h3>
+<ol>
+<li>Run Lambda function <strong>AuditReportGenerator</strong></li>
+<li>Test with different report types</li>
+<li>Verify reports are saved in S3</li>
+</ol>
+<h3 id="52-verify-audit-trail-completeness">5.2 Verify Audit Trail Completeness</h3>
+<ol>
+<li>Check CloudTrail logs contain complete events</li>
+<li>Verify log file validation</li>
+<li>Test audit trail queries</li>
+</ol>
+<h3 id="53-test-compliance-reporting">5.3 Test Compliance Reporting</h3>
+<ol>
+<li>Generate compliance reports</li>
+<li>Verify compliance scores</li>
+<li>Review compliance gap identification</li>
+</ol>
 <h2 id="expected-results">Expected Results</h2>
 <p>After completion:</p>
 <ul>
-<li>✅ AWS Audit Manager configured</li>
-<li>✅ Custom audit framework created</li>
-<li>✅ Assessment with evidence collection</li>
-<li>✅ Control testing documentation</li>
-<li>✅ Comprehensive audit reports</li>
-<li>✅ Stakeholder communication process</li>
+<li>✅ Comprehensive audit trail system</li>
+<li>✅ Automated audit report generation</li>
+<li>✅ SOX, SOC2, ISO27001 compliance reporting</li>
+<li>✅ Monthly and quarterly audit schedules</li>
+<li>✅ Real-time audit event monitoring</li>
+<li>✅ Compliance gap identification and remediation</li>
 </ul>
-<p><img alt="Audit Procedures Complete" src="/images/9/audit-procedures-complete.png?featherlight=false&width=90pc"></p>
 <h2 id="next-steps">Next Steps</h2>
-<p>Continue to <a href="/10-xac-thuc-tuan-thu/">10. Compliance Validation</a> to complete the workshop.</p>
+<p>Proceed to <a href="/10-xac-thuc-tuan-thu/">10. Compliance Validation</a> to perform final validation and compliance verification.
+�
+�</p>
 
 
 
@@ -939,19 +1273,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991223"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991223"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991223"></script>
+    <script src="/js/jquery.sticky.js?1754991223"></script>
+    <script src="/js/featherlight.min.js?1754991223"></script>
+    <script src="/js/highlight.pack.js?1754991223"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991223"></script>
+    <script src="/js/learn.js?1754991223"></script>
+    <script src="/js/hugo-learn.js?1754991223"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991223" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991223"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

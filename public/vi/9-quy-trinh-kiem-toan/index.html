@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>9. Quy trình Kiểm toán :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/\/vi";
+        var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/9-quy-trinh-kiem-toan/">English</option>
+                      <option id="en" value="//localhost:1313/9-quy-trinh-kiem-toan/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/9-quy-trinh-kiem-toan/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/9-quy-trinh-kiem-toan/" selected>Tiếng Việt</option>
                     
                   
               
@@ -581,17 +581,23 @@
 <li>Xác minh trail <strong>IdentityGovernanceTrail</strong> đang ghi đầy đủ audit events</li>
 <li>Kiểm tra log file validation được bật</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/cloudtrail1.png?featherlight=false&width=90pc"></p>
 <h3 id="12-cấu-hình-cloudtrail-insights">1.2 Cấu hình CloudTrail Insights</h3>
 <ol>
-<li>Trong CloudTrail console</li>
-<li>Chọn trail <strong>IdentityGovernanceTrail</strong></li>
-<li>Click <strong>Edit</strong></li>
-<li>Bật <strong>CloudTrail Insights</strong> cho unusual activity patterns</li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/cloudtrail2.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Click <strong>Save changes</strong></li>
+<li>
+<p>Trong CloudTrail console</p>
+</li>
+<li>
+<p>Chọn trail <strong>IdentityGovernanceTrail</strong></p>
+</li>
+<li>
+<p>Click <strong>Edit</strong></p>
+</li>
+<li>
+<p>Bật <strong>CloudTrail Insights</strong> cho unusual activity patterns</p>
+</li>
+<li>
+<p>Click <strong>Save changes</strong></p>
+</li>
 </ol>
 <h2 id="bước-2-tạo-audit-report-generator">Bước 2: Tạo Audit Report Generator</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
@@ -605,7 +611,6 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/lambda1.png?featherlight=false&width=90pc"></p>
 <h3 id="22-cấu-hình-code-cho-audit-reports">2.2 Cấu hình Code cho Audit Reports</h3>
 <ol>
 <li>Thay thế code mặc định:</li>
@@ -977,8 +982,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
 </span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error storing report in S3: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
-</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/lambda2.png?featherlight=false&width=90pc"></p>
-<ol start="2">
+</span></span></code></pre></div><ol start="2">
 <li>Click <strong>Deploy</strong></li>
 </ol>
 <h3 id="23-cấu-hình-iam-permissions">2.3 Cấu hình IAM Permissions</h3>
@@ -991,7 +995,6 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/lambda3.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-3-thiết-lập-automated-audit-schedules">Bước 3: Thiết lập Automated Audit Schedules</h2>
 <h3 id="31-tạo-monthly-audit-schedule">3.1 Tạo Monthly Audit Schedule</h3>
 <ol>
@@ -999,13 +1002,11 @@
 <li>Tạo schedule chạy audit reports hàng tháng</li>
 <li>Cấu hình để tạo comprehensive audit report</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/schedule1.png?featherlight=false&width=90pc"></p>
 <h3 id="32-tạo-quarterly-compliance-schedule">3.2 Tạo Quarterly Compliance Schedule</h3>
 <ol>
 <li>Tạo schedule chạy compliance reports hàng quý</li>
 <li>Cấu hình notification cho management</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/schedule2.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-thiết-lập-audit-trail-monitoring">Bước 4: Thiết lập Audit Trail Monitoring</h2>
 <h3 id="41-tạo-cloudwatch-alarms-cho-audit-events">4.1 Tạo CloudWatch Alarms cho Audit Events</h3>
 <ol>
@@ -1018,14 +1019,12 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/alarm1.png?featherlight=false&width=90pc"></p>
 <h3 id="42-cấu-hình-log-insights-queries">4.2 Cấu hình Log Insights Queries</h3>
 <ol>
 <li>Trong CloudWatch console</li>
 <li>Click <strong>Logs Insights</strong></li>
 <li>Tạo saved queries cho audit analysis</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/insights1.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-5-kiểm-tra-audit-system">Bước 5: Kiểm tra Audit System</h2>
 <h3 id="51-test-audit-report-generation">5.1 Test Audit Report Generation</h3>
 <ol>
@@ -1033,21 +1032,18 @@
 <li>Test với các report types khác nhau</li>
 <li>Xác minh reports được lưu trong S3</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/test1.png?featherlight=false&width=90pc"></p>
 <h3 id="52-xác-minh-audit-trail-completeness">5.2 Xác minh Audit Trail Completeness</h3>
 <ol>
 <li>Kiểm tra CloudTrail logs có đầy đủ events</li>
 <li>Xác minh log file validation</li>
 <li>Test audit trail queries</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/test2.png?featherlight=false&width=90pc"></p>
 <h3 id="53-test-compliance-reporting">5.3 Test Compliance Reporting</h3>
 <ol>
 <li>Generate compliance reports</li>
 <li>Xác minh compliance scores</li>
 <li>Review compliance gaps identification</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/9/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
@@ -1058,7 +1054,6 @@
 <li>✅ Real-time audit event monitoring</li>
 <li>✅ Compliance gap identification and remediation</li>
 </ul>
-<p><img alt="Hoàn thành Audit System" src="https://trtrantnt.github.io/workshop/images/9/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/10-xac-thuc-tuan-thu/">10. Xác thực Tuân thủ</a> để thực hiện validation cuối cùng và compliance verification.</p>
 
@@ -1301,19 +1296,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991224"></script>
+    <script src="/js/jquery.sticky.js?1754991224"></script>
+    <script src="/js/featherlight.min.js?1754991224"></script>
+    <script src="/js/highlight.pack.js?1754991224"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991224"></script>
+    <script src="/js/learn.js?1754991224"></script>
+    <script src="/js/hugo-learn.js?1754991224"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991224" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991224"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>10. Xác thực Tuân thủ :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/\/vi";
+        var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/10-xac-thuc-tuan-thu/">English</option>
+                      <option id="en" value="//localhost:1313/10-xac-thuc-tuan-thu/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/10-xac-thuc-tuan-thu/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/10-xac-thuc-tuan-thu/" selected>Tiếng Việt</option>
                     
                   
               
@@ -595,19 +595,17 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/lambda-check.png?featherlight=false&width=90pc"></p>
 <h3 id="12-xác-minh-data-flow">1.2 Xác minh Data Flow</h3>
 <ol>
-<li>Kiểm tra <strong>DynamoDB</strong> tables có dữ liệu:
+<li>
+<p>Kiểm tra <strong>DynamoDB</strong> tables có dữ liệu:</p>
 <ul>
 <li>AccessCertifications</li>
 <li>RiskAssessments</li>
 </ul>
 </li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/dynamodb-check.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Xác minh <strong>S3</strong> buckets có audit reports:
+<li>
+<p>Xác minh <strong>S3</strong> buckets có audit reports:</p>
 <ul>
 <li>identity-governance-analytics</li>
 <li>identity-governance-reports</li>
@@ -615,7 +613,6 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/s3-check.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-2-end-to-end-testing">Bước 2: End-to-End Testing</h2>
 <h3 id="21-tạo-lambda-function-cho-e2e-testing">2.1 Tạo Lambda Function cho E2E Testing</h3>
 <ol>
@@ -628,7 +625,6 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/e2e-lambda1.png?featherlight=false&width=90pc"></p>
 <h3 id="22-cấu-hình-e2e-test-code">2.2 Cấu hình E2E Test Code</h3>
 <ol>
 <li>Thay thế code mặc định:</li>
@@ -688,7 +684,7 @@
 </span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error in E2E validation: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
 </span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">500</span>,
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"> </span>           <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_data_integrity</span>(dynamodb):
@@ -882,8 +878,7 @@
 </span></span><span style="display:flex;"><span>        test_result[<span style="color:#e6db74">&#39;errors&#39;</span>]<span style="color:#f92672">.</span>append(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Compliance validation test failed: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> test_result
-</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/e2e-lambda2.png?featherlight=false&width=90pc"></p>
-<ol start="2">
+</span></span></code></pre></div><ol start="2">
 <li>Click <strong>Deploy</strong></li>
 </ol>
 <h3 id="23-chạy-e2e-validation-test">2.3 Chạy E2E Validation Test</h3>
@@ -892,7 +887,6 @@
 <li>Xem kết quả validation</li>
 <li>Xác minh tất cả tests PASS</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/e2e-test-result.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-3-compliance-verification">Bước 3: Compliance Verification</h2>
 <h3 id="31-generate-final-compliance-report">3.1 Generate Final Compliance Report</h3>
 <ol>
@@ -900,14 +894,12 @@
 <li>Xem compliance report trong S3</li>
 <li>Xác minh compliance scores</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/compliance-report.png?featherlight=false&width=90pc"></p>
 <h3 id="32-verify-security-controls">3.2 Verify Security Controls</h3>
 <ol>
 <li>Kiểm tra <strong>AWS Security Hub</strong> findings</li>
 <li>Xác minh không có critical findings</li>
 <li>Review security standards compliance</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/security-hub-final.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-performance-validation">Bước 4: Performance Validation</h2>
 <h3 id="41-kiểm-tra-system-performance">4.1 Kiểm tra System Performance</h3>
 <ol>
@@ -920,14 +912,12 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/performance-metrics.png?featherlight=false&width=90pc"></p>
 <h3 id="42-validate-scalability">4.2 Validate Scalability</h3>
 <ol>
 <li>Kiểm tra auto-scaling configurations</li>
 <li>Xem resource utilization</li>
 <li>Validate cost optimization</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/scalability-check.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-5-final-system-health-check">Bước 5: Final System Health Check</h2>
 <h3 id="51-comprehensive-health-dashboard">5.1 Comprehensive Health Dashboard</h3>
 <ol>
@@ -935,14 +925,12 @@
 <li>Bao gồm tất cả key metrics</li>
 <li>Xác minh system status = HEALTHY</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/health-dashboard.png?featherlight=false&width=90pc"></p>
 <h3 id="52-generate-system-documentation">5.2 Generate System Documentation</h3>
 <ol>
 <li>Tạo Lambda function để generate system documentation</li>
 <li>Export configuration details</li>
 <li>Create operational runbooks</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/documentation.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-6-production-readiness-checklist">Bước 6: Production Readiness Checklist</h2>
 <h3 id="61-security-checklist">6.1 Security Checklist</h3>
 <ul>
@@ -971,7 +959,6 @@
 <li>✅ Access certification processes automated</li>
 <li>✅ Risk assessment procedures operational</li>
 </ul>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/10/checklist-complete.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-cuối-cùng">Kết quả Cuối cùng</h2>
 <p>Sau khi hoàn thành toàn bộ workshop:</p>
 <ul>
@@ -984,7 +971,6 @@
 <li>✅ <strong>Audit Trail System</strong> - Hệ thống audit trail</li>
 <li>✅ <strong>Production-Ready Architecture</strong> - Kiến trúc sẵn sàng production</li>
 </ul>
-<p><img alt="Workshop Complete" src="https://trtrantnt.github.io/workshop/images/10/workshop-complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/11-clean-resources/">11. Clean Resources</a> để dọn dẹp tài nguyên AWS sau khi hoàn thành workshop.</p>
 
@@ -1227,19 +1213,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991224"></script>
+    <script src="/js/jquery.sticky.js?1754991224"></script>
+    <script src="/js/featherlight.min.js?1754991224"></script>
+    <script src="/js/highlight.pack.js?1754991224"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991224"></script>
+    <script src="/js/learn.js?1754991224"></script>
+    <script src="/js/hugo-learn.js?1754991224"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991224" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991224"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

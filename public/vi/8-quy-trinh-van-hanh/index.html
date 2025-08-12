@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>8. Quy trình Vận hành :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/\/vi";
+        var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/8-quy-trinh-van-hanh/">English</option>
+                      <option id="en" value="//localhost:1313/8-quy-trinh-van-hanh/">English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/8-quy-trinh-van-hanh/" selected>Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/8-quy-trinh-van-hanh/" selected>Tiếng Việt</option>
                     
                   
               
@@ -579,9 +579,6 @@
 <li>Mở <strong>Amazon CloudWatch</strong> console</li>
 <li>Click <strong>Dashboards</strong></li>
 <li>Click <strong>Create dashboard</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/dashboard1.png?featherlight=false&width=90pc"></p>
-<ol start="4">
 <li>Nhập dashboard name: <code>IdentityGovernanceOperations</code></li>
 <li>Thêm các widgets cho:
 <ul>
@@ -592,7 +589,6 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/dashboard2.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-2-tạo-daily-operations-lambda">Bước 2: Tạo Daily Operations Lambda</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
@@ -605,7 +601,7 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/lambda1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/ld1.png?featherlight=false&width=90pc"></p>
 <h3 id="22-cấu-hình-code-cho-daily-operations">2.2 Cấu hình Code cho Daily Operations</h3>
 <ol>
 <li>Thay thế code mặc định:</li>
@@ -914,8 +910,7 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;ComplianceStatus&#39;</span>: operations_report[<span style="color:#e6db74">&#39;compliance_status&#39;</span>][<span style="color:#e6db74">&#39;status&#39;</span>]
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    )
-</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/lambda2.png?featherlight=false&width=90pc"></p>
-<ol start="2">
+</span></span></code></pre></div><ol start="2">
 <li>Click <strong>Deploy</strong></li>
 </ol>
 <h3 id="23-cấu-hình-iam-permissions">2.3 Cấu hình IAM Permissions</h3>
@@ -928,20 +923,17 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/lambda3.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-3-thiết-lập-automated-workflows">Bước 3: Thiết lập Automated Workflows</h2>
 <h3 id="31-tạo-eventbridge-schedule-cho-daily-operations">3.1 Tạo EventBridge Schedule cho Daily Operations</h3>
 <ol>
 <li>Tạo schedule chạy DailyOperationsEngine mỗi ngày lúc 8:00 AM</li>
 <li>Cấu hình tương tự các chương trước</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/schedule1.png?featherlight=false&width=90pc"></p>
 <h3 id="32-tạo-weekly-summary-schedule">3.2 Tạo Weekly Summary Schedule</h3>
 <ol>
 <li>Tạo thêm schedule chạy weekly summary mỗi thứ 2</li>
 <li>Cấu hình để tạo báo cáo tuần</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/schedule2.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-tạo-operational-runbooks">Bước 4: Tạo Operational Runbooks</h2>
 <h3 id="41-tạo-s3-bucket-cho-documentation">4.1 Tạo S3 Bucket cho Documentation</h3>
 <ol>
@@ -949,14 +941,12 @@
 <li>Tạo bucket: <code>identity-governance-runbooks</code></li>
 <li>Upload operational procedures</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/s3-1.png?featherlight=false&width=90pc"></p>
 <h3 id="42-tạo-systems-manager-documents">4.2 Tạo Systems Manager Documents</h3>
 <ol>
 <li>Mở <strong>AWS Systems Manager</strong> console</li>
 <li>Click <strong>Documents</strong></li>
 <li>Tạo automation documents cho common tasks</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/ssm1.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-5-kiểm-tra-operational-workflows">Bước 5: Kiểm tra Operational Workflows</h2>
 <h3 id="51-test-daily-operations">5.1 Test Daily Operations</h3>
 <ol>
@@ -964,21 +954,18 @@
 <li>Xác minh daily report được tạo</li>
 <li>Kiểm tra SNS notifications</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/test1.png?featherlight=false&width=90pc"></p>
 <h3 id="52-xác-minh-operations-dashboard">5.2 Xác minh Operations Dashboard</h3>
 <ol>
 <li>Kiểm tra <strong>IdentityGovernanceOperations</strong> dashboard</li>
 <li>Xác minh tất cả metrics hiển thị đúng</li>
 <li>Test real-time updates</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/test2.png?featherlight=false&width=90pc"></p>
 <h3 id="53-test-automation-workflows">5.3 Test Automation Workflows</h3>
 <ol>
 <li>Xác minh scheduled executions</li>
 <li>Kiểm tra error handling</li>
 <li>Test notification delivery</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/8/test3.png?featherlight=false&width=90pc"></p>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
@@ -989,7 +976,6 @@
 <li>✅ Health monitoring and alerting</li>
 <li>✅ Compliance tracking and reporting</li>
 </ul>
-<p><img alt="Hoàn thành Operations Setup" src="https://trtrantnt.github.io/workshop/images/8/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/9-quy-trinh-kiem-toan/">9. Quy trình Kiểm toán</a> để thiết lập các quy trình kiểm toán và compliance.</p>
 
@@ -1232,19 +1218,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991224"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991224"></script>
+    <script src="/js/jquery.sticky.js?1754991224"></script>
+    <script src="/js/featherlight.min.js?1754991224"></script>
+    <script src="/js/highlight.pack.js?1754991224"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991224"></script>
+    <script src="/js/learn.js?1754991224"></script>
+    <script src="/js/hugo-learn.js?1754991224"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991224" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991224"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -16,7 +16,6 @@ Thiết lập quy trình kiểm toán toàn diện để đảm bảo tuân th�
 2. Xác minh trail **IdentityGovernanceTrail** đang ghi đầy đủ audit events
 3. Kiểm tra log file validation được bật
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/cloudtrail1.png?featherlight=false&width=90pc)
 
 ### 1.2 Cấu hình CloudTrail Insights
 
@@ -25,7 +24,6 @@ Thiết lập quy trình kiểm toán toàn diện để đảm bảo tuân th�
 3. Click **Edit**
 4. Bật **CloudTrail Insights** cho unusual activity patterns
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/cloudtrail2.png?featherlight=false&width=90pc)
 
 5. Click **Save changes**
 
@@ -39,7 +37,6 @@ Thiết lập quy trình kiểm toán toàn diện để đảm bảo tuân th�
    - **Function name**: `AuditReportGenerator`
    - **Runtime**: Python 3.9
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/lambda1.png?featherlight=false&width=90pc)
 
 ### 2.2 Cấu hình Code cho Audit Reports
 
@@ -415,7 +412,6 @@ def store_audit_report(s3, report, report_type):
         return None
 ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/lambda2.png?featherlight=false&width=90pc)
 
 2. Click **Deploy**
 
@@ -426,7 +422,6 @@ def store_audit_report(s3, report, report_type):
    - **AmazonS3FullAccess**
    - **CloudTrailReadOnlyAccess**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/lambda3.png?featherlight=false&width=90pc)
 
 ## Bước 3: Thiết lập Automated Audit Schedules
 
@@ -436,14 +431,12 @@ def store_audit_report(s3, report, report_type):
 2. Tạo schedule chạy audit reports hàng tháng
 3. Cấu hình để tạo comprehensive audit report
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/schedule1.png?featherlight=false&width=90pc)
 
 ### 3.2 Tạo Quarterly Compliance Schedule
 
 1. Tạo schedule chạy compliance reports hàng quý
 2. Cấu hình notification cho management
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/schedule2.png?featherlight=false&width=90pc)
 
 ## Bước 4: Thiết lập Audit Trail Monitoring
 
@@ -455,15 +448,12 @@ def store_audit_report(s3, report, report_type):
    - Privilege escalation events
    - Failed authentication events
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/alarm1.png?featherlight=false&width=90pc)
 
 ### 4.2 Cấu hình Log Insights Queries
 
 1. Trong CloudWatch console
 2. Click **Logs Insights**
 3. Tạo saved queries cho audit analysis
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/insights1.png?featherlight=false&width=90pc)
 
 ## Bước 5: Kiểm tra Audit System
 
@@ -473,23 +463,17 @@ def store_audit_report(s3, report, report_type):
 2. Test với các report types khác nhau
 3. Xác minh reports được lưu trong S3
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/test1.png?featherlight=false&width=90pc)
-
 ### 5.2 Xác minh Audit Trail Completeness
 
 1. Kiểm tra CloudTrail logs có đầy đủ events
 2. Xác minh log file validation
 3. Test audit trail queries
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/test2.png?featherlight=false&width=90pc)
-
 ### 5.3 Test Compliance Reporting
 
 1. Generate compliance reports
 2. Xác minh compliance scores
 3. Review compliance gaps identification
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/9/test3.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 
@@ -502,7 +486,6 @@ Sau khi hoàn thành:
 - ✅ Real-time audit event monitoring
 - ✅ Compliance gap identification and remediation
 
-![Hoàn thành Audit System](https://trtrantnt.github.io/workshop/images/9/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 

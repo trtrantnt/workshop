@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62814&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.134.3">
@@ -12,21 +12,21 @@
     <title>11. Clean Resources :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754984698" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754984698" rel="stylesheet">
-    <link href="/css/hybrid.css?1754984698" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754984698" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754984698" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754984698" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754984698" rel="stylesheet">
-    <link href="/css/theme.css?1754984698" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754984698" rel="stylesheet">
+    <link href="/css/nucleus.css?1754991223" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754991223" rel="stylesheet">
+    <link href="/css/hybrid.css?1754991223" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754991223" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754991223" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754991223" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754991223" rel="stylesheet">
+    <link href="/css/theme.css?1754991223" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754991223" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754984698" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754991223" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754984698"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754991223"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754984698"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754984698"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754991223"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754991223"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:62814\/";
+        var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754984698"></script>
+<script type="text/javascript" src="/js/search.js?1754991223"></script>
 
     
   </div>
@@ -399,7 +399,7 @@
                   
                     
                     
-                      <option id="en" value="//localhost:62814/11-clean-resources/" selected>English</option>
+                      <option id="en" value="//localhost:1313/11-clean-resources/" selected>English</option>
                     
                   
               
@@ -413,7 +413,7 @@
                   
                     
                     
-                      <option id="vi" value="//localhost:62814/vi/11-clean-resources/">Tiếng Việt</option>
+                      <option id="vi" value="//localhost:1313/vi/11-clean-resources/">Tiếng Việt</option>
                     
                   
               
@@ -521,59 +521,59 @@
         <li><a href="#delete-eventbridge-rules">Delete EventBridge Rules</a></li>
       </ul>
     </li>
-    <li><a href="#step-2-step-functions">Step 2: Step Functions</a></li>
-    <li><a href="#step-3-dynamodb-tables">Step 3: DynamoDB Tables</a></li>
-    <li><a href="#step-4-s3-buckets">Step 4: S3 Buckets</a>
+    <li><a href="#step-2-dynamodb-tables">Step 2: DynamoDB Tables</a></li>
+    <li><a href="#step-3-s3-buckets">Step 3: S3 Buckets</a>
       <ul>
         <li><a href="#empty-s3-buckets">Empty S3 Buckets</a></li>
         <li><a href="#delete-s3-buckets">Delete S3 Buckets</a></li>
+        <li><a href="#delete-s3-buckets-1">Delete S3 Buckets</a></li>
       </ul>
     </li>
-    <li><a href="#step-5-cloudwatch-resources">Step 5: CloudWatch Resources</a>
+    <li><a href="#step-4-cloudwatch-resources">Step 4: CloudWatch Resources</a>
       <ul>
         <li><a href="#delete-cloudwatch-dashboards">Delete CloudWatch Dashboards</a></li>
         <li><a href="#delete-cloudwatch-alarms">Delete CloudWatch Alarms</a></li>
         <li><a href="#delete-log-groups">Delete Log Groups</a></li>
       </ul>
     </li>
-    <li><a href="#step-6-sns-topics">Step 6: SNS Topics</a></li>
-    <li><a href="#step-7-iam-resources">Step 7: IAM Resources</a>
+    <li><a href="#step-5-sns-topics">Step 5: SNS Topics</a></li>
+    <li><a href="#step-6-iam-resources">Step 6: IAM Resources</a>
       <ul>
         <li><a href="#delete-iam-roles">Delete IAM Roles</a></li>
         <li><a href="#delete-custom-iam-policies">Delete Custom IAM Policies</a></li>
         <li><a href="#delete-iam-users-and-groups">Delete IAM Users and Groups</a></li>
       </ul>
     </li>
-    <li><a href="#step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</a>
+    <li><a href="#step-7-clean-up-iam-identity-center">Step 7: Clean up IAM Identity Center</a>
       <ul>
-        <li><a href="#remove-permission-set-assignments">Remove Permission Set Assignments</a></li>
+        <li><a href="#delete-permission-set-assignments">Delete Permission Set Assignments</a></li>
         <li><a href="#delete-permission-sets">Delete Permission Sets</a></li>
         <li><a href="#delete-users-and-groups">Delete Users and Groups</a></li>
       </ul>
     </li>
+    <li><a href="#step-8-clean-up-cloudtrail">Step 8: Clean up CloudTrail</a></li>
+    <li><a href="#step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</a>
+      <ul>
+        <li><a href="#remove-permission-set-assignments">Remove Permission Set Assignments</a></li>
+        <li><a href="#delete-permission-sets-1">Delete Permission Sets</a></li>
+        <li><a href="#delete-users-and-groups-1">Delete Users and Groups</a></li>
+      </ul>
+    </li>
     <li><a href="#step-9-aws-config-cleanup">Step 9: AWS Config Cleanup</a></li>
-    <li><a href="#step-10-cloudtrail-cleanup">Step 10: CloudTrail Cleanup</a></li>
+    <li><a href="#step-8-clean-up-cloudtrail-1">Step 8: Clean up CloudTrail</a></li>
     <li><a href="#console-based-cleanup-checklist">Console-Based Cleanup Checklist</a>
       <ul>
         <li><a href="#-cleanup-checklist">✅ Cleanup Checklist</a></li>
-      </ul>
-    </li>
-    <li><a href="#step-7-final-verification">Step 7: Final Verification</a>
-      <ul>
-        <li><a href="#verify-resource-deletion">Verify Resource Deletion</a></li>
         <li><a href="#final-service-checks">Final Service Checks</a></li>
-        <li><a href="#cleanup-verification-report">Cleanup Verification Report</a></li>
       </ul>
     </li>
-    <li><a href="#cost-verification">Cost Verification</a></li>
-    <li><a href="#troubleshooting">Troubleshooting</a>
+    <li><a href="#step-9-cleanup-verification">Step 9: Cleanup Verification</a>
       <ul>
-        <li><a href="#common-issues">Common Issues</a></li>
-        <li><a href="#manual-cleanup">Manual Cleanup</a></li>
+        <li><a href="#check-remaining-resources">Check Remaining Resources</a></li>
+        <li><a href="#check-final-services">Check Final Services</a></li>
       </ul>
     </li>
-    <li><a href="#final-notes">Final Notes</a></li>
-    <li><a href="#expected-results">Expected Results</a></li>
+    <li><a href="#workshop-cleanup-completed">Workshop Cleanup Completed</a></li>
   </ul>
 </nav>
     </div>
@@ -622,97 +622,93 @@
 <li>Open <strong>AWS Lambda</strong> console</li>
 <li>Filter functions by workshop names:
 <ul>
-<li><strong>IdentityGovernance</strong></li>
-<li><strong>AccessCertification</strong></li>
-<li><strong>ComplianceValidation</strong></li>
+<li><strong>AccessCertificationTrigger</strong></li>
+<li><strong>PrivilegeAnalyticsEngine</strong></li>
+<li><strong>RiskAssessmentEngine</strong></li>
+<li><strong>CustomMetricsPublisher</strong></li>
+<li><strong>DailyOperationsEngine</strong></li>
+<li><strong>AuditReportGenerator</strong></li>
+<li><strong>E2EValidationTest</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="Lambda Functions List" src="/images/11/lambda-functions-list.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Select workshop functions</li>
+<li>Select each function</li>
 <li>Click <strong>Actions</strong> → <strong>Delete</strong></li>
+<li>Confirm deletion by typing <strong>confirm</strong></li>
 </ol>
-<p><img alt="Delete Lambda Functions" src="/images/11/delete-lambda-functions.png?featherlight=false&width=90pc"></p>
-<ol start="5">
-<li>Confirm deletion by typing <strong>delete</strong></li>
-</ol>
-<p><img alt="Confirm Lambda Deletion" src="/images/11/confirm-lambda-deletion.png?featherlight=false&width=90pc"></p>
+<p><img alt="Lambda Functions" src="https://trtrantnt.github.io/workshop/images/11/del1.png?featherlight=false&width=90pc"></p>
 <h3 id="delete-eventbridge-rules">Delete EventBridge Rules</h3>
 <ol>
 <li>Open <strong>Amazon EventBridge</strong> console</li>
-<li>Go to <strong>Rules</strong></li>
+<li>Go to <strong>Schedules</strong></li>
 <li>Select workshop rules:
 <ul>
 <li><strong>AccessCertificationSchedule</strong></li>
 <li><strong>ComplianceValidationSchedule</strong></li>
+<li><strong>RiskAssessmentSchedule</strong></li>
+<li><strong>DailyOperationsSchedule</strong></li>
+<li><strong>WeeklyOperationsReview</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="EventBridge Rules" src="/images/11/eventbridge-rules.png?featherlight=false&width=90pc"></p>
-<ol start="4">
 <li>Click <strong>Delete</strong> for each rule</li>
 </ol>
-<p><img alt="Delete EventBridge Rules" src="/images/11/delete-eventbridge-rules.png?featherlight=false&width=90pc"></p>
-<h2 id="step-2-step-functions">Step 2: Step Functions</h2>
-<ol>
-<li>Open <strong>AWS Step Functions</strong> console</li>
-<li>Select workshop state machines:
-<ul>
-<li><strong>AccessCertificationWorkflow</strong></li>
-<li><strong>ComplianceValidationWorkflow</strong></li>
-</ul>
-</li>
-</ol>
-<p><img alt="Step Functions List" src="/images/11/step-functions-list.png?featherlight=false&width=90pc"></p>
-<ol start="3">
-<li>Click <strong>Delete</strong></li>
-<li>Confirm deletion</li>
-</ol>
-<p><img alt="Delete Step Functions" src="/images/11/delete-step-functions.png?featherlight=false&width=90pc"></p>
-<h2 id="step-3-dynamodb-tables">Step 3: DynamoDB Tables</h2>
+<p><img alt="EventBridge Rules" src="https://trtrantnt.github.io/workshop/images/11/del2.png?featherlight=false&width=90pc"></p>
+<h2 id="step-2-dynamodb-tables">Step 2: DynamoDB Tables</h2>
 <ol>
 <li>Open <strong>Amazon DynamoDB</strong> console</li>
 <li>Go to <strong>Tables</strong></li>
 <li>Select workshop tables:
 <ul>
-<li><strong>OperationalProcedures</strong></li>
+<li><strong>AccessCertifications</strong></li>
+<li><strong>RiskAssessments</strong></li>
+<li><strong>CertificationTasks</strong></li>
+<li><strong>OperationsLog</strong></li>
 <li><strong>ComplianceEvidence</strong></li>
+<li><strong>RiskMonitoring</strong></li>
 <li><strong>AuditFindings</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="DynamoDB Tables" src="/images/11/dynamodb-tables.png?featherlight=false&width=90pc"></p>
-<ol start="4">
 <li>Click <strong>Delete</strong> for each table</li>
 <li>Type <strong>delete</strong> to confirm</li>
 </ol>
-<p><img alt="Delete DynamoDB Tables" src="/images/11/delete-dynamodb-tables.png?featherlight=false&width=90pc"></p>
-<h2 id="step-4-s3-buckets">Step 4: S3 Buckets</h2>
+<p><img alt="DynamoDB Tables" src="https://trtrantnt.github.io/workshop/images/11/del3.png?featherlight=false&width=90pc"></p>
+<h2 id="step-3-s3-buckets">Step 3: S3 Buckets</h2>
 <h3 id="empty-s3-buckets">Empty S3 Buckets</h3>
 <ol>
 <li>Open <strong>Amazon S3</strong> console</li>
 <li>Identify workshop buckets:
 <ul>
-<li><strong>privilege-analytics-</strong>*</li>
-<li><strong>compliance-reports-</strong>*</li>
+<li><strong>identity-governance-analytics</strong></li>
+<li><strong>identity-governance-reports</strong></li>
+<li><strong>aws-cloudtrail-logs-</strong>* (CloudTrail bucket)</li>
 </ul>
 </li>
+<li>Select each bucket and click <strong>Empty</strong></li>
+<li>Type <code>permanently delete</code> to confirm</li>
 </ol>
+<h3 id="delete-s3-buckets">Delete S3 Buckets</h3>
+<ol>
+<li>After emptying, select each bucket</li>
+<li>Click <strong>Delete</strong></li>
+<li>Type bucket name to confirm</li>
+</ol>
+<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del5.png?featherlight=false&width=90pc"></p>
+<ul>
+<li><strong>compliance-reports-</strong>*</li>
+</ul>
 <p><img alt="S3 Buckets List" src="/images/11/s3-buckets-list.png?featherlight=false&width=90pc"></p>
 <ol start="3">
 <li>Select bucket and click <strong>Empty</strong></li>
 <li>Type <strong>permanently delete</strong> to confirm</li>
 </ol>
 <p><img alt="Empty S3 Bucket" src="/images/11/empty-s3-bucket.png?featherlight=false&width=90pc"></p>
-<h3 id="delete-s3-buckets">Delete S3 Buckets</h3>
+<h3 id="delete-s3-buckets-1">Delete S3 Buckets</h3>
 <ol>
 <li>After emptying, select bucket</li>
 <li>Click <strong>Delete</strong></li>
 <li>Type bucket name to confirm</li>
 </ol>
 <p><img alt="Delete S3 Bucket" src="/images/11/delete-s3-bucket.png?featherlight=false&width=90pc"></p>
-<h2 id="step-5-cloudwatch-resources">Step 5: CloudWatch Resources</h2>
+<h2 id="step-4-cloudwatch-resources">Step 4: CloudWatch Resources</h2>
 <h3 id="delete-cloudwatch-dashboards">Delete CloudWatch Dashboards</h3>
 <ol>
 <li>Open <strong>Amazon CloudWatch</strong> console</li>
@@ -720,47 +716,66 @@
 <li>Select workshop dashboards:
 <ul>
 <li><strong>IdentityGovernanceRiskDashboard</strong></li>
+<li><strong>IdentityGovernanceOperations</strong></li>
 <li><strong>DailyOperationsDashboard</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="CloudWatch Dashboards" src="/images/11/cloudwatch-dashboards.png?featherlight=false&width=90pc"></p>
-<ol start="4">
 <li>Click <strong>Delete</strong> for each dashboard</li>
 </ol>
-<p><img alt="Delete Dashboard" src="/images/11/delete-dashboard.png?featherlight=false&width=90pc"></p>
 <h3 id="delete-cloudwatch-alarms">Delete CloudWatch Alarms</h3>
 <ol>
 <li>Go to <strong>Alarms</strong></li>
-<li>Select workshop alarms</li>
+<li>Select workshop alarms:
+<ul>
+<li><strong>Lambda-AccessCertification-Errors</strong></li>
+<li><strong>HighRiskUserCount-Alarm</strong></li>
+<li><strong>DynamoDB-ReadErrors</strong></li>
+<li><strong>S3-AccessErrors</strong></li>
+</ul>
+</li>
 <li>Click <strong>Actions</strong> → <strong>Delete</strong></li>
 </ol>
-<p><img alt="Delete CloudWatch Alarms" src="/images/11/delete-cloudwatch-alarms.png?featherlight=false&width=90pc"></p>
 <h3 id="delete-log-groups">Delete Log Groups</h3>
 <ol>
 <li>Go to <strong>Log groups</strong></li>
-<li>Select workshop log groups</li>
+<li>Select workshop log groups:
+<ul>
+<li><code>/aws/lambda/AccessCertificationTrigger</code></li>
+<li><code>/aws/lambda/PrivilegeAnalyticsEngine</code></li>
+<li><code>/aws/lambda/RiskAssessmentEngine</code></li>
+<li><code>/aws/lambda/CustomMetricsPublisher</code></li>
+<li><code>/aws/lambda/DailyOperationsEngine</code></li>
+<li><code>/aws/lambda/AuditReportGenerator</code></li>
+<li><code>/aws/lambda/E2EValidationTest</code></li>
+</ul>
+</li>
 <li>Click <strong>Actions</strong> → <strong>Delete log group</strong></li>
 </ol>
-<p><img alt="Delete Log Groups" src="/images/11/delete-log-groups.png?featherlight=false&width=90pc"></p>
-<h2 id="step-6-sns-topics">Step 6: SNS Topics</h2>
+<h2 id="step-5-sns-topics">Step 5: SNS Topics</h2>
 <ol>
-<li>Open <strong>Amazon SNS</strong> console</li>
-<li>Go to <strong>Topics</strong></li>
-<li>Select workshop topics:
+<li>
+<p>Open <strong>Amazon SNS</strong> console</p>
+</li>
+<li>
+<p>Go to <strong>Topics</strong></p>
+</li>
+<li>
+<p>Select workshop topics:</p>
 <ul>
 <li><strong>IdentityGovernanceAlerts</strong></li>
 <li><strong>ComplianceAlerts</strong></li>
+<li><strong>RiskAssessmentAlerts</strong></li>
+<li><strong>DailyOperationsAlerts</strong></li>
 </ul>
 </li>
+<li>
+<p>Click <strong>Delete</strong> for each topic</p>
+</li>
+<li>
+<p>Confirm deletion</p>
+</li>
 </ol>
-<p><img alt="SNS Topics" src="/images/11/sns-topics.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Click <strong>Delete</strong> for each topic</li>
-<li>Confirm deletion</li>
-</ol>
-<p><img alt="Delete SNS Topics" src="/images/11/delete-sns-topics.png?featherlight=false&width=90pc"></p>
-<h2 id="step-7-iam-resources">Step 7: IAM Resources</h2>
+<h2 id="step-6-iam-resources">Step 6: IAM Resources</h2>
 <h3 id="delete-iam-roles">Delete IAM Roles</h3>
 <ol>
 <li>Navigate to <strong>IAM</strong> service in AWS Console</li>
@@ -772,50 +787,47 @@
 <li><strong>CertificationWorkflowRole</strong></li>
 </ul>
 </li>
-</ol>
-<p><img alt="IAM Roles List" src="/images/11/iam-roles-list.png"></p>
-<ol start="4">
 <li>Select each role and click <strong>Delete</strong></li>
 <li>Type role name to confirm deletion</li>
 </ol>
-<p><img alt="Delete IAM Role" src="/images/11/delete-iam-role.png"></p>
+<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del6.png?featherlight=false&width=90pc"></p>
 <h3 id="delete-custom-iam-policies">Delete Custom IAM Policies</h3>
 <ol>
-<li>Click <strong>Policies</strong> in the sidebar</li>
-<li>Filter by <strong>Customer managed</strong></li>
-<li>Search for workshop policies:
+<li>
+<p>Click <strong>Policies</strong> in the sidebar</p>
+</li>
+<li>
+<p>Filter by <strong>Customer managed</strong></p>
+</li>
+<li>
+<p>Search for workshop policies:</p>
 <ul>
 <li><strong>SecurityAuditPolicy</strong></li>
 <li><strong>IdentityGovernancePolicy</strong></li>
 <li><strong>ComplianceValidationPolicy</strong></li>
 </ul>
 </li>
+<li>
+<p>Select each policy and click <strong>Actions</strong> → <strong>Delete</strong></p>
+</li>
+<li>
+<p>Confirm deletion</p>
+</li>
 </ol>
-<p><img alt="IAM Policies List" src="/images/11/iam-policies-list.png"></p>
-<ol start="4">
-<li>Select each policy and click <strong>Actions</strong> → <strong>Delete</strong></li>
-<li>Confirm deletion</li>
-</ol>
-<p><img alt="Delete IAM Policy" src="/images/11/delete-iam-policy.png"></p>
 <h3 id="delete-iam-users-and-groups">Delete IAM Users and Groups</h3>
 <ol>
 <li>Click <strong>Users</strong> in the sidebar</li>
 <li>Select workshop users and click <strong>Delete</strong></li>
-</ol>
-<p><img alt="Delete IAM Users" src="/images/11/delete-iam-users.png"></p>
-<ol start="3">
 <li>Click <strong>User groups</strong> in the sidebar</li>
 <li>Select workshop groups and click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Delete IAM Groups" src="/images/11/delete-iam-groups.png"></p>
-<h2 id="step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</h2>
-<h3 id="remove-permission-set-assignments">Remove Permission Set Assignments</h3>
+<h2 id="step-7-clean-up-iam-identity-center">Step 7: Clean up IAM Identity Center</h2>
+<h3 id="delete-permission-set-assignments">Delete Permission Set Assignments</h3>
 <ol>
 <li>Navigate to <strong>IAM Identity Center</strong></li>
 <li>Click <strong>AWS accounts</strong> in the sidebar</li>
 <li>Select your account and click <strong>Remove access</strong></li>
 </ol>
-<p><img alt="Remove SSO Access" src="/images/11/remove-sso-access.png"></p>
 <h3 id="delete-permission-sets">Delete Permission Sets</h3>
 <ol>
 <li>Click <strong>Permission sets</strong> in the sidebar</li>
@@ -827,8 +839,51 @@
 </li>
 <li>Click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Delete Permission Sets" src="/images/11/delete-permission-sets.png"></p>
+<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del7.png?featherlight=false&width=90pc"></p>
 <h3 id="delete-users-and-groups">Delete Users and Groups</h3>
+<ol>
+<li>
+<p>Click <strong>Users</strong> in the sidebar</p>
+</li>
+<li>
+<p>Select workshop users and click <strong>Delete</strong></p>
+</li>
+<li>
+<p>Click <strong>Groups</strong> in the sidebar</p>
+</li>
+<li>
+<p>Select workshop groups and click <strong>Delete</strong></p>
+</li>
+</ol>
+<h2 id="step-8-clean-up-cloudtrail">Step 8: Clean up CloudTrail</h2>
+<ol>
+<li>Navigate to <strong>CloudTrail</strong> service</li>
+<li>Click <strong>Trails</strong> in the sidebar</li>
+<li>Select <strong>IdentityGovernanceTrail</strong></li>
+<li>Click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc"></p>
+<h2 id="step-8-iam-identity-center-cleanup">Step 8: IAM Identity Center Cleanup</h2>
+<h3 id="remove-permission-set-assignments">Remove Permission Set Assignments</h3>
+<ol>
+<li>Navigate to <strong>IAM Identity Center</strong></li>
+<li>Click <strong>AWS accounts</strong> in the sidebar</li>
+<li>Select your account and click <strong>Remove access</strong></li>
+</ol>
+<p><img alt="Remove SSO Access" src="/images/11/remove-sso-access.png"></p>
+<h3 id="delete-permission-sets-1">Delete Permission Sets</h3>
+<ol>
+<li>Click <strong>Permission sets</strong> in the sidebar</li>
+<li>Select workshop permission sets:
+<ul>
+<li><strong>SecurityAuditor</strong></li>
+<li><strong>ComplianceReviewer</strong></li>
+</ul>
+</li>
+<li>Click <strong>Delete</strong></li>
+</ol>
+<p><img alt="Delete Permission Sets" src="/images/11/delete-permission-sets.png"></p>
+<h3 id="delete-users-and-groups-1">Delete Users and Groups</h3>
 <ol>
 <li>Click <strong>Users</strong> in the sidebar</li>
 <li>Select workshop users and click <strong>Delete</strong></li>
@@ -840,50 +895,39 @@
 </ol>
 <p><img alt="Delete SSO Groups" src="/images/11/delete-sso-groups.png"></p>
 <h2 id="step-9-aws-config-cleanup">Step 9: AWS Config Cleanup</h2>
-<ol>
-<li>Navigate to <strong>AWS Config</strong> service</li>
-<li>Click <strong>Settings</strong> in the sidebar</li>
-<li>Click <strong>Edit</strong> and then <strong>Delete configuration recorder</strong></li>
-</ol>
-<p><img alt="Delete Config Recorder" src="/images/11/delete-config-recorder.png"></p>
-<ol start="4">
-<li>Confirm deletion by typing <strong>delete</strong></li>
-</ol>
-<h2 id="step-10-cloudtrail-cleanup">Step 10: CloudTrail Cleanup</h2>
+<h2 id="step-8-clean-up-cloudtrail-1">Step 8: Clean up CloudTrail</h2>
 <ol>
 <li>Navigate to <strong>CloudTrail</strong> service</li>
 <li>Click <strong>Trails</strong> in the sidebar</li>
 <li>Select <strong>IdentityGovernanceTrail</strong></li>
 <li>Click <strong>Delete</strong></li>
 </ol>
-<p><img alt="Delete CloudTrail" src="/images/11/delete-cloudtrail.png"></p>
-<ol start="5">
-<li>Type trail name to confirm deletion</li>
-</ol>
+<p><img alt="Empty S3 Bucket" src="https://trtrantnt.github.io/workshop/images/11/del8.png?featherlight=false&width=90pc"></p>
 <h2 id="console-based-cleanup-checklist">Console-Based Cleanup Checklist</h2>
 <p>For systematic cleanup through AWS Console, follow this checklist:</p>
 <h3 id="-cleanup-checklist">✅ Cleanup Checklist</h3>
 <p><strong>Lambda Functions:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> IdentityGovernanceMonitor</li>
-<li><input disabled="" type="checkbox"> AccessReviewGenerator</li>
-<li><input disabled="" type="checkbox"> ComplianceValidationEngine</li>
+<li><input disabled="" type="checkbox"> AccessCertificationTrigger</li>
+<li><input disabled="" type="checkbox"> PrivilegeAnalyticsEngine</li>
 <li><input disabled="" type="checkbox"> RiskAssessmentEngine</li>
-<li><input disabled="" type="checkbox"> CertificationNotifier</li>
+<li><input disabled="" type="checkbox"> CustomMetricsPublisher</li>
+<li><input disabled="" type="checkbox"> DailyOperationsEngine</li>
+<li><input disabled="" type="checkbox"> AuditReportGenerator</li>
+<li><input disabled="" type="checkbox"> E2EValidationTest</li>
 </ul>
 <p><strong>EventBridge Rules:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> AccessCertificationSchedule</li>
 <li><input disabled="" type="checkbox"> ComplianceValidationSchedule</li>
 <li><input disabled="" type="checkbox"> RiskAssessmentSchedule</li>
-</ul>
-<p><strong>Step Functions:</strong></p>
-<ul>
-<li><input disabled="" type="checkbox"> AccessCertificationWorkflow</li>
-<li><input disabled="" type="checkbox"> ComplianceValidationWorkflow</li>
+<li><input disabled="" type="checkbox"> DailyOperationsSchedule</li>
+<li><input disabled="" type="checkbox"> WeeklyOperationsReview</li>
 </ul>
 <p><strong>DynamoDB Tables:</strong></p>
 <ul>
+<li><input disabled="" type="checkbox"> AccessCertifications</li>
+<li><input disabled="" type="checkbox"> RiskAssessments</li>
 <li><input disabled="" type="checkbox"> CertificationTasks</li>
 <li><input disabled="" type="checkbox"> OperationsLog</li>
 <li><input disabled="" type="checkbox"> ComplianceEvidence</li>
@@ -892,12 +936,14 @@
 </ul>
 <p><strong>S3 Buckets:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> privilege-analytics-[ACCOUNT-ID]</li>
-<li><input disabled="" type="checkbox"> compliance-reports-[ACCOUNT-ID]</li>
+<li><input disabled="" type="checkbox"> identity-governance-analytics</li>
+<li><input disabled="" type="checkbox"> identity-governance-reports</li>
+<li><input disabled="" type="checkbox"> aws-cloudtrail-logs-[ACCOUNT-ID]-[HASH]</li>
 </ul>
 <p><strong>CloudWatch Resources:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> IdentityGovernanceRiskDashboard</li>
+<li><input disabled="" type="checkbox"> IdentityGovernanceOperations</li>
 <li><input disabled="" type="checkbox"> DailyOperationsDashboard</li>
 <li><input disabled="" type="checkbox"> All workshop alarms</li>
 <li><input disabled="" type="checkbox"> All workshop log groups</li>
@@ -906,38 +952,19 @@
 <ul>
 <li><input disabled="" type="checkbox"> IdentityGovernanceAlerts</li>
 <li><input disabled="" type="checkbox"> ComplianceAlerts</li>
+<li><input disabled="" type="checkbox"> RiskAssessmentAlerts</li>
+<li><input disabled="" type="checkbox"> DailyOperationsAlerts</li>
 </ul>
 <p><strong>IAM Resources:</strong></p>
 <ul>
 <li><input disabled="" type="checkbox"> Workshop IAM roles</li>
-<li><input disabled="" type="checkbox"> Workshop IAM policies</li>
-<li><input disabled="" type="checkbox"> Workshop IAM users</li>
-<li><input disabled="" type="checkbox"> Workshop IAM groups</li>
+<li><input disabled="" type="checkbox"> Workshop custom policies (nếu có)</li>
 </ul>
-<p><strong>IAM Identity Center:</strong></p>
+<p><strong>Optional Resources:</strong></p>
 <ul>
-<li><input disabled="" type="checkbox"> Permission set assignments</li>
-<li><input disabled="" type="checkbox"> Permission sets</li>
-<li><input disabled="" type="checkbox"> SSO users and groups</li>
+<li><input disabled="" type="checkbox"> AWS Security Hub (nếu không cần)</li>
+<li><input disabled="" type="checkbox"> AWS CloudTrail (nếu không cần)</li>
 </ul>
-<p><strong>Other Services:</strong></p>
-<ul>
-<li><input disabled="" type="checkbox"> AWS Config recorder</li>
-<li><input disabled="" type="checkbox"> CloudTrail trail</li>
-<li><input disabled="" type="checkbox"> GuardDuty detector (if not needed)</li>
-</ul>
-<p><img alt="Cleanup Checklist" src="/images/11/cleanup-checklist.png"></p>
-<h2 id="step-7-final-verification">Step 7: Final Verification</h2>
-<h3 id="verify-resource-deletion">Verify Resource Deletion</h3>
-<ol>
-<li>Check <strong>AWS Cost Explorer</strong> for any remaining charges</li>
-</ol>
-<p><img alt="Cost Explorer Verification" src="/images/11/cost-explorer-verification.png?featherlight=false&width=90pc"></p>
-<ol start="2">
-<li>Use <strong>AWS Resource Groups</strong> to find tagged resources</li>
-<li>Search for tag: <strong>Project=IdentityGovernance</strong></li>
-</ol>
-<p><img alt="Resource Groups Check" src="/images/11/resource-groups-check.png?featherlight=false&width=90pc"></p>
 <h3 id="final-service-checks">Final Service Checks</h3>
 <ol>
 <li><strong>AWS Config</strong>: Disable configuration recorder if not needed</li>
@@ -945,53 +972,22 @@
 <li><strong>Amazon GuardDuty</strong>: Disable if not needed</li>
 <li><strong>AWS Audit Manager</strong>: Disable data collection</li>
 </ol>
-<p><img alt="Final Service Checks" src="/images/11/final-service-checks.png?featherlight=false&width=90pc"></p>
-<h3 id="cleanup-verification-report">Cleanup Verification Report</h3>
+<h2 id="step-9-cleanup-verification">Step 9: Cleanup Verification</h2>
+<h3 id="check-remaining-resources">Check Remaining Resources</h3>
 <ol>
-<li>Generate cleanup summary report</li>
-<li>Document any resources that couldn&rsquo;t be deleted</li>
-<li>Note any ongoing charges</li>
+<li>Check <strong>AWS Cost Explorer</strong> to confirm no charges are ongoing</li>
+<li>Use <strong>AWS Resource Groups</strong> to find tagged resources</li>
+<li>Search for tag: <strong>Project=IdentityGovernance</strong></li>
 </ol>
-<p><img alt="Cleanup Verification Report" src="/images/11/cleanup-verification-report.png?featherlight=false&width=90pc"></p>
-<h2 id="cost-verification">Cost Verification</h2>
-<p>After cleanup, monitor your AWS billing dashboard to ensure no unexpected charges from remaining resources.</p>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="common-issues">Common Issues</h3>
+<h3 id="check-final-services">Check Final Services</h3>
 <ol>
-<li><strong>Dependency Errors</strong>: Some resources may have dependencies. Delete dependent resources first.</li>
-<li><strong>Permission Errors</strong>: Ensure you have sufficient permissions to delete all resources.</li>
-<li><strong>Region Issues</strong>: Make sure you&rsquo;re deleting resources in the correct region.</li>
+<li><strong>AWS Config</strong>: Disable configuration recorder if not needed</li>
+<li><strong>AWS Security Hub</strong>: Disable if not used elsewhere</li>
+<li><strong>Amazon GuardDuty</strong>: Disable if not needed</li>
+<li><strong>AWS Audit Manager</strong>: Disable data collection</li>
 </ol>
-<h3 id="manual-cleanup">Manual Cleanup</h3>
-<p>If automated cleanup fails, manually delete resources through the AWS Console:</p>
-<ol>
-<li>Go to each service console</li>
-<li>Search for resources with names containing &ldquo;IdentityGovernance&rdquo;, &ldquo;Compliance&rdquo;, or &ldquo;Certification&rdquo;</li>
-<li>Delete resources individually</li>
-</ol>
-<h2 id="final-notes">Final Notes</h2>
-<ul>
-<li>This cleanup removes ALL workshop resources</li>
-<li>Double-check before running cleanup commands</li>
-<li>Some resources may have a brief delay before deletion</li>
-<li>Monitor your AWS bill to ensure no charges continue</li>
-</ul>
-<h2 id="expected-results">Expected Results</h2>
-<p>After completing the cleanup:</p>
-<ul>
-<li>✅ All workshop Lambda functions deleted</li>
-<li>✅ EventBridge rules removed</li>
-<li>✅ Step Functions state machines deleted</li>
-<li>✅ DynamoDB tables removed</li>
-<li>✅ S3 buckets emptied and deleted</li>
-<li>✅ CloudWatch resources cleaned up</li>
-<li>✅ SNS topics deleted</li>
-<li>✅ No ongoing charges from workshop resources</li>
-<li>✅ Account returned to pre-workshop state</li>
-</ul>
-<p><img alt="Cleanup Complete" src="/images/11/cleanup-complete.png?featherlight=false&width=90pc"></p>
-<p><strong>Workshop cleanup completed successfully! 🎉</strong></p>
-<p><img alt="Workshop Complete" src="/images/11/workshop-complete.png?featherlight=false&width=90pc"></p>
+<h2 id="workshop-cleanup-completed">Workshop Cleanup Completed</h2>
+<p>Workshop cleanup completed successfully! 🎉</p>
 
 
 
@@ -1229,19 +1225,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754984698"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754984698"></script>
-    <script src="/js/jquery.sticky.js?1754984698"></script>
-    <script src="/js/featherlight.min.js?1754984698"></script>
-    <script src="/js/highlight.pack.js?1754984698"></script>
+    <script src="/js/clipboard.min.js?1754991223"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754991223"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754991223"></script>
+    <script src="/js/jquery.sticky.js?1754991223"></script>
+    <script src="/js/featherlight.min.js?1754991223"></script>
+    <script src="/js/highlight.pack.js?1754991223"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754984698"></script>
-    <script src="/js/learn.js?1754984698"></script>
-    <script src="/js/hugo-learn.js?1754984698"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754991223"></script>
+    <script src="/js/learn.js?1754991223"></script>
+    <script src="/js/hugo-learn.js?1754991223"></script>
 
-    <link href="/mermaid/mermaid.css?1754984698" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754984698"></script>
+    <link href="/mermaid/mermaid.css?1754991223" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754991223"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

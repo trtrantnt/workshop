@@ -21,7 +21,6 @@ Thực hiện validation cuối cùng cho toàn bộ hệ thống Identity Gover
    - DailyOperationsEngine
    - AuditReportGenerator
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/lambda-check.png?featherlight=false&width=90pc)
 
 ### 1.2 Xác minh Data Flow
 
@@ -29,14 +28,11 @@ Thực hiện validation cuối cùng cho toàn bộ hệ thống Identity Gover
    - AccessCertifications
    - RiskAssessments
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/dynamodb-check.png?featherlight=false&width=90pc)
 
 2. Xác minh **S3** buckets có audit reports:
    - identity-governance-analytics
    - identity-governance-reports
    - CloudTrail logs bucket
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/s3-check.png?featherlight=false&width=90pc)
 
 ## Bước 2: End-to-End Testing
 
@@ -48,7 +44,6 @@ Thực hiện validation cuối cùng cho toàn bộ hệ thống Identity Gover
    - **Function name**: `E2EValidationTest`
    - **Runtime**: Python 3.9
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/e2e-lambda1.png?featherlight=false&width=90pc)
 
 ### 2.2 Cấu hình E2E Test Code
 
@@ -306,7 +301,6 @@ def test_compliance_validation(dynamodb):
     return test_result
 ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/e2e-lambda2.png?featherlight=false&width=90pc)
 
 2. Click **Deploy**
 
@@ -316,7 +310,6 @@ def test_compliance_validation(dynamodb):
 2. Xem kết quả validation
 3. Xác minh tất cả tests PASS
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/e2e-test-result.png?featherlight=false&width=90pc)
 
 ## Bước 3: Compliance Verification
 
@@ -326,7 +319,6 @@ def test_compliance_validation(dynamodb):
 2. Xem compliance report trong S3
 3. Xác minh compliance scores
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/compliance-report.png?featherlight=false&width=90pc)
 
 ### 3.2 Verify Security Controls
 
@@ -334,7 +326,6 @@ def test_compliance_validation(dynamodb):
 2. Xác minh không có critical findings
 3. Review security standards compliance
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/security-hub-final.png?featherlight=false&width=90pc)
 
 ## Bước 4: Performance Validation
 
@@ -346,7 +337,6 @@ def test_compliance_validation(dynamodb):
    - DynamoDB response times
    - Error rates
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/performance-metrics.png?featherlight=false&width=90pc)
 
 ### 4.2 Validate Scalability
 
@@ -354,7 +344,6 @@ def test_compliance_validation(dynamodb):
 2. Xem resource utilization
 3. Validate cost optimization
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/scalability-check.png?featherlight=false&width=90pc)
 
 ## Bước 5: Final System Health Check
 
@@ -364,7 +353,7 @@ def test_compliance_validation(dynamodb):
 2. Bao gồm tất cả key metrics
 3. Xác minh system status = HEALTHY
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/health-dashboard.png?featherlight=false&width=90pc)
+
 
 ### 5.2 Generate System Documentation
 
@@ -372,7 +361,7 @@ def test_compliance_validation(dynamodb):
 2. Export configuration details
 3. Create operational runbooks
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/documentation.png?featherlight=false&width=90pc)
+
 
 ## Bước 6: Production Readiness Checklist
 
@@ -403,7 +392,6 @@ def test_compliance_validation(dynamodb):
 - ✅ Access certification processes automated
 - ✅ Risk assessment procedures operational
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/10/checklist-complete.png?featherlight=false&width=90pc)
 
 ## Kết quả Cuối cùng
 
@@ -418,7 +406,6 @@ Sau khi hoàn thành toàn bộ workshop:
 - ✅ **Audit Trail System** - Hệ thống audit trail
 - ✅ **Production-Ready Architecture** - Kiến trúc sẵn sàng production
 
-![Workshop Complete](https://trtrantnt.github.io/workshop/images/10/workshop-complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 

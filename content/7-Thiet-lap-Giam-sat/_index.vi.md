@@ -19,8 +19,6 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
    - PrivilegeAnalyticsEngine
    - RiskAssessmentEngine
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/metrics1.png?featherlight=false&width=90pc)
-
 ### 1.2 Kiểm tra DynamoDB Metrics
 
 1. Trong CloudWatch Metrics
@@ -29,7 +27,6 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
    - AccessCertifications
    - RiskAssessments
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/metrics2.png?featherlight=false&width=90pc)
 
 ## Bước 2: Tạo CloudWatch Alarms
 
@@ -38,30 +35,19 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
 1. Trong **CloudWatch** console
 2. Click **Alarms** ở sidebar
 3. Click **Create alarm**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm1.png?featherlight=false&width=90pc)
-
 4. Chọn metric:
    - **Namespace**: AWS/Lambda
    - **Metric**: Errors
    - **Function**: AccessCertificationTrigger
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm2.png?featherlight=false&width=90pc)
-
 5. Cấu hình conditions:
    - **Threshold type**: Static
    - **Condition**: Greater than
    - **Threshold value**: 0
    - **Period**: 5 minutes
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm3.png?featherlight=false&width=90pc)
-
 6. Cấu hình actions:
    - **SNS topic**: RiskAssessmentAlerts (từ chương 6)
    - **Alarm name**: `Lambda-AccessCertification-Errors`
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm4.png?featherlight=false&width=90pc)
-
 7. Click **Create alarm**
 
 ### 2.2 Tạo Alarm cho High Risk Users
@@ -71,9 +57,6 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
 3. Tạo custom metric cho high risk users:
    - **Namespace**: IdentityGovernance
    - **Metric**: HighRiskUserCount
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/alarm5.png?featherlight=false&width=90pc)
-
 4. Cấu hình threshold:
    - **Condition**: Greater than 5
    - **Period**: 1 hour
@@ -87,9 +70,6 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
 1. Trong **CloudWatch** console
 2. Click **Dashboards**
 3. Click **Create dashboard**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard1.png?featherlight=false&width=90pc)
-
 4. Nhập dashboard name: `IdentityGovernanceDashboard`
 5. Click **Create dashboard**
 
@@ -101,11 +81,8 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
    - Lambda Invocations
    - Lambda Errors
    - Lambda Duration
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard2.png?featherlight=false&width=90pc)
-
 4. Click **Create widget**
-
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/cw3.png?featherlight=false&width=90pc)
 ### 3.3 Thêm DynamoDB Metrics Widget
 
 1. Click **Add widget**
@@ -113,21 +90,15 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
 3. Cấu hình metrics:
    - DynamoDB Item Count
    - DynamoDB Read/Write Capacity
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard3.png?featherlight=false&width=90pc)
-
 4. Click **Create widget**
 
 ### 3.4 Thêm Risk Assessment Widget
-
 1. Click **Add widget**
 2. Chọn **Pie** chart
 3. Tạo custom metrics cho risk levels:
    - High Risk Users
    - Medium Risk Users
    - Low Risk Users
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/dashboard4.png?featherlight=false&width=90pc)
 
 4. Click **Create widget**
 
@@ -140,9 +111,6 @@ Thiết lập hệ thống giám sát toàn diện với CloudWatch Alarms, Dash
 3. Nhập thông tin function:
    - **Function name**: `CustomMetricsPublisher`
    - **Runtime**: Python 3.9
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda1.png?featherlight=false&width=90pc)
-
 ### 4.2 Cấu hình Code cho Custom Metrics
 
 1. Thay thế code mặc định:
@@ -262,8 +230,6 @@ def publish_metrics(cloudwatch, risk_metrics, cert_metrics):
     print(f"Published metrics: Risk={risk_metrics}, Cert={cert_metrics}")
 ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda2.png?featherlight=false&width=90pc)
-
 2. Click **Deploy**
 
 ### 4.3 Cấu hình IAM Permissions
@@ -272,14 +238,12 @@ def publish_metrics(cloudwatch, risk_metrics, cert_metrics):
    - **AmazonDynamoDBReadOnlyAccess**
    - **CloudWatchFullAccess**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda3.png?featherlight=false&width=90pc)
 
 ### 4.4 Tạo EventBridge Schedule
 
 1. Tạo schedule để chạy CustomMetricsPublisher mỗi 15 phút
 2. Cấu hình tương tự như các chương trước
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/lambda4.png?featherlight=false&width=90pc)
 
 ## Bước 5: Kiểm tra Monitoring System
 
@@ -288,23 +252,17 @@ def publish_metrics(cloudwatch, risk_metrics, cert_metrics):
 1. Chạy Lambda function **CustomMetricsPublisher**
 2. Kiểm tra CloudWatch Metrics có custom metrics mới
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/test1.png?featherlight=false&width=90pc)
-
 ### 5.2 Test Alarms
 
 1. Tạo test error trong Lambda function
 2. Xác minh alarm được trigger
 3. Kiểm tra SNS notification
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/test2.png?featherlight=false&width=90pc)
-
 ### 5.3 Xác minh Dashboard
 
 1. Vào **IdentityGovernanceDashboard**
 2. Xác minh tất cả widgets hiển thị data
 3. Kiểm tra real-time updates
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/7/test3.png?featherlight=false&width=90pc)
 
 ## Kết quả Mong đợi
 
@@ -316,8 +274,6 @@ Sau khi hoàn thành:
 - ✅ SNS notifications for alerts
 - ✅ Real-time monitoring of all components
 - ✅ Historical trend analysis
-
-![Hoàn thành Monitoring Setup](https://trtrantnt.github.io/workshop/images/7/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 

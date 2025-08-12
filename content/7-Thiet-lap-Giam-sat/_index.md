@@ -6,200 +6,273 @@ weight: 7
 
 ## Objective
 
-Set up comprehensive monitoring system to continuously track identity governance activities, detect anomalies, and ensure compliance.
+Set up comprehensive monitoring system with CloudWatch Alarms, Dashboard and SNS notifications to track Identity Governance metrics.
 
-## Monitoring Architecture
+## Step 1: Verify CloudWatch Metrics
 
-```mermaid
-graph TB
-    A[CloudTrail] --> B[CloudWatch Logs]
-    C[Lambda Functions] --> B
-    D[Security Hub] --> B
-    B --> E[CloudWatch Metrics]
-    E --> F[CloudWatch Alarms]
-    F --> G[SNS Notifications]
-    E --> H[Custom Dashboard]
-    B --> I[Log Analytics]
-    I --> J[Anomaly Detection]
-```
-
-## Step 1: CloudWatch Logs Setup
-
-### 1.1 Create Log Groups
+### 1.1 Check Lambda Metrics
 
 1. Open **Amazon CloudWatch** console
-2. Click **Log groups** in sidebar
-3. Click **Create log group**
+2. Click **Metrics** in sidebar
+3. Verify metrics from Lambda functions:
+   - AccessCertificationTrigger
+   - PrivilegeAnalyticsEngine
+   - RiskAssessmentEngine
 
-![Create Log Group](/images/7/create-log-group.png?featherlight=false&width=90pc)
+### 1.2 Check DynamoDB Metrics
 
-4. Configure log group:
-   - **Log group name**: /aws/identity-governance/events
-   - **Retention setting**: 1 year
+1. In CloudWatch Metrics
+2. Click **AWS/DynamoDB**
+3. Verify metrics for tables:
+   - AccessCertifications
+   - RiskAssessments
 
-![Log Group Settings](/images/7/log-group-settings.png?featherlight=false&width=90pc)
+## Step 2: Create CloudWatch Alarms
 
-5. Click **Create**
+### 2.1 Create Alarm for Lambda Errors
 
-### 1.2 Set Up SNS Topic for Alerts
+1. In **CloudWatch** console
+2. Click **Alarms** in sidebar
+3. Click **Create alarm**
+4. Select metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric**: Errors
+   - **Function**: AccessCertificationTrigger
+5. Configure conditions:
+   - **Threshold type**: Static
+   - **Condition**: Greater than
+   - **Threshold value**: 0
+   - **Period**: 5 minutes
+6. Configure actions:
+   - **SNS topic**: RiskAssessmentAlerts (from chapter 6)
+   - **Alarm name**: `Lambda-AccessCertification-Errors`
+7. Click **Create alarm**
 
-1. Open **Amazon SNS** console
-2. Click **Topics** in sidebar
-3. Click **Create topic**
+### 2.2 Create Alarm for High Risk Users
 
-![Create SNS Topic](/images/7/create-sns-topic.png?featherlight=false&width=90pc)
+1. Click **Create alarm**
+2. Select **Custom metric**
+3. Create custom metric for high risk users:
+   - **Namespace**: IdentityGovernance
+   - **Metric**: HighRiskUserCount
+4. Configure threshold:
+   - **Condition**: Greater than 5
+   - **Period**: 1 hour
+5. Click **Create alarm**
 
-4. Configure topic:
-   - **Type**: Standard
-   - **Name**: IdentityGovernanceAlerts
-   - **Display name**: Identity Governance Alerts
+## Step 3: Create Comprehensive Dashboard
 
-![SNS Topic Settings](/images/7/sns-topic-settings.png?featherlight=false&width=90pc)
+### 3.1 Create Main Dashboard
 
-5. Create subscription with your email
+1. In **CloudWatch** console
+2. Click **Dashboards**
+3. Click **Create dashboard**
+4. Enter dashboard name: `IdentityGovernanceDashboard`
+5. Click **Create dashboard**
 
-![SNS Subscription](/images/7/sns-subscription.png?featherlight=false&width=90pc)
+### 3.2 Add Lambda Metrics Widget
 
-## Step 2: CloudWatch Metrics and Alarms
+1. Click **Add widget**
+2. Select **Line** chart
+3. Configure metrics:
+   - Lambda Invocations
+   - Lambda Errors
+   - Lambda Duration
+4. Click **Create widget**
 
-### 2.1 Create Custom Metrics
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/7/cw3.png?featherlight=false&width=90pc)
 
-1. In CloudWatch console, click **All metrics**
-2. Click **Browse** tab
-3. Create custom namespace: **IdentityGovernance**
+### 3.3 Add DynamoDB Metrics Widget
 
-![Custom Metrics](/images/7/custom-metrics.png?featherlight=false&width=90pc)
+1. Click **Add widget**
+2. Select **Number** widget
+3. Configure metrics:
+   - DynamoDB Item Count
+   - DynamoDB Read/Write Capacity
+4. Click **Create widget**
 
-### 2.2 Set Up Alarms
+### 3.4 Add Risk Assessment Widget
 
-1. Click **Alarms** in CloudWatch
-2. Click **Create alarm**
+1. Click **Add widget**
+2. Select **Pie** chart
+3. Create custom metrics for risk levels:
+   - High Risk Users
+   - Medium Risk Users
+   - Low Risk Users
+4. Click **Create widget**
 
-![Create CloudWatch Alarm](/images/7/create-cloudwatch-alarm.png?featherlight=false&width=90pc)
+## Step 4: Setup Custom Metrics Lambda
 
-3. Configure alarm for failed logins:
-   - **Metric**: Custom metric for failed logins
-   - **Threshold**: > 5 in 5 minutes
-   - **Action**: Send to SNS topic
-
-![Failed Login Alarm](/images/7/failed-login-alarm.png?featherlight=false&width=90pc)
-
-4. Create additional alarms for:
-   - **Privilege escalation events**
-   - **Off-hours access**
-   - **Unusual geographic access**
-
-![Additional Alarms](/images/7/additional-alarms.png?featherlight=false&width=90pc)
-
-## Step 3: CloudWatch Insights Setup
-
-### 3.1 Create Insights Queries
-
-1. Click **Logs Insights** in CloudWatch
-2. Select log group: **/aws/cloudtrail**
-3. Create saved queries for monitoring
-
-![CloudWatch Insights](/images/7/cloudwatch-insights.png?featherlight=false&width=90pc)
-
-### 3.2 Failed Login Analysis
-
-1. Run query for failed logins:
-
-```sql
-fields @timestamp, sourceIPAddress, userIdentity.userName, errorMessage
-| filter eventName = "ConsoleLogin" and errorCode != "Success"
-| stats count() by userIdentity.userName
-| sort count desc
-```
-
-![Failed Login Query](/images/7/failed-login-query.png?featherlight=false&width=90pc)
-
-### 3.3 Privilege Escalation Monitoring
-
-1. Create query for privilege changes:
-
-```sql
-fields @timestamp, eventName, userIdentity.userName, sourceIPAddress
-| filter eventName in ["AttachUserPolicy", "CreateRole", "PutUserPolicy"]
-| sort @timestamp desc
-```
-
-![Privilege Escalation Query](/images/7/privilege-escalation-query.png?featherlight=false&width=90pc)
-
-2. Save queries for regular use
-
-![Save Insights Queries](/images/7/save-insights-queries.png?featherlight=false&width=90pc)
-
-## Step 4: Automated Monitoring with Lambda
-
-### 4.1 Create Monitoring Lambda Function
+### 4.1 Create Lambda Function for Custom Metrics
 
 1. Open **AWS Lambda** console
 2. Click **Create function**
-3. Configure function:
-   - **Name**: IdentityGovernanceMonitor
+3. Enter function details:
+   - **Function name**: `CustomMetricsPublisher`
    - **Runtime**: Python 3.9
 
-![Create Monitoring Lambda](/images/7/create-monitoring-lambda.png?featherlight=false&width=90pc)
+### 4.2 Configure Code for Custom Metrics
 
-### 4.2 Configure Lambda Triggers
+1. Replace default code:
 
-1. Add **EventBridge** trigger
-2. Set schedule: **rate(1 hour)**
+```python
+import json
+import boto3
+from datetime import datetime, timedelta
+from boto3.dynamodb.conditions import Key
 
-![Lambda Triggers](/images/7/lambda-triggers.png?featherlight=false&width=90pc)
+def lambda_handler(event, context):
+    print("Custom Metrics Publisher Started")
+    
+    # Initialize AWS clients
+    dynamodb = boto3.resource('dynamodb')
+    cloudwatch = boto3.client('cloudwatch')
+    
+    try:
+        # Get risk assessment data
+        risk_metrics = get_risk_metrics(dynamodb)
+        
+        # Get certification metrics
+        cert_metrics = get_certification_metrics(dynamodb)
+        
+        # Publish custom metrics
+        publish_metrics(cloudwatch, risk_metrics, cert_metrics)
+        
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Custom metrics published successfully')
+        }
+        
+    except Exception as e:
+        print(f'Error publishing metrics: {str(e)}')
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error: {str(e)}')
+        }
 
-3. Add **CloudWatch Logs** trigger for real-time analysis
+def get_risk_metrics(dynamodb):
+    """Get risk assessment metrics from DynamoDB"""
+    table = dynamodb.Table('RiskAssessments')
+    
+    # Get latest user risk assessments
+    response = table.scan(
+        FilterExpression='AssessmentType = :type',
+        ExpressionAttributeValues={':type': 'User Risk Assessment'}
+    )
+    
+    risk_levels = {'LOW': 0, 'MEDIUM': 0, 'HIGH': 0, 'CRITICAL': 0}
+    
+    for item in response['Items']:
+        risk_level = item.get('RiskLevel', 'LOW')
+        if risk_level in risk_levels:
+            risk_levels[risk_level] += 1
+    
+    return risk_levels
 
-![CloudWatch Logs Trigger](/images/7/cloudwatch-logs-trigger.png?featherlight=false&width=90pc)
+def get_certification_metrics(dynamodb):
+    """Get certification metrics from DynamoDB"""
+    table = dynamodb.Table('AccessCertifications')
+    
+    response = table.scan()
+    
+    total_certifications = len(response['Items'])
+    recent_certifications = 0
+    
+    # Count recent certifications (last 30 days)
+    thirty_days_ago = (datetime.now() - timedelta(days=30)).isoformat()
+    
+    for item in response['Items']:
+        cert_date = item.get('CertificationDate', '')
+        if cert_date > thirty_days_ago:
+            recent_certifications += 1
+    
+    return {
+        'total': total_certifications,
+        'recent': recent_certifications
+    }
 
-### 4.3 Configure Environment Variables
+def publish_metrics(cloudwatch, risk_metrics, cert_metrics):
+    """Publish custom metrics to CloudWatch"""
+    
+    # Publish risk metrics
+    for risk_level, count in risk_metrics.items():
+        cloudwatch.put_metric_data(
+            Namespace='IdentityGovernance',
+            MetricData=[
+                {
+                    'MetricName': f'{risk_level}RiskUserCount',
+                    'Value': count,
+                    'Unit': 'Count',
+                    'Timestamp': datetime.now()
+                }
+            ]
+        )
+    
+    # Publish certification metrics
+    cloudwatch.put_metric_data(
+        Namespace='IdentityGovernance',
+        MetricData=[
+            {
+                'MetricName': 'TotalCertifications',
+                'Value': cert_metrics['total'],
+                'Unit': 'Count',
+                'Timestamp': datetime.now()
+            },
+            {
+                'MetricName': 'RecentCertifications',
+                'Value': cert_metrics['recent'],
+                'Unit': 'Count',
+                'Timestamp': datetime.now()
+            }
+        ]
+    )
+    
+    print(f"Published metrics: Risk={risk_metrics}, Cert={cert_metrics}")
+```
 
-1. Set environment variables:
-   - **SNS_TOPIC_ARN**: Your SNS topic ARN
-   - **LOG_GROUP_NAME**: /aws/identity-governance/events
+2. Click **Deploy**
 
-![Lambda Environment Variables](/images/7/lambda-env-variables.png?featherlight=false&width=90pc)
+### 4.3 Configure IAM Permissions
 
-## Step 5: Dashboard and Reporting
+1. Add permissions for Lambda:
+   - **AmazonDynamoDBReadOnlyAccess**
+   - **CloudWatchFullAccess**
 
-### 5.1 Create Monitoring Dashboard
+### 4.4 Create EventBridge Schedule
 
-1. In CloudWatch, click **Dashboards**
-2. Click **Create dashboard**
-3. Name: **IdentityGovernanceMonitoring**
+1. Create schedule to run CustomMetricsPublisher every 15 minutes
+2. Configure similar to previous chapters
 
-![Create Monitoring Dashboard](/images/7/create-monitoring-dashboard.png?featherlight=false&width=90pc)
+## Step 5: Test Monitoring System
 
-4. Add widgets for:
-   - **Failed login attempts**
-   - **Privilege escalation events**
-   - **Geographic access patterns**
-   - **System health metrics**
+### 5.1 Test Custom Metrics
 
-![Dashboard Widgets](/images/7/monitoring-dashboard-widgets.png?featherlight=false&width=90pc)
+1. Run Lambda function **CustomMetricsPublisher**
+2. Check CloudWatch Metrics for new custom metrics
 
-### 5.2 Set Up Automated Reports
+### 5.2 Test Alarms
 
-1. Create **EventBridge** rule for daily reports
-2. Configure Lambda to generate reports
-3. Send reports via email
+1. Create test error in Lambda function
+2. Verify alarm is triggered
+3. Check SNS notification
 
-![Automated Reports](/images/7/automated-reports.png?featherlight=false&width=90pc)
+### 5.3 Verify Dashboard
+
+1. Go to **IdentityGovernanceDashboard**
+2. Verify all widgets display data
+3. Check real-time updates
 
 ## Expected Results
 
 After completion:
 
-- ✅ CloudWatch Logs collecting identity events
-- ✅ Custom metrics and alarms configured
-- ✅ CloudWatch Insights for log analysis
-- ✅ Lambda functions for automated monitoring
+- ✅ Comprehensive CloudWatch Dashboard
+- ✅ Automated alarms for critical metrics
+- ✅ Custom metrics for Identity Governance KPIs
 - ✅ SNS notifications for alerts
-- ✅ Comprehensive monitoring dashboard
-
-![Monitoring Setup Complete](/images/7/monitoring-setup-complete.png?featherlight=false&width=90pc)
+- ✅ Real-time monitoring of all components
+- ✅ Historical trend analysis
 
 ## Next Steps
 
-Continue to [8. Operational Procedures](../8-quy-trinh-van-hanh) to set up operational processes.
+Proceed to [8. Operational Procedures](../8-quy-trinh-van-hanh) to set up daily operational procedures.

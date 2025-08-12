@@ -15,17 +15,12 @@ Thiết lập các quy trình vận hành hàng ngày để duy trì và tối �
 1. Mở **Amazon CloudWatch** console
 2. Click **Dashboards**
 3. Click **Create dashboard**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/dashboard1.png?featherlight=false&width=90pc)
-
 4. Nhập dashboard name: `IdentityGovernanceOperations`
 5. Thêm các widgets cho:
    - Daily certification status
    - Risk assessment trends
    - System health metrics
    - Operational KPIs
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/dashboard2.png?featherlight=false&width=90pc)
 
 ## Bước 2: Tạo Daily Operations Lambda
 
@@ -37,7 +32,7 @@ Thiết lập các quy trình vận hành hàng ngày để duy trì và tối �
    - **Function name**: `DailyOperationsEngine`
    - **Runtime**: Python 3.9
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/lambda1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/ld1.png?featherlight=false&width=90pc)
 
 ### 2.2 Cấu hình Code cho Daily Operations
 
@@ -349,9 +344,6 @@ def store_operations_log(dynamodb, operations_report):
         }
     )
 ```
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/lambda2.png?featherlight=false&width=90pc)
-
 2. Click **Deploy**
 
 ### 2.3 Cấu hình IAM Permissions
@@ -361,8 +353,6 @@ def store_operations_log(dynamodb, operations_report):
    - **AmazonSNSFullAccess**
    - **AmazonSESFullAccess**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/lambda3.png?featherlight=false&width=90pc)
-
 ## Bước 3: Thiết lập Automated Workflows
 
 ### 3.1 Tạo EventBridge Schedule cho Daily Operations
@@ -370,14 +360,11 @@ def store_operations_log(dynamodb, operations_report):
 1. Tạo schedule chạy DailyOperationsEngine mỗi ngày lúc 8:00 AM
 2. Cấu hình tương tự các chương trước
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/schedule1.png?featherlight=false&width=90pc)
 
 ### 3.2 Tạo Weekly Summary Schedule
 
 1. Tạo thêm schedule chạy weekly summary mỗi thứ 2
 2. Cấu hình để tạo báo cáo tuần
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/schedule2.png?featherlight=false&width=90pc)
 
 ## Bước 4: Tạo Operational Runbooks
 
@@ -387,15 +374,12 @@ def store_operations_log(dynamodb, operations_report):
 2. Tạo bucket: `identity-governance-runbooks`
 3. Upload operational procedures
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/s3-1.png?featherlight=false&width=90pc)
-
 ### 4.2 Tạo Systems Manager Documents
 
 1. Mở **AWS Systems Manager** console
 2. Click **Documents**
 3. Tạo automation documents cho common tasks
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/ssm1.png?featherlight=false&width=90pc)
 
 ## Bước 5: Kiểm tra Operational Workflows
 
@@ -404,25 +388,17 @@ def store_operations_log(dynamodb, operations_report):
 1. Chạy Lambda function **DailyOperationsEngine**
 2. Xác minh daily report được tạo
 3. Kiểm tra SNS notifications
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/test1.png?featherlight=false&width=90pc)
-
 ### 5.2 Xác minh Operations Dashboard
 
 1. Kiểm tra **IdentityGovernanceOperations** dashboard
 2. Xác minh tất cả metrics hiển thị đúng
 3. Test real-time updates
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/test2.png?featherlight=false&width=90pc)
-
 ### 5.3 Test Automation Workflows
 
 1. Xác minh scheduled executions
 2. Kiểm tra error handling
 3. Test notification delivery
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/8/test3.png?featherlight=false&width=90pc)
-
 ## Kết quả Mong đợi
 
 Sau khi hoàn thành:
@@ -433,8 +409,6 @@ Sau khi hoàn thành:
 - ✅ Operational runbooks and procedures
 - ✅ Health monitoring and alerting
 - ✅ Compliance tracking and reporting
-
-![Hoàn thành Operations Setup](https://trtrantnt.github.io/workshop/images/8/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 
