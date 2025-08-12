@@ -12,21 +12,21 @@
     <title>5. Privilege Analytics :: Identity Governance with Access Certification</title>
 
     
-    <link href="/css/nucleus.css?1754952987" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754952987" rel="stylesheet">
-    <link href="/css/hybrid.css?1754952987" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754952987" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754952987" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754952987" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754952987" rel="stylesheet">
-    <link href="/css/theme.css?1754952987" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754952987" rel="stylesheet">
+    <link href="/css/nucleus.css?1754982139" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754982139" rel="stylesheet">
+    <link href="/css/hybrid.css?1754982139" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754982139" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754982139" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754982139" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754982139" rel="stylesheet">
+    <link href="/css/theme.css?1754982139" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754982139" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754952987" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754982139" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754952987"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754982139"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754952987"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754952987"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754982139"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754982139"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754952987"></script>
+<script type="text/javascript" src="/js/search.js?1754982139"></script>
 
     
   </div>
@@ -534,7 +534,11 @@
     <li><a href="#step-4-create-cloudwatch-dashboard">Step 4: Create CloudWatch Dashboard</a>
       <ul>
         <li><a href="#41-create-dashboard-for-privilege-analytics">4.1 Create Dashboard for Privilege Analytics</a></li>
-        <li><a href="#42-add-widgets-to-dashboard">4.2 Add Widgets to Dashboard</a></li>
+        <li><a href="#42-add-widget-1-lambda-invocations">4.2 Add Widget 1: Lambda Invocations</a></li>
+        <li><a href="#43-add-widget-2-lambda-errors">4.3 Add Widget 2: Lambda Errors</a></li>
+        <li><a href="#44-add-widget-3-lambda-duration">4.4 Add Widget 3: Lambda Duration</a></li>
+        <li><a href="#45-add-widget-4-dynamodb-write-activity">4.5 Add Widget 4: DynamoDB Write Activity</a></li>
+        <li><a href="#46-save-dashboard">4.6 Save Dashboard</a></li>
       </ul>
     </li>
     <li><a href="#step-5-test-privilege-analytics">Step 5: Test Privilege Analytics</a>
@@ -580,14 +584,13 @@
 <li>Verify that trail <strong>IdentityGovernanceTrail</strong> was created in chapter 2</li>
 <li>Check S3 bucket containing CloudTrail logs</li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ct1.png?featherlight=false&width=90pc"></p>
 <h3 id="12-verify-s3-bucket-has-cloudtrail-data">1.2 Verify S3 Bucket has CloudTrail Data</h3>
 <ol>
 <li>Go to <strong>Amazon S3</strong> console</li>
 <li>Find CloudTrail bucket (name like <code>aws-cloudtrail-logs-xxx</code>)</li>
 <li>Verify that log files are being created</li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ct2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc"></p>
 <h2 id="step-2-create-lambda-function-for-privilege-analytics">Step 2: Create Lambda Function for Privilege Analytics</h2>
 <h3 id="21-create-lambda-function">2.1 Create Lambda Function</h3>
 <ol>
@@ -602,7 +605,7 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ld1.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Click <strong>Create function</strong></li>
 </ol>
@@ -721,7 +724,7 @@
 </span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentType&#39;</span>: <span style="color:#e6db74">&#39;Privilege Analysis&#39;</span>
 </span></span><span style="display:flex;"><span>            }
 </span></span><span style="display:flex;"><span>        )
-</span></span></code></pre></div><p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda2.png?featherlight=false&width=90pc"></p>
+</span></span></code></pre></div><p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ld2.png?featherlight=false&width=90pc"></p>
 <ol start="2">
 <li>Click <strong>Deploy</strong> to save changes</li>
 </ol>
@@ -729,9 +732,6 @@
 <ol>
 <li>Go to <strong>Configuration</strong> tab</li>
 <li>Click <strong>Permissions</strong></li>
-</ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda3.png?featherlight=false&width=90pc"></p>
-<ol start="3">
 <li>Click on the role name to open IAM console</li>
 <li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
 <li>Search and attach the following policies:
@@ -742,7 +742,7 @@
 </li>
 <li>Click <strong>Add permissions</strong></li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/lambda4.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/ld3.png?featherlight=false&width=90pc"></p>
 <h2 id="step-3-setup-s3-event-trigger">Step 3: Setup S3 Event Trigger</h2>
 <h3 id="31-configure-s3-trigger-for-lambda">3.1 Configure S3 Trigger for Lambda</h3>
 <ol>
@@ -750,7 +750,7 @@
 <li>Click <strong>Add trigger</strong></li>
 <li>Select <strong>S3</strong> from dropdown</li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/trigger1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/tg1.png?featherlight=false&width=90pc"></p>
 <ol start="4">
 <li>Configure trigger:
 <ul>
@@ -761,10 +761,11 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/trigger2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/tg2.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Click <strong>Add</strong></li>
 </ol>
+<p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/tg3.png?featherlight=false&width=90pc"></p>
 <h2 id="step-4-create-cloudwatch-dashboard">Step 4: Create CloudWatch Dashboard</h2>
 <h3 id="41-create-dashboard-for-privilege-analytics">4.1 Create Dashboard for Privilege Analytics</h3>
 <ol>
@@ -777,26 +778,78 @@
 <li>Enter dashboard name: <code>PrivilegeAnalyticsDashboard</code></li>
 <li>Click <strong>Create dashboard</strong></li>
 </ol>
-<h3 id="42-add-widgets-to-dashboard">4.2 Add Widgets to Dashboard</h3>
+<h3 id="42-add-widget-1-lambda-invocations">4.2 Add Widget 1: Lambda Invocations</h3>
 <ol>
 <li>Click <strong>Add widget</strong></li>
 <li>Select <strong>Line</strong> chart</li>
+<li>Click <strong>Next</strong></li>
 <li>Configure metric:
 <ul>
 <li><strong>Namespace</strong>: AWS/Lambda</li>
-<li><strong>Metric</strong>: Invocations</li>
-<li><strong>Function</strong>: PrivilegeAnalyticsEngine</li>
+<li><strong>Metric name</strong>: Invocations</li>
+<li><strong>Dimensions</strong>: FunctionName = PrivilegeAnalyticsEngine</li>
 </ul>
 </li>
+<li>Click <strong>Select metric</strong></li>
+<li>Set widget name: &ldquo;Lambda Invocations&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
 </ol>
 <p><img alt="Navigate to S3" src="https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc"></p>
-<ol start="4">
-<li>Click <strong>Create widget</strong></li>
-<li>Add additional widgets for:
+<h3 id="43-add-widget-2-lambda-errors">4.3 Add Widget 2: Lambda Errors</h3>
+<ol>
+<li>Click <strong>Add widget</strong> (in dashboard)</li>
+<li>Select <strong>Line</strong> chart → <strong>Next</strong></li>
+<li>Configure metric:
 <ul>
-<li>Lambda Errors</li>
-<li>Lambda Duration</li>
-<li>DynamoDB Item Count</li>
+<li><strong>Namespace</strong>: AWS/Lambda</li>
+<li><strong>Metric name</strong>: Errors</li>
+<li><strong>Dimensions</strong>: FunctionName = PrivilegeAnalyticsEngine</li>
+</ul>
+</li>
+<li>Click <strong>Select metric</strong></li>
+<li>Set widget name: &ldquo;Lambda Errors&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h3 id="44-add-widget-3-lambda-duration">4.4 Add Widget 3: Lambda Duration</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Select <strong>Line</strong> chart → <strong>Next</strong></li>
+<li>Configure metric:
+<ul>
+<li><strong>Namespace</strong>: AWS/Lambda</li>
+<li><strong>Metric name</strong>: Duration</li>
+<li><strong>Dimensions</strong>: FunctionName = PrivilegeAnalyticsEngine</li>
+</ul>
+</li>
+<li>Click <strong>Select metric</strong></li>
+<li>Set widget name: &ldquo;Lambda Duration (ms)&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h3 id="45-add-widget-4-dynamodb-write-activity">4.5 Add Widget 4: DynamoDB Write Activity</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Select <strong>Line</strong> chart → <strong>Next</strong></li>
+<li>Configure metric:
+<ul>
+<li><strong>Namespace</strong>: AWS/DynamoDB</li>
+<li><strong>Metric name</strong>: ConsumedWriteCapacityUnits</li>
+<li><strong>Dimensions</strong>: TableName = RiskAssessments</li>
+</ul>
+</li>
+<li>Click <strong>Select metric</strong></li>
+<li>Set widget name: &ldquo;DynamoDB Write Activity&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<p><strong>Note</strong>: This metric shows write activity to DynamoDB, indicating when new risk assessments are stored.</p>
+<h3 id="46-save-dashboard">4.6 Save Dashboard</h3>
+<ol>
+<li>Click <strong>Save dashboard</strong> in the top right corner</li>
+<li>Dashboard will display 4 widgets monitoring:
+<ul>
+<li>Number of Lambda invocations</li>
+<li>Lambda errors</li>
+<li>Lambda execution time</li>
+<li>Number of items in DynamoDB</li>
 </ul>
 </li>
 </ol>
@@ -1083,19 +1136,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754952987"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754952987"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754952987"></script>
-    <script src="/js/jquery.sticky.js?1754952987"></script>
-    <script src="/js/featherlight.min.js?1754952987"></script>
-    <script src="/js/highlight.pack.js?1754952987"></script>
+    <script src="/js/clipboard.min.js?1754982139"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754982139"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754982139"></script>
+    <script src="/js/jquery.sticky.js?1754982139"></script>
+    <script src="/js/featherlight.min.js?1754982139"></script>
+    <script src="/js/highlight.pack.js?1754982139"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754952987"></script>
-    <script src="/js/learn.js?1754952987"></script>
-    <script src="/js/hugo-learn.js?1754952987"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754982139"></script>
+    <script src="/js/learn.js?1754982139"></script>
+    <script src="/js/hugo-learn.js?1754982139"></script>
 
-    <link href="/mermaid/mermaid.css?1754952987" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754952987"></script>
+    <link href="/mermaid/mermaid.css?1754982139" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754982139"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

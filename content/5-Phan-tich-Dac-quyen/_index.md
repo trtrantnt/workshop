@@ -15,16 +15,13 @@ Analyze and monitor privilege usage to detect security risks, excessive permissi
 1. Open **Amazon CloudTrail** in the console
 2. Verify that trail **IdentityGovernanceTrail** was created in chapter 2
 3. Check S3 bucket containing CloudTrail logs
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ct1.png?featherlight=false&width=90pc)
-
 ### 1.2 Verify S3 Bucket has CloudTrail Data
 
 1. Go to **Amazon S3** console
 2. Find CloudTrail bucket (name like `aws-cloudtrail-logs-xxx`)
 3. Verify that log files are being created
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ct2.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc)
 
 ## Step 2: Create Lambda Function for Privilege Analytics
 
@@ -38,7 +35,7 @@ Analyze and monitor privilege usage to detect security risks, excessive permissi
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda1.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ld1.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
@@ -160,7 +157,7 @@ def store_analysis_results(privilege_events, dynamodb):
         )
 ```
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda2.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ld2.png?featherlight=false&width=90pc)
 
 2. Click **Deploy** to save changes
 
@@ -168,9 +165,6 @@ def store_analysis_results(privilege_events, dynamodb):
 
 1. Go to **Configuration** tab
 2. Click **Permissions**
-
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda3.png?featherlight=false&width=90pc)
-
 3. Click on the role name to open IAM console
 4. Click **Add permissions** → **Attach policies**
 5. Search and attach the following policies:
@@ -178,7 +172,7 @@ def store_analysis_results(privilege_events, dynamodb):
    - **AmazonDynamoDBFullAccess**
 6. Click **Add permissions**
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/lambda4.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/ld3.png?featherlight=false&width=90pc)
 
 ## Step 3: Setup S3 Event Trigger
 
@@ -188,7 +182,7 @@ def store_analysis_results(privilege_events, dynamodb):
 2. Click **Add trigger**
 3. Select **S3** from dropdown
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/trigger1.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/tg1.png?featherlight=false&width=90pc)
 
 4. Configure trigger:
    - **Bucket**: Select CloudTrail S3 bucket
@@ -196,9 +190,11 @@ def store_analysis_results(privilege_events, dynamodb):
    - **Prefix**: `AWSLogs/` (optional)
    - **Suffix**: `.json.gz`
 
-![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/trigger2.png?featherlight=false&width=90pc)
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/tg2.png?featherlight=false&width=90pc)
 
 5. Click **Add**
+
+![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/tg3.png?featherlight=false&width=90pc)
 
 ## Step 4: Create CloudWatch Dashboard
 
@@ -213,22 +209,67 @@ def store_analysis_results(privilege_events, dynamodb):
 4. Enter dashboard name: `PrivilegeAnalyticsDashboard`
 5. Click **Create dashboard**
 
-### 4.2 Add Widgets to Dashboard
+### 4.2 Add Widget 1: Lambda Invocations
 
 1. Click **Add widget**
 2. Select **Line** chart
-3. Configure metric:
+3. Click **Next**
+4. Configure metric:
    - **Namespace**: AWS/Lambda
-   - **Metric**: Invocations
-   - **Function**: PrivilegeAnalyticsEngine
+   - **Metric name**: Invocations
+   - **Dimensions**: FunctionName = PrivilegeAnalyticsEngine
+5. Click **Select metric**
+6. Set widget name: "Lambda Invocations"
+7. Click **Create widget**
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc)
 
-4. Click **Create widget**
-5. Add additional widgets for:
-   - Lambda Errors
-   - Lambda Duration
-   - DynamoDB Item Count
+### 4.3 Add Widget 2: Lambda Errors
+
+1. Click **Add widget** (in dashboard)
+2. Select **Line** chart → **Next**
+3. Configure metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric name**: Errors
+   - **Dimensions**: FunctionName = PrivilegeAnalyticsEngine
+4. Click **Select metric**
+5. Set widget name: "Lambda Errors"
+6. Click **Create widget**
+
+### 4.4 Add Widget 3: Lambda Duration
+
+1. Click **Add widget**
+2. Select **Line** chart → **Next**
+3. Configure metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric name**: Duration
+   - **Dimensions**: FunctionName = PrivilegeAnalyticsEngine
+4. Click **Select metric**
+5. Set widget name: "Lambda Duration (ms)"
+6. Click **Create widget**
+
+### 4.5 Add Widget 4: DynamoDB Write Activity
+
+1. Click **Add widget**
+2. Select **Line** chart → **Next**
+3. Configure metric:
+   - **Namespace**: AWS/DynamoDB
+   - **Metric name**: ConsumedWriteCapacityUnits
+   - **Dimensions**: TableName = RiskAssessments
+4. Click **Select metric**
+5. Set widget name: "DynamoDB Write Activity"
+6. Click **Create widget**
+
+**Note**: This metric shows write activity to DynamoDB, indicating when new risk assessments are stored.
+
+### 4.6 Save Dashboard
+
+1. Click **Save dashboard** in the top right corner
+2. Dashboard will display 4 widgets monitoring:
+   - Number of Lambda invocations
+   - Lambda errors
+   - Lambda execution time
+   - Number of items in DynamoDB
 
 ![Navigate to S3](https://trtrantnt.github.io/workshop/images/5/cw3.png?featherlight=false&width=90pc)
 

@@ -12,21 +12,21 @@
     <title>5. Phân tích Đặc quyền :: Quản trị Danh tính với Chứng nhận Truy cập</title>
 
     
-    <link href="/css/nucleus.css?1754952988" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1754952988" rel="stylesheet">
-    <link href="/css/hybrid.css?1754952988" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754952988" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754952988" rel="stylesheet">
-    <link href="/css/auto-complete.css?1754952988" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1754952988" rel="stylesheet">
-    <link href="/css/theme.css?1754952988" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1754952988" rel="stylesheet">
+    <link href="/css/nucleus.css?1754982139" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754982139" rel="stylesheet">
+    <link href="/css/hybrid.css?1754982139" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754982139" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754982139" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754982139" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754982139" rel="stylesheet">
+    <link href="/css/theme.css?1754982139" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754982139" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1754952988" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1754982139" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1754952988"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754982139"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1754952988"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1754952988"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1754982139"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754982139"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:62814\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1754952988"></script>
+<script type="text/javascript" src="/js/search.js?1754982139"></script>
 
     
   </div>
@@ -534,14 +534,21 @@
     <li><a href="#bước-4-tạo-cloudwatch-dashboard">Bước 4: Tạo CloudWatch Dashboard</a>
       <ul>
         <li><a href="#41-tạo-dashboard-cho-privilege-analytics">4.1 Tạo Dashboard cho Privilege Analytics</a></li>
-        <li><a href="#42-thêm-widgets-cho-dashboard">4.2 Thêm Widgets cho Dashboard</a></li>
+        <li><a href="#42-thêm-widget-1-lambda-invocations">4.2 Thêm Widget 1: Lambda Invocations</a></li>
+        <li><a href="#43-thêm-widget-2-lambda-errors">4.3 Thêm Widget 2: Lambda Errors</a></li>
+        <li><a href="#44-thêm-widget-3-lambda-duration">4.4 Thêm Widget 3: Lambda Duration</a></li>
+        <li><a href="#45-thêm-widget-4-dynamodb-write-activity">4.5 Thêm Widget 4: DynamoDB Write Activity</a></li>
+        <li><a href="#46-lưu-dashboard">4.6 Lưu Dashboard</a></li>
       </ul>
     </li>
     <li><a href="#bước-5-kiểm-tra-privilege-analytics">Bước 5: Kiểm tra Privilege Analytics</a>
       <ul>
-        <li><a href="#51-tạo-test-activity">5.1 Tạo Test Activity</a></li>
-        <li><a href="#52-kiểm-tra-lambda-execution">5.2 Kiểm tra Lambda Execution</a></li>
-        <li><a href="#53-xác-minh-dynamodb-records">5.3 Xác minh DynamoDB Records</a></li>
+        <li><a href="#51-tạo-test-user-để-generate-cloudtrail-events">5.1 Tạo Test User để Generate CloudTrail Events</a></li>
+        <li><a href="#52-thực-hiện-high-privilege-actions">5.2 Thực hiện High-Privilege Actions</a></li>
+        <li><a href="#55-xác-minh-dynamodb-records">5.5 Xác minh DynamoDB Records</a></li>
+        <li><a href="#56-kiểm-tra-cloudwatch-dashboard">5.6 Kiểm tra CloudWatch Dashboard</a></li>
+        <li><a href="#57-test-real-time-monitoring">5.7 Test Real-time Monitoring</a></li>
+        <li><a href="#58-troubleshooting-nếu-không-có-data">5.8 Troubleshooting (nếu không có data)</a></li>
       </ul>
     </li>
     <li><a href="#kết-quả-mong-đợi">Kết quả Mong đợi</a></li>
@@ -580,14 +587,13 @@
 <li>Xác minh trail <strong>IdentityGovernanceTrail</strong> đã được tạo trong chương 2</li>
 <li>Kiểm tra S3 bucket chứa CloudTrail logs</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/ct1.png?featherlight=false&width=90pc"></p>
 <h3 id="12-xác-minh-s3-bucket-có-cloudtrail-data">1.2 Xác minh S3 Bucket có CloudTrail Data</h3>
 <ol>
 <li>Vào <strong>Amazon S3</strong> console</li>
 <li>Tìm bucket CloudTrail (tên dạng <code>aws-cloudtrail-logs-xxx</code>)</li>
 <li>Xác minh có log files được tạo</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/ct2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-2-tạo-lambda-function-cho-privilege-analytics">Bước 2: Tạo Lambda Function cho Privilege Analytics</h2>
 <h3 id="21-tạo-lambda-function">2.1 Tạo Lambda Function</h3>
 <ol>
@@ -602,7 +608,7 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/lambda1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/ld1.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Click <strong>Create function</strong></li>
 </ol>
@@ -721,7 +727,7 @@
 </span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;AssessmentType&#39;</span>: <span style="color:#e6db74">&#39;Privilege Analysis&#39;</span>
 </span></span><span style="display:flex;"><span>            }
 </span></span><span style="display:flex;"><span>        )
-</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/lambda2.png?featherlight=false&width=90pc"></p>
+</span></span></code></pre></div><p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/ld2.png?featherlight=false&width=90pc"></p>
 <ol start="2">
 <li>Click <strong>Deploy</strong> để lưu thay đổi</li>
 </ol>
@@ -729,9 +735,6 @@
 <ol>
 <li>Chuyển đến tab <strong>Configuration</strong></li>
 <li>Click <strong>Permissions</strong></li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/lambda3.png?featherlight=false&width=90pc"></p>
-<ol start="3">
 <li>Click vào role name để mở IAM console</li>
 <li>Click <strong>Add permissions</strong> → <strong>Attach policies</strong></li>
 <li>Tìm và attach các policies sau:
@@ -742,7 +745,7 @@
 </li>
 <li>Click <strong>Add permissions</strong></li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/lambda4.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/ld3.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-3-thiết-lập-s3-event-trigger">Bước 3: Thiết lập S3 Event Trigger</h2>
 <h3 id="31-cấu-hình-s3-trigger-cho-lambda">3.1 Cấu hình S3 Trigger cho Lambda</h3>
 <ol>
@@ -750,7 +753,7 @@
 <li>Click <strong>Add trigger</strong></li>
 <li>Chọn <strong>S3</strong> từ dropdown</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/trigger1.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/tg1.png?featherlight=false&width=90pc"></p>
 <ol start="4">
 <li>Cấu hình trigger:
 <ul>
@@ -761,10 +764,11 @@
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/trigger2.png?featherlight=false&width=90pc"></p>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/tg2.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Click <strong>Add</strong></li>
 </ol>
+<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/tg3.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-4-tạo-cloudwatch-dashboard">Bước 4: Tạo CloudWatch Dashboard</h2>
 <h3 id="41-tạo-dashboard-cho-privilege-analytics">4.1 Tạo Dashboard cho Privilege Analytics</h3>
 <ol>
@@ -777,59 +781,219 @@
 <li>Nhập dashboard name: <code>PrivilegeAnalyticsDashboard</code></li>
 <li>Click <strong>Create dashboard</strong></li>
 </ol>
-<h3 id="42-thêm-widgets-cho-dashboard">4.2 Thêm Widgets cho Dashboard</h3>
+<h3 id="42-thêm-widget-1-lambda-invocations">4.2 Thêm Widget 1: Lambda Invocations</h3>
 <ol>
 <li>Click <strong>Add widget</strong></li>
 <li>Chọn <strong>Line</strong> chart</li>
+<li>Click <strong>Next</strong></li>
 <li>Cấu hình metric:
 <ul>
 <li><strong>Namespace</strong>: AWS/Lambda</li>
-<li><strong>Metric</strong>: Invocations</li>
-<li><strong>Function</strong>: PrivilegeAnalyticsEngine</li>
+<li><strong>Metric name</strong>: Invocations</li>
+<li><strong>Dimensions</strong>: FunctionName = PrivilegeAnalyticsEngine</li>
 </ul>
 </li>
-</ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc"></p>
-<ol start="4">
+<li>Click <strong>Select metric</strong></li>
+<li>Đặt tên widget: &ldquo;Lambda Invocations&rdquo;</li>
 <li>Click <strong>Create widget</strong></li>
-<li>Thêm thêm widgets cho:
+</ol>
+<h3 id="43-thêm-widget-2-lambda-errors">4.3 Thêm Widget 2: Lambda Errors</h3>
+<ol>
+<li>Click <strong>Add widget</strong> (trong dashboard)</li>
+<li>Chọn <strong>Line</strong> chart → <strong>Next</strong></li>
+<li>Cấu hình metric:
 <ul>
-<li>Lambda Errors</li>
-<li>Lambda Duration</li>
-<li>DynamoDB Item Count</li>
+<li><strong>Namespace</strong>: AWS/Lambda</li>
+<li><strong>Metric name</strong>: Errors</li>
+<li><strong>Dimensions</strong>: FunctionName = PrivilegeAnalyticsEngine</li>
+</ul>
+</li>
+<li>Click <strong>Select metric</strong></li>
+<li>Đặt tên widget: &ldquo;Lambda Errors&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h3 id="44-thêm-widget-3-lambda-duration">4.4 Thêm Widget 3: Lambda Duration</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Chọn <strong>Line</strong> chart → <strong>Next</strong></li>
+<li>Cấu hình metric:
+<ul>
+<li><strong>Namespace</strong>: AWS/Lambda</li>
+<li><strong>Metric name</strong>: Duration</li>
+<li><strong>Dimensions</strong>: FunctionName = PrivilegeAnalyticsEngine</li>
+</ul>
+</li>
+<li>Click <strong>Select metric</strong></li>
+<li>Đặt tên widget: &ldquo;Lambda Duration (ms)&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<h3 id="45-thêm-widget-4-dynamodb-write-activity">4.5 Thêm Widget 4: DynamoDB Write Activity</h3>
+<ol>
+<li>Click <strong>Add widget</strong></li>
+<li>Chọn <strong>Line</strong> chart → <strong>Next</strong></li>
+<li>Cấu hình metric:
+<ul>
+<li><strong>Namespace</strong>: AWS/DynamoDB</li>
+<li><strong>Metric name</strong>: ConsumedWriteCapacityUnits</li>
+<li><strong>Dimensions</strong>: TableName = RiskAssessments</li>
+</ul>
+</li>
+<li>Click <strong>Select metric</strong></li>
+<li>Đặt tên widget: &ldquo;DynamoDB Write Activity&rdquo;</li>
+<li>Click <strong>Create widget</strong></li>
+</ol>
+<p><strong>Lưu ý</strong>: Metric này hiển thị hoạt động ghi vào DynamoDB, cho biết khi nào có risk assessments mới được lưu trữ.</p>
+<h3 id="46-lưu-dashboard">4.6 Lưu Dashboard</h3>
+<ol>
+<li>Click <strong>Save dashboard</strong> ở góc trên bên phải</li>
+<li>Dashboard sẽ hiển thị 4 widgets theo dõi:
+<ul>
+<li>Số lần Lambda được gọi</li>
+<li>Số lỗi Lambda</li>
+<li>Thời gian thực thi Lambda</li>
+<li>Số lượng items trong DynamoDB</li>
 </ul>
 </li>
 </ol>
 <p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/cw3.png?featherlight=false&width=90pc"></p>
 <h2 id="bước-5-kiểm-tra-privilege-analytics">Bước 5: Kiểm tra Privilege Analytics</h2>
-<h3 id="51-tạo-test-activity">5.1 Tạo Test Activity</h3>
+<h3 id="51-tạo-test-user-để-generate-cloudtrail-events">5.1 Tạo Test User để Generate CloudTrail Events</h3>
 <ol>
 <li>Vào <strong>IAM</strong> console</li>
-<li>Thực hiện một số actions để tạo CloudTrail logs:
+<li>Click <strong>Users</strong> ở sidebar trái</li>
+<li>Click <strong>Create user</strong></li>
+<li>Nhập User name: <code>test-privilege-user</code></li>
+<li>Click <strong>Next</strong></li>
+<li>Chọn <strong>Attach policies directly</strong></li>
+<li>Tìm và chọn <strong>ReadOnlyAccess</strong></li>
+<li>Click <strong>Next</strong> → <strong>Create user</strong></li>
+</ol>
+<h3 id="52-thực-hiện-high-privilege-actions">5.2 Thực hiện High-Privilege Actions</h3>
+<ol>
+<li>
+<p>Trong IAM console, chọn user <strong>test-privilege-user</strong> vừa tạo</p>
+</li>
+<li>
+<p>Click tab <strong>Permissions</strong></p>
+</li>
+<li>
+<p>Click <strong>Add permissions</strong> → <strong>Attach policies directly</strong></p>
+</li>
+<li>
+<p>Tìm và attach <strong>PowerUserAccess</strong> policy</p>
+</li>
+<li>
+<p>Click <strong>Add permissions</strong></p>
+</li>
+<li>
+<p>Sau đó <strong>Remove</strong> policy <strong>PowerUserAccess</strong> để tạo thêm events</p>
+</li>
+<li>
+<p>Tạo test role:</p>
 <ul>
-<li>Tạo test user</li>
-<li>Attach/detach policies</li>
-<li>Tạo test role</li>
+<li>Click <strong>Roles</strong> ở sidebar</li>
+<li>Click <strong>Create role</strong></li>
+<li>Chọn <strong>AWS service</strong> → <strong>Lambda</strong></li>
+<li>Click <strong>Next</strong> → <strong>Next</strong></li>
+<li>Role name: <code>test-privilege-role</code></li>
+<li>Click <strong>Create role</strong></li>
+</ul>
+</li>
+<li>
+<p>CloudTrail cần thời gian để ghi logs vào S3</p>
+</li>
+<li>
+<p>Kiểm tra S3 bucket CloudTrail:</p>
+<ul>
+<li>Vào <strong>S3</strong> console</li>
+<li>Tìm bucket CloudTrail (tên dạng <code>aws-cloudtrail-logs-xxx</code>)</li>
+<li>Xem có log files mới được tạo không</li>
+</ul>
+</li>
+<li>
+<p>Vào <strong>AWS Lambda</strong> console</p>
+</li>
+<li>
+<p>Chọn function <strong>PrivilegeAnalyticsEngine</strong></p>
+</li>
+<li>
+<p>Click tab <strong>Monitor</strong></p>
+</li>
+<li>
+<p>Kiểm tra <strong>Invocations</strong> graph - should show activity</p>
+</li>
+<li>
+<p>Click <strong>View CloudWatch logs</strong></p>
+</li>
+<li>
+<p>Chọn log stream mới nhất</p>
+</li>
+<li>
+<p>Xác minh có logs như:</p>
+<pre tabindex="0"><code>Privilege Analytics Engine Started
+Processed X privilege events
+</code></pre></li>
+</ol>
+<h3 id="55-xác-minh-dynamodb-records">5.5 Xác minh DynamoDB Records</h3>
+<ol>
+<li>Vào <strong>Amazon DynamoDB</strong> console</li>
+<li>Click <strong>Tables</strong> ở sidebar</li>
+<li>Chọn table <strong>RiskAssessments</strong></li>
+<li>Click <strong>Explore table items</strong></li>
+<li>Xác minh có records mới với:
+<ul>
+<li><strong>AssessmentType</strong>: &lsquo;Privilege Analysis&rsquo;</li>
+<li><strong>EventName</strong>: &lsquo;AttachUserPolicy&rsquo;, &lsquo;DetachUserPolicy&rsquo;, &lsquo;CreateRole&rsquo;</li>
+<li><strong>RiskScore</strong>: Giá trị từ 1-10</li>
+<li><strong>EventTime</strong>: Timestamp gần đây</li>
 </ul>
 </li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/test1.png?featherlight=false&width=90pc"></p>
-<h3 id="52-kiểm-tra-lambda-execution">5.2 Kiểm tra Lambda Execution</h3>
+<h3 id="56-kiểm-tra-cloudwatch-dashboard">5.6 Kiểm tra CloudWatch Dashboard</h3>
 <ol>
-<li>Vào <strong>AWS Lambda</strong> console</li>
-<li>Chọn function <strong>PrivilegeAnalyticsEngine</strong></li>
-<li>Click tab <strong>Monitor</strong></li>
-<li>Xem CloudWatch logs để xác minh function đã chạy</li>
+<li>Vào <strong>CloudWatch</strong> console</li>
+<li>Click <strong>Dashboards</strong></li>
+<li>Chọn <strong>PrivilegeAnalyticsDashboard</strong></li>
+<li>Xác minh các widgets hiển thị data:
+<ul>
+<li><strong>Lambda Invocations</strong>: Có spike khi function chạy</li>
+<li><strong>Lambda Errors</strong>: Nên là 0</li>
+<li><strong>Lambda Duration</strong>: Thời gian execution</li>
+<li><strong>DynamoDB Write Activity</strong>: Có activity khi ghi data</li>
+</ul>
+</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/test2.png?featherlight=false&width=90pc"></p>
-<h3 id="53-xác-minh-dynamodb-records">5.3 Xác minh DynamoDB Records</h3>
+<h3 id="57-test-real-time-monitoring">5.7 Test Real-time Monitoring</h3>
 <ol>
-<li>Vào <strong>Amazon DynamoDB</strong> console</li>
-<li>Chọn table <strong>RiskAssessments</strong></li>
-<li>Click <strong>Explore table items</strong></li>
-<li>Xác minh có records mới với AssessmentType = &lsquo;Privilege Analysis&rsquo;</li>
+<li>Thực hiện thêm privilege action:
+<ul>
+<li>Tạo user mới: <code>test-user-2</code></li>
+<li>Attach policy <strong>IAMReadOnlyAccess</strong></li>
+</ul>
+</li>
+<li>Chờ 5-10 phút</li>
+<li>Refresh DynamoDB table để xem record mới</li>
+<li>Kiểm tra dashboard có cập nhật metrics không</li>
 </ol>
-<p><img alt="Điều hướng đến S3" src="https://trtrantnt.github.io/workshop/images/5/test3.png?featherlight=false&width=90pc"></p>
+<h3 id="58-troubleshooting-nếu-không-có-data">5.8 Troubleshooting (nếu không có data)</h3>
+<p><strong>Nếu Lambda không chạy:</strong></p>
+<ol>
+<li>Kiểm tra S3 trigger đã được cấu hình đúng</li>
+<li>Xem CloudTrail có tạo log files trong S3 không</li>
+<li>Kiểm tra IAM permissions của Lambda role</li>
+</ol>
+<p><strong>Nếu không có data trong DynamoDB:</strong></p>
+<ol>
+<li>Xem CloudWatch logs của Lambda function</li>
+<li>Kiểm tra table name trong code: &lsquo;RiskAssessments&rsquo;</li>
+<li>Xác minh Lambda có quyền write vào DynamoDB</li>
+</ol>
+<p><strong>Nếu Dashboard không hiển thị data:</strong></p>
+<ol>
+<li>Đợi 5-15 phút để metrics xuất hiện</li>
+<li>Kiểm tra metric names và dimensions đúng không</li>
+<li>Refresh dashboard page</li>
+</ol>
 <h2 id="kết-quả-mong-đợi">Kết quả Mong đợi</h2>
 <p>Sau khi hoàn thành:</p>
 <ul>
@@ -840,7 +1004,6 @@
 <li>✅ CloudWatch dashboard giám sát</li>
 <li>✅ Real-time privilege monitoring</li>
 </ul>
-<p><img alt="Hoàn thành Privilege Analytics" src="https://trtrantnt.github.io/workshop/images/5/complete.png?featherlight=false&width=90pc"></p>
 <h2 id="tiếp-theo">Tiếp theo</h2>
 <p>Chuyển sang <a href="/vi/6-danh-gia-rui-ro/">6. Đánh giá Rủi ro</a> để thiết lập đánh giá rủi ro toàn diện.</p>
 
@@ -1083,19 +1246,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754952988"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754952988"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754952988"></script>
-    <script src="/js/jquery.sticky.js?1754952988"></script>
-    <script src="/js/featherlight.min.js?1754952988"></script>
-    <script src="/js/highlight.pack.js?1754952988"></script>
+    <script src="/js/clipboard.min.js?1754982139"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754982139"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754982139"></script>
+    <script src="/js/jquery.sticky.js?1754982139"></script>
+    <script src="/js/featherlight.min.js?1754982139"></script>
+    <script src="/js/highlight.pack.js?1754982139"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754952988"></script>
-    <script src="/js/learn.js?1754952988"></script>
-    <script src="/js/hugo-learn.js?1754952988"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754982139"></script>
+    <script src="/js/learn.js?1754982139"></script>
+    <script src="/js/hugo-learn.js?1754982139"></script>
 
-    <link href="/mermaid/mermaid.css?1754952988" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1754952988"></script>
+    <link href="/mermaid/mermaid.css?1754982139" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754982139"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -15,16 +15,13 @@ Phân tích và giám sát việc sử dụng đặc quyền để phát hiện 
 1. Mở **Amazon CloudTrail** trong console
 2. Xác minh trail **IdentityGovernanceTrail** đã được tạo trong chương 2
 3. Kiểm tra S3 bucket chứa CloudTrail logs
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/ct1.png?featherlight=false&width=90pc)
-
 ### 1.2 Xác minh S3 Bucket có CloudTrail Data
 
 1. Vào **Amazon S3** console
 2. Tìm bucket CloudTrail (tên dạng `aws-cloudtrail-logs-xxx`)
 3. Xác minh có log files được tạo
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/ct2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/4/5.1.png?featherlight=false&width=90pc)
 
 ## Bước 2: Tạo Lambda Function cho Privilege Analytics
 
@@ -38,7 +35,7 @@ Phân tích và giám sát việc sử dụng đặc quyền để phát hiện 
    - **Runtime**: Python 3.9
    - **Architecture**: x86_64
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/lambda1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/ld1.png?featherlight=false&width=90pc)
 
 5. Click **Create function**
 
@@ -160,7 +157,7 @@ def store_analysis_results(privilege_events, dynamodb):
         )
 ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/lambda2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/ld2.png?featherlight=false&width=90pc)
 
 2. Click **Deploy** để lưu thay đổi
 
@@ -168,9 +165,6 @@ def store_analysis_results(privilege_events, dynamodb):
 
 1. Chuyển đến tab **Configuration**
 2. Click **Permissions**
-
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/lambda3.png?featherlight=false&width=90pc)
-
 3. Click vào role name để mở IAM console
 4. Click **Add permissions** → **Attach policies**
 5. Tìm và attach các policies sau:
@@ -178,7 +172,7 @@ def store_analysis_results(privilege_events, dynamodb):
    - **AmazonDynamoDBFullAccess**
 6. Click **Add permissions**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/lambda4.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/ld3.png?featherlight=false&width=90pc)
 
 ## Bước 3: Thiết lập S3 Event Trigger
 
@@ -188,7 +182,7 @@ def store_analysis_results(privilege_events, dynamodb):
 2. Click **Add trigger**
 3. Chọn **S3** từ dropdown
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/trigger1.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/tg1.png?featherlight=false&width=90pc)
 
 4. Cấu hình trigger:
    - **Bucket**: Chọn CloudTrail S3 bucket
@@ -196,9 +190,11 @@ def store_analysis_results(privilege_events, dynamodb):
    - **Prefix**: `AWSLogs/` (optional)
    - **Suffix**: `.json.gz`
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/trigger2.png?featherlight=false&width=90pc)
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/tg2.png?featherlight=false&width=90pc)
 
 5. Click **Add**
+
+![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/tg3.png?featherlight=false&width=90pc)
 
 ## Bước 4: Tạo CloudWatch Dashboard
 
@@ -213,54 +209,164 @@ def store_analysis_results(privilege_events, dynamodb):
 4. Nhập dashboard name: `PrivilegeAnalyticsDashboard`
 5. Click **Create dashboard**
 
-### 4.2 Thêm Widgets cho Dashboard
+### 4.2 Thêm Widget 1: Lambda Invocations
 
 1. Click **Add widget**
 2. Chọn **Line** chart
+3. Click **Next**
+4. Cấu hình metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric name**: Invocations
+   - **Dimensions**: FunctionName = PrivilegeAnalyticsEngine
+5. Click **Select metric**
+6. Đặt tên widget: "Lambda Invocations"
+7. Click **Create widget**
+
+### 4.3 Thêm Widget 2: Lambda Errors
+
+1. Click **Add widget** (trong dashboard)
+2. Chọn **Line** chart → **Next**
 3. Cấu hình metric:
    - **Namespace**: AWS/Lambda
-   - **Metric**: Invocations
-   - **Function**: PrivilegeAnalyticsEngine
+   - **Metric name**: Errors
+   - **Dimensions**: FunctionName = PrivilegeAnalyticsEngine
+4. Click **Select metric**
+5. Đặt tên widget: "Lambda Errors"
+6. Click **Create widget**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/cw2.png?featherlight=false&width=90pc)
+### 4.4 Thêm Widget 3: Lambda Duration
 
-4. Click **Create widget**
-5. Thêm thêm widgets cho:
-   - Lambda Errors
-   - Lambda Duration
-   - DynamoDB Item Count
+1. Click **Add widget**
+2. Chọn **Line** chart → **Next**
+3. Cấu hình metric:
+   - **Namespace**: AWS/Lambda
+   - **Metric name**: Duration
+   - **Dimensions**: FunctionName = PrivilegeAnalyticsEngine
+4. Click **Select metric**
+5. Đặt tên widget: "Lambda Duration (ms)"
+6. Click **Create widget**
+
+### 4.5 Thêm Widget 4: DynamoDB Write Activity
+
+1. Click **Add widget**
+2. Chọn **Line** chart → **Next**
+3. Cấu hình metric:
+   - **Namespace**: AWS/DynamoDB
+   - **Metric name**: ConsumedWriteCapacityUnits
+   - **Dimensions**: TableName = RiskAssessments
+4. Click **Select metric**
+5. Đặt tên widget: "DynamoDB Write Activity"
+6. Click **Create widget**
+
+**Lưu ý**: Metric này hiển thị hoạt động ghi vào DynamoDB, cho biết khi nào có risk assessments mới được lưu trữ.
+
+### 4.6 Lưu Dashboard
+
+1. Click **Save dashboard** ở góc trên bên phải
+2. Dashboard sẽ hiển thị 4 widgets theo dõi:
+   - Số lần Lambda được gọi
+   - Số lỗi Lambda
+   - Thời gian thực thi Lambda
+   - Số lượng items trong DynamoDB
 
 ![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/cw3.png?featherlight=false&width=90pc)
 
 ## Bước 5: Kiểm tra Privilege Analytics
 
-### 5.1 Tạo Test Activity
+### 5.1 Tạo Test User để Generate CloudTrail Events
 
 1. Vào **IAM** console
-2. Thực hiện một số actions để tạo CloudTrail logs:
-   - Tạo test user
-   - Attach/detach policies
-   - Tạo test role
+2. Click **Users** ở sidebar trái
+3. Click **Create user**
+4. Nhập User name: `test-privilege-user`
+5. Click **Next**
+6. Chọn **Attach policies directly**
+7. Tìm và chọn **ReadOnlyAccess**
+8. Click **Next** → **Create user**
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/test1.png?featherlight=false&width=90pc)
+### 5.2 Thực hiện High-Privilege Actions
 
-### 5.2 Kiểm tra Lambda Execution
+1. Trong IAM console, chọn user **test-privilege-user** vừa tạo
+2. Click tab **Permissions**
+3. Click **Add permissions** → **Attach policies directly**
+4. Tìm và attach **PowerUserAccess** policy
+5. Click **Add permissions**
+6. Sau đó **Remove** policy **PowerUserAccess** để tạo thêm events
+7. Tạo test role:
+   - Click **Roles** ở sidebar
+   - Click **Create role**
+   - Chọn **AWS service** → **Lambda**
+   - Click **Next** → **Next**
+   - Role name: `test-privilege-role`
+   - Click **Create role**
+
+1. CloudTrail cần thời gian để ghi logs vào S3
+2. Kiểm tra S3 bucket CloudTrail:
+   - Vào **S3** console
+   - Tìm bucket CloudTrail (tên dạng `aws-cloudtrail-logs-xxx`)
+   - Xem có log files mới được tạo không
 
 1. Vào **AWS Lambda** console
 2. Chọn function **PrivilegeAnalyticsEngine**
 3. Click tab **Monitor**
-4. Xem CloudWatch logs để xác minh function đã chạy
+4. Kiểm tra **Invocations** graph - should show activity
+5. Click **View CloudWatch logs**
+6. Chọn log stream mới nhất
+7. Xác minh có logs như:
+   ```
+   Privilege Analytics Engine Started
+   Processed X privilege events
+   ```
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/test2.png?featherlight=false&width=90pc)
 
-### 5.3 Xác minh DynamoDB Records
+### 5.5 Xác minh DynamoDB Records
 
 1. Vào **Amazon DynamoDB** console
-2. Chọn table **RiskAssessments**
-3. Click **Explore table items**
-4. Xác minh có records mới với AssessmentType = 'Privilege Analysis'
+2. Click **Tables** ở sidebar
+3. Chọn table **RiskAssessments**
+4. Click **Explore table items**
+5. Xác minh có records mới với:
+   - **AssessmentType**: 'Privilege Analysis'
+   - **EventName**: 'AttachUserPolicy', 'DetachUserPolicy', 'CreateRole'
+   - **RiskScore**: Giá trị từ 1-10
+   - **EventTime**: Timestamp gần đây
 
-![Điều hướng đến S3](https://trtrantnt.github.io/workshop/images/5/test3.png?featherlight=false&width=90pc)
+### 5.6 Kiểm tra CloudWatch Dashboard
+
+1. Vào **CloudWatch** console
+2. Click **Dashboards**
+3. Chọn **PrivilegeAnalyticsDashboard**
+4. Xác minh các widgets hiển thị data:
+   - **Lambda Invocations**: Có spike khi function chạy
+   - **Lambda Errors**: Nên là 0
+   - **Lambda Duration**: Thời gian execution
+   - **DynamoDB Write Activity**: Có activity khi ghi data
+
+### 5.7 Test Real-time Monitoring
+
+1. Thực hiện thêm privilege action:
+   - Tạo user mới: `test-user-2`
+   - Attach policy **IAMReadOnlyAccess**
+2. Chờ 5-10 phút
+3. Refresh DynamoDB table để xem record mới
+4. Kiểm tra dashboard có cập nhật metrics không
+
+### 5.8 Troubleshooting (nếu không có data)
+
+**Nếu Lambda không chạy:**
+1. Kiểm tra S3 trigger đã được cấu hình đúng
+2. Xem CloudTrail có tạo log files trong S3 không
+3. Kiểm tra IAM permissions của Lambda role
+
+**Nếu không có data trong DynamoDB:**
+1. Xem CloudWatch logs của Lambda function
+2. Kiểm tra table name trong code: 'RiskAssessments'
+3. Xác minh Lambda có quyền write vào DynamoDB
+
+**Nếu Dashboard không hiển thị data:**
+1. Đợi 5-15 phút để metrics xuất hiện
+2. Kiểm tra metric names và dimensions đúng không
+3. Refresh dashboard page
 
 ## Kết quả Mong đợi
 
@@ -272,8 +378,6 @@ Sau khi hoàn thành:
 - ✅ DynamoDB lưu trữ kết quả phân tích
 - ✅ CloudWatch dashboard giám sát
 - ✅ Real-time privilege monitoring
-
-![Hoàn thành Privilege Analytics](https://trtrantnt.github.io/workshop/images/5/complete.png?featherlight=false&width=90pc)
 
 ## Tiếp theo
 
